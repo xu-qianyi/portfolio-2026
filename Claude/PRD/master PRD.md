@@ -66,9 +66,9 @@ Headline copy:
 > "My design practice lives in the making - through .fig files, code, and increasingly, AI. Right now I'm building in wealth management, where access and clarity matter most. Previously: engineering at Thoughtworks*, user research at LookLook*, strategy at PwC* and JLL*."
 
 **Project Grid**
-The work. Two-column masonry layout. Each project card: single cover image (varying aspect ratio), a metadata row (company · date · type), and a one-line headline. Cards flow top-to-bottom within each column; the stagger comes from varying image proportions. On mobile (<768px), collapses to a single column. See `design.md §7` for breakpoint and spacing.
+The work. Two-column masonry layout. Each project card: single cover image (varying aspect ratio), a metadata row (company · industry · date · type), and a one-line headline. Cards flow top-to-bottom within each column; the stagger comes from varying image proportions. On mobile (<1024px), collapses to a single column. See `design.md §7` for breakpoint and spacing.
 
-Data sourced from `src/data/projects.json`. Each entry requires: `id`, `company`, `date`, `type`, `headline`, `image` (single URL), `aspectRatio`, `href`.
+Data sourced from `src/data/projects.json`. Each entry requires: `id`, `company`, `industry`, `date`, `type`, `headline`, `image`, `width`, `height`, `href`.
 
 ---
 
@@ -125,13 +125,17 @@ But don’t worry, every detour is just a chance to connect the dots in a new wa
 
 - Asterisks next to company names in the home hero are a visual detail only; they do not indicate separate footnotes or references.
 
+**Project preview asset sources:**
+
+- **NARS (looklook-nars)** — Preview animation (`Nars-playful.json`) is built from imagery sourced from: https://www.popsugar.com/beauty/Best-Sephora-Foundations-2019-45625120
+
 ---
 
 ## 6. Technical Stack
 
 |           |                                                             |
 | --------- | ----------------------------------------------------------- |
-| Framework | Next.js 14+ (App Router)                                    |
+| Framework | Next.js 15 (App Router)                                     |
 | Styling   | Tailwind CSS                                                |
 | Animation | Framer Motion                                               |
 | Fonts     | See `design.md` §4                                          |

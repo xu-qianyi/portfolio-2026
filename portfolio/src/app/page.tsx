@@ -1,8 +1,9 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import projects from "@/data/projects.json";
 import LottiePreview from "@/components/LottiePreview";
 
-const HERO_TEXT: React.CSSProperties = {
+const HERO_TEXT: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "16px",
   fontWeight: 500,
@@ -12,7 +13,7 @@ const HERO_TEXT: React.CSSProperties = {
   margin: 0,
 };
 
-const PROJECT_META: React.CSSProperties = {
+const PROJECT_META: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "14px",
   fontWeight: 500,
@@ -24,7 +25,7 @@ const PROJECT_META: React.CSSProperties = {
   flexWrap: "wrap",
 };
 
-const PROJECT_HEADLINE: React.CSSProperties = {
+const PROJECT_HEADLINE: CSSProperties = {
   fontFamily: "var(--font-playfair-display), 'Playfair Display', Georgia, serif",
   fontSize: "20px",
   fontWeight: 400,
@@ -50,14 +51,17 @@ function DotSeparator() {
 function ProjectCard({ project }: { project: (typeof projects)[number] }) {
   return (
     <div style={{ breakInside: "avoid", marginBottom: "48px" }}>
-      <div
+      <a
+        href={project.href}
         style={{
+          display: "block",
           position: "relative",
           width: "100%",
           aspectRatio: `${project.width} / ${project.height}`,
           border: "1px solid rgba(204,209,218,0.2)",
           overflow: "hidden",
           backgroundColor: "#F5F5F5",
+          cursor: "url('/pixel cursor.svg') 0 0, pointer",
         }}
       >
         {project.image.endsWith(".json") ? (
@@ -67,11 +71,11 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
             src={project.image}
             alt={project.headline}
             fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
             style={{ objectFit: "cover" }}
-            unoptimized
           />
         )}
-      </div>
+      </a>
 
       <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "4px" }}>
         <p style={PROJECT_META}>
@@ -101,7 +105,7 @@ export default function Home() {
         }}
       >
         <p style={HERO_TEXT}>
-          My design practice lives in the making - through .fig files, code, and increasingly, AI. Right now I'm building in wealth management, where access and clarity matter most. Previously: engineering at{" "}
+          My design practice lives in the making - through .fig files, code, and increasingly, AI. Right now I’m building in wealth management, where access and clarity matter most. Previously: engineering at{" "}
           <a
             href="https://www.thoughtworks.com/"
             target="_blank"

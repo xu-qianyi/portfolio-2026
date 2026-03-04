@@ -2,19 +2,30 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+### Run the dev server
+
+**Recommended:** run from a normal terminal (not inside Cursor’s integrated terminal if you’ve had issues):
 
 ```bash
+cd portfolio
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Faster startup (Turbopack):** `npm run dev:fast`
+- **Stable (Webpack):** `npm run dev` (default)
+
+Open [http://localhost:3000](http://localhost:3000) or [http://127.0.0.1:3000](http://127.0.0.1:3000) in your browser.
+
+### If localhost:3000 won’t open or is slow
+
+1. **Run `npm run dev` in your own terminal** (e.g. Terminal.app or iTerm). Running it from inside Cursor can trigger a Node/OS error (`uv_interface_addresses`) in some setups; using a normal terminal avoids that.
+2. **Port 3000 already in use?** Free it, then start again:
+   ```bash
+   npm run free-port   # kills any process on port 3000
+   npm run dev
+   ```
+   Or manually: `lsof -i :3000`, then `kill <PID>`.
+3. **First load is slow** — Next.js compiles on first request; give it 10–20 seconds then refresh.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

@@ -1,4 +1,6 @@
-const HEADLINE: React.CSSProperties = {
+import type { CSSProperties } from "react";
+
+const HEADLINE: CSSProperties = {
   fontFamily: "var(--font-playfair-display), 'Playfair Display', Georgia, serif",
   fontSize: "48px",
   fontWeight: 500,

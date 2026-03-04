@@ -5,6 +5,29 @@ Format: `[YYYY-MM-DD · Session X · <commit-hash>]` — machine-readable date +
 
 ---
 
+## [2026-03-03 · Session J] — Stability hardening (runtime, assets, footer perf)
+
+### Changed
+
+- **Runtime baseline** — standardized project runtime on Node 22 (`.nvmrc` + `package.json` `engines.node`) to reduce environment drift and engine warnings.
+- **Dependency alignment** — aligned `eslint-config-next` with installed Next major and aligned React type packages with React 18 runtime.
+- **Project preview source** — removed remote placeholder dependency for `datalign2`; switched to local `/public/images/preview/website-placeholder.svg` for deterministic loading.
+- **Footer mouse tracking** — removed per-mousemove React state updates for the wand cursor; switched cursor positioning to ref-based DOM updates to avoid high-frequency re-renders while preserving cat chase behavior.
+
+### Removed
+
+- **Duplicate Lottie asset** — deleted `Nars-playful 2.json` from `public/images/preview`.
+
+### Fixed
+
+- **Build gate** — resolved lint-blocking unused parameter in `useMarttaChat` placeholder reply helper.
+
+### Docs
+
+- **master PRD.md** — synced Home project grid data contract and tech stack notes with current implementation.
+
+---
+
 ## [2026-03-03 · Session I] — Project industry field + accent color update
 
 ### Added

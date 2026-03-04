@@ -7,6 +7,7 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   weight: ["400", "500"],
+  display: "swap",
 });
 
 const playfairDisplay = Playfair_Display({
@@ -14,12 +15,16 @@ const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
   weight: ["500"],
   style: ["normal"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Martta Xu — Product Designer",
+  title: "Martta Xu",
   description:
     "I design access. Product designer with roots in consulting and a bias for clarity.",
+  icons: {
+    icon: "/images/pixel pony.svg",
+  },
 };
 
 export default function RootLayout({

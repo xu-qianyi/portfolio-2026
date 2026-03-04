@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="900" viewBox="0 0 1280 900" role="img" aria-labelledby="title desc">
+  <title id="title">Website Placeholder</title>
+  <desc id="desc">Neutral preview placeholder image for website project cards.</desc>
+  <rect width="1280" height="900" fill="#F5F0EB" />
+  <g fill="#999999" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="640" y="440" font-size="52" font-weight="700">Website Preview</text>
+    <text x="640" y="500" font-size="28">Image unavailable</text>
+  </g>
+</svg>

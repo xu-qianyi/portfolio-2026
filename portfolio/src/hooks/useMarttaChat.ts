@@ -17,8 +17,9 @@ const INTRO_MESSAGE =
 const MOCK_REPLY =
   "That's a great question. I'd love to talk about that — feel free to ask anything else, or reach out directly on LinkedIn.";
 
-async function getAssistantReply(_prompt: string): Promise<string> {
+async function getAssistantReply(prompt: string): Promise<string> {
   // Placeholder for future API integration.
+  void prompt;
   return MOCK_REPLY;
 }
 

@@ -48,6 +48,15 @@ const ROW_A = 160; // px from bottom — back row (tall flowers)
 const ROW_B = 90;  // px from bottom — mid row (shorter flowers)
 const ROW_C = 30;  // px from bottom — front row (animals & props)
 
+// Leave left/right space so garden aligns with footer text (no padding wrapper)
+const GARDEN_LEFT_PCT = 6;
+const GARDEN_RIGHT_PCT = 94;
+const GARDEN_X_MIN = 2;
+const GARDEN_X_MAX = 93;
+function gardenX(x: number): number {
+  return GARDEN_LEFT_PCT + (x - GARDEN_X_MIN) * (GARDEN_RIGHT_PCT - GARDEN_LEFT_PCT) / (GARDEN_X_MAX - GARDEN_X_MIN);
+}
+
 // X positions per row (%), step ~14%, each row offset by ~7%
 const rowA_x = [2,  16, 30, 44, 58, 72, 86];
 const rowB_x = [9,  23, 37, 51, 65, 79, 93];
@@ -88,25 +97,24 @@ const CAT_B_KEYS: AssetKey[] = ["catB_0", "catB_1", "catB_2", "catB_3"];
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function AnimalGardenFooter() {
   const gardenRef     = useRef<HTMLDivElement>(null);
+  const wandCursorRef = useRef<HTMLImageElement>(null);
   const rafRef        = useRef<number>(0);
   const wandPos       = useRef({ x: -999, y: -999 });
-  const posRef        = useRef({ x: 30, y: 30 });
+  const posRef        = useRef({ x: gardenX(30), y: 30 });
   const catBRef       = useRef(0);
   const bunnyTimer    = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wobbleTimers  = useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
 
-  const [cursor,      setCursor]     = useState({ x: -999, y: -999 });
   const [isOverFooter,setIsOverFooter] = useState(false);
-  const [wobbling,    setWobbling]   = useState<Record<number, boolean>>({});
-  const [catAPos,     setCatAPos]    = useState({ x: 30, y: 30 });
-  const [catAState,   setCatAState]  = useState<"walk" | "arrive">("arrive");
-  const [catAFlip,    setCatAFlip]   = useState(false);
-  const [catADir,     setCatADir]    = useState({ dx: 1, dy: 0 });
-  const [catBIdx,     setCatBIdx]    = useState(0);
-  const [bunnyState,  setBunnyState] = useState<"idle" | "sleep" | "react">("idle");
-  const [vw,          setVw]         = useState(
-    typeof window !== "undefined" ? window.innerWidth : 1200
-  );
+  const [wobbling,    setWobbling]     = useState<Record<number, boolean>>({});
+  const [catAPos,     setCatAPos]      = useState({ x: gardenX(30), y: 30 });
+  const [catAState,   setCatAState]    = useState<"walk" | "arrive">("arrive");
+  const [catAFlip,    setCatAFlip]     = useState(false);
+  const [catADir,     setCatADir]      = useState({ dx: 1, dy: 0 });
+  const [catBIdx,     setCatBIdx]      = useState(0);
+  const [bunnyState,  setBunnyState]   = useState<"idle" | "sleep" | "react">("idle");
+  const [vw,          setVw]           = useState(1200);
+  const [gardenWidth, setGardenWidth]  = useState(800);
 
   const isMobile = vw < 640;
   const isTablet = vw >= 640 && vw < 1024;
@@ -117,11 +125,18 @@ export default function AnimalGardenFooter() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  // Track garden width for direction calculations
+  useEffect(() => {
+    if (!gardenRef.current) return;
+    setGardenWidth(gardenRef.current.offsetWidth);
+  }, [vw]);
+
   // ── Cleanup all timers on unmount ───────────────────────────────────────────
   useEffect(() => {
+    const timers = wobbleTimers.current;
     return () => {
       if (bunnyTimer.current) clearTimeout(bunnyTimer.current);
-      wobbleTimers.current.forEach(id => clearTimeout(id));
+      timers.forEach(id => clearTimeout(id));
     };
   }, []);
 
@@ -134,12 +149,11 @@ export default function AnimalGardenFooter() {
   const rA       = isTablet ? 128  : ROW_A;
   const rB       = isTablet ? 72   : ROW_B;
   const rC       = isTablet ? 24   : ROW_C;
-  const padding  = isMobile ? "12px 16px" : "16px 24px";
+  const padding  = isMobile ? "12px 16px" : "16px 72px";
   const fontSize = 16;
 
   // ── Walk GIF resolver ───────────────────────────────────────────────────────
-  const getWalkSrc = useCallback((dx: number, dy: number): string => {
-    const gardenW = gardenRef.current?.offsetWidth ?? 800;
+  const getWalkSrc = useCallback((dx: number, dy: number, gardenW: number): string => {
     const dxPx = (dx / 100) * gardenW;
     const angle = Math.atan2(-dy, dxPx) * 180 / Math.PI;
     if (angle > -10   && angle <= 10)   return ASSETS.catA_walkR;
@@ -162,7 +176,7 @@ export default function AnimalGardenFooter() {
       const { x: wx, y: wy } = wandPos.current;
       if (wx < 0 || wx > r.width) return;
 
-      const tx = (wx / r.width) * 100;
+      const tx = GARDEN_LEFT_PCT + (wx / r.width) * (GARDEN_RIGHT_PCT - GARDEN_LEFT_PCT);
       const ty = wy;
       const { x, y } = posRef.current;
       const dx = tx - x;
@@ -177,7 +191,7 @@ export default function AnimalGardenFooter() {
       const extra     = Math.min(dist * 0.015, 0.45); // softer ramp + lower max
       const speed     = baseSpeed + extra;
       const next = {
-        x: Math.max(1,  Math.min(92, x + (dx / dist) * speed)),
+        x: Math.max(GARDEN_LEFT_PCT, Math.min(GARDEN_RIGHT_PCT, x + (dx / dist) * speed)),
         y: Math.max(5,  Math.min(210, y + (dy / dist) * speed)),
       };
       posRef.current = next;
@@ -193,7 +207,10 @@ export default function AnimalGardenFooter() {
   // ── Mouse tracking ──────────────────────────────────────────────────────────
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
-      setCursor({ x: e.clientX, y: e.clientY });
+      if (isOverFooter && wandCursorRef.current) {
+        wandCursorRef.current.style.left = `${e.clientX}px`;
+        wandCursorRef.current.style.top = `${e.clientY}px`;
+      }
       if (!gardenRef.current) return;
       const r = gardenRef.current.getBoundingClientRect();
       if (e.clientX >= r.left && e.clientX <= r.right &&
@@ -205,7 +222,7 @@ export default function AnimalGardenFooter() {
     };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
-  }, []);
+  }, [isOverFooter]);
 
   // ── Handlers ────────────────────────────────────────────────────────────────
   const handleCatBClick = useCallback((e: React.MouseEvent) => {
@@ -234,7 +251,7 @@ export default function AnimalGardenFooter() {
   };
 
   // Cat bed position (Row C, second slot)
-  const catBedPos = { x: rowC_x[1], y: rC };
+  const catBedPos = { x: gardenX(rowC_x[1]), y: rC };
 
   // 视为“在床上”的范围（可以按感觉微调 4 和 10）
   const isXNearBed = Math.abs(catAPos.x - catBedPos.x) < 4;
@@ -245,7 +262,7 @@ export default function AnimalGardenFooter() {
     isNearBed
       ? ASSETS.catA_sleep1
       : catAState === "walk"
-        ? getWalkSrc(catADir.dx, catADir.dy)
+        ? getWalkSrc(catADir.dx, catADir.dy, gardenWidth)
         : ASSETS.catA_arrive;
 
   const catBImgSrc = ASSETS[CAT_B_KEYS[catBIdx]];
@@ -256,13 +273,15 @@ export default function AnimalGardenFooter() {
       {/* Wand cursor — only visible while hovering over footer */}
       {isOverFooter && (
         <img
+          ref={wandCursorRef}
           src={ASSETS.wand}
+          alt=""
           draggable={false}
           aria-hidden
           style={{
             position: "fixed",
-            left: cursor.x,
-            top: cursor.y,
+            left: -999,
+            top: -999,
             width: 32,
             height: 32,
             imageRendering: "pixelated",
@@ -290,7 +309,7 @@ export default function AnimalGardenFooter() {
               fontFamily: "var(--font-playfair-display), 'Playfair Display', Georgia, serif",
               fontStyle: "italic",
               fontSize,
-              color: "rgba(26,26,26,0.5)",
+              color: "#1a1a1a",
               margin: 0,
             }}
           >
@@ -301,8 +320,9 @@ export default function AnimalGardenFooter() {
               fontFamily: "var(--font-playfair-display), 'Playfair Display', Georgia, serif",
               fontStyle: "italic",
               fontSize,
-              color: "rgba(26,26,26,0.5)",
-              margin: "4px 0 0 0",
+              color: "#E04020",
+              margin: 0,
+              paddingTop: 0,
             }}
           >
             {isMobile
@@ -330,7 +350,7 @@ export default function AnimalGardenFooter() {
                   onMouseEnter={() => wobblePlant(idx)}
                   style={{
                     position: "absolute",
-                    left: `${item.x}%`,
+                    left: `${gardenX(item.x)}%`,
                     bottom: `${item.y === ROW_A ? rA : rB}px`,
                     transformOrigin: "bottom center",
                     transform: wobbling[idx] ? "rotate(8deg)" : "rotate(0deg)",
@@ -356,7 +376,7 @@ export default function AnimalGardenFooter() {
               {/* Extra plant (after bunny) */}
               <div style={{
                 position: "absolute",
-                left: `${EXTRA_PLANT.x}%`,
+                left: `${gardenX(EXTRA_PLANT.x)}%`,
                 bottom: `${rC}px`,
                 zIndex: 4,
               }}>
@@ -372,7 +392,7 @@ export default function AnimalGardenFooter() {
               {PROPS.map((item, idx) => (
                 <div
                   key={"p" + idx}
-                  style={{ position: "absolute", left: `${item.x}%`, bottom: `${rC}px`, zIndex: 6 }}
+                  style={{ position: "absolute", left: `${gardenX(item.x)}%`, bottom: `${rC}px`, zIndex: 6 }}
                 >
                   <img
                     src={ASSETS[item.key]}
@@ -414,7 +434,7 @@ export default function AnimalGardenFooter() {
                 onClick={handleCatBClick}
                 style={{
                   position: "absolute",
-                  left: `${CATB_POS.x}%`,
+                  left: `${gardenX(CATB_POS.x)}%`,
                   bottom: `${rC}px`,
                   zIndex: 7,
                   cursor: "none",
@@ -433,7 +453,7 @@ export default function AnimalGardenFooter() {
                 onClick={handleBunnyClick}
                 style={{
                   position: "absolute",
-                  left: `${BUNNY_POS.x}%`,
+                  left: `${gardenX(BUNNY_POS.x)}%`,
                   bottom: `${rC}px`,
                   zIndex: 7,
                   cursor: "none",
