@@ -5,7 +5,7 @@ Format: `[YYYY-MM-DD · Session X · <commit-hash>]` — machine-readable date +
 
 ---
 
-## [2026-03-14 · Session K] — Hero copy update + footer/garden bug fixes
+## [2026-03-14 · Session K · f832c42] — Hero copy update + footer/garden bug fixes
 
 ### Changed
 
