@@ -63,7 +63,7 @@ The entry point. On large screens, a two-column layout: headline on the left; ri
 
 Headline copy:
 
-> "My design practice lives in the making - through .fig files, code, and increasingly AI. Right now I'm building in wealth management, where access and clarity matter most. 
+> "My design practice lives in the making - through .fig files, code, and increasingly AI. And in the curating - knowing where to linger, and where to let go. Right now I'm at Datalign✦, building in wealth management. 
 >
 > Previously: engineering at Thoughtworks✦, user research at LookLook✦, strategy at PwC✦ and JLL✦."
 

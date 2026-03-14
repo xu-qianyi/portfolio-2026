@@ -119,6 +119,7 @@ export default function AnimalGardenFooter() {
   const isTablet = vw >= 640 && vw < 1024;
 
   useEffect(() => {
+    setVw(window.innerWidth);
     const onResize = () => setVw(window.innerWidth);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -127,8 +128,12 @@ export default function AnimalGardenFooter() {
   // Track garden width for direction calculations
   useEffect(() => {
     if (!gardenRef.current) return;
-    setGardenWidth(gardenRef.current.offsetWidth);
-  }, [vw]);
+    const ro = new ResizeObserver(([entry]) => {
+      setGardenWidth(entry.contentRect.width);
+    });
+    ro.observe(gardenRef.current);
+    return () => ro.disconnect();
+  }, []);
 
   // ── Cleanup all timers on unmount ───────────────────────────────────────────
   useEffect(() => {
@@ -238,7 +243,7 @@ export default function AnimalGardenFooter() {
     bunnyTimer.current = setTimeout(() => setBunnyState("idle"), 2500);
   }, []);
 
-  const wobblePlant = (idx: number) => {
+  const wobblePlant = useCallback((idx: number) => {
     const existing = wobbleTimers.current.get(idx);
     if (existing) clearTimeout(existing);
     setWobbling(w => ({ ...w, [idx]: true }));
@@ -247,7 +252,7 @@ export default function AnimalGardenFooter() {
       wobbleTimers.current.delete(idx);
     }, 700);
     wobbleTimers.current.set(idx, id);
-  };
+  }, []);
 
   // Cat bed position (Row C, second slot)
   const catBedPos = { x: gardenX(rowC_x[1]), y: rC };
@@ -296,7 +301,7 @@ export default function AnimalGardenFooter() {
         onMouseLeave={() => setIsOverFooter(false)}
         style={{
           background: "#ffffff",
-          borderTop: "1px solid rgba(26,26,26,0.08)",
+          borderTop: "none",
           fontFamily: "var(--font-playfair-display), 'Playfair Display', Georgia, serif",
           cursor: isOverFooter ? "none" : "auto",
         }}
@@ -328,7 +333,7 @@ export default function AnimalGardenFooter() {
               ? "Come to play with my cat - Fufu on desktop"
               : (
                 <span>
-                  Fufu wants to play with you{" "}
+                  Fufu would like to play with you{" "}
                   <span style={{ fontStyle: "normal" }}>🥺</span>
                 </span>
               )}

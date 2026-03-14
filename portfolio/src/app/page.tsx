@@ -105,7 +105,13 @@ export default function Home() {
         }}
       >
         <p style={HERO_TEXT}>
-          My design practice lives in the making - through .fig files, code, and increasingly AI. Right now I’m building in wealth management, where access and clarity matter most. Previously: engineering at{" "}
+          My design practice lives in the making - through .fig files, code, and increasingly AI. And in the curating - knowing where to linger, and where to let go. Right now I&apos;m at{" "}
+          <span className="hero-company-link">
+            Datalign
+          </span>
+          , building in wealth management.
+          <br />
+          Previously: engineering at{" "}
           <a
             href="https://www.thoughtworks.com/"
             target="_blank"

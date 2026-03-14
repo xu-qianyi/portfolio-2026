@@ -5,6 +5,22 @@ Format: `[YYYY-MM-DD · Session X · <commit-hash>]` — machine-readable date +
 
 ---
 
+## [2026-03-14 · Session K] — Hero copy update + footer/garden bug fixes
+
+### Changed
+
+- **Hero copy** — updated headline per PRD: added "And in the curating - knowing where to linger, and where to let go."; current role sentence changed to "Right now I'm at Datalign✦, building in wealth management."; "Previously:..." moved to new line via `<br />`.
+- **Datalign inline link** — `<a href="#">` replaced with `<span className="hero-company-link">` since no external URL exists yet; avoids page-scroll-to-top and accessibility confusion.
+- **Shell footer layout** — `AnimalGardenFooter` moved out of the main flex column into a `position: fixed` wrapper at the bottom; main content uses `marginBottom: footerH` (measured via `ResizeObserver`) to create the scroll-reveal effect.
+
+### Fixed
+
+- **SSR hydration flash** — `AnimalGardenFooter` now calls `setVw(window.innerWidth)` immediately on mount (before attaching resize listener), preventing a mobile/desktop layout mismatch on first render.
+- **Garden width stale read** — replaced `offsetWidth` snapshot inside a `[vw]` effect with a persistent `ResizeObserver` on `gardenRef`; eliminates stale-width bug and reacts correctly to CSS-driven resizes.
+- **wobblePlant re-render** — wrapped in `useCallback([], [])` to stabilize the function reference passed as `onMouseEnter` to 14 flower elements.
+
+---
+
 ## [2026-03-03 · Session J] — Stability hardening (runtime, assets, footer perf)
 
 ### Changed
