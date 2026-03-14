@@ -1,32 +1,37 @@
-A different team lead within the company has reviewed the current code/implementation and provided findings below. Important context:
+# Peer Review Triage Task
 
-- **They have less context than you** on this project's history and decisions
-- **You are the team lead** - don't accept findings at face value
-- Your job is to critically evaluate each finding
+Another reviewer has provided the findings below. You are the Tech Lead. Your job is NOT to blindly accept them. You must critically evaluate each finding, categorize it, and decide on the action.
 
-Findings from peer review:
+## 1. Triage Rules
 
-### **✅ Looks Good**
+For every issue reported in the findings, you must classify it into exactly one of these categories:
 
-- Shell now renders only AnimalGardenFooter and no longer references old Footer.
+- **[VALID]:** This is a real bug or necessary improvement. You must provide the exact code fix.
 
-- Footer text now uses the correct Playfair variable: --font-playfair-display.
+- **[ALREADY FIXED]:** The code already handles this, or it's no longer relevant.
 
-- No console.log, any, @ts-ignore, or TODO/FIXME markers in AnimalGardenFooter.
+- **[FALSE POSITIVE]:** The reviewer misunderstood the architecture, context, or React patterns. Explain why the reviewer is wrong.
 
-- Core interaction logic (RAF chase, hover wobble, click cycles) is structured and readable.
+- **[LOW PRIORITY]:** Valid, but not worth blocking the current progress. Convert to a TODO.
 
-### **⚠️ Issues Found**
+## 2. Findings from Peer Review
 
-- **[HIGH]** portfolio/src/components/AnimalGardenFooter.tsx - Wand cursor image is rendered globally and follows mouse even outside footer, which conflicts with “footer-only cursor replacement”.
+[PASTE PREVIOUS REVIEW FINDINGS HERE]
 
-- Fix: Render wand image only when pointer is inside garden/footer bounds (or hide via conditional state); keep cursor:none scoped to footer area.
+## 3. Output Format
 
-- **[MEDIUM]** portfolio/src/components/AnimalGardenFooter.tsx - setTimeout calls for bunny reset and wobble are not cleaned up on unmount, risking stale state updates.
+### Triage Decisions
 
-- Fix: store timeout IDs in refs and clear them in useEffect cleanup.
+**Finding 1:** [Brief summary of the finding]
 
-- **[LOW]** portfolio/src/components/AnimalGardenFooter.tsx - fontSize hardcoded to 16 for all breakpoints; this diverges from prior responsive text behavior and may compress mobile layout.
+**Classification:** [VALID / ALREADY FIXED / FALSE POSITIVE / LOW PRIORITY]
 
-- Fix:  use responsive sizing (e.g. mobile 13, tablet/desktop 14).
+**Lead Decision:** [If VALID, write the code to fix it. If FALSE POSITIVE, write the technical rebuttal.]
 
+*(Repeat for all findings)*
+
+### Execution Plan
+
+- List the exact files that need to be modified based ONLY on the [VALID] findings.
+
+- Provide the final, merged code snippets required to apply these fixes.

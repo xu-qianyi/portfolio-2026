@@ -105,7 +105,7 @@ export default function Home() {
         }}
       >
         <p style={HERO_TEXT}>
-          My design practice lives in the making - through .fig files, code, and increasingly, AI. Right now I’m building in wealth management, where access and clarity matter most. Previously: engineering at{" "}
+          My design practice lives in the making - through .fig files, code, and increasingly AI. Right now I’m building in wealth management, where access and clarity matter most. Previously: engineering at{" "}
           <a
             href="https://www.thoughtworks.com/"
             target="_blank"

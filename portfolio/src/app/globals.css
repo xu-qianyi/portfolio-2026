@@ -28,6 +28,7 @@ body {
 
 .hero-company-link {
   position: relative;
+  margin-right: 0.45em;
   color: #1A1A1A;
   text-decoration-line: underline;
   text-decoration-style: dotted;
@@ -37,17 +38,20 @@ body {
 }
 
 .hero-company-link::after {
-  content: "*";
+  content: "✦";
   position: absolute;
-  top: -0.04em;
-  right: -0.35em;
-  font-size: 0.8em;
-  line-height: 1;
+  top: 0.45em;
+  right: -0.85em;
+  font-size: 8px;
+  line-height: 0;
   color: var(--color-accent);
+  opacity: 0.8;
+  user-select: none;
 }
 
 .hero-company-link:hover {
   color: var(--color-accent);
   text-decoration-style: dotted;
   text-decoration-color: var(--color-accent);
+  background-color: rgba(236, 69, 35, 0.02);
 }

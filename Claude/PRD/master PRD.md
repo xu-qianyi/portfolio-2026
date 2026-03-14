@@ -1,8 +1,8 @@
 # PRD.md — Martta Xu Portfolio (2026)
 
-_Version: 2.2_
-_Last updated: March 2026_
-_Author: Martta Xu_
+*Version: 2.2*
+*Last updated: March 2026*
+*Author: Martta Xu*
 
 > For all visual and interaction decisions, refer to `design.md`. No design spec belongs in this file.
 
@@ -41,7 +41,7 @@ _Author: Martta Xu_
 
 - Two-line Playfair Display text, black (`#1a1a1a`), italic; second line `paddingTop: 0`:
   - Line 1: `© 2026 brewed by Martta + Cursor + Claude Code`
-  - Line 2 desktop/tablet: `Fufu wants to play with you 🥺`
+  - Line 2 desktop/tablet: `Fufu would like to play with you` 
   - Line 2 mobile: `Come to play with my cat - Fufu on desktop`
 - Below the text (tablet/desktop only), an interactive pixel garden. Garden content band aligned with footer text (layout offset, no padding wrapper):
   - Wand cursor (`CatToy.gif`) replaces the system cursor **inside the footer only**, chasing interactions
@@ -63,7 +63,9 @@ The entry point. On large screens, a two-column layout: headline on the left; ri
 
 Headline copy:
 
-> "My design practice lives in the making - through .fig files, code, and increasingly, AI. Right now I'm building in wealth management, where access and clarity matter most. Previously: engineering at Thoughtworks*, user research at LookLook*, strategy at PwC* and JLL*."
+> "My design practice lives in the making - through .fig files, code, and increasingly AI. Right now I'm building in wealth management, where access and clarity matter most. 
+>
+> Previously: engineering at Thoughtworks✦, user research at LookLook✦, strategy at PwC✦ and JLL✦."
 
 **Project Grid**
 The work. Two-column masonry layout. Each project card: single cover image (varying aspect ratio), a metadata row (company · industry · date · type), and a one-line headline. Cards flow top-to-bottom within each column; the stagger comes from varying image proportions. On mobile (<1024px), collapses to a single column. See `design.md §7` for breakpoint and spacing.
@@ -123,15 +125,16 @@ But don’t worry, every detour is just a chance to connect the dots in a new wa
 
 ⚠️ All project descriptions, essay copy, and testimonials are placeholder. Use Lorem Ipsum freely during the build — do not wait for final copy to unblock UI work.
 
-- Asterisks next to company names in the home hero are a visual detail only; they do not indicate separate footnotes or references.
+- Four-pointed star icons (✦) next to company names in the home hero are a visual detail only; they do not indicate separate footnotes or references. See `design.md` for visual spec.
 
 **Project preview asset sources:**
 
-- **NARS (looklook-nars)** — Preview animation (`Nars-playful.json`) is built from imagery sourced from: https://www.popsugar.com/beauty/Best-Sephora-Foundations-2019-45625120
+- **NARS (looklook-nars)** — Preview animation (`Nars-playful.json`) is built from imagery sourced from: [https://www.popsugar.com/beauty/Best-Sephora-Foundations-2019-45625120](https://www.popsugar.com/beauty/Best-Sephora-Foundations-2019-45625120)
 
 ---
 
 ## 6. Technical Stack
+
 
 |           |                                                             |
 | --------- | ----------------------------------------------------------- |
@@ -140,6 +143,7 @@ But don’t worry, every detour is just a chance to connect the dots in a new wa
 | Animation | Framer Motion                                               |
 | Fonts     | See `design.md` §4                                          |
 | Viewport  | Tablet + desktop + mobile. See `design.md` for breakpoints. |
+
 
 ---
 

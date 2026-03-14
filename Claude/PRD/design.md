@@ -35,12 +35,12 @@ These are hard constraints. If a decision pushes toward any of these, it's the w
 --color-surface:   #FFFFFF   /* Page background */
 --color-subtle:    #F5F5F5   /* Card backgrounds, subtle dividers */
 --color-muted:     #999999   /* Captions, meta text, footer */
---color-accent:    #EC4523   /* Interaction only: hero company link hover + asterisk */
+--color-accent:    #EC4523   /* Interaction only: hero company link hover + ✦ star */
 ```
 
 **Rules:**
 
-- Accent appears on hero company link hover state (text + underline) and the trailing `*` asterisk.
+- Accent appears on hero company link hover state (text + underline) and the trailing `✦` four-pointed star (rendered via CSS `::after`, `font-size: 8px`, `opacity: 0.8`).
 - Accent never appears as: decorative backgrounds, section dividers, illustration color.
 - When in doubt, use `--color-ink` at reduced opacity rather than reaching for a new color.
 
@@ -135,13 +135,14 @@ Logo:                  "Martta XU" text only; Playfair Display, 14px, weight 500
 Pill links:            Resume, About, Tools; padding 8px; same typography; hover 50% opacity
 ```
 
-**Hero inline links (company names):** Blend with body; hover triggers accent color + dotted underline + trailing `*` asterisk.
+**Hero inline links (company names):** Blend with body; hover triggers accent color + dotted underline + subtle background highlight + trailing `✦` four-pointed star (`::after`, `font-size: 8px`, `opacity: 0.8`, `user-select: none`).
 
 ```
 Color:                  #1A1A1A
 Hover color:            var(--color-accent)
 Hover underline:        dotted, var(--color-accent)
-Asterisk:               var(--color-accent), always visible
+Hover background:       rgba(236, 69, 35, 0.02)
+✦ star:                 var(--color-accent), always visible, margin-right: 0.45em
 ```
 
 ---

@@ -23,7 +23,6 @@ const ASSETS = {
   catB_3: "/footer/sleep2(l).gif",
   // Bunny
   bunny_idle:  "/footer/BunnySitting.gif",
-  bunny_sleep: "/footer/BunnySleep.gif",
   bunny_react: "/footer/BunnyJump.gif",
   // Static animals & props
   chick:       "/footer/chick idle.gif",
@@ -112,7 +111,7 @@ export default function AnimalGardenFooter() {
   const [catAFlip,    setCatAFlip]     = useState(false);
   const [catADir,     setCatADir]      = useState({ dx: 1, dy: 0 });
   const [catBIdx,     setCatBIdx]      = useState(0);
-  const [bunnyState,  setBunnyState]   = useState<"idle" | "sleep" | "react">("idle");
+  const [bunnyState,  setBunnyState]   = useState<"idle" | "react">("idle");
   const [vw,          setVw]           = useState(1200);
   const [gardenWidth, setGardenWidth]  = useState(800);
 
