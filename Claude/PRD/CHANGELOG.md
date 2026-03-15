@@ -5,7 +5,7 @@ Format: `[YYYY-MM-DD · Session X · <commit-hash>]` — machine-readable date +
 
 ---
 
-## [2026-03-15 · Session M] — Footer typography overhaul + live Boston clock + CatEars
+## [2026-03-15 · Session M · b5bc9ae] — Footer typography overhaul + live Boston clock + CatEars
 
 ### Changed
 
