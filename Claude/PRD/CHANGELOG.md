@@ -5,6 +5,30 @@ Format: `[YYYY-MM-DD · Session X · <commit-hash>]` — machine-readable date +
 
 ---
 
+## [2026-03-16 · Session Q] — Claw'd crab + Fufu chase behaviors + footer bug fixes
+
+### Added
+
+- **Claw'd (Claude crab)** — pixel-art SVG crab that spawns after Fufu idles for 2s; wanders randomly across the garden (X + Y) every 8s; evades when Fufu gets close
+- **Fufu chase bubbles** — cycles through "stop!", "wait!", "hey!", "come back!" while chasing the crab
+- **Fufu context-aware speech** — "~yum" near catfood (with Y-distance check), "!!" near crab, "zzz" on bed (wand-only)
+
+### Changed
+
+- **Fufu chase speed** — slower when chasing crab (base 0.18) vs wand (base 0.35), so crab visibly outruns Fufu
+- **Crab movement** — 2s ease-in-out transitions in both X and Y; 1.4s gentle bounce animation
+- **Sleep GIF** — only triggers near bed when crab is NOT active (no sleep during chase)
+- **`CHASE_PHRASES`** — moved to module-level constant (was re-created every render)
+
+### Fixed
+
+- **Crab not reappearing after refresh** — Fufu now transitions to "arrive" when nothing to chase, restarting the idle→spawn chain
+- **Fufu "yum" too early** — tightened threshold from 40px → 25px and added Y-distance check
+- **ResizeObserver stale after mobile toggle** — added `[isMobile]` dependency so observer re-attaches
+- **60fps no-op setState** — `setCatAState("arrive")` now uses functional update to skip redundant calls
+
+---
+
 ## [2026-03-15 · Session P · daff36c] — Footer polish + about page copy + navbar logo
 
 ### Changed

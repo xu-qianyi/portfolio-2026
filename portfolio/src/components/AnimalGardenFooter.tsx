@@ -92,6 +92,67 @@ const BUNNY_POS   = { x: rowC_x[5], y: ROW_C };
 const EXTRA_PLANT = { x: rowC_x[6], y: ROW_C, key: "plant_cosmo" as AssetKey };
 
 const CAT_B_KEYS: AssetKey[] = ["catB_0", "catB_1", "catB_2", "catB_3"];
+const CHASE_PHRASES = ["stop!", "wait!", "hey!", "come back!"];
+
+// Pre-computed CSS % positions for proximity checks
+const CATB_CSS_X    = gardenX(CATB_POS.x);    // ≈ 63%
+const CHICK_CSS_X   = gardenX(rowC_x[0]);     // ≈ 9%
+const FOOD_CSS_X    = gardenX(rowC_x[3]);      // ≈ 49.5%
+const CHICKEN_CSS_X = gardenX(rowC_x[2]);      // ≈ 36%
+const BUNNY_CSS_X   = gardenX(BUNNY_POS.x);   // ≈ 77%
+
+// Pre-computed flower CSS X positions for "near any flower" checks
+const FLOWER_CSS_XS = FLOWERS.map(f => gardenX(f.x));
+
+// Keyframes for garden animations (module-level to avoid DOM churn)
+const GARDEN_KEYFRAMES = `
+  @keyframes chickShake {
+    0%   { transform: rotate(0deg); }
+    20%  { transform: rotate(-12deg); }
+    40%  { transform: rotate(12deg); }
+    60%  { transform: rotate(-8deg); }
+    80%  { transform: rotate(6deg); }
+    100% { transform: rotate(0deg); }
+  }
+  @keyframes bubbleFadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  @keyframes crabBounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%      { transform: translateY(-3px) scale(1.05); }
+  }
+  @keyframes crabAppear {
+    from { opacity: 0; transform: scale(0.2); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+`;
+
+// ─── Claw'd SVG (pixel-art Claude crab) ──────────────────────────────────────
+const Clawd = ({ size = 22 }: { size?: number }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 13 13"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ imageRendering: "pixelated", display: "block" }}
+  >
+    {/* Ears — flush with body edges */}
+    <rect x="0" y="0" width="2" height="2" fill="#DA7756" />
+    <rect x="11" y="0" width="2" height="2" fill="#DA7756" />
+    {/* Body — taller below the eyes */}
+    <rect x="0" y="2" width="13" height="7" fill="#DA7756" />
+    {/* Eyes */}
+    <rect x="3" y="3" width="2" height="2" fill="#2a2a2a" />
+    <rect x="8" y="3" width="2" height="2" fill="#2a2a2a" />
+    {/* Outer legs (wider, taller) */}
+    <rect x="0" y="9" width="3" height="4" fill="#DA7756" />
+    <rect x="10" y="9" width="3" height="4" fill="#DA7756" />
+    {/* Inner legs (thinner, shorter) */}
+    <rect x="4" y="9" width="2" height="3" fill="#DA7756" />
+    <rect x="7" y="9" width="2" height="3" fill="#DA7756" />
+  </svg>
+);
 
 // ─── Cat Ears SVG ─────────────────────────────────────────────────────────────
 const CatEars = ({ size = 24, color = "rgba(0, 0, 0, 0.4)" }: { size?: number; color?: string }) => (
@@ -144,9 +205,16 @@ export default function AnimalGardenFooter() {
   const rafRef        = useRef<number>(0);
   const wandPos       = useRef({ x: -999, y: -999 });
   const posRef        = useRef({ x: gardenX(30), y: 30 });
-  const catBRef       = useRef(0);
-  const bunnyTimer    = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const wobbleTimers  = useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
+  const catBRef           = useRef(0);
+  const bunnyTimer        = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wobbleTimers      = useRef<Map<number, ReturnType<typeof setTimeout>>>(new Map());
+  const catBDisturbedRef  = useRef(false);
+  const catBTimer         = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wasFufuNearCatB   = useRef(false);
+  const wasWandNearCatB   = useRef(false);
+  const chickWobbleRef    = useRef(false);
+  const chickTimer        = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wasWandNearChick  = useRef(false);
 
   const [isOverFooter,setIsOverFooter] = useState(false);
   const [wobbling,    setWobbling]     = useState<Record<number, boolean>>({});
@@ -154,8 +222,23 @@ export default function AnimalGardenFooter() {
   const [catAState,   setCatAState]    = useState<"walk" | "arrive">("arrive");
   const [catAFlip,    setCatAFlip]     = useState(false);
   const [catADir,     setCatADir]      = useState({ dx: 1, dy: 0 });
-  const [catBIdx,     setCatBIdx]      = useState(0);
-  const [bunnyState,  setBunnyState]   = useState<"idle" | "react">("idle");
+  const [catBIdx,       setCatBIdx]       = useState(0);
+  const [catBDisturbed, setCatBDisturbed] = useState(false);
+  const [bunnyState,    setBunnyState]    = useState<"idle" | "react">("idle");
+  const [chickWobble,   setChickWobble]   = useState(false);
+  const [fufuIdle,      setFufuIdle]      = useState(false);
+  const idleTimerRef    = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [crabActive,    setCrabActive]    = useState(false);
+  const [crabX,         setCrabX]         = useState(50);
+  const [crabY,         setCrabY]         = useState(30);
+  const crabXRef        = useRef(50);
+  const crabYRef        = useRef(30);
+  const crabActiveRef   = useRef(false);
+  const crabSpawnTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const crabWanderTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const lastCrabEvade   = useRef(0);
+  const [chaseBubbleIdx, setChaseBubbleIdx] = useState(0);
+  const chaseBubbleTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const [vw,          setVw]           = useState(1200);
   const [gardenWidth, setGardenWidth]  = useState(800);
   const [timeStr,     setTimeStr]      = useState("");
@@ -191,13 +274,19 @@ export default function AnimalGardenFooter() {
     });
     ro.observe(gardenRef.current);
     return () => ro.disconnect();
-  }, []);
+  }, [isMobile]);
 
   // ── Cleanup all timers on unmount ───────────────────────────────────────────
   useEffect(() => {
     const timers = wobbleTimers.current;
     return () => {
-      if (bunnyTimer.current) clearTimeout(bunnyTimer.current);
+      if (bunnyTimer.current)  clearTimeout(bunnyTimer.current);
+      if (catBTimer.current)   clearTimeout(catBTimer.current);
+      if (chickTimer.current)  clearTimeout(chickTimer.current);
+      if (idleTimerRef.current)  clearTimeout(idleTimerRef.current);
+      if (crabSpawnTimer.current)  clearTimeout(crabSpawnTimer.current);
+      if (crabWanderTimer.current) clearInterval(crabWanderTimer.current);
+      if (chaseBubbleTimer.current) clearInterval(chaseBubbleTimer.current);
       timers.forEach(id => clearTimeout(id));
     };
   }, []);
@@ -236,21 +325,99 @@ export default function AnimalGardenFooter() {
       const r = gardenRef.current.getBoundingClientRect();
       if (r.width === 0) return;
       const { x: wx, y: wy } = wandPos.current;
-      if (wx < 0 || wx > r.width) return;
 
-      const tx = GARDEN_LEFT_PCT + (wx / r.width) * (GARDEN_RIGHT_PCT - GARDEN_LEFT_PCT);
-      const ty = wy;
+      // ── Proximity triggers (run every frame, independent of wand bounds) ───
+      const catBPixelX  = CATB_CSS_X  / 100 * r.width;
+      const chickPixelX = CHICK_CSS_X / 100 * r.width;
+      const fufuPixelX  = posRef.current.x / 100 * r.width;
+
+      // Fufu or wand near Cat B → scratch animation (only on zone entry)
+      const wandNearCatB  = wx >= 0 && wx <= r.width && Math.abs(wx - catBPixelX) < 60;
+      const fufuNearCatB  = Math.abs(fufuPixelX - catBPixelX) < 60;
+      const fufuJustEntered = fufuNearCatB && !wasFufuNearCatB.current;
+      const wandJustEntered = wandNearCatB && !wasWandNearCatB.current;
+      wasFufuNearCatB.current = fufuNearCatB;
+      wasWandNearCatB.current = wandNearCatB;
+      if ((fufuJustEntered || wandJustEntered) && !catBDisturbedRef.current) {
+        catBDisturbedRef.current = true;
+        setCatBDisturbed(true);
+        if (catBTimer.current) clearTimeout(catBTimer.current);
+        catBTimer.current = setTimeout(() => {
+          catBDisturbedRef.current = false;
+          setCatBDisturbed(false);
+        }, 2000);
+      }
+
+      // Wand near chick → wobble (only on zone entry)
+      const wandNearChick = wx >= 0 && wx <= r.width && Math.abs(wx - chickPixelX) < 60;
+      const chickJustEntered = wandNearChick && !wasWandNearChick.current;
+      wasWandNearChick.current = wandNearChick;
+      if (chickJustEntered && !chickWobbleRef.current) {
+        chickWobbleRef.current = true;
+        setChickWobble(true);
+        if (chickTimer.current) clearTimeout(chickTimer.current);
+        chickTimer.current = setTimeout(() => {
+          chickWobbleRef.current = false;
+          setChickWobble(false);
+        }, 700);
+      }
+
+      // Determine chase target: wand (priority) or crab (idle mode)
+      const wandInBounds = wx >= 0 && wx <= r.width;
+      let tx: number, ty: number;
+      if (wandInBounds) {
+        // Wand active → chase wand, kill crab
+        tx = (wx / r.width) * 100;
+        ty = wy;
+        if (crabActiveRef.current) {
+          crabActiveRef.current = false;
+          setCrabActive(false);
+          setFufuIdle(false);
+          if (crabWanderTimer.current) clearInterval(crabWanderTimer.current);
+        }
+      } else if (crabActiveRef.current) {
+        // No wand but crab is active → chase crab
+        tx = crabXRef.current;
+        ty = crabYRef.current;
+      } else {
+        // Nothing to chase — transition to arrive so idle timer can restart
+        setCatAState(prev => prev === "arrive" ? prev : "arrive");
+        return;
+      }
+
       const { x, y } = posRef.current;
       const dx = tx - x;
       const dy = ty - y;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
-      // Too close — settle into arrive/idle state
-      if (dist < 3) { setCatAState("arrive"); return; }
+      // Pixel-space stopping/arrival threshold
+      const dxPx = (dx / 100) * r.width;
+      const distPx = Math.sqrt(dxPx * dxPx + dy * dy);
+
+      // If chasing crab and close → crab evades
+      if (!wandInBounds && crabActiveRef.current && distPx < 40) {
+        if (Date.now() - lastCrabEvade.current > 1500) {
+          lastCrabEvade.current = Date.now();
+          let nx: number;
+          do {
+            nx = GARDEN_LEFT_PCT + Math.random() * (GARDEN_RIGHT_PCT - GARDEN_LEFT_PCT);
+          } while (Math.abs(nx - x) < 20);
+          const ny = 20 + Math.random() * 120;
+          crabXRef.current = nx;
+          crabYRef.current = ny;
+          setCrabX(nx);
+          setCrabY(ny);
+        }
+        setCatAState("arrive");
+        return;
+      }
+
+      if (distPx < 30) { setCatAState("arrive"); return; }
 
       // Distance‑adaptive speed: farther targets → faster, close‑in → slower
-      const baseSpeed = 0.35;
-      const extra     = Math.min(dist * 0.015, 0.45); // softer ramp + lower max
+      const chasingCrab = !wandInBounds && crabActiveRef.current;
+      const baseSpeed = chasingCrab ? 0.18 : 0.35;
+      const extra     = Math.min(dist * 0.015, chasingCrab ? 0.2 : 0.45);
       const speed     = baseSpeed + extra;
       const next = {
         x: Math.max(GARDEN_LEFT_PCT, Math.min(GARDEN_RIGHT_PCT, x + (dx / dist) * speed)),
@@ -318,7 +485,102 @@ export default function AnimalGardenFooter() {
   // 视为“在床上”的范围（可以按感觉微调 4 和 10）
   const isXNearBed = Math.abs(catAPos.x - catBedPos.x) < 4;
   const isYNearBed = Math.abs(catAPos.y - catBedPos.y) < 10;
-  const isNearBed  = isXNearBed && isYNearBed;
+  const isNearBed  = isXNearBed && isYNearBed && !crabActive;
+
+  // ── Fufu idle detection: "meow?" after 4s of not chasing ────────────────
+  useEffect(() => {
+    if (catAState === "arrive" && !isNearBed) {
+      idleTimerRef.current = setTimeout(() => setFufuIdle(true), 2000);
+    } else if (!crabActiveRef.current) {
+      // Only clear idle when crab isn't active — otherwise chasing the crab would kill it
+      setFufuIdle(false);
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    }
+    return () => { if (idleTimerRef.current) clearTimeout(idleTimerRef.current); };
+  }, [catAState, isNearBed]);
+
+  // ── Claude crab: appears when idle, Fufu chases it ────────────────────
+  const randomCrabPos = useCallback(() => {
+    const fufuX = posRef.current.x;
+    let x: number;
+    do {
+      x = GARDEN_LEFT_PCT + Math.random() * (GARDEN_RIGHT_PCT - GARDEN_LEFT_PCT);
+    } while (Math.abs(x - fufuX) < 20);
+    // Random Y between front row and mid-flower row
+    const y = 20 + Math.random() * 120;
+    return { x, y };
+  }, []);
+
+  useEffect(() => {
+    if (fufuIdle) {
+      crabSpawnTimer.current = setTimeout(() => {
+        const pos = randomCrabPos();
+        crabXRef.current = pos.x;
+        crabYRef.current = pos.y;
+        setCrabX(pos.x);
+        setCrabY(pos.y);
+        crabActiveRef.current = true;
+        setCrabActive(true);
+        // Crab wanders to a new spot every 8s
+        crabWanderTimer.current = setInterval(() => {
+          const np = randomCrabPos();
+          crabXRef.current = np.x;
+          crabYRef.current = np.y;
+          setCrabX(np.x);
+          setCrabY(np.y);
+        }, 8000);
+      }, 500);
+    } else {
+      if (crabSpawnTimer.current)  clearTimeout(crabSpawnTimer.current);
+      if (crabWanderTimer.current) clearInterval(crabWanderTimer.current);
+      crabActiveRef.current = false;
+      setCrabActive(false);
+    }
+    return () => {
+      if (crabSpawnTimer.current)  clearTimeout(crabSpawnTimer.current);
+      if (crabWanderTimer.current) clearInterval(crabWanderTimer.current);
+    };
+  }, [fufuIdle, randomCrabPos]);
+
+  // ── Chase bubble cycling: rotate phrases while chasing crab ────────────
+  const chasingCrab = crabActive && catAState === "walk";
+  useEffect(() => {
+    if (chasingCrab) {
+      setChaseBubbleIdx(0);
+      chaseBubbleTimer.current = setInterval(() => {
+        setChaseBubbleIdx(i => (i + 1) % CHASE_PHRASES.length);
+      }, 2000);
+    } else {
+      if (chaseBubbleTimer.current) clearInterval(chaseBubbleTimer.current);
+    }
+    return () => { if (chaseBubbleTimer.current) clearInterval(chaseBubbleTimer.current); };
+  }, [chasingCrab]);
+
+  // ── Fufu speech bubble (context-sensitive) ─────────────────────────────
+  // Use pixel distances so bubbles trigger at consistent visual proximity across screen sizes
+  const pxFrom = (pct: number) => Math.abs(catAPos.x - pct) / 100 * gardenWidth;
+  const isNearFood    = pxFrom(FOOD_CSS_X)    < 25 && Math.abs(catAPos.y - rC) < 30;
+  const isNearCatBB   = pxFrom(CATB_CSS_X)    < 40;
+  const isNearChick   = pxFrom(CHICK_CSS_X)   < 40;
+  const isNearChicken = pxFrom(CHICKEN_CSS_X) < 40;
+  const isNearBunny   = pxFrom(BUNNY_CSS_X)   < 40;
+  const isNearFlower  = catAPos.y > 70 && FLOWER_CSS_XS.some(fx => pxFrom(fx) < 30);
+  const isNearCrab    = crabActive && pxFrom(crabX) < 50 && Math.abs(catAPos.y - crabY) < 40;
+
+  const fufuBubble = (() => {
+    if (isNearBed)         return "zzz";
+    if (isNearCrab)        return "!!";
+    if (crabActive && catAState === "walk") return CHASE_PHRASES[chaseBubbleIdx];
+    if (isNearFood)        return "~yum";
+    if (isNearChick)       return "!";
+    if (isNearChicken)     return "hmm";
+    if (isNearCatBB)       return "?";
+    if (isNearBunny)       return "!!";
+    if (isNearFlower)      return "~♪";
+    if (fufuIdle && !crabActive) return "meow?";
+    if (catAState === "arrive") return "♥";
+    return null;
+  })();
 
   const catAImgSrc =
     isNearBed
@@ -327,7 +589,7 @@ export default function AnimalGardenFooter() {
         ? getWalkSrc(catADir.dx, catADir.dy, gardenWidth)
         : ASSETS.catA_arrive;
 
-  const catBImgSrc = ASSETS[CAT_B_KEYS[catBIdx]];
+  const catBImgSrc = catBDisturbed ? ASSETS.catB_2 : ASSETS[CAT_B_KEYS[catBIdx]];
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
@@ -482,10 +744,20 @@ export default function AnimalGardenFooter() {
               </div>
 
               {/* Props & static animals */}
+              <style>{GARDEN_KEYFRAMES}</style>
               {PROPS.map((item, idx) => (
                 <div
                   key={"p" + idx}
-                  style={{ position: "absolute", left: `${gardenX(item.x)}%`, bottom: `${rC}px`, zIndex: 6 }}
+                  style={{
+                    position: "absolute",
+                    left: `${gardenX(item.x)}%`,
+                    bottom: `${rC}px`,
+                    zIndex: 6,
+                    ...(item.key === "chick" && {
+                      transformOrigin: "bottom center",
+                      animation: chickWobble ? "chickShake 0.5s ease" : "none",
+                    }),
+                  }}
                 >
                   <img
                     src={ASSETS[item.key]}
@@ -501,6 +773,23 @@ export default function AnimalGardenFooter() {
                 </div>
               ))}
 
+              {/* Claude sparkle crab — appears when idle */}
+              {crabActive && (
+                <div style={{
+                  position: "absolute",
+                  left: `${crabX}%`,
+                  bottom: `${crabY}px`,
+                  zIndex: 7,
+                  transition: "left 2s ease-in-out, bottom 2s ease-in-out",
+                  animation: "crabAppear 0.3s ease",
+                  pointerEvents: "none",
+                }}>
+                  <div style={{ animation: "crabBounce 1.4s ease-in-out infinite" }}>
+                    <Clawd size={isTablet ? 18 : 22} />
+                  </div>
+                </div>
+              )}
+
               {/* Cat A — Fufu, chases wand */}
               <div style={{
                 position: "absolute",
@@ -508,6 +797,44 @@ export default function AnimalGardenFooter() {
                 bottom: `${catAPos.y}px`,
                 zIndex: 8,
               }}>
+                {fufuBubble && (
+                  <div
+                    key={fufuBubble}
+                    style={{
+                      position: "absolute",
+                      left: "50%",
+                      bottom: "100%",
+                      transform: "translateX(-50%)",
+                      pointerEvents: "none",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      animation: "bubbleFadeIn 0.3s ease",
+                      marginBottom: 2,
+                    }}
+                  >
+                    <div style={{
+                      background: "#fff",
+                      border: "2px solid #555",
+                      padding: "1px 5px",
+                      fontSize: 10,
+                      fontFamily: "monospace",
+                      color: "#333",
+                      whiteSpace: "nowrap",
+                      lineHeight: 1.4,
+                      imageRendering: "pixelated",
+                    }}>
+                      {fufuBubble}
+                    </div>
+                    <div style={{
+                      width: 0,
+                      height: 0,
+                      borderLeft: "4px solid transparent",
+                      borderRight: "4px solid transparent",
+                      borderTop: "4px solid #555",
+                    }} />
+                  </div>
+                )}
                 <img
                   src={catAImgSrc}
                   draggable={false}
