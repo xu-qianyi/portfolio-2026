@@ -5,7 +5,7 @@ Format: `[YYYY-MM-DD · Session X · <commit-hash>]` — machine-readable date +
 
 ---
 
-## [2026-03-15 · Session O] — About page build
+## [2026-03-15 · Session O · 0ab7ffa] — About page build
 
 ### Added
 
