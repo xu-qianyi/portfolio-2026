@@ -5,7 +5,7 @@ Format: `[YYYY-MM-DD · Session X · <commit-hash>]` — machine-readable date +
 
 ---
 
-## [2026-03-16 · Session Q] — Claw'd crab + Fufu chase behaviors + footer bug fixes
+## [2026-03-16 · Session Q · 87d9584] — Claw'd crab + Fufu chase behaviors + footer bug fixes
 
 ### Added
 
