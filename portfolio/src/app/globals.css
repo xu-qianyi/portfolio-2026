@@ -151,6 +151,14 @@ body {
   white-space: nowrap;
 }
 
+/* Photo strip — hidden scrollbar */
+.photo-strip {
+  scrollbar-width: none;
+}
+.photo-strip::-webkit-scrollbar {
+  display: none;
+}
+
 .about-headline {
   color: var(--color-accent);
   text-decoration-line: underline;

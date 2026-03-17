@@ -62,7 +62,7 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
           border: "1px solid rgba(204,209,218,0.2)",
           overflow: "hidden",
           backgroundColor: "#F5F5F5",
-          cursor: "url('/pixel cursor.svg') 0 0, pointer",
+          cursor: "url('/pixel%20cursor.svg') 0 0, pointer",
         }}
       >
         {project.image.endsWith(".json") ? (
@@ -99,7 +99,7 @@ export default function Home() {
     <>
       {/* Hero */}
       <section
-        className="grid lg:grid-cols-2 gap-y-[40px] gap-x-[16px] py-[64px] px-[72px] sm:pt-[28px] sm:pb-[40px] lg:pt-[52px] lg:pb-[64px]"
+        className="grid lg:grid-cols-2 gap-y-[40px] gap-x-[16px] py-[64px] px-[24px] sm:pt-[28px] sm:pb-[40px] lg:pt-[52px] lg:pb-[64px] lg:px-[72px]"
         style={{ alignSelf: "stretch" }}
       >
         <p style={HERO_TEXT}>
@@ -107,9 +107,7 @@ export default function Home() {
           <span className="hero-company-link">
             Datalign
           </span>
-          , building in wealth management.
-          <br />
-          Previously: engineering at{" "}
+          , building in wealth management. Previously: engineering at{" "}
           <a
             href="https://www.thoughtworks.com/"
             target="_blank"
@@ -147,7 +145,7 @@ export default function Home() {
           </a>
           .
         </p>
-        <div className="hidden sm:flex sm:flex-row sm:gap-x-[16px] lg:flex-col lg:items-end lg:gap-x-0 lg:gap-y-[4px]" style={HERO_TEXT}>
+        <div className="flex flex-row gap-x-[16px] lg:flex-col lg:items-end lg:gap-x-0 lg:gap-y-[4px]" style={HERO_TEXT}>
           <a
             href="https://drive.google.com"
             target="_blank"
@@ -167,7 +165,7 @@ export default function Home() {
       </section>
 
       {/* Masonry project grid */}
-      <section className="columns-1 lg:columns-2 gap-x-[24px]" style={{ padding: "0 72px 80px" }}>
+      <section className="columns-1 lg:columns-2 gap-x-[24px] px-[24px] pb-20 lg:px-[72px]">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}

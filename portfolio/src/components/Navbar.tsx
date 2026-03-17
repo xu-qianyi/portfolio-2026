@@ -37,6 +37,7 @@ const NAV_ITEMS: Array<{
 
 export default function Navbar() {
   const [pillHovered, setPillHovered] = useState<PillId>(null);
+  const [logoHovered, setLogoHovered] = useState(false);
 
   return (
     <header
@@ -48,19 +49,26 @@ export default function Navbar() {
       }}
     >
       <nav
+        className="px-[24px] lg:px-[72px]"
         style={{
           display: "flex",
           height: "fit-content",
-          padding: "12px 72px",
+          paddingTop: "12px",
+          paddingBottom: "12px",
           justifyContent: "space-between",
           alignItems: "center",
           alignSelf: "stretch",
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ ...NAV_LINK, display: "inline-flex", alignItems: "center", gap: "6px" }}>
+        <Link
+          href="/"
+          style={{ ...NAV_LINK, display: "inline-flex", alignItems: "center", gap: "6px" }}
+          onMouseEnter={() => setLogoHovered(true)}
+          onMouseLeave={() => setLogoHovered(false)}
+        >
           <img src="/yin.svg" alt="" aria-hidden="true" style={{ height: "18px", width: "18px", objectFit: "contain" }} />
-          Martta XU
+          <span style={{ opacity: logoHovered ? 0.7 : 1, transition: "opacity 200ms ease" }}>Martta XU</span>
         </Link>
 
       </nav>

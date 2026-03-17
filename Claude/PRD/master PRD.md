@@ -58,7 +58,7 @@
 
 **Hero** — See `design.md` for layout and typography.
 
-The entry point. On large screens, a two-column layout: headline on the left; right column has Resume/About/Extras as `hero-nav-link` links, vertical stack, right-aligned. On tablet, nav links appear below the headline in a horizontal row. Hidden on mobile.
+The entry point. On large screens, a two-column layout: headline on the left; right column has Resume/About/Extras as `hero-nav-link` links, vertical stack, right-aligned. On tablet and mobile, nav links appear below the headline in a horizontal row.
 
 Headline copy:
 
@@ -93,7 +93,7 @@ Data sourced from `src/data/projects.json`. Each entry requires: `id`, `company`
 
 **"let's talk" interaction (`CopyEmail` component):** On hover, a tooltip appears below with accent orange background, copy icon, and "copy email" text. On click, copies `martta.xu@outlook.com` to clipboard; tooltip switches to checkmark + "copied!". Tooltip implemented in pure CSS (`:hover`) to avoid gap/flicker issues.
 
-**Photo strip:** 5–6 equal-height life photos (dancing, travel, meditation, etc.) in a horizontal row, `object-fit: cover`, `height: 320px`. Placeholders until real photos are provided in `public/images/about/`.
+**Photo grid:** 6 life photos in a CSS grid — 3 columns on mobile, 6 columns on sm+. Each cell is 1:1 aspect ratio, `object-fit: cover`. Images stored as `.webp` in `public/images/about/`.
 
 ---
 

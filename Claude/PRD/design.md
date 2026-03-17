@@ -75,10 +75,10 @@ Footer (Animal Garden): Geist, 14px, weight 500; text row: flex-row space-betwee
 **Philosophy:** When in doubt, add space. Padding should feel slightly more generous than necessary. The grid breathes.
 
 ```
-Page horizontal pad:   72px on each side — nav, main content, footer aligned; no max-width cap
-Navbar padding:       12px 72px; height fit-content
-Hero padding:         desktop 52px top / 64px bottom, 72px horizontal; tablet 28px top / 40px bottom, 72px horizontal; column-gap 16px; row-gap 40px
-Project section pad:  72px horizontal, 80px bottom; 2-column masonry at lg (1024px+), 24px column-gap, 48px row-gap
+Page horizontal pad:   24px mobile, 72px desktop (lg+) — nav, main content aligned; no max-width cap
+Navbar padding:       12px vertical; 24px horizontal mobile, 72px horizontal lg+; height fit-content
+Hero padding:         desktop 52px top / 64px bottom, 72px horizontal; tablet 28px top / 40px bottom; mobile 64px top/bottom, 24px horizontal; column-gap 16px; row-gap 40px
+Project section pad:  24px horizontal mobile, 72px horizontal lg+; 80px bottom; 2-column masonry at lg (1024px+), 24px column-gap, 48px row-gap
 Footer padding:       16px 72px (desktop/tablet); 12px 72px (mobile)
 Section gap:          5rem–7rem vertical
 ```
@@ -89,7 +89,7 @@ Section gap:          5rem–7rem vertical
 
 **Breakpoint:** Tablet and below (<1024px): projects stack in a single column. From 1024px (lg): 2-column masonry.
 
-**Rules:** Never crowd cards — reduce columns before reducing padding. Negative space is a design element; the hero right column holds nav links (Resume/About/Extras) on desktop; on tablet they appear below the headline in a horizontal row.
+**Rules:** Never crowd cards — reduce columns before reducing padding. Negative space is a design element; the hero right column holds nav links (Resume/About/Extras) on desktop; on tablet and mobile they appear below the headline in a horizontal row.
 
 ---
 

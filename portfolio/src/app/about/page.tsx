@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import CopyEmail from "@/components/CopyEmail";
 
 const HERO_TEXT: CSSProperties = {
@@ -13,14 +14,21 @@ const HERO_TEXT: CSSProperties = {
   marginBottom: 0,
 };
 
-const PLACEHOLDERS = [1, 2, 3, 4, 5, 6];
+const PHOTOS = [
+  { src: "/images/about/martta-fufu.webp", alt: "With my cat Fufu in the snow"  },
+  { src: "/images/about/cat-sleep.webp",   alt: "My cat sleeping"               },
+  { src: "/images/about/exhibition.webp",  alt: "In front of a colorful mural"  },
+  { src: "/images/about/balboa.webp",      alt: "Cocktail at a Balboa night"    },
+  { src: "/images/about/swing.webp",       alt: "Swing dancing"                 },
+  { src: "/images/about/swing-2.webp",     alt: "Swing dancing at Mala Swing"   },
+];
 
 export default function About() {
   return (
     <>
       {/* Text section */}
-      <section className="grid lg:grid-cols-2 gap-y-[40px] gap-x-[16px] py-[64px] px-[72px] sm:pt-[28px] sm:pb-[40px] lg:pt-[52px] lg:pb-[64px]">
-        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+      <section className="grid lg:grid-cols-2 gap-y-[40px] gap-x-[16px] py-[64px] px-[24px] sm:pt-[28px] sm:pb-[40px] lg:pt-[52px] lg:pb-[64px] lg:px-[72px]">
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           <p style={HERO_TEXT}>
             I&apos;m a designer who reads the room - and the signal. I practice Swing - a dance
             with no routine, just feeling and responding to what you&apos;re given.
@@ -56,26 +64,30 @@ export default function About() {
         </div>
       </section>
 
-      {/* Photo strip */}
-      <section style={{ padding: "0 72px 80px", display: "flex", gap: "8px" }}>
-        {PLACEHOLDERS.map((n) => (
-          <div
-            key={n}
-            style={{
-              flex: 1,
-              height: "320px",
-              backgroundColor: "#F5F5F5",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "rgba(26,26,26,0.3)",
-              fontSize: "14px",
-              fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-            }}
-          >
-            Photo {n}
-          </div>
-        ))}
+      {/* Photo grid */}
+      <section className="px-[24px] pb-12 sm:px-10 sm:pb-16 lg:px-[72px] lg:pb-20">
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+          {PHOTOS.map((photo) => (
+            <div
+              key={photo.src}
+              style={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: "1 / 1",
+                overflow: "hidden",
+                backgroundColor: "#F5F5F5",
+              }}
+            >
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                sizes="(min-width: 640px) 16vw, 33vw"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          ))}
+        </div>
       </section>
     </>
   );
