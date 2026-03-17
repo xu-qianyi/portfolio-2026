@@ -131,25 +131,25 @@ const GARDEN_KEYFRAMES = `
 // ─── Claw'd SVG (pixel-art Claude crab) ──────────────────────────────────────
 const Clawd = ({ size = 22 }: { size?: number }) => (
   <svg
-    width={size}
+    width={size * 1.4}
     height={size}
-    viewBox="0 0 17 12"
+    viewBox="0 0 21 12"
     xmlns="http://www.w3.org/2000/svg"
     style={{ imageRendering: "pixelated", display: "block" }}
   >
-    {/* Body — tall rectangle, no ears */}
-    <rect x="2" y="0" width="13" height="9" fill="#DA7756" />
+    {/* Body — wide rectangle, no ears */}
+    <rect x="2" y="0" width="17" height="9" fill="#DA7756" />
     {/* Claws — mid-body height */}
     <rect x="0" y="5" width="2" height="2" fill="#DA7756" />
-    <rect x="15" y="5" width="2" height="2" fill="#DA7756" />
+    <rect x="19" y="5" width="2" height="2" fill="#DA7756" />
     {/* Eyes — small squares */}
-    <rect x="5" y="4" width="2" height="2" fill="#2a2a2a" />
-    <rect x="10" y="4" width="2" height="2" fill="#2a2a2a" />
+    <rect x="6" y="4" width="2" height="2" fill="#2a2a2a" />
+    <rect x="13" y="4" width="2" height="2" fill="#2a2a2a" />
     {/* Four legs — all same size */}
     <rect x="3" y="9" width="2" height="3" fill="#DA7756" />
-    <rect x="6" y="9" width="2" height="3" fill="#DA7756" />
-    <rect x="9" y="9" width="2" height="3" fill="#DA7756" />
+    <rect x="7" y="9" width="2" height="3" fill="#DA7756" />
     <rect x="12" y="9" width="2" height="3" fill="#DA7756" />
+    <rect x="16" y="9" width="2" height="3" fill="#DA7756" />
   </svg>
 );
 
