@@ -42,8 +42,10 @@
   - Line 2 mobile: `Come to play with my cat - Fufu on desktop`
 - Below the text (tablet/desktop only), an interactive pixel garden. Garden content band aligned with footer text (layout offset, no padding wrapper):
   - Wand cursor (`CatToy.gif`) replaces the system cursor **inside the footer only**, chasing interactions
-  - Cat A (Fufu) chases the wand using directional walk GIFs and, when she reaches the cat bed area (a small zone around the bed, not pixel-perfect), she switches to a sleep GIF; Cat B cycles sleep/scratch states on click
-  - Bunny jumps on click, then settles back to sitting; flowers wobble gently on hover
+  - Cat A (Fufu) chases the wand using directional walk GIFs and, when she reaches the cat bed area (a small zone around the bed, not pixel-perfect), she switches to a sleep GIF; Cat B cycles sleep/scratch states on click, and scratches when Fufu or the wand passes nearby
+  - Fufu shows context-sensitive speech bubbles: "zzz" near bed, "~yum" near food, "!" / "!!" when chasing, "~♪" near flowers, "ふぅ" when resting, "meow?" when idle
+  - Claw'd (pixel-art Claude crab) spawns when Fufu has been idle for a few seconds; Fufu chases the crab at a slower pace than the wand. Both take periodic rest breaks (5–7s chase, 2.5–3.5s rest). The crab evades when Fufu gets close. Wand interaction always takes priority and despawns the crab
+  - Chick wobbles when the wand passes nearby; bunny jumps on click, then settles back to sitting; flowers wobble gently on hover
   - Garden hidden on mobile (<640px); only the text lines show
 
 ---
@@ -133,7 +135,7 @@ But don’t worry, every detour is just a chance to connect the dots in a new wa
 
 |           |                                                             |
 | --------- | ----------------------------------------------------------- |
-| Framework | Next.js 15 (App Router)                                     |
+| Framework | Next.js 16 (App Router)                                     |
 | Styling   | Tailwind CSS                                                |
 | Animation | Framer Motion                                               |
 | Fonts     | See `design.md` §4                                          |
