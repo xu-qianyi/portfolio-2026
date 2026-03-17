@@ -621,12 +621,14 @@ export default function AnimalGardenFooter() {
   const isNearChicken = pxFrom(CHICKEN_CSS_X) < 40;
   const isNearBunny   = pxFrom(BUNNY_CSS_X)   < 40;
   const isNearFlower  = catAPos.y > 70 && FLOWER_CSS_XS.some(fx => pxFrom(fx) < 30);
-  const isNearCrab    = crabActive && pxFrom(crabX) < 50 && Math.abs(catAPos.y - crabY) < 40;
+  const crabDist      = crabActive ? Math.sqrt(pxFrom(crabX) ** 2 + (catAPos.y - crabY) ** 2) : Infinity;
+  const isNearCrab    = crabDist < 50;
 
   const fufuBubble = (() => {
     if (isNearBed)         return "zzz";
+    if (crabActive && chaseRestRef.current) return "ふぅ";
     if (isNearCrab)        return "!!";
-    if (crabActive && catAState === "walk") return "!";
+    if (crabActive && catAState === "walk") return crabDist < 120 ? "!" : "...";
     if (isNearFood)        return "~yum";
     if (isNearChick)       return "!";
     if (isNearChicken)     return "hmm";
