@@ -366,7 +366,7 @@ export default function AnimalGardenFooter() {
 
       // Lerp crab visual position toward target (~matches 2s CSS transition)
       if (crabActiveRef.current) {
-        const lerpSpeed = 0.025;
+        const lerpSpeed = 0.015;
         crabVisualXRef.current += (crabTargetXRef.current - crabVisualXRef.current) * lerpSpeed;
         crabVisualYRef.current += (crabTargetYRef.current - crabVisualYRef.current) * lerpSpeed;
       }
@@ -386,7 +386,7 @@ export default function AnimalGardenFooter() {
         }
       } else if (crabActiveRef.current) {
         // Crab just moved — give it a 1s head start before Fufu chases
-        if (Date.now() - crabMoveTime.current < 1000) {
+        if (Date.now() - crabMoveTime.current < 1500) {
           setCatAState(prev => prev === "arrive" ? prev : "arrive");
           return;
         }
@@ -410,7 +410,7 @@ export default function AnimalGardenFooter() {
 
       // If chasing crab and close → crab evades
       if (!wandInBounds && crabActiveRef.current && distPx < 40) {
-        if (Date.now() - lastCrabEvade.current > 1500) {
+        if (Date.now() - lastCrabEvade.current > 2500) {
           lastCrabEvade.current = Date.now();
           let nx: number;
           do {
@@ -431,8 +431,8 @@ export default function AnimalGardenFooter() {
 
       // Distance‑adaptive speed: farther targets → faster, close‑in → slower
       const chasingCrab = !wandInBounds && crabActiveRef.current;
-      const baseSpeed = chasingCrab ? 0.18 : 0.35;
-      const extra     = Math.min(dist * 0.015, chasingCrab ? 0.2 : 0.45);
+      const baseSpeed = chasingCrab ? 0.12 : 0.35;
+      const extra     = Math.min(dist * 0.012, chasingCrab ? 0.14 : 0.45);
       const speed     = baseSpeed + extra;
       const next = {
         x: Math.max(GARDEN_LEFT_PCT, Math.min(GARDEN_RIGHT_PCT, x + (dx / dist) * speed)),
@@ -798,7 +798,7 @@ export default function AnimalGardenFooter() {
                   left: `${crabX}%`,
                   bottom: `${crabY}px`,
                   zIndex: 7,
-                  transition: "left 2s ease-in-out, bottom 2s ease-in-out",
+                  transition: "left 3.5s ease-in-out, bottom 3.5s ease-in-out",
                   animation: "crabAppear 0.3s ease",
                   pointerEvents: "none",
                 }}>
