@@ -20,8 +20,8 @@ For visual and interaction decisions, see the internal docs in `Claude/PRD/` (no
 
 ## Tech stack
 
-- **Framework**: Next.js 15 (App Router)
-- **Runtime**: React 18
+- **Framework**: Next.js 16 (App Router, Turbopack)
+- **Runtime**: React 19
 - **Styling**: Tailwind CSS v4
 - **Animation**: Framer Motion, Lottie (for specific previews)
 - **Node version**: **22.x** (see `.nvmrc`)
