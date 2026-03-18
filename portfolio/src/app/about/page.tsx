@@ -20,8 +20,8 @@ const photoStyle = {
 };
 
 const GRID = "grid grid-cols-3 sm:grid-cols-6 gap-3";
-const SECTION = "pb-3 px-[24px] sm:px-10 lg:px-[72px]";
-const PX = "px-[24px] sm:px-10 lg:px-[72px]";
+const SECTION = "pb-3 px-[24px] lg:px-[72px]";
+const PX = "px-[24px] lg:px-[72px]";
 
 const textPlaceholderStyle = {
   ...{ position: "relative" as const, width: "100%", aspectRatio: "1 / 1", overflow: "hidden", backgroundColor: "#F5F5F5" },
@@ -65,7 +65,7 @@ export default function About() {
   return (
     <>
       {/* Education — text */}
-      <section className="pt-[64px] pb-3 px-[24px] sm:pt-[28px] sm:px-10 lg:pt-[52px] lg:px-[72px]">
+      <section className="pt-[64px] pb-3 px-[24px] sm:pt-[28px] lg:pt-[52px] lg:px-[72px]">
         <div className={GRID}>
           <p style={HERO_TEXT} className="col-span-3">
             I studied Engineering + Design at{" "}

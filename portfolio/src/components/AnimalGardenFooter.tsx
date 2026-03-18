@@ -371,7 +371,7 @@ export default function AnimalGardenFooter() {
 
       // Lerp crab visual position toward target (~matches 3.5s CSS transition)
       if (crabActiveRef.current) {
-        const lerpSpeed = 0.015;
+        const lerpSpeed = 0.010;
         crabVisualXRef.current += (crabTargetXRef.current - crabVisualXRef.current) * lerpSpeed;
         crabVisualYRef.current += (crabTargetYRef.current - crabVisualYRef.current) * lerpSpeed;
       }
@@ -405,7 +405,7 @@ export default function AnimalGardenFooter() {
           return;
         }
         // Crab just moved — give it a head start (only if crab is far)
-        if (Date.now() - crabMoveTime.current < 1500 && crabFar) {
+        if (Date.now() - crabMoveTime.current < 700 && crabFar) {
           setCatAState(prev => prev === "arrive" ? prev : "arrive");
           return;
         }
@@ -460,7 +460,7 @@ export default function AnimalGardenFooter() {
 
       // Distance‑adaptive speed: farther targets → faster, close‑in → slower
       const chasingCrab = !wandInBounds && crabActiveRef.current;
-      const baseSpeed = chasingCrab ? 0.12 : 0.35;
+      const baseSpeed = chasingCrab ? 0.08 : 0.35;
       const extra     = Math.min(dist * 0.012, chasingCrab ? 0.14 : 0.45);
       const speed     = baseSpeed + extra;
       const next = {
@@ -563,9 +563,9 @@ export default function AnimalGardenFooter() {
   // Start / stop the rest-run cycle together with the crab
   const startRestCycle = useCallback(() => {
     const schedule = () => {
-      // Chase for 5–7s, then rest for 2.5–3.5s
+      // Chase for 5–7s, then rest for 1–1.5s
       const runTime  = 5000 + Math.random() * 2000;
-      const restTime = 2500 + Math.random() * 1000;
+      const restTime = 1000 + Math.random() * 500;
       chaseRunTimer.current = setTimeout(() => {
         chaseRestRef.current = true;
         chaseRestTimer.current = setTimeout(() => {
