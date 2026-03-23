@@ -159,7 +159,7 @@ export default function Ark7CaseStudyPage() {
                         background: "transparent",
                         border: 0,
                         padding: 0,
-                        cursor: "pointer",
+                        cursor: "inherit",
                       }}
                       onClick={() =>
                         sectionRefs.current[section.id]?.scrollIntoView({

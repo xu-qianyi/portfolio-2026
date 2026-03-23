@@ -6,6 +6,8 @@
   --color-subtle:  #F5F5F5;
   --color-muted:   #999999;
   --color-accent:  #EC4523;
+  --cursor-circle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23EC4523'/%3E%3C/svg%3E");
+  --cursor-triangle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpolygon points='2,2 8.22,25.18 25.18,8.22' fill='%23EC4523' stroke='%23FFFFFF' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 @theme inline {
@@ -34,6 +36,14 @@ nav button:focus-visible {
   border-radius: 2px;
 }
 
+.nav-tab {
+  transition: opacity 0.2s ease;
+}
+
+.nav-tab:hover {
+  opacity: 0.4;
+}
+
 html,
 body {
   background-color: var(--color-surface);
@@ -42,6 +52,36 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scrollbar-gutter: stable;
+  cursor: var(--cursor-circle) 10 10, auto;
+}
+
+*,
+*::before,
+*::after {
+  cursor: inherit;
+}
+
+a,
+a:hover,
+a:focus,
+a:focus-visible,
+a:active,
+button,
+button:hover,
+button:focus,
+button:focus-visible,
+button:active,
+[role="button"],
+[role="button"]:hover,
+[role="button"]:focus,
+[role="button"]:focus-visible,
+[role="button"]:active,
+summary,
+summary:hover,
+summary:focus,
+summary:focus-visible,
+summary:active {
+  cursor: var(--cursor-circle) 10 10, pointer;
 }
 
 .hero-company-link {
@@ -53,10 +93,32 @@ body {
   text-decoration-color: #1A1A1A;
   text-underline-offset: 2px;
   transition: color 200ms ease, text-decoration-color 200ms ease;
+  cursor: inherit;
+}
+
+.hero-company-link:hover,
+.hero-company-link:focus-visible,
+.hero-company-link:active {
+  cursor: inherit;
 }
 
 .project-card-link {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpolygon points='2,2 8.22,25.18 25.18,8.22' fill='%23EC4523' stroke='%23FFFFFF' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, pointer;
+  cursor: var(--cursor-triangle) 2 2, pointer;
+}
+
+.project-card-link * {
+  cursor: var(--cursor-triangle) 2 2, pointer;
+}
+
+.project-card-link:hover,
+.project-card-link:focus,
+.project-card-link:focus-visible,
+.project-card-link:active,
+.project-card-link *:hover,
+.project-card-link *:focus,
+.project-card-link *:focus-visible,
+.project-card-link *:active {
+  cursor: var(--cursor-triangle) 2 2, pointer;
 }
 
 .hero-company-link::after {
@@ -69,6 +131,7 @@ body {
   color: var(--color-accent);
   opacity: 0.8;
   user-select: none;
+  pointer-events: none;
 }
 
 .hero-company-link:hover {
@@ -122,7 +185,6 @@ body {
   background: none;
   border: none;
   padding: 0;
-  cursor: pointer;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -140,9 +202,8 @@ body {
   border: 1px solid rgba(26, 26, 26, 0.2);
   border-radius: 999px;
   padding: 4px 12px;
-  cursor: pointer;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 1.2;
   transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease;

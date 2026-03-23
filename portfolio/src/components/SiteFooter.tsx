@@ -4,7 +4,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 
 const TEXT_STYLE: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "16px",
+  fontSize: "15px",
   fontWeight: 500,
   color: "#1A1A1A",
   lineHeight: "1.25",
@@ -51,7 +51,7 @@ export default function SiteFooter() {
             alignItems: "flex-end",
             gap: "4px",
             fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-            fontSize: 16,
+            fontSize: 15,
             fontWeight: 500,
           }}
           aria-label="Footer links"

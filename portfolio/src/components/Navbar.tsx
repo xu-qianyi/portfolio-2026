@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 const NAV_LINK: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "16px",
+  fontSize: "15px",
   fontWeight: 500,
   color: "#1a1a1a",
   textDecoration: "none",
@@ -84,6 +84,7 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               ref={el => { linkRefs.current[i] = el; }}
+              className="nav-tab"
               style={NAV_LINK}
             >
               {item.label}
@@ -93,6 +94,7 @@ export default function Navbar() {
             href={RESUME_HREF}
             target="_blank"
             rel="noopener noreferrer"
+            className="nav-tab"
             style={NAV_LINK}
           >
             Resume
@@ -123,7 +125,7 @@ export default function Navbar() {
             onClick={handleCopyEmail}
             className="copy-email-nav-btn"
           >
-            {copied ? "copied" : "copy email"}
+            {copied ? "Copied" : "Copy email"}
           </button>
         </div>
 
@@ -132,7 +134,7 @@ export default function Navbar() {
           className="col-start-7 col-span-6 md:hidden flex justify-end items-center"
           onClick={() => setMenuOpen(o => !o)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
-          style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+          style={{ background: "none", border: "none", padding: 0 }}
         >
           <HamburgerIcon open={menuOpen} />
         </button>
@@ -156,7 +158,7 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  style={{ ...NAV_LINK, fontSize: "20px", opacity: isActive ? 1 : 0.4, padding: "9px 0" }}
+                  style={{ ...NAV_LINK, fontSize: "15px", opacity: isActive ? 1 : 0.4, padding: "9px 0" }}
                 >
                   {item.label}
                 </Link>
@@ -166,7 +168,7 @@ export default function Navbar() {
               href={RESUME_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ ...NAV_LINK, fontSize: "20px", opacity: 0.4, padding: "9px 0" }}
+              style={{ ...NAV_LINK, fontSize: "15px", opacity: 0.4, padding: "9px 0" }}
             >
               Resume
             </a>
