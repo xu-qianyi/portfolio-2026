@@ -1,7 +1,7 @@
-# PRD.md — Martta Xu Portfolio (2026)
+# gPRD.md — Martta Xu Portfolio (2026)
 
-*Version: 2.2*
-*Last updated: March 2026*
+*Version: 2.3*
+*Last updated: March 23, 2026*
 *Author: Martta Xu*
 
 > For all visual and interaction decisions, refer to `design.md`. No design spec belongs in this file.
@@ -22,7 +22,7 @@
 
 ```
 /               Home — work overview
-/about          About — who Martta is, in two voices
+/about          About - concise personal intro
 /extras         Extras — vibe coding showcase
 /work/[slug]    Case study — per-project deep dive (e.g. /work/ark7)
 ```
@@ -38,18 +38,12 @@
 - Nav links (Work / About / Extras / Resume): `md:col-start-2`, `md:col-span-8` (desktop)
 - Live Boston clock (no am/pm): col-start-11, col-span-2, right-aligned; hidden on tablet and below
 
-**Footer — Animal Garden**
+**Footer - Site Footer**
 
-- One-line Geist text per side; 16px, weight 500:
-  - Left: `Tip: Move your mouse (cat teaser) here.` + animated CatEars SVG; color `#1a1a1a`
-  - Left mobile: `Come to play with my cat - Fufu on desktop`
-- Below the text (tablet/desktop only), an interactive pixel garden. Garden content band aligned with footer text (layout offset, no padding wrapper):
-  - Wand cursor (`CatToy.gif`) replaces the system cursor **inside the footer only**, chasing interactions
-  - Cat A (Fufu) chases the wand using directional walk GIFs and, when she reaches the cat bed area (a small zone around the bed, not pixel-perfect), she switches to a sleep GIF; Cat B cycles sleep/scratch states on click, and scratches when Fufu or the wand passes nearby
-  - Fufu shows context-sensitive speech bubbles: "zzz" near bed, "~yum" near food, "!" / "!!" when chasing, "~♪" near flowers, "ふぅ" when resting, "meow?" when idle
-  - Claw'd (pixel-art Claude crab) spawns when Fufu has been idle for a few seconds; Fufu chases the crab at a slower pace than the wand. Both take periodic rest breaks (5–7s chase, 2.5–3.5s rest). The crab evades when Fufu gets close. Wand interaction always takes priority and despawns the crab
-  - Chick wobbles when the wand passes nearby; bunny jumps on click, then settles back to sitting; flowers wobble gently on hover
-  - Garden hidden on mobile (<640px); only the text lines show
+- Normal-flow footer on all pages (not fixed/sticky).
+- Left side: live Boston time.
+- Right side: vertically stacked links `CHANGELOG`, `LinkedIn`, and `X`.
+- `CHANGELOG` points to GitHub Releases.
 
 ---
 
@@ -80,25 +74,17 @@ Data sourced from `src/data/projects.json`. Each entry requires: `id`, `company`
 
 ### 4.2 About (`/about`)
 
-**Layout:** Single scroll, content hugs height (no forced full-viewport stretch). Text section on top — left 50% on desktop, full width on tablet and below (`lg:w-1/2`). Photo strip at bottom.
+**Layout:** Matches the home hero positioning. Uses the same grid section (`grid lg:grid-cols-2`) and spacing tokens as `/`, with text in the left column on desktop and full width on smaller breakpoints.
 
-**Headline style:** "I'm a designer who reads the room - and the signal." renders in static accent-hover state: accent red (`#EC4523`), dotted underline, faint orange background. No hover interaction — it's always in that state.
+**Headline style:** No separate display headline. The page shows one body paragraph using the same text style as the home hero (`HERO_TEXT`: Geist, 16px, weight 500, line-height 150%).
 
 **Copy:**
 
-> I'm a designer who reads the room - and the signal.
->
-> I practice Swing - a dance with no routine, just feeling and responding to what you're given.
->
-> The path to here went through business and strategy. Both felt too far from the thing itself. Design is where I get to actually build something for someone to use.
->
-> I believe good experiences and beautiful things make people feel better. That's enough reason.
->
-> If you're building something, let's talk! Open to full-time roles and relocation.
+> "I studied design and engineering at Northeastern, finance at Boston College. I practice Swing - a dance with no routine, just feeling and responding to what you're given."
 
-**"let's talk" interaction (`CopyEmail` component):** On hover, a tooltip appears below with accent orange background, copy icon, and "copy email" text. On click, copies `martta.xu@outlook.com` to clipboard; tooltip switches to checkmark + "copied!". Tooltip implemented in pure CSS (`:hover`) to avoid gap/flicker issues.
+`Northeastern`, `Boston College`, and `Swing` use `hero-company-link` treatment with numbered badges (`data-num` 1-3), matching the interaction style used on the home hero.
 
-**Photo grid:** 6 life photos in a CSS grid — 3 columns on mobile, 6 columns on sm+. Each cell is 1:1 aspect ratio, `object-fit: cover`. Images stored as `.webp` in `public/images/about/`.
+**Garden section:** The interactive Garden component is no longer the global site footer. It appears as a full-width section at the bottom of the About page content.
 
 ---
 

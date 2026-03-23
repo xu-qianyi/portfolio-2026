@@ -198,7 +198,7 @@ const CatEars = ({ size = 24, color = "rgba(0, 0, 0, 0.4)" }: { size?: number; c
 );
 
 // ─── Component ────────────────────────────────────────────────────────────────
-export default function AnimalGardenFooter() {
+export default function Garden() {
   const gardenRef     = useRef<HTMLDivElement>(null);
   const wandCursorRef = useRef<HTMLImageElement>(null);
   const rafRef        = useRef<number>(0);
@@ -215,7 +215,7 @@ export default function AnimalGardenFooter() {
   const chickTimer        = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wasWandNearChick  = useRef(false);
 
-  const [isOverFooter,setIsOverFooter] = useState(false);
+  const [isOverGarden,setIsOverGarden] = useState(false);
   const [wobbling,    setWobbling]     = useState<Record<number, boolean>>({});
   const [catAPos,     setCatAPos]      = useState({ x: gardenX(30), y: 30 });
   const [catAState,   setCatAState]    = useState<"walk" | "arrive">("arrive");
@@ -253,6 +253,8 @@ export default function AnimalGardenFooter() {
 
   const isMobile = vw < 640;
   const isTablet = vw >= 640 && vw < 1024;
+  const isMobileRef = useRef(isMobile);
+  isMobileRef.current = isMobile;
 
   useEffect(() => {
     setVw(window.innerWidth);
@@ -308,7 +310,6 @@ export default function AnimalGardenFooter() {
   const rB       = isTablet ? 72   : ROW_B;
   const rC       = isTablet ? 24   : ROW_C;
   const padding  = isMobile ? "12px 16px" : isTablet ? "16px 24px 0px" : "16px 72px";
-  const fontSize = 14;
 
   // ── Walk GIF resolver ───────────────────────────────────────────────────────
   const getWalkSrc = useCallback((dx: number, dy: number, gardenW: number): string => {
@@ -328,7 +329,7 @@ export default function AnimalGardenFooter() {
   useEffect(() => {
     const loop = () => {
       rafRef.current = requestAnimationFrame(loop);
-      if (!gardenRef.current) return;
+      if (isMobileRef.current || !gardenRef.current) return;
       const r = gardenRef.current.getBoundingClientRect();
       if (r.width === 0) return;
       const { x: wx, y: wy } = wandPos.current;
@@ -480,7 +481,7 @@ export default function AnimalGardenFooter() {
   // ── Mouse tracking ──────────────────────────────────────────────────────────
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
-      if (isOverFooter && wandCursorRef.current) {
+      if (isOverGarden && wandCursorRef.current) {
         wandCursorRef.current.style.left = `${e.clientX}px`;
         wandCursorRef.current.style.top = `${e.clientY}px`;
       }
@@ -495,7 +496,7 @@ export default function AnimalGardenFooter() {
     };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
-  }, [isOverFooter]);
+  }, [isOverGarden]);
 
   // ── Handlers ────────────────────────────────────────────────────────────────
   const handleCatBClick = useCallback((e: React.MouseEvent) => {
@@ -675,7 +676,7 @@ export default function AnimalGardenFooter() {
   return (
     <>
       {/* Wand cursor — only visible while hovering over footer */}
-      {isOverFooter && (
+      {isOverGarden && (
         <img
           ref={wandCursorRef}
           src={ASSETS.wand}
@@ -696,68 +697,36 @@ export default function AnimalGardenFooter() {
         />
       )}
 
-      <footer
-        onMouseEnter={() => setIsOverFooter(true)}
-        onMouseLeave={() => setIsOverFooter(false)}
+      <section
+        onMouseEnter={() => setIsOverGarden(true)}
+        onMouseLeave={() => setIsOverGarden(false)}
         style={{
           background: "#f8f8f8",
           borderTop: "none",
           fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-          cursor: isOverFooter ? "none" : "auto",
+          cursor: isOverGarden ? "none" : "auto",
         }}
       >
-        {/* Text row */}
-        <div style={{ padding, display: "flex", flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
-            <p
-              style={{
-                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: 16,
-                fontWeight: 500,
-                color: "#1a1a1a",
-                margin: 0,
-                paddingTop: 0,
-              }}
-            >
-              {isMobile
-                ? "Come to play with my cat - Fufu on desktop"
-                : (
-                  <span>
-                    Tip: Move your mouse (cat teaser) here.{" "}
-                    <CatEars size={32} color="#1a1a1a" />
-                  </span>
-                )}
-            </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "4px", fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize, fontWeight: 500 }}>
-            <a
-              href="https://github.com/xu-qianyi/portfolio/blob/main/Claude/PRD/CHANGELOG.md"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-nav-link"
-              data-num="1"
-            >
-              CHANGELOG
-            </a>
-            <a
-              href="https://www.linkedin.com/in/marttaxu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-nav-link"
-              data-num="2"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://x.com/littlemartta"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-nav-link"
-              data-num="3"
-            >
-              X
-            </a>
-          </div>
+        {/* Tip text */}
+        <div style={{ padding }}>
+          <p
+            style={{
+              fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+              fontSize: 16,
+              fontWeight: 500,
+              color: "#1a1a1a",
+              margin: 0,
+            }}
+          >
+            {isMobile
+              ? "Come to play with my cat - Fufu on desktop"
+              : (
+                <span>
+                  Tip: Move your mouse (cat teaser) here.{" "}
+                  <CatEars size={32} color="#1a1a1a" />
+                </span>
+              )}
+          </p>
         </div>
 
         {/* Garden — hidden on mobile */}
@@ -959,7 +928,7 @@ export default function AnimalGardenFooter() {
             <div style={{ height: 16 }} />
           </>
         )}
-      </footer>
+      </section>
     </>
   );
 }

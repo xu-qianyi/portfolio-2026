@@ -22,25 +22,20 @@ const RESUME_HREF = "https://drive.google.com";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [timeStr,       setTimeStr]       = useState("");
+  const [copied,        setCopied]        = useState(false);
   const [indicatorLeft, setIndicatorLeft] = useState<number | null>(null);
   const [menuOpen,      setMenuOpen]      = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const linkRefs     = useRef<(HTMLAnchorElement | null)[]>([]);
 
-  useEffect(() => {
-    const fmt = new Intl.DateTimeFormat("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-      timeZone: "America/New_York",
-    });
-    const tick = () => setTimeStr(fmt.format(new Date()).toLowerCase());
-    tick();
-    const id = setInterval(tick, 60_000);
-    return () => clearInterval(id);
-  }, []);
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("martta.xu@outlook.com");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { /* clipboard unavailable (insecure context / permission denied) */ }
+  };
 
   useEffect(() => {
     const activeIdx = NAV_ITEMS.findIndex(item =>
@@ -122,12 +117,15 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Desktop clock */}
-        {timeStr && (
-          <span className="col-start-11 col-span-2 hidden lg:flex justify-end" style={{ ...NAV_LINK }}>
-            {timeStr.replace(/\s*(am|pm)/i, "")} Boston, MA
-          </span>
-        )}
+        {/* Desktop copy email */}
+        <div className="col-start-11 col-span-2 hidden lg:flex justify-end">
+          <button
+            onClick={handleCopyEmail}
+            className="copy-email-nav-btn"
+          >
+            {copied ? "copied" : "copy email"}
+          </button>
+        </div>
 
         {/* Mobile hamburger button */}
         <button
