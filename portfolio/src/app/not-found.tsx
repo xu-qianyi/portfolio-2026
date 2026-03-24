@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 
 const HEADLINE: CSSProperties = {
-  fontFamily: "var(--font-playfair-display), 'Playfair Display', Georgia, serif",
+  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
   fontSize: "48px",
   fontWeight: 500,
   color: "#1A1A1A",

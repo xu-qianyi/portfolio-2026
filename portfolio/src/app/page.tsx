@@ -26,7 +26,7 @@ const PROJECT_META: CSSProperties = {
 };
 
 const PROJECT_HEADLINE: CSSProperties = {
-  fontFamily: "var(--font-playfair-display), 'Playfair Display', Georgia, serif",
+  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
   fontSize: "20px",
   fontWeight: 400,
   lineHeight: "130%",

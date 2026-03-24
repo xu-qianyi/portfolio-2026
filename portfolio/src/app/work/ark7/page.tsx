@@ -15,12 +15,11 @@ const SECTIONS: Section[] = [
   {
     id: "overview",
     label: "Overview",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    title: "who's ark7?",
     body: [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum id urna vitae velit feugiat convallis. Nam volutpat, tellus in blandit ultrices, massa velit placerat dolor, id efficitur eros orci sed est.",
       "Suspendisse potenti. Integer feugiat turpis sed turpis porta, vitae vulputate lectus fringilla. Donec interdum pretium nunc, vitae bibendum justo malesuada at.",
     ],
-    subheading: "What is ARK7?",
   },
   {
     id: "research",
@@ -55,10 +54,12 @@ const SECTIONS: Section[] = [
 ];
 
 const META_ITEMS = [
-  { label: "Role", value: "Lorem ipsum dolor" },
-  { label: "Timeline", value: "Lorem ipsum - Dolor sit" },
-  { label: "Team", value: "1 PM, 2 Engineers, 1 Designer" },
-  { label: "Skills", value: "Product Design, UX Research, Prototyping" },
+  { label: "Role", value: "Product designer" },
+  { label: "Timeline", value: "2023.10 - 2024.01" },
+  {
+    label: "Team",
+    value: "1 Lead designer, 2 designers, Product manager, Engineers, Marketing team",
+  },
 ];
 
 export default function Ark7CaseStudyPage() {
@@ -116,7 +117,7 @@ export default function Ark7CaseStudyPage() {
       const itemRect = activeItem.getBoundingClientRect();
       const listRect = listEl.getBoundingClientRect();
       const center = itemRect.top - listRect.top + itemRect.height / 2;
-      setDotY(center);
+      setDotY(Math.round(center));
     };
 
     updateDotPosition();
@@ -129,16 +130,16 @@ export default function Ark7CaseStudyPage() {
       <main className="grid mx-auto grid-cols-1 md:grid-cols-[1fr_800px_1fr] gap-0">
         <aside className="md:sticky md:top-20 md:h-fit pb-8 md:pb-0">
           <nav className="hidden md:block mt-4">
-            <div ref={navListRef} className="relative pl-4">
-              <div className="absolute left-[3px] top-0.5 bottom-0.5 w-px bg-black/10" />
-              <div
-                className="absolute w-[5px] h-[5px] rounded-full bg-[#1a1a1a] transition-all duration-300 ease-out"
-                style={{
-                  left: "1px",
-                  top: dotY,
-                  transform: "translateY(-50%)",
-                }}
-              />
+            <div ref={navListRef} className="relative pl-5">
+              <div className="absolute left-0 top-0.5 bottom-0.5 w-[6px] rounded-full bg-black/[0.06]">
+                <div
+                  className="absolute left-1/2 w-[5px] h-[5px] rounded-full bg-[#1a1a1a] transition-all duration-300 ease-out"
+                  style={{
+                    top: dotY,
+                    transform: "translate(-50%, -50%)",
+                  }}
+                />
+              </div>
               <div className="flex flex-col items-start gap-1">
                 {SECTIONS.map((section) => {
                   const isActive = activeId === section.id;
@@ -151,9 +152,9 @@ export default function Ark7CaseStudyPage() {
                       className="text-left transition-all duration-200"
                       style={{
                         fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                        fontSize: "13px",
+                        fontSize: "15px",
                         lineHeight: "160%",
-                        fontWeight: isActive ? 500 : 400,
+                        fontWeight: 500,
                         color: "#1A1A1A",
                         opacity: isActive ? 1 : 0.4,
                         background: "transparent",
@@ -189,34 +190,34 @@ export default function Ark7CaseStudyPage() {
                   margin: 0,
                 }}
               >
-                ARK7 • 2023
+                ARK7 • FinTech
               </h4>
               <h1
                 style={{
-                  fontFamily: "var(--font-playfair-display), Georgia, serif",
-                  fontSize: "clamp(32px, 5vw, 56px)",
+                  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                  fontSize: "28px",
                   lineHeight: "110%",
                   fontWeight: 500,
                   color: "#1A1A1A",
                   margin: 0,
                 }}
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                ARK7 - Cultivating a Trusted Community for Over 100K Users, Empowering Connections in Their Investment Journey.
               </h1>
             </div>
 
             <div className="w-full aspect-[16/9] border border-black/10 bg-[#f5f5f5] overflow-hidden">
               <Image
-                src="/images/preview/website-placeholder.svg"
-                alt="ARK7 placeholder hero image"
-                width={1280}
-                height={720}
+                src="/images/ARK7/ARK7_big.png"
+                alt="ARK7 case study hero"
+                width={1920}
+                height={1080}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {META_ITEMS.map((item) => (
                 <div key={item.label} className="flex flex-col gap-2">
                   <h4
@@ -272,11 +273,12 @@ export default function Ark7CaseStudyPage() {
 
                 <h2
                   style={{
-                    fontFamily: "var(--font-playfair-display), Georgia, serif",
+                    fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                     fontSize: "clamp(24px, 3.6vw, 40px)",
                     lineHeight: "120%",
-                    fontWeight: 500,
+                    fontWeight: 600,
                     color: "#1A1A1A",
+                    opacity: 0.8,
                     margin: 0,
                   }}
                 >
@@ -338,7 +340,7 @@ export default function Ark7CaseStudyPage() {
 
                 <blockquote
                   style={{
-                    fontFamily: "var(--font-playfair-display), Georgia, serif",
+                    fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                     fontSize: "clamp(20px, 2.8vw, 28px)",
                     lineHeight: "135%",
                     fontStyle: "italic",
