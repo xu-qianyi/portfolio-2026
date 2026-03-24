@@ -74,17 +74,27 @@ Data sourced from `src/data/projects.json`. Each entry requires: `id`, `company`
 
 ### 4.2 About (`/about`)
 
-**Layout:** Matches the home hero positioning. Uses the same grid section (`grid lg:grid-cols-2`) and spacing tokens as `/`, with text in the left column on desktop and full width on smaller breakpoints.
+**Layout:** Flex-column section with responsive polaroid area. Text sits at the top (limited to left 50% on `lg` via `lg:max-w-[50%]`); the section stretches to fill available vertical space (`flex: 1`).
 
-**Headline style:** No separate display headline. The page shows one body paragraph using the same text style as the home hero (`HERO_TEXT`: Geist, 16px, weight 500, line-height 150%).
+**Headline style:** No separate display headline. The page shows two body paragraphs using the same text style as the home hero (`HERO_TEXT`: Geist, 16px, weight 500, line-height 150%, max-width 600px).
 
 **Copy:**
 
 > "I studied design and engineering at Northeastern, finance at Boston College. I practice Swing - a dance with no routine, just feeling and responding to what you're given."
+>
+> "Fufu is my five-year-old brave boy who loves chasing toys around the house and bird watching. I digitized him so you can enjoy your time with him too."
 
 `Northeastern`, `Boston College`, and `Swing` use `hero-company-link` treatment with numbered badges (`data-num` 1-3), matching the interaction style used on the home hero.
 
-**Garden section:** The interactive Garden component is no longer the global site footer. It appears as a full-width section at the bottom of the About page content.
+**Draggable polaroids:** 7 personal photos (`/images/about/`) displayed as polaroid-style cards (white border, thicker bottom padding, subtle shadow, slight rotation). Each polaroid is freely draggable; clicking brings it to the front (z-index stacking). Component: `DraggablePolaroids.tsx` (client component).
+
+- **Desktop (`lg`):** Polaroids are absolutely positioned over the right half of the section, scattered across the space. Text is constrained to the left 50%.
+- **Tablet (`md`):** Polaroids appear below the text in a relative-positioned container that fills remaining flex space.
+- **Mobile (below `md`):** Polaroids are hidden.
+
+Initial positions are defined as percentage-based coordinates and converted to pixels based on container dimensions at mount time.
+
+**Garden section:** The interactive Garden component appears as a full-width section at the bottom of the About page content (not the global site footer).
 
 ---
 
