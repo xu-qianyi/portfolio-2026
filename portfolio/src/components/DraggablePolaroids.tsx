@@ -74,7 +74,15 @@ function Polaroid({
 export default function DraggablePolaroids() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [positions, setPositions] = useState<{ x: number; y: number; rotate: number }[]>([]);
-  const [zIndices, setZIndices] = useState<number[]>(() => PHOTOS.map((_, i) => i));
+  const [zIndices, setZIndices] = useState<number[]>(() => {
+    const indices = PHOTOS.map((_, i) => i);
+    // 随机打乱数组以实现初始的随机堆叠顺序
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    return indices;
+  });
   const topZ = useRef(PHOTOS.length);
   const dragging = useRef<{
     index: number;

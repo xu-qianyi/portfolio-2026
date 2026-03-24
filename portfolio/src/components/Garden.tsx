@@ -59,6 +59,8 @@ export default function Garden() {
   const crabWanderTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const lastCrabEvade   = useRef(0);
   const crabMoveTime    = useRef(0);       // timestamp of last crab position change
+  const crabCloseRef    = useRef(false);   // hysteresis lock for close-range crab chase
+  const crabPinnedRef   = useRef<{ x: number; y: number } | null>(null);
   const chaseRestRef    = useRef(false);   // true = both resting
   const chaseRestTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
   const chaseRunTimer   = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -224,6 +226,8 @@ export default function Garden() {
           crabActiveRef.current = false;
           setCrabActive(false);
           setFufuIdle(false);
+          crabCloseRef.current = false;
+          crabPinnedRef.current = null;
           if (crabWanderTimer.current) clearInterval(crabWanderTimer.current);
         }
       } else if (crabActiveRef.current) {
@@ -237,11 +241,35 @@ export default function Garden() {
           setCatAState(prev => prev === "arrive" ? prev : "arrive");
           return;
         }
-        // Chase crab's visual position
-        tx = crabVisualXRef.current;
-        ty = crabVisualYRef.current;
+        const { x: cx, y: cy } = posRef.current;
+        const dxToCrabPx = ((crabVisualXRef.current - cx) / 100) * r.width;
+        const dyToCrabPx = crabVisualYRef.current - cy;
+        const distToCrabPx = Math.sqrt(dxToCrabPx * dxToCrabPx + dyToCrabPx * dyToCrabPx);
+
+        // Hysteresis: lock when very close (<50px), unlock when clearly apart (>60px).
+        if (crabCloseRef.current) {
+          if (distToCrabPx > 60) {
+            crabCloseRef.current = false;
+            crabPinnedRef.current = null;
+          }
+        } else if (distToCrabPx < 50) {
+          crabCloseRef.current = true;
+          crabPinnedRef.current = {
+            x: crabVisualXRef.current,
+            y: crabVisualYRef.current,
+          };
+        }
+
+        // When locked in close range, pin the chase target briefly to reduce oscillation.
+        const chaseTarget = crabCloseRef.current && crabPinnedRef.current
+          ? crabPinnedRef.current
+          : { x: crabVisualXRef.current, y: crabVisualYRef.current };
+        tx = chaseTarget.x;
+        ty = chaseTarget.y;
       } else {
         // Nothing to chase — transition to arrive so idle timer can restart
+        crabCloseRef.current = false;
+        crabPinnedRef.current = null;
         setCatAState(prev => prev === "arrive" ? prev : "arrive");
         return;
       }
@@ -254,8 +282,8 @@ export default function Garden() {
       const dxPx = (dx / 100) * r.width;
       const distPx = Math.sqrt(dxPx * dxPx + dy * dy);
 
-      // If chasing crab and close → crab evades, Fufu may say "gotcha!"
-      if (!wandInBounds && crabActiveRef.current && distPx < 55) {
+      // If chasing crab and inside the close-range lock → crab evades, Fufu may say "gotcha!"
+      if (!wandInBounds && crabActiveRef.current && crabCloseRef.current) {
         if (Date.now() - lastCrabEvade.current > 2500) {
           lastCrabEvade.current = Date.now();
           // 30% chance to show catch bubble
@@ -503,6 +531,8 @@ export default function Garden() {
       if (crabWanderTimer.current) clearInterval(crabWanderTimer.current);
       stopRestCycle();
       crabActiveRef.current = false;
+      crabCloseRef.current = false;
+      crabPinnedRef.current = null;
       setCrabActive(false);
     }
     return () => {
@@ -726,7 +756,6 @@ export default function Garden() {
               }}>
                 {fufuBubble && (
                   <div
-                    key={fufuBubble}
                     style={{
                       position: "absolute",
                       left: "50%",
