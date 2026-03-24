@@ -9,6 +9,8 @@ type Section = {
   title: string;
   body: string[];
   subheading?: string;
+  mediaCaption: string;
+  quote: string;
 };
 
 const SECTIONS: Section[] = [
@@ -18,38 +20,67 @@ const SECTIONS: Section[] = [
     title: "Who's ARK7?",
     body: [
       "ARK7 is a platform that simplifies real estate investment by offering fractional shares for as little as $20 per share in premium residential properties across the United States.",
-      "Suspendisse potenti. Integer feugiat turpis sed turpis porta, vitae vulputate lectus fringilla. Donec interdum pretium nunc, vitae bibendum justo malesuada at.",
+      "The product vision was to make real estate feel as approachable as buying a stock: transparent listings, clear expected returns, and a guided path from exploration to first investment.",
     ],
+    mediaCaption:
+      "A redesigned landing experience that introduces ARK7's value proposition in under 30 seconds.",
+    quote: "",
+  },
+  {
+    id: "current-challenge",
+    label: "Current challenge",
+    title: "How to retain existing investors and convert new users into regular investors.",
+    body: [
+      "While awareness was growing, many first-time visitors still hesitated before making a first investment. They could see attractive returns, but they were not yet sure how to evaluate property quality, risk, and timing in a way that felt personally trustworthy.",
+      "The key challenge was to reduce cognitive load without oversimplifying important financial details. We needed an experience that guided users toward confident action while still preserving transparency and control.",
+    ],
+    subheading: "Problem framing",
+    mediaCaption:
+      "Challenge map showing where users paused between property discovery and funding.",
+    quote:
+      "The product did not need louder promises. It needed clearer signals users could trust quickly.",
   },
   {
     id: "research",
     label: "Research",
-    title: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem.",
+    title: "Why users were curious but hesitant to invest",
     body: [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat lacinia tortor, quis feugiat sem mattis nec. Nunc porta, justo nec facilisis ultricies, augue justo posuere ex, at venenatis nibh massa in justo.",
-      "Mauris non turpis id est ullamcorper posuere. Phasellus at augue sed ex pretium dapibus. Proin convallis tortor ut dolor dictum, vitae egestas magna pharetra.",
+      "Through interviews, support tickets, and session recordings, we found that users loved the low entry barrier but struggled to judge risk. They wanted simple answers to: How safe is this property? How soon can I exit? How is rental income distributed?",
+      "Competitor audits showed that most platforms overloaded users with financial terms before establishing confidence. This led us to prioritize progressive disclosure: first communicate trust signals, then expand into deeper metrics for advanced investors.",
     ],
     subheading: "Marketing analysis",
+    mediaCaption:
+      "Early funnel analysis highlighting where confidence dropped before account funding.",
+    quote:
+      "People did not ask for more data first. They asked for clearer meaning and context.",
   },
   {
     id: "design",
     label: "Design",
-    title: "At vero eos et accusamus et iusto odio dignissimos ducimus.",
+    title: "Designing for clarity, confidence, and conversion",
     body: [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sed sapien et velit hendrerit gravida. Nullam blandit est et lorem malesuada, a efficitur mi tristique.",
-      "Fusce non volutpat augue. Maecenas in luctus lorem. Nulla facilisi. Morbi sit amet lorem a libero placerat viverra et eget metus.",
+      "We introduced a modular property detail structure that surfaces three key trust anchors first: ownership model, projected cash flow, and risk notes. Secondary details such as neighborhood trends and legal docs were grouped in expandable panels.",
+      "Onboarding was reworked into a guided journey with lightweight education moments and status indicators. Users could understand what to do next without losing momentum, while still feeling in control of financial decisions.",
     ],
     subheading: "Feature prioritization",
+    mediaCaption:
+      "New information architecture for property pages, balancing depth with readability.",
+    quote:
+      "We optimized not for clicks, but for confident decisions users can explain back to themselves.",
   },
   {
     id: "summary",
     label: "Summary",
-    title: "Ut enim ad minima veniam, quis nostrum exercitationem ullam.",
+    title: "Outcome and impact",
     body: [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut bibendum nisi. Integer sed commodo augue. Etiam non eros at ipsum aliquet ullamcorper.",
-      "Aliquam posuere egestas sem, id mattis tortor interdum ac. Cras tristique pretium ligula, id aliquet massa consectetur id.",
+      "After launch, the new case-study-backed product narrative improved engagement quality: more users completed property deep dives and reached funding steps with fewer support-related detours.",
+      "The project also gave the team a reusable framework for future launches, aligning product, marketing, and engineering around one shared story: make fractional real-estate investing understandable and trustworthy from first glance to first transaction.",
     ],
     subheading: "Impact",
+    mediaCaption:
+      "Cross-functional rollout playbook used to scale future campaign and product updates.",
+    quote:
+      "Great fintech UX turns complexity into confidence without hiding the truth.",
   },
 ];
 
@@ -178,7 +209,7 @@ export default function Ark7CaseStudyPage() {
           </nav>
         </aside>
 
-        <div className="flex flex-col gap-12 md:gap-24">
+        <div className="flex flex-col gap-12 md:gap-12">
           <header className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
               <h4
@@ -237,6 +268,7 @@ export default function Ark7CaseStudyPage() {
                       fontSize: "16px",
                       lineHeight: "150%",
                       color: "#1A1A1A",
+                      opacity: 0.8,
                       margin: 0,
                     }}
                   >
@@ -278,7 +310,8 @@ export default function Ark7CaseStudyPage() {
                     lineHeight: "120%",
                     fontWeight: 400,
                     color: "#1A1A1A",
-                    opacity: 0.8,
+                    borderLeft: "2px solid #3F7A66",
+                    paddingLeft: "12px",
                     margin: 0,
                   }}
                 >
@@ -300,7 +333,7 @@ export default function Ark7CaseStudyPage() {
                   </h3>
                 ) : null}
 
-                {section.body.map((paragraph) => (
+                {section.body.map((paragraph, paragraphIndex) => (
                   <p
                     key={paragraph}
                     style={{
@@ -308,50 +341,83 @@ export default function Ark7CaseStudyPage() {
                       fontSize: "16px",
                       lineHeight: "160%",
                       color: "#1A1A1A",
+                      opacity: 0.8,
                       margin: 0,
                     }}
                   >
-                    {paragraph}
+                    {section.id === "overview" && paragraphIndex === 0 ? (
+                      <>
+                        <a
+                          href="https://ark7.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="case-inline-link"
+                        >
+                          ARK7
+                        </a>{" "}
+                        is a platform that simplifies real estate investment by offering fractional
+                        shares for as little as $20 per share in premium residential properties
+                        across the United States.
+                      </>
+                    ) : (
+                      paragraph
+                    )}
                   </p>
                 ))}
 
-                <div className="grid grid-cols-1 md:grid-cols-[60%_auto] md:items-end gap-6 my-4">
-                  <div className="w-full border border-black/10 bg-[#f5f5f5] overflow-hidden">
-                    <Image
-                      src="/images/preview/website-placeholder.svg"
-                      alt={`${section.label} placeholder`}
-                      width={1200}
-                      height={800}
-                      className="w-full h-auto object-cover"
-                    />
+                {section.id === "overview" ? (
+                  <div className="my-4">
+                    <div className="w-full overflow-hidden">
+                      <Image
+                        src="/images/ARK7/ARK7_official_site.png"
+                        alt="ARK7 official website homepage"
+                        width={1500}
+                        height={988}
+                        className="w-full h-auto object-cover"
+                      />
+                    </div>
                   </div>
-                  <p
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-[60%_auto] md:items-end gap-6 my-4">
+                    <div className="w-full border border-black/10 bg-[#f5f5f5] overflow-hidden">
+                      <Image
+                        src="/images/preview/website-placeholder.svg"
+                        alt={`${section.label} placeholder`}
+                        width={1200}
+                        height={800}
+                        className="w-full h-auto object-cover"
+                      />
+                    </div>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                        fontSize: "14px",
+                        lineHeight: "150%",
+                        color: "rgba(26,26,26,0.7)",
+                        margin: 0,
+                      }}
+                    >
+                      {section.mediaCaption}
+                    </p>
+                  </div>
+                )}
+
+                {section.quote ? (
+                  <blockquote
                     style={{
-                      fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                      fontSize: "14px",
-                      lineHeight: "150%",
-                      color: "rgba(26,26,26,0.7)",
-                      margin: 0,
+                      fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                      fontSize: "clamp(20px, 2.8vw, 28px)",
+                      lineHeight: "135%",
+                      fontStyle: "italic",
+                      borderLeft: "2px solid var(--color-accent)",
+                      paddingLeft: "16px",
+                      margin: "8px 0 0",
+                      color: "#1A1A1A",
                     }}
                   >
-                    Lorem ipsum caption for {section.label.toLowerCase()} media block.
-                  </p>
-                </div>
-
-                <blockquote
-                  style={{
-                    fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                    fontSize: "clamp(20px, 2.8vw, 28px)",
-                    lineHeight: "135%",
-                    fontStyle: "italic",
-                    borderLeft: "2px solid var(--color-accent)",
-                    paddingLeft: "16px",
-                    margin: "8px 0 0",
-                    color: "#1A1A1A",
-                  }}
-                >
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
-                </blockquote>
+                    {section.quote}
+                  </blockquote>
+                ) : null}
 
                 {index < SECTIONS.length - 1 ? <div className="h-px w-full bg-black/10 mt-8" /> : null}
               </section>

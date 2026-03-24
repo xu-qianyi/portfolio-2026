@@ -16,6 +16,17 @@ export default function CustomCursor() {
     const el = cursorRef.current;
     if (!el) return;
 
+    // Inject a runtime <style> tag appended to <head> so it sits at the highest
+    // cascade order — after any browser extension or late-loaded stylesheets.
+    const styleEl = document.createElement("style");
+    styleEl.textContent =
+      "html,body,*,*::before,*::after{cursor:none!important;}";
+    document.head.appendChild(styleEl);
+
+    // Belt-and-suspenders: set cursor:none as an inline style on <html>
+    // (inline !important beats everything in any external stylesheet).
+    document.documentElement.style.setProperty("cursor", "none", "important");
+
     const show = () => {
       if (!visibleRef.current) {
         visibleRef.current = true;
@@ -52,6 +63,8 @@ export default function CustomCursor() {
       document.removeEventListener("mousemove", onMove);
       document.documentElement.removeEventListener("mouseleave", hide);
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      styleEl.remove();
+      document.documentElement.style.removeProperty("cursor");
     };
   }, []);
 

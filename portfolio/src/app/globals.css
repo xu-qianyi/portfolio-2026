@@ -161,6 +161,22 @@ body {
   background-color: rgba(236, 69, 35, 0.02);
 }
 
+.case-inline-link {
+  color: #1A1A1A;
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: #1A1A1A;
+  text-underline-offset: 2px;
+  transition: color 200ms ease, text-decoration-color 200ms ease, background-color 200ms ease;
+}
+
+.case-inline-link:hover,
+.case-inline-link:focus-visible {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+  background-color: rgba(236, 69, 35, 0.02);
+}
+
 .copy-email-wrapper {
   position: relative;
   display: inline-block;
