@@ -34,15 +34,15 @@ These are hard constraints. If a decision pushes toward any of these, it's the w
 --color-ink:       #1A1A1A   /* Primary text, borders */
 --color-surface:   #FFFFFF   /* Page background */
 --color-subtle:    #F5F5F5   /* Card backgrounds, subtle dividers */
---color-muted:     #999999   /* Captions, meta text */
---color-accent:    #EC4523   /* Interaction: hero / nav link hovers, superscript badges, footer copy success */
+--color-muted:     #B0B0B0   /* Secondary labels: project meta row, footer copy, nav tab hover */
+--color-accent:    #EC4523   /* Interaction: hero link hovers, superscript badges, footer copy success */
 ```
 
 **Rules:**
 
 - **Bio company links** (`.hero-company-link`): badge = `attr(data-num)` in `::after`, **absolute** (`top` / `right`), **10px**, accent, `opacity: 0.8`.
 - **Home hero external links** (`.hero-nav-link`): badge = **`↗`** via `data-num`; `::after` is **inline superscript** (`vertical-align: super`, **8px**, `margin-left: 0.12em`), accent, `opacity: 0.8` — no absolute positioning.
-- **Footer** default copy + copy icon: **`rgba(26,26,26,0.5)`**; **hover** copy icon and **success** checkmark: **solid** `var(--color-accent)` (no alpha on accent for those states).
+- **Footer** default copy + copy icon: **`var(--color-muted)`**; **hover** copy icon and **success** checkmark: **solid** `var(--color-accent)` (no alpha on accent for those states).
 - Accent never appears as: decorative backgrounds, section dividers, illustration color.
 - When in doubt, use `--color-ink` at reduced opacity rather than reaching for a new color.
 
@@ -55,12 +55,12 @@ These are hard constraints. If a decision pushes toward any of these, it's the w
 
 ```
 Home / About intro:   Geist, 16px, weight 500, line-height 150%, color #1A1A1A
-Project metadata:     Geist, 14px, weight 500, color rgba(26,26,26,0.5); dot separators between company · industry · date · type
+Project metadata:     Geist, 14px, weight 500, color var(--color-muted); dot separators between company · industry · date · type
 Project headline:     tiemposText, 20px, weight 400, line-height 130%, color #1A1A1A
 Section heading:      Geist, 1.25rem, weight 500, line-height 1.3
 Body / narrative:     Geist, 1rem, weight 400, line-height 1.7
 Caption / meta:       Geist, 0.875rem, weight 400, color --color-muted
-Nav:                  Geist, 15px, weight 500, #1a1a1a; `.nav-tab` opacity 0.4 on hover; no underline; grid-layout; logo md:col-span-1; links md:col-start-2 md:col-span-11, gap 24px
+Nav:                  Geist, 15px, weight 500, #1a1a1a; desktop `.nav-tab` **color** → `var(--color-muted)` on hover (200ms ease); no underline; grid-layout; logo md:col-span-1; links md:col-start-2 md:col-span-11, gap 24px
 Home hero externals:  Geist, 15px, weight 500; CHANGELOG / LinkedIn / X as `.hero-nav-link`, flex-col items-end, gap 4px (right of headline from lg)
 Footer:               Geist, 15px, weight 500; flex space-between wrap; left: Boston time; right: email + copy/check icon (see §3)
 ```
@@ -125,7 +125,7 @@ Cursor:               JS div (CustomCursor.tsx); orange triangle SVG 32×32; cur
 Layout:                CSS columns: 2 at lg+, column-gap 24px; break-inside avoid; <1024px → columns: 1 (vertical stack)
 Card gap:              48px vertical between cards (margin-bottom)
 Image:                 width 100%, aspect-ratio from data (varies per card), object-fit cover, border 1px solid rgba(204,209,218,0.2)
-Metadata row:          Geist, 14px, weight 500, rgba(26,26,26,0.5); items separated by · dot dividers (4px circle, same color); 16px above; order: company · industry · date · type
+Metadata row:          Geist, 14px, weight 500, var(--color-muted); items separated by · dot dividers (4px circle, rgba(26,26,26,0.3)); 16px above; order: company · industry · date · type
 Headline:              tiemposText, 20px, weight 400, line-height 130%, #1A1A1A; 4px below metadata
 ```
 

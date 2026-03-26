@@ -6,7 +6,7 @@ const TEXT_STYLE: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "15px",
   fontWeight: 500,
-  color: "rgba(26, 26, 26, 0.5)",
+  color: "var(--color-muted)",
   lineHeight: "1.25",
 };
 
@@ -91,7 +91,7 @@ export default function SiteFooter() {
           <button
             type="button"
             onClick={handleCopyEmail}
-            className="inline-flex shrink-0 items-center justify-center p-1 text-[rgba(26,26,26,0.5)] transition-colors hover:text-[var(--color-accent)] focus-visible:outline focus-visible:outline-[1.5px] focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+            className="inline-flex shrink-0 items-center justify-center p-1 text-[var(--color-muted)] transition-colors hover:text-[var(--color-accent)] focus-visible:outline focus-visible:outline-[1.5px] focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
             aria-label={copied ? "Copied to clipboard" : "Copy email address"}
           >
             {copied ? (

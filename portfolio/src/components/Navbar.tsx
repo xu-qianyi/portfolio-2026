@@ -8,7 +8,6 @@ const NAV_LINK: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "15px",
   fontWeight: 500,
-  color: "#1a1a1a",
   textDecoration: "none",
 };
 
@@ -57,7 +56,7 @@ export default function Navbar() {
         <Link
           href="/"
           className="col-start-1 col-span-6 md:col-span-1"
-          style={{ ...NAV_LINK, display: "inline-flex", alignItems: "center" }}
+          style={{ ...NAV_LINK, color: "var(--color-ink)", display: "inline-flex", alignItems: "center" }}
         >
           <span style={{ whiteSpace: "nowrap" }}>
             Martta XU
@@ -139,7 +138,7 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  style={{ ...NAV_LINK, fontSize: "15px", opacity: isActive ? 1 : 0.4, padding: "9px 0" }}
+                  style={{ ...NAV_LINK, color: "var(--color-ink)", fontSize: "15px", opacity: isActive ? 1 : 0.4, padding: "9px 0" }}
                 >
                   {item.label}
                 </Link>
@@ -149,7 +148,7 @@ export default function Navbar() {
               href={RESUME_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ ...NAV_LINK, fontSize: "15px", opacity: 0.4, padding: "9px 0" }}
+              style={{ ...NAV_LINK, color: "var(--color-ink)", fontSize: "15px", opacity: 0.4, padding: "9px 0" }}
             >
               Resume
             </a>

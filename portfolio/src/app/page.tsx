@@ -14,12 +14,8 @@ const HERO_TEXT: CSSProperties = {
   margin: 0,
 };
 
-/** Matches former footer link stack (SiteFooter nav) */
-const HERO_NAV_STYLE: CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-end",
-  gap: "4px",
+/** Home hero external links: row on tablet/mobile, column from lg (matches old footer stack on desktop) */
+const HERO_NAV_TEXT: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: 15,
   fontWeight: 500,
@@ -29,7 +25,7 @@ const PROJECT_META: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "14px",
   fontWeight: 500,
-  color: "rgba(26,26,26,0.5)",
+  color: "var(--color-muted)",
   margin: 0,
   display: "flex",
   alignItems: "center",
@@ -118,16 +114,18 @@ export default function Home() {
         <div className="flex w-full min-w-0 flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
           <p className="min-w-0 max-w-full lg:max-w-[min(100%,calc(50%-1.5rem))]" style={HERO_TEXT}>
             My design practice lives in the making - through .fig files, code, and increasingly AI. And in the curating - knowing where to linger, and where to let go. Right now I&apos;m at{" "}
-            <span className="hero-company-link" data-num="1">
+            <span className="hero-company-link">
               Datalign
+              <span className="hero-company-link-badge" aria-hidden>
+                1
+              </span>
             </span>
             , building in wealth management. Previously: design(contract) at{" "}
-            <a
-              href="/work/ark7"
-              className="hero-company-link"
-              data-num="2"
-            >
+            <a href="/work/ark7" className="hero-company-link">
               ARK7
+              <span className="hero-company-link-badge" aria-hidden>
+                2
+              </span>
             </a>
             , engineering at{" "}
             <a
@@ -135,9 +133,11 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               className="hero-company-link"
-              data-num="3"
             >
               Thoughtworks
+              <span className="hero-company-link-badge" aria-hidden>
+                3
+              </span>
             </a>
             , user research at{" "}
             <a
@@ -145,9 +145,11 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               className="hero-company-link"
-              data-num="4"
             >
               Looklook
+              <span className="hero-company-link-badge" aria-hidden>
+                4
+              </span>
             </a>
             , strategy at{" "}
             <a
@@ -155,9 +157,11 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               className="hero-company-link"
-              data-num="5"
             >
               PwC
+              <span className="hero-company-link-badge" aria-hidden>
+                5
+              </span>
             </a>{" "}
             and{" "}
             <a
@@ -165,15 +169,17 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
               className="hero-company-link"
-              data-num="6"
             >
               JLL
+              <span className="hero-company-link-badge" aria-hidden>
+                6
+              </span>
             </a>
             .
           </p>
           <nav
-            style={HERO_NAV_STYLE}
-            className="shrink-0 self-end lg:self-auto"
+            style={HERO_NAV_TEXT}
+            className="flex shrink-0 self-end flex-row flex-wrap items-baseline justify-end gap-x-5 gap-y-2 lg:flex-col lg:items-end lg:gap-1 lg:self-auto"
             aria-label="External links"
           >
             {FOOTER_EXTERNAL_LINKS.map((item) => (
