@@ -37,6 +37,7 @@ export type AssetKey = keyof typeof ASSETS;
 export const ROW_A = 160;
 export const ROW_B = 90;
 export const ROW_C = 8;
+export const ROW_D = 230;
 export const INTERACTIVE_BOTTOM_AREA = 44;
 
 export const GARDEN_LEFT_PCT = 6;
@@ -52,8 +53,16 @@ export function gardenX(x: number): number {
 export const rowA_x = [2,  16, 30, 44, 58, 72, 86];
 export const rowB_x = [9,  23, 37, 51, 65, 79, 93];
 export const rowC_x = [5,  19, 33, 47, 61, 75, 89];
+export const rowD_x = [2,  16, 30, 44, 58, 72, 86];
 
 export const FLOWERS: { x: number; y: number; key: AssetKey }[] = [
+  { x: rowD_x[0], y: ROW_D, key: "plant_daisy" },
+  { x: rowD_x[1], y: ROW_D, key: "plant_valerian" },
+  { x: rowD_x[2], y: ROW_D, key: "plant_tulip" },
+  { x: rowD_x[3], y: ROW_D, key: "plant_lavender" },
+  { x: rowD_x[4], y: ROW_D, key: "plant_cosmo" },
+  { x: rowD_x[5], y: ROW_D, key: "plant_arnica" },
+  { x: rowD_x[6], y: ROW_D, key: "plant_lily" },
   { x: rowA_x[0], y: ROW_A, key: "plant_arnica" },
   { x: rowA_x[1], y: ROW_A, key: "plant_tulip" },
   { x: rowA_x[2], y: ROW_A, key: "plant_lavender" },

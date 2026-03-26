@@ -6,7 +6,7 @@ import Clawd from "./Clawd";
 import CatEars from "./CatEars";
 import {
   ASSETS, type AssetKey,
-  ROW_A, ROW_B, ROW_C, INTERACTIVE_BOTTOM_AREA,
+  ROW_A, ROW_B, ROW_C, ROW_D, INTERACTIVE_BOTTOM_AREA,
   GARDEN_LEFT_PCT, GARDEN_RIGHT_PCT, gardenX, rowC_x,
   FLOWERS, PROPS,
   CATB_POS_X, BUNNY_POS_X, EXTRA_PLANT,
@@ -116,7 +116,7 @@ export default function Garden() {
   }, []);
 
   // Responsive sizes
-  const gardenH  = isTablet ? 220  : 260;
+  const gardenH  = isTablet ? 260  : 310;
   const catSize  = isTablet ? 48   : 52;
   const bnySize  = isTablet ? 36   : 44;
   const flowerSz = isTablet ? 27   : 32;
@@ -124,9 +124,11 @@ export default function Garden() {
   const rA       = isTablet ? 128  : ROW_A;
   const rB       = isTablet ? 72   : ROW_B;
   const rC       = isTablet ? 10   : ROW_C;
+  const rD       = isTablet ? 184  : ROW_D;
   const gardenInteractiveArea = isMobile ? 0 : INTERACTIVE_BOTTOM_AREA;
   const rAVisual = rA + gardenInteractiveArea;
   const rBVisual = rB + gardenInteractiveArea;
+  const rDVisual = rD + gardenInteractiveArea;
   const rCVisual = rC + gardenInteractiveArea;
   const rCVisualRef = useRef(rCVisual);
   rCVisualRef.current = rCVisual;
@@ -553,7 +555,7 @@ export default function Garden() {
   const isNearChick   = pxFrom(CHICK_CSS_X)   < 40;
   const isNearChicken = pxFrom(CHICKEN_CSS_X) < 40;
   const isNearBunny   = pxFrom(BUNNY_CSS_X)   < 40;
-  const isNearFlower  = catAPos.y > 70 && FLOWER_CSS_XS.some(fx => pxFrom(fx) < 30);
+  const isNearFlower  = catAPos.y > rBVisual - 30 && FLOWER_CSS_XS.some(fx => pxFrom(fx) < 30);
   // Both axes are in screen-pixels: pxFrom converts % X → px; catAPos.y / crabY are "bottom px"
   // (fixed-height garden), which is also pixels — so Euclidean distance is valid here.
   const crabDist      = crabActive ? Math.sqrt(pxFrom(crabX) ** 2 + (catAPos.y - crabY) ** 2) : Infinity;
@@ -660,11 +662,11 @@ export default function Garden() {
                   style={{
                     position: "absolute",
                     left: `${gardenX(item.x)}%`,
-                    bottom: `${item.y === ROW_A ? rAVisual : rBVisual}px`,
+                    bottom: `${item.y === ROW_D ? rDVisual : item.y === ROW_A ? rAVisual : rBVisual}px`,
                     transformOrigin: "bottom center",
                     transform: wobbling[idx] ? "rotate(8deg)" : "rotate(0deg)",
                     transition: "transform 0.15s ease",
-                    zIndex: item.y === ROW_A ? 3 : 4,
+                    zIndex: item.y === ROW_D ? 2 : item.y === ROW_A ? 3 : 4,
                     cursor: "none",
                   }}
                 >

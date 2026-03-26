@@ -41,7 +41,8 @@ export default function CustomCursor() {
       }
     };
 
-    const onMove = (e: MouseEvent) => {
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
       latestPos.current = { x: e.clientX, y: e.clientY };
 
       const target = e.target as Element | null;
@@ -56,11 +57,11 @@ export default function CustomCursor() {
       });
     };
 
-    document.addEventListener("mousemove", onMove);
+    document.addEventListener("pointermove", onMove);
     document.documentElement.addEventListener("mouseleave", hide);
 
     return () => {
-      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("mouseleave", hide);
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       styleEl.remove();

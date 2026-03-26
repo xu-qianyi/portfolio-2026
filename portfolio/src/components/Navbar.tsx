@@ -17,7 +17,7 @@ const NAV_ITEMS = [
   { label: "Extras", href: "/extras" },
 ];
 
-const RESUME_HREF = "https://drive.google.com";
+const RESUME_HREF = "https://drive.google.com"; // TODO: replace with actual resume link
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -28,15 +28,20 @@ export default function Navbar() {
   const linkRefs     = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
-    const activeIdx = NAV_ITEMS.findIndex(item =>
-      item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
-    );
-    const el        = linkRefs.current[activeIdx];
-    const container = containerRef.current;
-    if (!el || !container) return;
-    const elRect        = el.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-    setIndicatorLeft(elRect.left - containerRect.left + elRect.width / 2);
+    const recalc = () => {
+      const activeIdx = NAV_ITEMS.findIndex(item =>
+        item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
+      );
+      const el        = linkRefs.current[activeIdx];
+      const container = containerRef.current;
+      if (!el || !container) return;
+      const elRect        = el.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      setIndicatorLeft(elRect.left - containerRect.left + elRect.width / 2);
+    };
+    recalc();
+    window.addEventListener("resize", recalc);
+    return () => window.removeEventListener("resize", recalc);
   }, [pathname]);
 
   // Close menu on navigation

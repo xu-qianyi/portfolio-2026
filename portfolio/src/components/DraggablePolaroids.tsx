@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useCallback, useEffect, useState } from "react";
+import { useRef, useCallback, useEffect, useState, forwardRef } from "react";
 import Image from "next/image";
 
 interface PhotoAsset {
@@ -18,26 +18,26 @@ const PHOTOS: PhotoAsset[] = [
   { src: "/images/about/commencement.webp", alt: "Commencement" },
 ];
 
-/** md–lg — staggered zones so frames don’t bunch in the same corner */
+/** md–lg — looser scatter across full area */
 const POSES_TABLET = [
-  { rotate: -8, x: 8, y: 10 },
-  { rotate: 7, x: 76, y: 6 },
-  { rotate: -11, x: 4, y: 48 },
-  { rotate: 10, x: 70, y: 42 },
-  { rotate: -5, x: 16, y: 84 },
-  { rotate: 13, x: 42, y: 60 },
-  { rotate: -7, x: 68, y: 74 },
+  { rotate: -8,  x: 6,  y: 28 },
+  { rotate: 9,   x: 76, y: 26 },
+  { rotate: -12, x: 38, y: 44 },
+  { rotate: 11,  x: 74, y: 68 },
+  { rotate: -6,  x: 4,  y: 78 },
+  { rotate: 14,  x: 28, y: 92 },
+  { rotate: -9,  x: 68, y: 94 },
 ] as const;
 
-/** lg+ — wider separation: alternate left/right bands and different Y bands */
+/** lg+ — looser scatter, breaks up the two-column clustering */
 const POSES_DESKTOP = [
-  { rotate: -13, x: 5, y: 8 },
-  { rotate: 12, x: 86, y: 6 },
-  { rotate: -16, x: 2, y: 48 },
-  { rotate: 15, x: 90, y: 44 },
-  { rotate: -10, x: 10, y: 86 },
-  { rotate: 18, x: 44, y: 64 },
-  { rotate: -12, x: 80, y: 80 },
+  { rotate: -11, x: 4,  y: 3  },
+  { rotate: 9,   x: 80, y: 0  },
+  { rotate: -14, x: 44, y: 20 },
+  { rotate: 13,  x: 88, y: 52 },
+  { rotate: -8,  x: 2,  y: 58 },
+  { rotate: 16,  x: 30, y: 80 },
+  { rotate: -9,  x: 74, y: 78 },
 ] as const;
 
 /** lg+ — full size */
@@ -47,22 +47,17 @@ const LAYOUT_MD = { w: 148, pad: 10, bot: 30 } as const;
 
 type PolaroidLayout = typeof LAYOUT_LG | typeof LAYOUT_MD;
 
-function Polaroid({
-  photo,
-  dims,
-  onPointerDown,
-  style,
-  zIndex,
-}: {
+const Polaroid = forwardRef<HTMLDivElement, {
   photo: PhotoAsset;
   dims: PolaroidLayout;
   onPointerDown: (e: React.PointerEvent) => void;
   style: React.CSSProperties;
   zIndex: number;
-}) {
+}>(function Polaroid({ photo, dims, onPointerDown, style, zIndex }, ref) {
   const { w, pad, bot } = dims;
   return (
     <div
+      ref={ref}
       onPointerDown={onPointerDown}
       style={{
         position: "absolute",
@@ -93,15 +88,16 @@ function Polaroid({
       />
     </div>
   );
-}
+});
 
 export default function DraggablePolaroids() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [dims, setDims] = useState<PolaroidLayout>(LAYOUT_LG);
   const [positions, setPositions] = useState<{ x: number; y: number; rotate: number }[]>([]);
   const [zIndices, setZIndices] = useState<number[]>(() => {
     const indices = PHOTOS.map((_, i) => i);
-    // 随机打乱数组以实现初始的随机堆叠顺序
+    // shuffle for random initial stacking order
     for (let i = indices.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [indices[i], indices[j]] = [indices[j], indices[i]];
@@ -115,7 +111,11 @@ export default function DraggablePolaroids() {
     startY: number;
     origX: number;
     origY: number;
+    currentX: number;
+    currentY: number;
   } | null>(null);
+  const positionsRef = useRef(positions);
+  positionsRef.current = positions;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -128,20 +128,32 @@ export default function DraggablePolaroids() {
       const rect = container.getBoundingClientRect();
       const totalW = d.w + d.pad * 2;
       const totalH = d.w + d.pad + d.bot;
+      const innerW = Math.max(rect.width - totalW, 0);
+      const innerH = Math.max(rect.height - totalH, 0);
 
       setDims(d);
       setPositions(
         poses.map((p) => ({
-          x: (p.x / 100) * Math.max(rect.width - totalW, 0),
-          y: (p.y / 100) * Math.max(rect.height - totalH, 0),
+          x: (p.x / 100) * innerW,
+          y: (p.y / 100) * innerH,
           rotate: p.rotate,
         }))
       );
     };
 
-    applyLayout();
+    const run = () => {
+      applyLayout();
+      requestAnimationFrame(applyLayout);
+    };
+    run();
+
     mq.addEventListener("change", applyLayout);
-    return () => mq.removeEventListener("change", applyLayout);
+    const ro = new ResizeObserver(() => applyLayout());
+    ro.observe(container);
+    return () => {
+      mq.removeEventListener("change", applyLayout);
+      ro.disconnect();
+    };
   }, []);
 
   const handlePointerDown = useCallback(
@@ -150,12 +162,16 @@ export default function DraggablePolaroids() {
       const el = e.currentTarget as HTMLElement;
       el.setPointerCapture(e.pointerId);
 
+      const origX = positionsRef.current[index].x;
+      const origY = positionsRef.current[index].y;
       dragging.current = {
         index,
         startX: e.clientX,
         startY: e.clientY,
-        origX: positions[index].x,
-        origY: positions[index].y,
+        origX,
+        origY,
+        currentX: origX,
+        currentY: origY,
       };
 
       topZ.current += 1;
@@ -165,33 +181,41 @@ export default function DraggablePolaroids() {
         return next;
       });
     },
-    [positions]
+    []
   );
 
+  // Direct DOM update — zero React re-renders during drag
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
     if (!dragging.current) return;
     const { index, startX, startY, origX, origY } = dragging.current;
-    setPositions((prev) => {
-      const next = [...prev];
-      next[index] = {
-        ...next[index],
-        x: origX + (e.clientX - startX),
-        y: origY + (e.clientY - startY),
-      };
-      return next;
-    });
+    const x = origX + (e.clientX - startX);
+    const y = origY + (e.clientY - startY);
+    dragging.current.currentX = x;
+    dragging.current.currentY = y;
+    const el = cardRefs.current[index];
+    if (el) {
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+    }
   }, []);
 
+  // Sync final position to state once on release
   const handlePointerUp = useCallback(() => {
     if (!dragging.current) return;
+    const { index, currentX, currentY } = dragging.current;
     dragging.current = null;
+    setPositions((prev) => {
+      const next = [...prev];
+      next[index] = { ...next[index], x: currentX, y: currentY };
+      return next;
+    });
   }, []);
 
   if (positions.length === 0) {
     return (
       <div
         ref={containerRef}
-        className="relative hidden min-h-[min(480px,55vh)] w-full min-w-0 max-w-full grow-0 md:block md:min-h-[min(520px,60vh)] lg:absolute lg:inset-y-0 lg:right-0 lg:min-h-0 lg:w-1/2 lg:max-w-[50%]"
+        className="relative hidden min-h-[min(480px,55vh)] w-full min-w-0 max-w-full grow-0 md:block md:min-h-[min(400px,48vh)] lg:absolute lg:inset-y-0 lg:right-0 lg:min-h-0 lg:w-1/2 lg:max-w-[50%]"
       />
     );
   }
@@ -199,13 +223,15 @@ export default function DraggablePolaroids() {
   return (
     <div
       ref={containerRef}
-      className="relative hidden min-h-[min(480px,55vh)] w-full min-w-0 max-w-full grow-0 md:block md:min-h-[min(520px,60vh)] lg:absolute lg:inset-y-0 lg:right-0 lg:min-h-0 lg:w-1/2 lg:max-w-[50%]"
+      className="relative hidden min-h-[min(480px,55vh)] w-full min-w-0 max-w-full grow-0 md:block md:min-h-[min(400px,48vh)] lg:absolute lg:inset-y-0 lg:right-0 lg:min-h-0 lg:w-1/2 lg:max-w-[50%]"
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
     >
       {PHOTOS.map((photo, i) => (
         <Polaroid
           key={photo.src}
+          ref={(el) => { cardRefs.current[i] = el; }}
           photo={photo}
           dims={dims}
           zIndex={zIndices[i]}
