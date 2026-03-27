@@ -28,9 +28,11 @@ export default function About() {
               target="_blank"
               rel="noopener noreferrer"
               className="hero-company-link"
-              data-num="1"
             >
               Northeastern
+              <span className="hero-company-link-badge" aria-hidden>
+                1
+              </span>
             </a>
             , finance at{" "}
             <a
@@ -38,9 +40,11 @@ export default function About() {
               target="_blank"
               rel="noopener noreferrer"
               className="hero-company-link"
-              data-num="2"
             >
               Boston College
+              <span className="hero-company-link-badge" aria-hidden>
+                2
+              </span>
             </a>
             . My education gives me more than one lens to see a product through.
           </p>
@@ -51,9 +55,11 @@ export default function About() {
               target="_blank"
               rel="noopener noreferrer"
               className="hero-company-link"
-              data-num="3"
             >
               Swing
+              <span className="hero-company-link-badge" aria-hidden>
+                3
+              </span>
             </a>{" "}
             - a dance with no routine, just feeling and responding to what you&apos;re
             given. Jam with the flow, improvise with the rhythm.
