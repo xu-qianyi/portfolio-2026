@@ -49,10 +49,10 @@ const SECTIONS: Section[] = [
   {
     id: "design",
     label: "Design",
-    title: "Designing for clarity, confidence, and conversion",
+    title: "From 12 Features to 4",
     body: [
-      "We introduced a modular property detail structure that surfaces three key trust anchors first: ownership model, projected cash flow, and risk notes. Secondary details such as neighborhood trends and legal docs were grouped in expandable panels.",
-      "Onboarding was reworked into a guided journey with lightweight education moments and status indicators. Users could understand what to do next without losing momentum, while still feeling in control of financial decisions.",
+      "From the competitor analysis, we identified 12+ community features that could potentially address the trust gap. But ARK7 had real constraints — frozen investment periods, limited engineering resources, and a cautious approach to community openness.",
+      "We evaluated each feature on two axes: effort and efficiency (impact on trust and engagement). Using an Eisenhower-style matrix, we narrowed the list to four:",
     ],
   },
   {
@@ -144,7 +144,7 @@ const BODY_TEXT_STYLE = {
 
 function Ark7PersonaCards() {
   return (
-    <div className="flex flex-col gap-5 md:gap-6">
+    <div className="flex flex-col gap-6 md:gap-7">
       {ARK7_PERSONAS.map((p) => (
         <article
           key={p.name}
@@ -216,6 +216,180 @@ function Ark7PersonaCards() {
           </div>
         </article>
       ))}
+    </div>
+  );
+}
+
+const TABLE_SERIF = {
+  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+  fontSize: "15px",
+  lineHeight: "150%",
+} as const;
+
+function Ark7PersonaBusinessMappingTable() {
+  const cellPad = "py-3.5 align-middle md:py-4 max-md:pr-2 md:pr-4";
+  const rowLabelPad = `${cellPad} pl-3`;
+
+  return (
+    <div className="my-6 w-full overflow-x-auto md:my-8">
+      <table
+        className="w-full min-w-[18rem] border-collapse text-left"
+        style={{ ...TABLE_SERIF, color: "var(--color-ink-80)" }}
+      >
+        <caption className="sr-only">
+          Persona goals, gaps, steps, and business goals for Lisa and Ian
+        </caption>
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              className="w-5 shrink-0 py-3.5 align-middle max-md:pr-2 md:w-10 md:py-4"
+              aria-hidden
+            />
+            <th
+              scope="col"
+              className={`${cellPad} pl-2 font-semibold text-[var(--color-ink)] md:pl-3`}
+            >
+              Lisa (Existing)
+            </th>
+            <th
+              scope="col"
+              className={`${cellPad} pl-2 font-semibold text-[var(--color-ink)] md:pl-3`}
+            >
+              Ian (New)
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" className={`${rowLabelPad} font-semibold text-[var(--color-ink)]`}>
+              User goals
+            </th>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              More influence on decisions, sense of belonging
+            </td>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              Clear understanding and confidence in investments
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" className={`${rowLabelPad} font-semibold text-[var(--color-ink)]`}>
+              Gaps
+            </th>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              Doesn&apos;t know property operations or performance
+            </td>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              Knows little about ARK7&apos;s product and community
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" className={`${rowLabelPad} font-semibold text-[var(--color-ink)]`}>
+              Steps
+            </th>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              Update → Inform → Engage → Invest
+            </td>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              Attract → Learn → Invest
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" className={`${rowLabelPad} font-semibold text-[var(--color-ink)]`}>
+              Business goal
+            </th>
+            <td className={`${cellPad} pl-2 md:pl-3`}>Retain and increase investment</td>
+            <td className={`${cellPad} pl-2 md:pl-3`}>Convert to regular investor</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function Ark7CommunityFeaturesTable() {
+  const cellPad = "py-3.5 align-middle md:py-4 max-md:pr-2 md:pr-4";
+  const rowLabelPad = `${cellPad} pl-3`;
+
+  return (
+    <div className="my-6 w-full overflow-x-auto md:my-8">
+      <table
+        className="w-full min-w-[20rem] border-collapse text-left"
+        style={{ ...TABLE_SERIF, color: "var(--color-ink-80)" }}
+      >
+        <caption className="sr-only">
+          Four community features: what each does and how it builds trust
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" className={`${rowLabelPad} font-semibold text-[var(--color-ink)]`}>
+              Feature
+            </th>
+            <th
+              scope="col"
+              className={`${cellPad} pl-2 font-semibold text-[var(--color-ink)] md:pl-3`}
+            >
+              What it does
+            </th>
+            <th
+              scope="col"
+              className={`${cellPad} pl-2 font-semibold text-[var(--color-ink)] md:pl-3`}
+            >
+              How it builds trust
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" className={`${rowLabelPad} font-semibold text-[var(--color-ink)]`}>
+              News
+            </th>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              A content feed covering market trends, investment tips, and property updates
+            </td>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Transparency</span>
+              {" — "}keeps users informed about their investments and the platform
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" className={`${rowLabelPad} font-semibold text-[var(--color-ink)]`}>
+              Voting
+            </th>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              Lets seasoned investors weigh in on operational decisions for their properties
+            </td>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Agency</span>
+              {" — "}gives investors a voice, making them feel like owners, not passengers
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" className={`${rowLabelPad} font-semibold text-[var(--color-ink)]`}>
+              Discussion
+            </th>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              Time-limited, pop-up forums tied to specific properties
+            </td>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Belonging</span>
+              {" — "}connects investors with each other around shared stakes
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" className={`${rowLabelPad} font-semibold text-[var(--color-ink)]`}>
+              Webinar
+            </th>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              Live and recorded sessions with real estate experts and ARK7 team
+            </td>
+            <td className={`${cellPad} pl-2 md:pl-3`}>
+              <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Education</span>
+              {" — "}builds confidence through knowledge and direct access to experts
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -295,8 +469,8 @@ export default function Ark7CaseStudyPage() {
   }, [activeId]);
 
   return (
-    <div className="min-h-screen px-6 lg:px-[72px] py-12">
-      <main className="grid max-w-[1800px] mx-auto grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-0 md:gap-8">
+    <div className="min-h-screen px-6 py-14 md:py-16 lg:px-[72px] lg:py-16">
+      <main className="mx-auto grid max-w-[1800px] grid-cols-1 gap-0 md:grid-cols-[1fr_auto_1fr] md:gap-8">
         <aside className="md:sticky md:top-20 md:h-fit pb-8 md:pb-0 min-w-0 md:min-w-40">
           <nav className="hidden md:block mt-4">
             <div ref={navListRef} className="relative pl-5">
@@ -348,8 +522,8 @@ export default function Ark7CaseStudyPage() {
           </nav>
         </aside>
 
-        <div className="w-full min-w-0 max-w-[800px] flex flex-col gap-12 md:gap-12">
-          <header className="flex flex-col gap-8">
+        <div className="flex w-full min-w-0 max-w-[800px] flex-col gap-14 md:gap-16">
+          <header className="flex flex-col gap-8 md:gap-10">
             <div className="flex flex-col gap-4">
               <p
                 style={{
@@ -387,7 +561,7 @@ export default function Ark7CaseStudyPage() {
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-6">
               {META_ITEMS.map((item) => (
                 <div key={item.label} className="flex flex-col gap-2">
                   <p
@@ -417,7 +591,7 @@ export default function Ark7CaseStudyPage() {
             </div>
           </header>
 
-          <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-14 md:gap-16">
             {SECTIONS.map((section, index) => (
               <section
                 key={section.id}
@@ -425,7 +599,7 @@ export default function Ark7CaseStudyPage() {
                 ref={(el) => {
                   sectionRefs.current[section.id] = el;
                 }}
-                className="flex flex-col gap-4 scroll-mt-24"
+                className="flex scroll-mt-24 flex-col gap-4 md:scroll-mt-28"
               >
                 <p style={SECTION_EYEBROW_STYLE}>{section.label}</p>
                 <h2
@@ -458,8 +632,10 @@ export default function Ark7CaseStudyPage() {
                   </p>
                 ))}
 
+                {section.id === "design" ? <Ark7CommunityFeaturesTable /> : null}
+
                 {section.id === "research" ? (
-                  <div className="my-4 flex flex-col">
+                  <div className="mt-4 flex flex-col md:mt-5">
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-10">
                       <div className="w-full overflow-hidden">
                         <Image
@@ -484,7 +660,7 @@ export default function Ark7CaseStudyPage() {
                         />
                       </div>
                     </div>
-                    <div className="mt-7 flex flex-col gap-4 md:mt-9">
+                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
                       <blockquote
                         style={{
                           fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -513,20 +689,143 @@ export default function Ark7CaseStudyPage() {
                       </p>
                       <Ark7PersonaCards />
                     </div>
+                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
+                      <blockquote
+                        style={{
+                          fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                          fontSize: "24px",
+                          lineHeight: "120%",
+                          fontWeight: 400,
+                          color: "var(--color-ink)",
+                          borderLeft: "2px solid var(--color-accent-green)",
+                          paddingLeft: "12px",
+                          margin: 0,
+                        }}
+                      >
+                        Refining the problem
+                      </blockquote>
+                      <p
+                        style={{
+                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                          fontSize: "16px",
+                          lineHeight: "160%",
+                          color: "var(--color-ink-80)",
+                          margin: 0,
+                        }}
+                      >
+                        <mark className="case-text-highlight">Initial question</mark>
+                        {": How might we help different users build trust at ARK7?"}
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                          fontSize: "16px",
+                          lineHeight: "160%",
+                          color: "var(--color-ink-80)",
+                          margin: 0,
+                        }}
+                      >
+                        To sharpen this, I mapped each persona&apos;s goals against business goals:
+                      </p>
+                      <Ark7PersonaBusinessMappingTable />
+                      <p
+                        style={{
+                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                          fontSize: "16px",
+                          lineHeight: "160%",
+                          color: "var(--color-ink-80)",
+                          margin: 0,
+                        }}
+                      >
+                        <mark className="case-text-highlight">Refined question</mark>
+                        {": How might we build an engaging experience for users to learn and invest with trust?"}
+                      </p>
+                    </div>
+                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
+                      <h2
+                        style={{
+                          fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                          fontSize: "24px",
+                          lineHeight: "120%",
+                          fontWeight: 400,
+                          color: "var(--color-ink)",
+                          borderLeft: "2px solid var(--color-accent-green)",
+                          paddingLeft: "12px",
+                          margin: 0,
+                        }}
+                      >
+                        Competitor analysis: understanding how rivals foster trust and engage users
+                      </h2>
+                      <p
+                        style={{
+                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                          fontSize: "16px",
+                          lineHeight: "160%",
+                          color: "var(--color-ink-80)",
+                          margin: 0,
+                        }}
+                      >
+                        I conducted a thorough competitive audit of similar apps to understand their
+                        product and design strategies for building trust and engaging users.
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                          fontSize: "16px",
+                          lineHeight: "160%",
+                          color: "var(--color-ink-80)",
+                          margin: 0,
+                        }}
+                      >
+                        Given that there are only two direct competitors, we also examined companies in
+                        the broader financial sector.
+                      </p>
+                      <div className="w-full overflow-hidden">
+                        <Image
+                          src="/images/ARK7/ark7_competitors.png"
+                          alt="Competitive audit: similar apps and broader financial sector companies"
+                          width={2589}
+                          height={822}
+                          sizes="(max-width: 767px) 100vw, 800px"
+                          loading="lazy"
+                          className="w-full h-auto object-contain"
+                        />
+                      </div>
+                      <p style={BODY_TEXT_STYLE}>Three insights stood out:</p>
+                      <p style={BODY_TEXT_STYLE}>
+                        <span className="font-semibold text-[var(--color-ink)]">
+                          Interactive content drives longer engagement.
+                        </span>{" "}
+                        Platforms with interactive elements saw more frequent return visits and deeper
+                        exploration.
+                      </p>
+                      <p style={BODY_TEXT_STYLE}>
+                        <span className="font-semibold text-[var(--color-ink)]">
+                          Community connection makes users feel safer.
+                        </span>{" "}
+                        When users could see and interact with other investors, their confidence in
+                        the platform increased.
+                      </p>
+                      <p style={BODY_TEXT_STYLE}>
+                        <span className="font-semibold text-[var(--color-ink)]">
+                          Webinars are the strongest trust signal.
+                        </span>{" "}
+                        Real-time, expert-led sessions resonated most with users seeking guidance -
+                        more than static content or forums.
+                      </p>
+                    </div>
                   </div>
                 ) : null}
 
                 {section.id === "overview" ? (
-                  <div className="my-4">
-                    <div className="w-full overflow-hidden">
-                      <Image
-                        src="/images/ARK7/ARK7_official_site.png"
-                        alt="ARK7 official website homepage"
-                        width={1500}
-                        height={988}
-                        className="w-full h-auto object-cover"
-                      />
-                    </div>
+                  <div className="w-full overflow-hidden">
+                    <Image
+                      src="/images/ARK7/ARK7_official_site.png"
+                      alt="ARK7 official website homepage"
+                      width={1500}
+                      height={988}
+                      className="w-full h-auto object-cover"
+                    />
                   </div>
                 ) : null}
 
@@ -563,7 +862,9 @@ export default function Ark7CaseStudyPage() {
                   </>
                 ) : null}
 
-                {index < SECTIONS.length - 1 ? <div className="h-px w-full bg-black/10 mt-8" /> : null}
+                {index < SECTIONS.length - 1 ? (
+                  <div className="mt-10 h-px w-full bg-black/10 md:mt-12" />
+                ) : null}
               </section>
             ))}
           </div>
