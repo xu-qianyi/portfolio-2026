@@ -169,6 +169,16 @@ body {
   background-color: rgba(236, 69, 35, 0.02);
 }
 
+/* Case study: inline emphasis (ties to --color-accent-green in headings) */
+.case-text-highlight {
+  background-color: color-mix(in srgb, var(--color-accent-green) 22%, transparent);
+  color: inherit;
+  padding: 0.08em 0.2em;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
 .copy-email-wrapper {
   position: relative;
   display: inline-block;

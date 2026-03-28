@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 
 const SECTION_EYEBROW_STYLE = {
@@ -29,22 +29,21 @@ const SECTIONS: Section[] = [
     title: "Who's ARK7?",
     body: [
       "ARK7 is a platform that simplifies real estate investment by offering fractional shares for as little as $20 per share in premium residential properties across the United States.",
-      "The product vision was to make real estate feel as approachable as buying a stock: transparent listings, clear expected returns, and a guided path from exploration to first investment.",
     ],
-    continuationTitle:
-      "Current challenge: how to retain existing investors and convert new users into regular investors?",
+    continuationTitle: "The challenge",
     continuationBody: [
-      "ARK7 faces a challenge to retain existing investors and to convert new users into regular investors. Despite attracting new users with its referral rewards system, these users often fail to continue investing.",
-      "Additionally, many existing investors withdraw their funds post-freeze period and cease further investment.",
+      "ARK7 faced a dual retention problem. Despite attracting new users through its referral rewards system, these users often failed to continue investing. Meanwhile, many existing investors were withdrawing their funds post-freeze period and ceasing further investment.",
     ],
   },
   {
     id: "research",
     label: "Research",
-    title: "Why users were curious but hesitant to invest",
+    title: "No direct access to users - so I found them elsewhere",
     body: [
-      "Through interviews, support tickets, and session recordings, we found that users loved the low entry barrier but struggled to judge risk. They wanted simple answers to: How safe is this property? How soon can I exit? How is rental income distributed?",
-      "Competitor audits showed that most platforms overloaded users with financial terms before establishing confidence. This led us to prioritize progressive disclosure: first communicate trust signals, then expand into deeper metrics for advanced investors.",
+      "The client managed all user communication directly to maintain consistency and confidentiality. This meant no user interviews, no surveys, no direct contact.",
+      "Rather than treating this as a dead end, I looked for where users were already talking.",
+      "I mined four public channels - TrustPilot, App Store reviews, Reddit, and YouTube comments - and paired these findings with interviews with ARK7's customer service team and an analysis of the company's marketing channels. I also conducted a competitive audit of similar platforms.",
+      "Across every channel, one theme surfaced again and again: a lack of trust.",
     ],
   },
   {
@@ -66,6 +65,43 @@ const SECTIONS: Section[] = [
     ],
   },
 ];
+
+const RESEARCH_CHANNELS_HIGHLIGHT =
+  "TrustPilot, App Store reviews, Reddit, and YouTube comments";
+
+function ark7SectionParagraph(
+  sectionId: string,
+  paragraphIndex: number,
+  paragraph: string,
+): ReactNode {
+  if (sectionId === "overview" && paragraphIndex === 0) {
+    return (
+      <>
+        <a
+          href="https://ark7.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="case-inline-link"
+        >
+          ARK7
+        </a>{" "}
+        is a platform that simplifies real estate investment by offering fractional shares for as
+        little as $20 per share in premium residential properties across the United States.
+      </>
+    );
+  }
+  if (sectionId === "research" && paragraph.includes(RESEARCH_CHANNELS_HIGHLIGHT)) {
+    const [before, after] = paragraph.split(RESEARCH_CHANNELS_HIGHLIGHT);
+    return (
+      <>
+        {before}
+        <mark className="case-text-highlight">{RESEARCH_CHANNELS_HIGHLIGHT}</mark>
+        {after}
+      </>
+    );
+  }
+  return paragraph;
+}
 
 const META_ITEMS = [
   { label: "Role", value: "Product designer" },
@@ -292,7 +328,7 @@ export default function Ark7CaseStudyPage() {
 
                 {section.body.map((paragraph, paragraphIndex) => (
                   <p
-                    key={paragraph}
+                    key={`${section.id}-${paragraphIndex}`}
                     style={{
                       fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                       fontSize: "16px",
@@ -301,23 +337,7 @@ export default function Ark7CaseStudyPage() {
                       margin: 0,
                     }}
                   >
-                    {section.id === "overview" && paragraphIndex === 0 ? (
-                      <>
-                        <a
-                          href="https://ark7.com"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="case-inline-link"
-                        >
-                          ARK7
-                        </a>{" "}
-                        is a platform that simplifies real estate investment by offering fractional
-                        shares for as little as $20 per share in premium residential properties
-                        across the United States.
-                      </>
-                    ) : (
-                      paragraph
-                    )}
+                    {ark7SectionParagraph(section.id, paragraphIndex, paragraph)}
                   </p>
                 ))}
 
