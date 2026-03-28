@@ -103,8 +103,125 @@ function ark7SectionParagraph(
   return paragraph;
 }
 
+const ARK7_PERSONAS = [
+  {
+    name: "Lisa",
+    role: "Existing Investor",
+    tags: ["ENTJ", "Social Investor", "Tech-Savvy"],
+    needs: [
+      "Has been investing with ARK7 for a year",
+      "Doesn't know how her properties are managed or how ARK7 performs",
+      "Has no idea who the other shared owners are",
+      "Feels she has no control over her investments",
+      "Considering withdrawal due to feeling isolated and powerless",
+    ],
+    goalLabel: "Her goal",
+    goal: "More influence on decisions. A sense of belonging and trust.",
+  },
+  {
+    name: "Ian",
+    role: "New User",
+    tags: ["ENFP", "Busy", "Influence-Seeker", "Novice Investor"],
+    needs: [
+      "Discovered ARK7 through a YouTube ad and received a $50 bonus",
+      "Cautious about who to trust — available information feels limited",
+      "Wants to know who else is investing",
+      "Doesn't want to invest alone",
+      "Hesitating to invest because the platform feels opaque",
+    ],
+    goalLabel: "His goal",
+    goal: "Transparency, guidance, and confidence before committing money.",
+  },
+] as const;
+
+const BODY_TEXT_STYLE = {
+  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontSize: "16px",
+  lineHeight: "160%",
+  color: "var(--color-ink-80)",
+  margin: 0,
+} as const;
+
+function Ark7PersonaCards() {
+  return (
+    <div className="flex flex-col gap-5 md:gap-6">
+      {ARK7_PERSONAS.map((p) => (
+        <article
+          key={p.name}
+          className="flex flex-col gap-3.5 rounded-lg border border-black/10 bg-[var(--color-surface)] px-4 py-3.5 md:px-5 md:py-4"
+        >
+          <header>
+            <h3
+              className="flex w-full flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
+              style={{
+                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                fontSize: "14px",
+                lineHeight: "150%",
+                fontWeight: 400,
+                color: "var(--color-ink-80)",
+                margin: 0,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                  fontSize: "20px",
+                  fontWeight: 500,
+                  color: "var(--color-ink)",
+                }}
+              >
+                {p.name}
+              </span>
+              <span
+                className="min-w-0 max-w-full text-right sm:max-w-[min(100%,28rem)]"
+                style={{
+                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                  fontSize: "14px",
+                  lineHeight: "150%",
+                }}
+              >
+                <span style={{ color: "var(--color-ink-70)" }}>{p.role}</span>
+                <span style={{ color: "var(--color-muted)" }}> · </span>
+                <span style={{ color: "var(--color-ink-65)", letterSpacing: "0.02em" }}>
+                  {p.tags.join(" · ")}
+                </span>
+              </span>
+            </h3>
+          </header>
+
+          <div className="flex flex-col gap-2 border-t border-black/10 pt-3.5">
+            <p style={{ ...SECTION_EYEBROW_STYLE, fontSize: "12px" }}>User needs</p>
+            <ul
+              className="m-0 list-disc space-y-1.5 pl-4 marker:text-[var(--color-ink-65)]"
+              style={{
+                fontFamily: BODY_TEXT_STYLE.fontFamily,
+                fontSize: "14px",
+                lineHeight: "150%",
+                color: "var(--color-ink-80)",
+              }}
+            >
+              {p.needs.map((line) => (
+                <li key={line} className="pl-0.5">
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="rounded-md border border-black/10 bg-[var(--color-subtle)] px-3.5 py-2.5">
+            <p style={{ ...SECTION_EYEBROW_STYLE, fontSize: "12px" }}>User goals</p>
+            <p style={{ ...BODY_TEXT_STYLE, fontSize: "14px", lineHeight: "150%", marginTop: "6px" }}>
+              {p.goalLabel}: {p.goal}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  );
+}
+
 const META_ITEMS = [
-  { label: "Role", value: "Product designer" },
+  { label: "Role", value: "Product designer(contract)" },
   { label: "Timeline", value: "2023.10 - 2024.01" },
   {
     label: "Team",
@@ -340,6 +457,64 @@ export default function Ark7CaseStudyPage() {
                     {ark7SectionParagraph(section.id, paragraphIndex, paragraph)}
                   </p>
                 ))}
+
+                {section.id === "research" ? (
+                  <div className="my-4 flex flex-col">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-10">
+                      <div className="w-full overflow-hidden">
+                        <Image
+                          src="/images/ARK7/ARK7-market%20analysis.png"
+                          alt="ARK7 marketing analysis across mobile app, website, and social channels"
+                          width={3494}
+                          height={1462}
+                          sizes="(max-width: 767px) 100vw, 392px"
+                          loading="lazy"
+                          className="w-full h-auto object-contain"
+                        />
+                      </div>
+                      <div className="w-full overflow-hidden">
+                        <Image
+                          src="/images/ARK7/Arrived-market%20analysis.png"
+                          alt="Arrived marketing analysis across mobile app, website, and social channels"
+                          width={3498}
+                          height={1468}
+                          sizes="(max-width: 767px) 100vw, 392px"
+                          loading="lazy"
+                          className="w-full h-auto object-contain"
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-7 flex flex-col gap-4 md:mt-9">
+                      <blockquote
+                        style={{
+                          fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                          fontSize: "24px",
+                          lineHeight: "120%",
+                          fontWeight: 400,
+                          color: "var(--color-ink)",
+                          borderLeft: "2px solid var(--color-accent-green)",
+                          paddingLeft: "12px",
+                          margin: 0,
+                        }}
+                      >
+                        Two users, one shared problem
+                      </blockquote>
+                      <p
+                        style={{
+                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                          fontSize: "16px",
+                          lineHeight: "160%",
+                          color: "var(--color-ink-80)",
+                          margin: 0,
+                        }}
+                      >
+                        The research revealed two distinct user profiles whose frustrations pointed to
+                        the same root cause.
+                      </p>
+                      <Ark7PersonaCards />
+                    </div>
+                  </div>
+                ) : null}
 
                 {section.id === "overview" ? (
                   <div className="my-4">
