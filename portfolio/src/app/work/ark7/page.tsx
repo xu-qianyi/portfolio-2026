@@ -194,7 +194,7 @@ function Ark7IterationStoreQuotes() {
       {ARK7_STORE_REVIEW_QUOTES.map((item) => (
         <article
           key={item.source}
-          className="flex flex-col gap-3.5 rounded-lg border border-black/10 bg-[var(--color-surface)] px-4 py-4 md:gap-4 md:px-5 md:py-5"
+          className="flex flex-col gap-3.5 rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] px-4 py-4 md:gap-4 md:px-5 md:py-5"
         >
           <p
             style={{
@@ -246,7 +246,7 @@ function Ark7PersonaCards() {
       {ARK7_PERSONAS.map((p) => (
         <article
           key={p.name}
-          className="flex flex-col gap-3.5 rounded-lg border border-black/10 bg-[var(--color-surface)] px-4 py-3.5 md:px-5 md:py-4"
+          className="flex flex-col gap-3.5 rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] px-4 py-3.5 md:px-5 md:py-4"
         >
           <header>
             <h3
@@ -287,7 +287,7 @@ function Ark7PersonaCards() {
             </h3>
           </header>
 
-          <div className="flex flex-col gap-2 border-t border-black/10 pt-3.5">
+          <div className="flex flex-col gap-2 border-t border-[var(--color-ink-14)] pt-3.5">
             <p style={{ ...SECTION_EYEBROW_STYLE, fontSize: "12px" }}>User needs</p>
             <ul
               className="m-0 list-disc space-y-1.5 pl-4 marker:text-[var(--color-ink-65)]"
@@ -306,7 +306,7 @@ function Ark7PersonaCards() {
             </ul>
           </div>
 
-          <div className="rounded-md border border-black/10 bg-[var(--color-subtle)] px-3.5 py-2.5">
+          <div className="rounded-md border border-[var(--color-ink-14)] bg-[var(--color-subtle)] px-3.5 py-2.5">
             <p style={{ ...SECTION_EYEBROW_STYLE, fontSize: "12px" }}>User goals</p>
             <p style={{ ...BODY_TEXT_STYLE, fontSize: "14px", lineHeight: "150%", marginTop: "6px" }}>
               {p.goalLabel}: {p.goal}
@@ -657,7 +657,7 @@ function Ark7LayoutOptionsTabs() {
         role="tabpanel"
         id={`${tablistId}-panel-${active.id}`}
         aria-labelledby={`${tablistId}-${active.id}`}
-        className="rounded-lg border border-black/10 bg-[var(--color-surface)] px-5 py-7 md:px-8 md:py-9"
+        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] px-5 py-7 md:px-8 md:py-9"
       >
         <div
           key={`${active.id}-${layoutPanelMotionEpoch}`}
@@ -723,6 +723,56 @@ const META_ITEMS = [
     value: "1 Lead designer, 2 designers, Product manager, Engineers, Marketing team",
   },
 ];
+
+function Ark7MobileNav({
+  activeId,
+  sectionRefs,
+}: {
+  activeId: string;
+  sectionRefs: React.MutableRefObject<Record<string, HTMLElement | null>>;
+}) {
+  return (
+    <nav
+      aria-label="Case study sections"
+      className="md:hidden sticky top-14 z-10 bg-[var(--color-surface)] border-b border-[var(--color-ink-14)]"
+    >
+      <div className="flex overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+        {SECTIONS.map((section) => {
+          const isActive = activeId === section.id;
+          return (
+            <button
+              key={section.id}
+              type="button"
+              onClick={() => {
+                const prefersReduced = window.matchMedia(
+                  "(prefers-reduced-motion: reduce)"
+                ).matches;
+                sectionRefs.current[section.id]?.scrollIntoView({
+                  behavior: prefersReduced ? "auto" : "smooth",
+                  block: "start",
+                });
+              }}
+              className={`shrink-0 min-h-11 px-3 py-2.5 border-b-2 transition-[color,border-color] duration-200 ease-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
+                isActive
+                  ? "border-[var(--color-ink)] text-[var(--color-ink)]"
+                  : "border-transparent text-[var(--color-muted)]"
+              }`}
+              style={{
+                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                fontSize: "14px",
+                fontWeight: isActive ? 500 : 400,
+                background: "transparent",
+                cursor: "inherit",
+              }}
+            >
+              {section.label}
+            </button>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
 
 export default function Ark7CaseStudyPage() {
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
@@ -795,7 +845,7 @@ export default function Ark7CaseStudyPage() {
         <aside className="md:sticky md:top-20 md:h-fit pb-8 md:pb-0 min-w-0 md:min-w-40">
           <nav className="hidden md:block mt-4">
             <div ref={navListRef} className="relative pl-5">
-              <div className="absolute left-0 top-0.5 bottom-0.5 w-[6px] rounded-full bg-black/[0.06]">
+              <div className="absolute left-0 top-0.5 bottom-0.5 w-[6px] rounded-full bg-[var(--color-ink-06)]">
                 <div
                   className="absolute left-1/2 w-[5px] h-[5px] rounded-full bg-[var(--color-ink)] transition-all duration-300 ease-out"
                   style={{
@@ -810,10 +860,11 @@ export default function Ark7CaseStudyPage() {
                   return (
                     <button
                       key={section.id}
+                      type="button"
                       ref={(el) => {
                         itemRefs.current[section.id] = el;
                       }}
-                      className="text-left transition-all duration-200"
+                      className="text-left transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                       style={{
                         fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                         fontSize: "15px",
@@ -845,7 +896,7 @@ export default function Ark7CaseStudyPage() {
 
         <div className="flex w-full min-w-0 max-w-[800px] flex-col gap-14 md:gap-16">
           <header className="flex flex-col gap-8 md:gap-10">
-            <CaseScrollReveal className="flex flex-col gap-4">
+            <CaseScrollReveal className="flex flex-col gap-2">
               <p
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -871,7 +922,7 @@ export default function Ark7CaseStudyPage() {
               </h1>
             </CaseScrollReveal>
 
-            <CaseScrollReveal className="w-full aspect-[16/9] border border-black/10 bg-[#f5f5f5] overflow-hidden">
+            <CaseScrollReveal className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden">
               <Image
                 src="/images/ARK7/ARK7_big.png"
                 alt="ARK7 case study hero"
@@ -912,6 +963,8 @@ export default function Ark7CaseStudyPage() {
             </CaseScrollReveal>
           </header>
 
+          <Ark7MobileNav activeId={activeId} sectionRefs={sectionRefs} />
+
           <div className="flex flex-col gap-14 md:gap-16">
             {SECTIONS.map((section, index) => (
               <section
@@ -922,24 +975,26 @@ export default function Ark7CaseStudyPage() {
                 }}
                 className="scroll-mt-24 md:scroll-mt-28"
               >
-                <CaseScrollReveal className="flex min-w-0 w-full flex-col gap-4">
-                <p style={SECTION_EYEBROW_STYLE}>{section.label}</p>
-                {section.id !== "iteration" ? (
-                  <h2
-                    style={{
-                      fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                      fontSize: "24px",
-                      lineHeight: "120%",
-                      fontWeight: 400,
-                      color: "var(--color-ink)",
-                      borderLeft: "2px solid var(--color-accent-green)",
-                      paddingLeft: "12px",
-                      margin: 0,
-                    }}
-                  >
-                    {section.title}
-                  </h2>
-                ) : null}
+                <CaseScrollReveal className="flex min-w-0 w-full flex-col gap-5">
+                <div className="flex flex-col gap-2">
+                  <p style={SECTION_EYEBROW_STYLE}>{section.label}</p>
+                  {section.id !== "iteration" ? (
+                    <h2
+                      style={{
+                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                        fontSize: "24px",
+                        lineHeight: "120%",
+                        fontWeight: 400,
+                        color: "var(--color-ink)",
+                        borderLeft: "2px solid var(--color-accent-green)",
+                        paddingLeft: "12px",
+                        margin: 0,
+                      }}
+                    >
+                      {section.title}
+                    </h2>
+                  ) : null}
+                </div>
 
                 {section.body.map((paragraph, paragraphIndex) => (
                   <p
@@ -958,7 +1013,7 @@ export default function Ark7CaseStudyPage() {
 
                 {section.id === "iteration" ? (
                   <div className="mt-4 flex flex-col gap-4 md:mt-5">
-                    <blockquote
+                    <h3
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                         fontSize: "24px",
@@ -971,7 +1026,7 @@ export default function Ark7CaseStudyPage() {
                       }}
                     >
                       Fixing the foundation first
-                    </blockquote>
+                    </h3>
                     <p style={{ ...BODY_TEXT_STYLE }}>
                       Before shipping the community features, we had to address something more
                       fundamental. The existing design system was undermining user trust at a visual
@@ -986,7 +1041,7 @@ export default function Ark7CaseStudyPage() {
                     <Ark7CommunityFeaturesTable />
                     <div className="mt-8 flex flex-col gap-6 md:mt-10">
                       <div className="flex flex-col gap-4">
-                        <blockquote
+                        <h3
                           style={{
                             fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                             fontSize: "24px",
@@ -999,7 +1054,7 @@ export default function Ark7CaseStudyPage() {
                           }}
                         >
                           Entry point: one tab, four touchpoints
-                        </blockquote>
+                        </h3>
                         <p style={{ ...BODY_TEXT_STYLE }}>
                           We evaluated three layout options for integrating the community features. The
                           winning approach:{" "}
@@ -1012,7 +1067,7 @@ export default function Ark7CaseStudyPage() {
                       <Ark7LayoutOptionsTabs />
                     </div>
                     <div className="mt-8 flex flex-col gap-4 md:mt-10">
-                      <blockquote
+                      <h3
                         style={{
                           fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                           fontSize: "24px",
@@ -1025,14 +1080,14 @@ export default function Ark7CaseStudyPage() {
                         }}
                       >
                         Core flow: mapping out the overall UX in the feed with a user flow
-                      </blockquote>
+                      </h3>
                       <p style={{ ...BODY_TEXT_STYLE }}>
                         We developed user flows to systematically map out each step a user takes
                         within our application, from initial entry to final interaction. This approach
                         not only helps in understanding and predicting user behavior but also ensures
                         a seamless navigation experience.
                       </p>
-                      <div className="mt-6 w-full overflow-hidden md:mt-8">
+                      <div className="mt-6 mb-3 w-full overflow-hidden md:mt-8 md:mb-5">
                         <Image
                           src="/images/ARK7/user%20flow.png"
                           alt="User flow diagram mapping entry through feed interactions in the ARK7 app"
@@ -1049,7 +1104,7 @@ export default function Ark7CaseStudyPage() {
 
                 {section.id === "research" ? (
                   <div className="mt-4 flex flex-col md:mt-5">
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:gap-10">
+                    <div className="my-4 grid grid-cols-1 gap-6 md:my-6 md:grid-cols-2 md:gap-8 lg:gap-10">
                       <div className="w-full overflow-hidden">
                         <Image
                           src="/images/ARK7/ARK7-market%20analysis.png"
@@ -1074,7 +1129,7 @@ export default function Ark7CaseStudyPage() {
                       </div>
                     </div>
                     <div className="mt-8 flex flex-col gap-4 md:mt-10">
-                      <blockquote
+                      <h3
                         style={{
                           fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                           fontSize: "24px",
@@ -1087,7 +1142,7 @@ export default function Ark7CaseStudyPage() {
                         }}
                       >
                         Two users, one shared problem
-                      </blockquote>
+                      </h3>
                       <p
                         style={{
                           fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -1103,7 +1158,7 @@ export default function Ark7CaseStudyPage() {
                       <Ark7PersonaCards />
                     </div>
                     <div className="mt-8 flex flex-col gap-4 md:mt-10">
-                      <blockquote
+                      <h3
                         style={{
                           fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                           fontSize: "24px",
@@ -1116,7 +1171,7 @@ export default function Ark7CaseStudyPage() {
                         }}
                       >
                         Refining the problem
-                      </blockquote>
+                      </h3>
                       <p
                         style={{
                           fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -1193,7 +1248,7 @@ export default function Ark7CaseStudyPage() {
                         Given that there are only two direct competitors, we also examined companies in
                         the broader financial sector.
                       </p>
-                      <div className="w-full overflow-hidden">
+                      <div className="my-3 w-full overflow-hidden md:my-5">
                         <Image
                           src="/images/ARK7/ark7_competitors.png"
                           alt="Competitive audit: similar apps and broader financial sector companies"
@@ -1243,7 +1298,7 @@ export default function Ark7CaseStudyPage() {
                 ) : null}
 
                 {section.continuationTitle && section.continuationBody ? (
-                  <>
+                  <div className="mt-3 flex flex-col gap-5">
                     <h2
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1272,11 +1327,11 @@ export default function Ark7CaseStudyPage() {
                         {paragraph}
                       </p>
                     ))}
-                  </>
+                  </div>
                 ) : null}
 
                 {index < SECTIONS.length - 1 ? (
-                  <div className="mt-10 h-px w-full bg-black/10 md:mt-12" />
+                  <div className="mt-10 h-px w-full bg-[var(--color-ink-14)] md:mt-12" />
                 ) : null}
                 </CaseScrollReveal>
               </section>
