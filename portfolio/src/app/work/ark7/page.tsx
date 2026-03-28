@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
+import CaseScrollReveal from "@/components/CaseScrollReveal";
 
 const SECTION_EYEBROW_STYLE = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -844,7 +845,7 @@ export default function Ark7CaseStudyPage() {
 
         <div className="flex w-full min-w-0 max-w-[800px] flex-col gap-14 md:gap-16">
           <header className="flex flex-col gap-8 md:gap-10">
-            <div className="flex flex-col gap-4">
+            <CaseScrollReveal className="flex flex-col gap-4">
               <p
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -868,9 +869,9 @@ export default function Ark7CaseStudyPage() {
               >
                 Cultivating a Trusted Investment Community
               </h1>
-            </div>
+            </CaseScrollReveal>
 
-            <div className="w-full aspect-[16/9] border border-black/10 bg-[#f5f5f5] overflow-hidden">
+            <CaseScrollReveal className="w-full aspect-[16/9] border border-black/10 bg-[#f5f5f5] overflow-hidden">
               <Image
                 src="/images/ARK7/ARK7_big.png"
                 alt="ARK7 case study hero"
@@ -879,9 +880,9 @@ export default function Ark7CaseStudyPage() {
                 className="w-full h-full object-cover"
                 priority
               />
-            </div>
+            </CaseScrollReveal>
 
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-6">
+            <CaseScrollReveal className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-6">
               {META_ITEMS.map((item) => (
                 <div key={item.label} className="flex flex-col gap-2">
                   <p
@@ -908,7 +909,7 @@ export default function Ark7CaseStudyPage() {
                   </p>
                 </div>
               ))}
-            </div>
+            </CaseScrollReveal>
           </header>
 
           <div className="flex flex-col gap-14 md:gap-16">
@@ -919,8 +920,9 @@ export default function Ark7CaseStudyPage() {
                 ref={(el) => {
                   sectionRefs.current[section.id] = el;
                 }}
-                className="flex scroll-mt-24 flex-col gap-4 md:scroll-mt-28"
+                className="scroll-mt-24 md:scroll-mt-28"
               >
+                <CaseScrollReveal className="flex min-w-0 w-full flex-col gap-4">
                 <p style={SECTION_EYEBROW_STYLE}>{section.label}</p>
                 {section.id !== "iteration" ? (
                   <h2
@@ -1276,6 +1278,7 @@ export default function Ark7CaseStudyPage() {
                 {index < SECTIONS.length - 1 ? (
                   <div className="mt-10 h-px w-full bg-black/10 md:mt-12" />
                 ) : null}
+                </CaseScrollReveal>
               </section>
             ))}
           </div>

@@ -4,7 +4,7 @@ import { useEffect, useState, type CSSProperties } from "react";
 
 const TEXT_STYLE: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "15px",
+  fontSize: "14px",
   fontWeight: 500,
   color: "var(--color-muted)",
   lineHeight: "1.25",

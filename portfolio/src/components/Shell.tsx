@@ -25,7 +25,11 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         }}
       >
         <Navbar />
-        <main key={pathname} style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
+        <main
+          key={pathname}
+          className="page-shell-main"
+          style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}
+        >
           {children}
         </main>
       </div>

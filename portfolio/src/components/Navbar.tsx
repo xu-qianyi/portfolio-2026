@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 const NAV_LINK: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "15px",
+  fontSize: "14px",
   fontWeight: 500,
   textDecoration: "none",
 };
@@ -145,7 +145,7 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  style={{ ...NAV_LINK, color: "var(--color-ink)", fontSize: "15px", opacity: isActive ? 1 : 0.4, padding: "9px 0" }}
+                  style={{ ...NAV_LINK, color: "var(--color-ink)", opacity: isActive ? 1 : 0.4, padding: "9px 0" }}
                 >
                   {item.label}
                 </Link>
@@ -155,7 +155,7 @@ export default function Navbar() {
               href={RESUME_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ ...NAV_LINK, color: "var(--color-ink)", fontSize: "15px", opacity: 0.4, padding: "9px 0" }}
+              style={{ ...NAV_LINK, color: "var(--color-ink)", opacity: 0.4, padding: "9px 0" }}
             >
               Resume
             </a>
