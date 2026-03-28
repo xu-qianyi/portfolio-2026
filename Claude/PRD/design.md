@@ -1,7 +1,7 @@
-# design.md — Martta Xu Portfolio
+# design.md - Martta Xu Portfolio
 
-*Last updated: March 25, 2026*
-*Keep this file tight. When updating, refine — don't just add.*
+*Last updated: March 27, 2026*
+*Keep this file tight. When updating, refine - don't just add.*
 
 ---
 
@@ -11,7 +11,7 @@
 
 **Three words:** Precise. Considered. Uncluttered.
 
-**The hiring manager should leave thinking:** "She has taste." Not "wow, flashy" — taste. The kind that comes from knowing what to leave out.
+**The hiring manager should leave thinking:** "She has taste." Not "wow, flashy" - taste. The kind that comes from knowing what to leave out.
 
 ---
 
@@ -19,39 +19,42 @@
 
 These are hard constraints. If a decision pushes toward any of these, it's the wrong decision.
 
-- **Not a creative agency site.** No scroll-jacking, no text that explodes on entrance, no cursor theater. The orange triangle cursor is the one exception — it's small (32px), quiet, and consistent. It signals craft without performing it.
+- **Not a creative agency site.** No scroll-jacking, no text that explodes on entrance, no cursor theater. The orange triangle cursor is the one exception - it's small (32px), quiet, and consistent. It signals craft without performing it.
 - **Not a resume dump.** Text exists to give context to work, not replace it. If a section is becoming a wall of words, cut it.
-- **Not decoration-first.** Animation and interaction exist to aid comprehension or signal craft — never to entertain.
+- **Not decoration-first.** Animation and interaction exist to aid comprehension or signal craft - never to entertain.
 - **Not dark mode.** White is the canvas. The work provides the color.
 
 ---
 
 ## 3. Color
 
-**Palette philosophy:** Black and white with a single accent. The accent is the only color that carries meaning — use it sparingly so it always lands.
+**Palette philosophy:** Black and white with a single accent. The accent is the only color that carries meaning - use it sparingly so it always lands.
 
 ```
---color-ink:       #1A1A1A   /* Primary text, borders */
---color-surface:   #FFFFFF   /* Page background */
---color-subtle:    #F5F5F5   /* Card backgrounds, subtle dividers */
---color-muted:     #B0B0B0   /* Secondary labels: project meta row, footer copy, nav tab hover */
---color-accent:    #EC4523   /* Interaction: hero link hovers, superscript badges, footer copy success */
+--color-ink:           #1A1A1A   /* Primary text */
+--color-surface:       #FFFFFF   /* Page background */
+--color-subtle:        #F5F5F5   /* Card backgrounds, subtle fills */
+--color-muted:         #737373   /* Secondary labels, meta, footer default */
+--color-accent:        #EC4523   /* Interaction: hovers, badges, footer copy success */
+--color-accent-green:  #3F7A66   /* Case-study editorial only: pull-quote / section rule, inline highlight wash */
+--color-ink-80 …:      rgba(26,26,26,0.8) etc. /* Body narrative on work pages */
 ```
 
 **Rules:**
 
+- **Orange accent** = interaction and home hero. **Green accent** = `/work/*` editorial spine (left rule on `h2`, optional `mark.case-text-highlight` wash). Do not use green for global nav/footer CTAs.
 - **Bio company links** (`.hero-company-link`): badge = `attr(data-num)` in `::after`, **absolute** (`top` / `right`), **10px**, accent, `opacity: 0.8`.
-- **Home hero external links** (`.hero-nav-link`): badge = **`↗`** via `data-num`; `::after` is **inline superscript** (`vertical-align: super`, **8px**, `margin-left: 0.12em`), accent, `opacity: 0.8` — no absolute positioning.
+- **Home hero external links** (`.hero-nav-link`): badge = **`↗`** via `data-num`; `::after` is **inline superscript** (`vertical-align: super`, **8px**, `margin-left: 0.12em`), accent, `opacity: 0.8` - no absolute positioning.
 - **Footer** default copy + copy icon: **`var(--color-muted)`**; **hover** copy icon and **success** checkmark: **solid** `var(--color-accent)` (no alpha on accent for those states).
-- Accent never appears as: decorative backgrounds, section dividers, illustration color.
-- When in doubt, use `--color-ink` at reduced opacity rather than reaching for a new color.
+- Accent orange never as: decorative backgrounds, full-bleed section rules, illustration fill.
+- When in doubt, use `--color-ink` at reduced opacity rather than a new hue.
 
 ---
 
 ## 4. Typography
 
-**tiemposText** — Hero headline and project/display headlines. Serif voice for editorial presence.
-**Geist** — UI, body, card metadata, navigation, footer. Anything read as interface/content.
+**tiemposText** - Hero headline and project/display headlines. Serif voice for editorial presence.
+**Geist** - UI, body, card metadata, navigation, footer. Anything read as interface/content.
 
 ```
 Home / About intro:   Geist, 16px, weight 500, line-height 150%, color #1A1A1A
@@ -63,19 +66,21 @@ Caption / meta:       Geist, 0.875rem, weight 400, color --color-muted
 Nav:                  Geist, 15px, weight 500, #1a1a1a; desktop `.nav-tab` **color** → `var(--color-muted)` on hover (200ms ease); no underline; grid-layout; logo md:col-span-1; links md:col-start-2 md:col-span-11, gap 24px
 Home hero externals:  Geist, 15px, weight 500; CHANGELOG / LinkedIn / X as `.hero-nav-link`, flex-col items-end, gap 4px (right of headline from lg)
 Footer:               Geist, 15px, weight 500; flex space-between wrap; left: Boston time; right: email + copy/check icon (see §3)
+Work case study:      Eyebrow Geist 13px uppercase muted; section title tiemposText 24px + 2px left `var(--color-accent-green)`; body Geist 16px / 160% `var(--color-ink-80)`; hero H1 tiemposText 28px; data tables tiemposText ~15px. Pull-quotes reuse title rule. Links in prose: `.case-inline-link` (dotted underline, accent hover).
 ```
 
 **Rules:**
 
-- Never use bold weight for emphasis within body text. Use a new sentence instead.
+- **Home / About narrative:** avoid bold for emphasis - split copy instead.
+- **Case studies:** `font-semibold` + `var(--color-ink)` allowed for short leads (e.g. insight first sentences) and table labels; optional `case-text-highlight` (green wash) for phrases like “Initial question,” not whole paragraphs.
 - Never center-align body text. Left-aligned only.
-- Heading hierarchy should be felt, not announced — avoid H1/H2/H3 visual jumps that feel like a document.
+- Heading hierarchy should be felt, not announced - avoid H1/H2/H3 visual jumps that feel like a document.
 
 ---
 
 ## 5. Spacing & Layout
 
-**Philosophy:** When in doubt, add space. Padding should feel slightly more generous than necessary. The grid breathes.
+**Philosophy:** Generous at **chapter** boundaries; tight within a **single argument**. Space signals “new idea,” not decoration.
 
 ```
 Page horizontal pad:   24px mobile, 72px desktop (lg+); shared via `.grid-layout` class (repeat(12, 1fr), col-gap 24px)
@@ -84,24 +89,35 @@ Hero padding:         desktop 52px top / 64px bottom, 72px horizontal; tablet 28
 Project section:      grid-layout; masonry columns-1 lg:columns-2; 24px col-gap; pb-20
 Footer padding:       pt-5 pb-7; px-6 lg:px-[72px]; border-top rgba(26,26,26,0.14)
 About garden wrap:    px-[24px] lg:px-[72px] (match hero), no double horizontal padding inside Garden tip row
-Section gap:          5rem–7rem vertical (case studies / large sections)
+Marketing “chapters”:  Large vertical gaps (e.g. ~5rem–7rem) between major bands where appropriate
 ```
 
-**About Garden:** Scene uses `gardenX` horizontal band inside the padded wrapper — align with page margins above.
+**Work case study page** (`/work/ark7`, max-width ~800px column):
+
+```
+Page vertical:         py-14 md:py-16; horizontal px-6 lg:px-[72px]
+Hero stack → sections: gap-14 md:gap-16 (one clarity bump, not stacked multiples)
+Between SECTIONS:      gap-14 md:gap-16 + `h-px` rule with mt-10 md:mt-12
+Inside one section:    gap-4 (eyebrow, title, body paragraphs, media)
+Research “acts”:       mt-8 md:mt-10 between narrative blocks (e.g. charts → personas → matrix); inside each act, gap-4
+Tables:                my-6 md:my-8 vertical only (no frame); overflow-x-auto
+```
+
+**About Garden:** Scene uses `gardenX` horizontal band inside the padded wrapper - align with page margins above.
 
 **Breakpoint:** Below lg: single-column project stack. lg+: 2-column masonry.
 
-**Rules:** Never crowd cards. External links live in the **home hero** (right), not the footer. Navbar has no clock / no copy-email.
+**Rules:** Never crowd cards. External links live in the **home hero** (right), not the footer. Navbar has no clock / no copy-email. On case studies, do **not** uniform-inflate every gap - separate **section** rhythm from **subsection** rhythm.
 
 ---
 
 ## 6. Animation & Interaction
 
-**Philosophy:** Motion should feel slow and deliberate — like turning a page, not a notification ping.
+**Philosophy:** Motion should feel slow and deliberate - like turning a page, not a notification ping.
 
 ```
 Default duration:     400ms
-Default ease:         cubic-bezier(0.4, 0, 0.2, 1)   /* Material "standard" — smooth deceleration */
+Default ease:         cubic-bezier(0.4, 0, 0.2, 1)   /* Material "standard" - smooth deceleration */
 Hover transitions:    300ms cubic-bezier(0.4, 0, 0.2, 1)
 Profile card fade:    350ms ease, slight translateY(8px) → translateY(0)
 Cursor:               JS div (CustomCursor.tsx); orange triangle SVG 32×32; cursor: none globally via CSS;
@@ -112,7 +128,7 @@ Cursor:               JS div (CustomCursor.tsx); orange triangle SVG 32×32; cur
 **Rules:**
 
 - Every animation must have a functional reason. "It looks cool" is not a reason.
-- No entrance animations on page load. Content appears immediately — animation is reserved for interaction responses.
+- No entrance animations on page load. Content appears immediately - animation is reserved for interaction responses.
 - Hover states on cards: subtle shadow lift + scale(1.015). Never scale more than 1.02.
 
 ---
@@ -131,7 +147,7 @@ Headline:              tiemposText, 20px, weight 400, line-height 130%, #1A1A1A;
 
 **Tools Cards:** Slightly more playful than project cards (vibe coding), still within grid discipline.
 
-**"In Their Eyes" Testimonials:** Profile cards appear/disappear quietly — felt discovered, not announced.
+**"In Their Eyes" Testimonials:** Profile cards appear/disappear quietly - felt discovered, not announced.
 
 **Navigation:** Sticky; `grid-layout`; logo + link row as above; mobile hamburger + drawer.
 
@@ -152,9 +168,9 @@ Logo / links:          Geist 15px, weight 500, #1a1a1a; active tab indicator: sm
 
 - Short sentences. Never more than 25 words.
 - No adjective stacking. One strong word beats three weak ones.
-- First person where appropriate ("I design access") — direct, not performative.
+- First person where appropriate ("I design access") - direct, not performative.
 - No buzzwords: no "passionate," "innovative," "leverage," "synergy."
-- Descriptions of work answer: *what was the problem, what changed because of the design* — not what tools were used.
+- Descriptions of work answer: *what was the problem, what changed because of the design* - not what tools were used.
 
 ---
 

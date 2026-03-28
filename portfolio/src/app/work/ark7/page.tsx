@@ -51,9 +51,15 @@ const SECTIONS: Section[] = [
     label: "Design",
     title: "From 12 Features to 4",
     body: [
-      "From the competitor analysis, we identified 12+ community features that could potentially address the trust gap. But ARK7 had real constraints — frozen investment periods, limited engineering resources, and a cautious approach to community openness.",
+      "From the competitor analysis, we identified 12+ community features that could potentially address the trust gap. But ARK7 had real constraints - frozen investment periods, limited engineering resources, and a cautious approach to community openness.",
       "We evaluated each feature on two axes: effort and efficiency (impact on trust and engagement). Using an Eisenhower-style matrix, we narrowed the list to four:",
     ],
+  },
+  {
+    id: "iteration",
+    label: "Iteration",
+    title: "Iteration",
+    body: [],
   },
   {
     id: "summary",
@@ -124,7 +130,7 @@ const ARK7_PERSONAS = [
     tags: ["ENFP", "Busy", "Influence-Seeker", "Novice Investor"],
     needs: [
       "Discovered ARK7 through a YouTube ad and received a $50 bonus",
-      "Cautious about who to trust — available information feels limited",
+      "Cautious about who to trust - available information feels limited",
       "Wants to know who else is investing",
       "Doesn't want to invest alone",
       "Hesitating to invest because the platform feels opaque",
@@ -141,6 +147,97 @@ const BODY_TEXT_STYLE = {
   color: "var(--color-ink-80)",
   margin: 0,
 } as const;
+
+const ARK7_STORE_REVIEW_QUOTES = [
+  {
+    source: "Google Play",
+    quote:
+      "Poor GUI. Basically its a green hog that makes navigation to the rest of the phone annoying. Stop hiring teenagers to design",
+    author: "Jamie",
+  },
+  {
+    source: "Trustpilot",
+    quote:
+      "Seriously, what's with all the green in this app? It's like walking into a room painted top to bottom in neon lime 🤢.",
+    author: "Tian",
+  },
+] as const;
+
+function ark7StoreQuoteInner(text: string): ReactNode {
+  const glyph = "\u{1F92E}";
+  if (!text.includes(glyph)) {
+    return text;
+  }
+  const parts = text.split(glyph);
+  return (
+    <>
+      {parts[0]}
+      <span
+        className="not-italic"
+        style={{
+          fontStyle: "normal",
+          fontFamily:
+            'ui-sans-serif, system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif',
+        }}
+      >
+        {glyph}
+      </span>
+      {parts.slice(1).join(glyph)}
+    </>
+  );
+}
+
+function Ark7IterationStoreQuotes() {
+  return (
+    <div className="mt-6 grid grid-cols-1 gap-5 md:mt-8 md:grid-cols-2 md:gap-6">
+      {ARK7_STORE_REVIEW_QUOTES.map((item) => (
+        <article
+          key={item.source}
+          className="flex flex-col gap-3.5 rounded-lg border border-black/10 bg-[var(--color-surface)] px-4 py-4 md:gap-4 md:px-5 md:py-5"
+        >
+          <p
+            style={{
+              fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+              fontSize: "12px",
+              fontWeight: 500,
+              letterSpacing: "0.06em",
+              textTransform: "uppercase" as const,
+              color: "var(--color-muted)",
+              margin: 0,
+            }}
+          >
+            {item.source}
+          </p>
+          <p
+            style={{
+              fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+              fontSize: "17px",
+              lineHeight: "150%",
+              fontWeight: 400,
+              fontStyle: "italic",
+              color: "var(--color-ink)",
+              margin: 0,
+            }}
+          >
+            &ldquo;{ark7StoreQuoteInner(item.quote)}&rdquo;
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+              fontSize: "14px",
+              lineHeight: "150%",
+              fontWeight: 500,
+              color: "var(--color-muted)",
+              margin: 0,
+            }}
+          >
+            -{item.author}
+          </p>
+        </article>
+      ))}
+    </div>
+  );
+}
 
 function Ark7PersonaCards() {
   return (
@@ -349,7 +446,7 @@ function Ark7CommunityFeaturesTable() {
             </td>
             <td className={`${cellPad} pl-2 md:pl-3`}>
               <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Transparency</span>
-              {" — "}keeps users informed about their investments and the platform
+              {" - "}keeps users informed about their investments and the platform
             </td>
           </tr>
           <tr>
@@ -361,7 +458,7 @@ function Ark7CommunityFeaturesTable() {
             </td>
             <td className={`${cellPad} pl-2 md:pl-3`}>
               <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Agency</span>
-              {" — "}gives investors a voice, making them feel like owners, not passengers
+              {" - "}gives investors a voice, making them feel like owners, not passengers
             </td>
           </tr>
           <tr>
@@ -373,7 +470,7 @@ function Ark7CommunityFeaturesTable() {
             </td>
             <td className={`${cellPad} pl-2 md:pl-3`}>
               <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Belonging</span>
-              {" — "}connects investors with each other around shared stakes
+              {" - "}connects investors with each other around shared stakes
             </td>
           </tr>
           <tr>
@@ -385,11 +482,234 @@ function Ark7CommunityFeaturesTable() {
             </td>
             <td className={`${cellPad} pl-2 md:pl-3`}>
               <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Education</span>
-              {" — "}builds confidence through knowledge and direct access to experts
+              {" - "}builds confidence through knowledge and direct access to experts
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  );
+}
+
+type Ark7LayoutOption = {
+  id: string;
+  tabLabel: string;
+  imageSrc: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageAlt: string;
+  title: string;
+  points: ReactNode[];
+};
+
+const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
+  {
+    id: "information-home",
+    tabLabel: "Option 1",
+    imageSrc: "/images/ARK7/option1.png",
+    imageWidth: 1002,
+    imageHeight: 2214,
+    imageAlt: "Mobile wireframe: information cards and feature tiles on the home tab",
+    title: "Information cards on the home tab",
+    points: [
+      <>
+        Users can{" "}
+        <span className="font-semibold text-[var(--color-ink)]">quickly identify the purpose</span>{" "}
+        of each feature and decide which one they want to explore.
+      </>,
+      <>Optimize page load times so it is easier to develop.</>,
+      <>
+        Users&apos;{" "}
+        <span className="font-semibold text-[var(--color-ink)]">attention may be diverted</span> by
+        features they find uninteresting and are not willing to explore further.
+      </>,
+      <>
+        An abundance of options and entrances could{" "}
+        <span className="font-semibold text-[var(--color-ink)]">overwhelm users</span>.
+      </>,
+    ],
+  },
+  {
+    id: "feed-home",
+    tabLabel: "Option 2",
+    imageSrc: "/images/ARK7/option2.png",
+    imageWidth: 1040,
+    imageHeight: 2214,
+    imageAlt: "Mobile wireframe: home and feed tabs with a vertical content feed",
+    title: "Feed in the home tab",
+    points: [
+      <>
+        A feed provides a{" "}
+        <span className="font-semibold text-[var(--color-ink)]">more cohesive</span> approach to
+        interaction.
+      </>,
+      <>
+        A mixed feed{" "}
+        <span className="font-semibold text-[var(--color-ink)]">increases content discovery</span> and
+        engagement by exposing users to diverse content.
+      </>,
+      <>
+        Home and feed have{" "}
+        <span className="font-semibold text-[var(--color-ink)]">
+          two different types of interaction
+        </span>
+        , and serve two different functions.
+      </>,
+    ],
+  },
+  {
+    id: "feed-new-tab",
+    tabLabel: "Option 3",
+    imageSrc: "/images/ARK7/option3.png",
+    imageWidth: 1040,
+    imageHeight: 2215,
+    imageAlt: "Mobile wireframe: dedicated news feed tab with bottom navigation",
+    title: "Dedicated tab with a feed",
+    points: [
+      <>
+        A feed provides a{" "}
+        <span className="font-semibold text-[var(--color-ink)]">more cohesive</span> approach to
+        interaction.
+      </>,
+      <>
+        A mixed feed{" "}
+        <span className="font-semibold text-[var(--color-ink)]">increases content discovery</span> and
+        engagement by exposing users to diverse content.
+      </>,
+      <>
+        All four features serve the same intention: giving users a shared{" "}
+        <span className="font-semibold text-[var(--color-ink)]">community experience</span>.
+      </>,
+    ],
+  },
+];
+
+function Ark7LayoutOptionsTabs() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [layoutPanelMotionEpoch, setLayoutPanelMotionEpoch] = useState(0);
+  const active = ARK7_LAYOUT_OPTIONS[activeIndex];
+  const tablistId = "ark7-layout-options-tabs";
+
+  const selectLayoutTab = (nextIndex: number) => {
+    if (nextIndex === activeIndex) return;
+    setActiveIndex(nextIndex);
+    setLayoutPanelMotionEpoch((e) => e + 1);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      selectLayoutTab(Math.min(activeIndex + 1, ARK7_LAYOUT_OPTIONS.length - 1));
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      selectLayoutTab(Math.max(activeIndex - 1, 0));
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      selectLayoutTab(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      selectLayoutTab(ARK7_LAYOUT_OPTIONS.length - 1);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-5 md:gap-6">
+      <div
+        role="tablist"
+        aria-label="Three layout options compared"
+        id={tablistId}
+        onKeyDown={handleKeyDown}
+        className="flex flex-wrap justify-end gap-x-1"
+      >
+        {ARK7_LAYOUT_OPTIONS.map((opt, i) => {
+          const isActive = i === activeIndex;
+          return (
+            <button
+              key={opt.id}
+              type="button"
+              role="tab"
+              id={`${tablistId}-${opt.id}`}
+              aria-selected={isActive}
+              aria-controls={`${tablistId}-panel-${opt.id}`}
+              tabIndex={isActive ? 0 : -1}
+              className={`min-h-11 border-b-2 bg-transparent px-3 py-2.5 text-left transition-[color,border-color] duration-200 ease-out motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
+                isActive
+                  ? "border-[var(--color-ink)] text-[var(--color-ink)]"
+                  : "border-transparent text-[var(--color-muted)] hover:text-[var(--color-ink-80)]"
+              }`}
+              style={{
+                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                fontSize: "14px",
+                lineHeight: "140%",
+                fontWeight: isActive ? 500 : 400,
+                cursor: "inherit",
+              }}
+              onClick={() => selectLayoutTab(i)}
+            >
+              {opt.tabLabel}
+            </button>
+          );
+        })}
+      </div>
+
+      <div
+        role="tabpanel"
+        id={`${tablistId}-panel-${active.id}`}
+        aria-labelledby={`${tablistId}-${active.id}`}
+        className="rounded-lg border border-black/10 bg-[var(--color-surface)] px-5 py-7 md:px-8 md:py-9"
+      >
+        <div
+          key={`${active.id}-${layoutPanelMotionEpoch}`}
+          className={`grid grid-cols-1 gap-9 md:grid-cols-[minmax(0,200px)_minmax(0,1fr)] md:items-start md:gap-10 lg:gap-12${layoutPanelMotionEpoch > 0 ? " ark7-layout-tab-panel-enter" : ""}`}
+        >
+          <div className="mx-auto flex w-full max-w-[200px] shrink-0 justify-center md:mx-0">
+            <Image
+              src={active.imageSrc}
+              alt={active.imageAlt}
+              width={active.imageWidth}
+              height={active.imageHeight}
+              sizes="(max-width: 767px) min(100vw, 200px), 200px"
+              loading="lazy"
+              className={
+                active.id === "information-home"
+                  ? "h-auto w-full origin-top scale-y-[0.92] object-contain motion-reduce:scale-y-100"
+                  : "h-auto w-full object-contain"
+              }
+            />
+          </div>
+          <div className="flex min-w-0 flex-col gap-5 md:gap-6 md:pt-0.5">
+            <h3
+              style={{
+                fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                fontSize: "20px",
+                lineHeight: "124%",
+                fontWeight: 500,
+                color: "var(--color-ink)",
+                margin: 0,
+              }}
+            >
+              {active.title}
+            </h3>
+            <p style={{ ...SECTION_EYEBROW_STYLE, color: "var(--color-muted)" }}>
+              Design consideration
+            </p>
+            <ul className="m-0 flex list-none flex-col gap-4 p-0 md:gap-5">
+              {active.points.map((node, idx) => (
+                <li
+                  key={`${active.id}-pt-${idx}`}
+                  style={{
+                    ...BODY_TEXT_STYLE,
+                    paddingLeft: "1rem",
+                    borderLeft: "2px solid var(--color-ink-14)",
+                  }}
+                >
+                  {node}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -602,20 +922,22 @@ export default function Ark7CaseStudyPage() {
                 className="flex scroll-mt-24 flex-col gap-4 md:scroll-mt-28"
               >
                 <p style={SECTION_EYEBROW_STYLE}>{section.label}</p>
-                <h2
-                  style={{
-                    fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                    fontSize: "24px",
-                    lineHeight: "120%",
-                    fontWeight: 400,
-                    color: "var(--color-ink)",
-                    borderLeft: "2px solid var(--color-accent-green)",
-                    paddingLeft: "12px",
-                    margin: 0,
-                  }}
-                >
-                  {section.title}
-                </h2>
+                {section.id !== "iteration" ? (
+                  <h2
+                    style={{
+                      fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                      fontSize: "24px",
+                      lineHeight: "120%",
+                      fontWeight: 400,
+                      color: "var(--color-ink)",
+                      borderLeft: "2px solid var(--color-accent-green)",
+                      paddingLeft: "12px",
+                      margin: 0,
+                    }}
+                  >
+                    {section.title}
+                  </h2>
+                ) : null}
 
                 {section.body.map((paragraph, paragraphIndex) => (
                   <p
@@ -632,7 +954,96 @@ export default function Ark7CaseStudyPage() {
                   </p>
                 ))}
 
-                {section.id === "design" ? <Ark7CommunityFeaturesTable /> : null}
+                {section.id === "iteration" ? (
+                  <div className="mt-4 flex flex-col gap-4 md:mt-5">
+                    <blockquote
+                      style={{
+                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                        fontSize: "24px",
+                        lineHeight: "120%",
+                        fontWeight: 400,
+                        color: "var(--color-ink)",
+                        borderLeft: "2px solid var(--color-accent-green)",
+                        paddingLeft: "12px",
+                        margin: 0,
+                      }}
+                    >
+                      Fixing the foundation first
+                    </blockquote>
+                    <p style={{ ...BODY_TEXT_STYLE }}>
+                      Before shipping the community features, we had to address something more
+                      fundamental. The existing design system was undermining user trust at a visual
+                      level.
+                    </p>
+                    <Ark7IterationStoreQuotes />
+                  </div>
+                ) : null}
+
+                {section.id === "design" ? (
+                  <>
+                    <Ark7CommunityFeaturesTable />
+                    <div className="mt-8 flex flex-col gap-6 md:mt-10">
+                      <div className="flex flex-col gap-4">
+                        <blockquote
+                          style={{
+                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                            fontSize: "24px",
+                            lineHeight: "120%",
+                            fontWeight: 400,
+                            color: "var(--color-ink)",
+                            borderLeft: "2px solid var(--color-accent-green)",
+                            paddingLeft: "12px",
+                            margin: 0,
+                          }}
+                        >
+                          Entry point: one tab, four touchpoints
+                        </blockquote>
+                        <p style={{ ...BODY_TEXT_STYLE }}>
+                          We evaluated three layout options for integrating the community features. The
+                          winning approach:{" "}
+                          <mark className="case-text-highlight">
+                            a dedicated tab with a feed flow
+                          </mark>
+                          , using information cards at the top to surface each feature.
+                        </p>
+                      </div>
+                      <Ark7LayoutOptionsTabs />
+                    </div>
+                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
+                      <blockquote
+                        style={{
+                          fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                          fontSize: "24px",
+                          lineHeight: "120%",
+                          fontWeight: 400,
+                          color: "var(--color-ink)",
+                          borderLeft: "2px solid var(--color-accent-green)",
+                          paddingLeft: "12px",
+                          margin: 0,
+                        }}
+                      >
+                        Core flow: mapping out the overall UX in the feed with a user flow
+                      </blockquote>
+                      <p style={{ ...BODY_TEXT_STYLE }}>
+                        We developed user flows to systematically map out each step a user takes
+                        within our application, from initial entry to final interaction. This approach
+                        not only helps in understanding and predicting user behavior but also ensures
+                        a seamless navigation experience.
+                      </p>
+                      <div className="mt-6 w-full overflow-hidden md:mt-8">
+                        <Image
+                          src="/images/ARK7/user%20flow.png"
+                          alt="User flow diagram mapping entry through feed interactions in the ARK7 app"
+                          width={4432}
+                          height={1956}
+                          sizes="(max-width: 767px) 100vw, 800px"
+                          loading="lazy"
+                          className="h-auto w-full object-contain"
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : null}
 
                 {section.id === "research" ? (
                   <div className="mt-4 flex flex-col md:mt-5">

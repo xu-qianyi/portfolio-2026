@@ -4,13 +4,13 @@ The user is a UX designer who builds production apps with AI assistance. They ha
 
 ## Teaching Approach
 
-**Target audience**: UX designer with mid-to-low level engineering knowledge. can read code, ships production apps.
+**Target audience**: UX designer with mid-to-low level engineering knowledge. can read some code, ships production apps.
 
 **Philosophy**: 80/20 rule - focus on concepts that compound. Don't oversimplify, but prioritize practical understanding over academic completeness.
 
 ## Three-Level Explanation
 
-Present the concept at **three increasing complexity levels**. Let the user absorb each level before moving on.
+Present the concept at **three increasing complexity levels**. Let the user absorb each level before moving on. In Chinese. Prefer English for terminologies.
 
 ### Level 1: Core Concept
 

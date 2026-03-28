@@ -15,10 +15,10 @@ For every issue reported in the findings, you must classify it into exactly one 
 
 ### Looks Good
 
-- **Shell.tsx** — Clean ResizeObserver pattern with proper cleanup via `ro.disconnect()`. Footer reveal-on-scroll via `marginBottom` + `position: fixed` is solid.
-- **AnimalGardenFooter.tsx** — rAF chase loop correctly stored in ref and cleaned up on unmount. Wobble/bunny timers all cleaned up in the unmount effect at line 134–140. `useCallback` correctly applied to click handlers with stable deps.
-- **page.tsx** — Hero text update matches PRD. Datalign link correctly uses `hero-company-link` class for ✦ treatment.
-- **globals.css** — `::after` pseudo-element for ✦ is positioned well with `absolute` + `right: -0.85em` to avoid layout shift.
+- **Shell.tsx** - Clean ResizeObserver pattern with proper cleanup via `ro.disconnect()`. Footer reveal-on-scroll via `marginBottom` + `position: fixed` is solid.
+- **AnimalGardenFooter.tsx** - rAF chase loop correctly stored in ref and cleaned up on unmount. Wobble/bunny timers all cleaned up in the unmount effect at line 134–140. `useCallback` correctly applied to click handlers with stable deps.
+- **page.tsx** - Hero text update matches PRD. Datalign link correctly uses `hero-company-link` class for ✦ treatment.
+- **globals.css** - `::after` pseudo-element for ✦ is positioned well with `absolute` + `right: -0.85em` to avoid layout shift.
 
 ---
 

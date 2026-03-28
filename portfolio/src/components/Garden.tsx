@@ -238,12 +238,12 @@ export default function Garden() {
           if (crabWanderTimer.current) clearInterval(crabWanderTimer.current);
         }
       } else if (crabActiveRef.current) {
-        // Both resting — Fufu stays put
+        // Both resting - Fufu stays put
         if (chaseRestRef.current) {
           setCatAState(prev => prev === "arrive" ? prev : "arrive");
           return;
         }
-        // Crab just moved — give it a head start (700ms)
+        // Crab just moved - give it a head start (700ms)
         if (Date.now() - crabMoveTime.current < 700) {
           setCatAState(prev => prev === "arrive" ? prev : "arrive");
           return;
@@ -274,7 +274,7 @@ export default function Garden() {
         tx = chaseTarget.x;
         ty = chaseTarget.y;
       } else {
-        // Nothing to chase — transition to arrive so idle timer can restart
+        // Nothing to chase - transition to arrive so idle timer can restart
         crabCloseRef.current = false;
         crabPinnedRef.current = null;
         setCatAState(prev => prev === "arrive" ? prev : "arrive");
@@ -323,7 +323,7 @@ export default function Garden() {
 
       // Distance‑adaptive speed: farther targets → faster, close‑in → slower
       const chasingCrab = !wandInBounds && crabActiveRef.current;
-      // Speed defined as % of garden width per frame — scales with screen size
+      // Speed defined as % of garden width per frame - scales with screen size
       const basePct = chasingCrab ? 0.08 : 0.10;
       const distPct = distPx / r.width * 100;
       const extraPct = Math.min(distPct * 0.015, chasingCrab ? 0.14 : 0.16);
@@ -447,7 +447,7 @@ export default function Garden() {
         setFufuIdle(true);
       }, 2000);
     } else if (!crabActiveRef.current) {
-      // Only clear idle when crab isn't active — otherwise chasing the crab would kill it
+      // Only clear idle when crab isn't active - otherwise chasing the crab would kill it
       setFufuIdle(false);
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     }
@@ -566,7 +566,7 @@ export default function Garden() {
   const isNearBunny   = pxFrom(BUNNY_CSS_X)   < 40 * bubbleScale;
   const isNearFlower  = catAPos.y > rBVisual - 30 * bubbleScale && FLOWER_CSS_XS.some(fx => pxFrom(fx) < 30 * bubbleScale);
   // Both axes are in screen-pixels: pxFrom converts % X → px; catAPos.y / crabY are "bottom px"
-  // (fixed-height garden), which is also pixels — so Euclidean distance is valid here.
+  // (fixed-height garden), which is also pixels - so Euclidean distance is valid here.
   const crabDist      = crabActive ? Math.sqrt(pxFrom(crabX) ** 2 + (catAPos.y - crabY) ** 2) : Infinity;
   const isNearCrab    = crabDist < 50 * bubbleScale;
 
@@ -599,7 +599,7 @@ export default function Garden() {
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
     <>
-      {/* Wand cursor — only visible while hovering over footer */}
+      {/* Wand cursor - only visible while hovering over footer */}
       {isOverGarden && (
         <Image
           ref={wandCursorRef}
@@ -633,7 +633,7 @@ export default function Garden() {
           paddingBottom: 0,
         }}
       >
-        {/* Garden — hidden on mobile */}
+        {/* Garden - hidden on mobile */}
         {!isMobile && (
           <>
             {/* Tip text (above garden frame) */}
@@ -744,7 +744,7 @@ export default function Garden() {
                 </div>
               ))}
 
-              {/* Claude sparkle crab — appears when idle */}
+              {/* Claude sparkle crab - appears when idle */}
               {crabActive && (
                 <div style={{
                   position: "absolute",
@@ -761,7 +761,7 @@ export default function Garden() {
                 </div>
               )}
 
-              {/* Cat A — Fufu, chases wand */}
+              {/* Cat A - Fufu, chases wand */}
               <div style={{
                 position: "absolute",
                 left: `${catAPos.x}%`,
@@ -820,7 +820,7 @@ export default function Garden() {
                 />
               </div>
 
-              {/* Cat B — click to cycle states */}
+              {/* Cat B - click to cycle states */}
               <div
                 onClick={handleCatBClick}
                 onKeyDown={handleCatBKeyDown}

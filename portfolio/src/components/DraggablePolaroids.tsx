@@ -18,7 +18,7 @@ const PHOTOS: PhotoAsset[] = [
   { src: "/images/about/commencement.webp", alt: "Commencement" },
 ];
 
-/** md–lg — looser scatter across full area */
+/** md–lg - looser scatter across full area */
 const POSES_TABLET = [
   { rotate: -8,  x: 6,  y: 28 },
   { rotate: 9,   x: 76, y: 26 },
@@ -29,7 +29,7 @@ const POSES_TABLET = [
   { rotate: -9,  x: 68, y: 94 },
 ] as const;
 
-/** lg+ — looser scatter, breaks up the two-column clustering */
+/** lg+ - looser scatter, breaks up the two-column clustering */
 const POSES_DESKTOP = [
   { rotate: -11, x: 4,  y: 3  },
   { rotate: 9,   x: 80, y: 0  },
@@ -40,9 +40,9 @@ const POSES_DESKTOP = [
   { rotate: -9,  x: 74, y: 78 },
 ] as const;
 
-/** lg+ — full size */
+/** lg+ - full size */
 const LAYOUT_LG = { w: 180, pad: 12, bot: 36 } as const;
-/** md–lg (tablet) — slightly smaller */
+/** md–lg (tablet) - slightly smaller */
 const LAYOUT_MD = { w: 148, pad: 10, bot: 30 } as const;
 
 type PolaroidLayout = typeof LAYOUT_LG | typeof LAYOUT_MD;
@@ -188,7 +188,7 @@ export default function DraggablePolaroids() {
     []
   );
 
-  // Direct DOM update — zero React re-renders during drag
+  // Direct DOM update - zero React re-renders during drag
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
     if (!dragging.current) return;
     const { index, startX, startY, origX, origY } = dragging.current;

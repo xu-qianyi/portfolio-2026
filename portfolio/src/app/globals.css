@@ -52,7 +52,7 @@ nav button:focus-visible {
 }
 
 /* Custom cursor is applied via JS in CustomCursor.tsx only for pointer devices.
-   Never hide the native cursor in CSS — it breaks keyboard/assistive-tech users. */
+   Never hide the native cursor in CSS - it breaks keyboard/assistive-tech users. */
 
 body {
   background-color: var(--color-surface);
@@ -101,7 +101,7 @@ body {
 
 /* cursor:none is handled by CustomCursor.tsx at runtime for pointer devices only */
 
-/* Real <span.hero-company-link-badge> after link text — flows with wrapping; no ::after (avoids overlap + zero-height bugs). */
+/* Real <span.hero-company-link-badge> after link text - flows with wrapping; no ::after (avoids overlap + zero-height bugs). */
 .hero-company-link .hero-company-link-badge {
   font-size: 10px;
   line-height: 1;
@@ -177,6 +177,28 @@ body {
   border-radius: 3px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+}
+
+/* ARK7 layout options: tab panel switch (transform + opacity only) */
+@keyframes ark7-layout-tab-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ark7-layout-tab-panel-enter {
+  animation: ark7-layout-tab-reveal 230ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ark7-layout-tab-panel-enter {
+    animation: none;
+  }
 }
 
 .copy-email-wrapper {

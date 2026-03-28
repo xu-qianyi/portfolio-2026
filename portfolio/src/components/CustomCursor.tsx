@@ -19,7 +19,7 @@ export default function CustomCursor() {
     if (!el) return;
 
     // Inject a runtime <style> tag appended to <head> so it sits at the highest
-    // cascade order — after any browser extension or late-loaded stylesheets.
+    // cascade order - after any browser extension or late-loaded stylesheets.
     const styleEl = document.createElement("style");
     styleEl.textContent =
       "html,body,*,*::before,*::after{cursor:none!important;}";
