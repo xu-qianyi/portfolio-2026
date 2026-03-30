@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 import LottiePreview from "@/components/LottiePreview";
 
@@ -1083,7 +1084,12 @@ export default function Ark7CaseStudyPage() {
             </CaseScrollReveal>
 
             <CaseScrollReveal delay={60} className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative">
-              <LottiePreview src="/images/ARK7/ARK7_Case study_Preview.json" loop={false} />
+              <LottiePreview
+                src="/images/ARK7/ARK7_Case%20study_Preview.json"
+                loop={false}
+                fallbackSrc="/images/preview/ARK7.webp"
+                alt="ARK7 mobile product preview"
+              />
             </CaseScrollReveal>
 
             <CaseScrollReveal delay={120} className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-6">
@@ -1598,7 +1604,7 @@ export default function Ark7CaseStudyPage() {
                       <mark className="case-text-highlight">Navigating the space between user needs and business caution</mark>
                     </p>
                     <p style={{ ...BODY_TEXT_STYLE }}>
-                      The client was nervous about opening the platform to unfiltered investor commentary - they'd seen community features go wrong before. My instinct was to push back. But sitting with their concern longer, I realized the better question wasn't "how open?" but "what conditions make openness feel safe enough to ship?" That reframe changed the conversation. Time-limited discussions and moderated formats weren't watered-down compromises - they were the constraints that made the design real.
+                      The client was nervous about opening the platform to unfiltered investor commentary - they&apos;d seen community features go wrong before. My instinct was to push back. But sitting with their concern longer, I realized the better question wasn&apos;t &ldquo;how open?&rdquo; but &ldquo;what conditions make openness feel safe enough to ship?&rdquo; That reframe changed the conversation. Time-limited discussions and moderated formats weren&apos;t watered-down compromises - they were the constraints that made the design real.
                     </p>
                   </div>
                   </>
@@ -1843,7 +1849,11 @@ export default function Ark7CaseStudyPage() {
 
           <div className="mt-12 pt-8 md:mt-16">
             <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", marginBottom: "2rem" }} />
-            <a href="#" className="group flex flex-col gap-1.5 no-underline">
+            <Link
+              href="/#project-datalign"
+              className="group flex flex-col gap-1.5 no-underline"
+              aria-label="Next project home: Datalign, 2025 — Making wealth management approachable for everyone"
+            >
               <p
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -1853,7 +1863,7 @@ export default function Ark7CaseStudyPage() {
                   margin: 0,
                 }}
               >
-                Next — Datalign · 2025
+                Next Project &mdash; Datalign &middot; 2025
               </p>
               <p
                 style={{
@@ -1866,13 +1876,11 @@ export default function Ark7CaseStudyPage() {
                 className="text-[var(--color-muted)] transition-colors duration-200 ease-out group-hover:text-[#1A1A1A]"
               >
                 Making wealth management approachable for everyone{" "}
-                <span
-                  className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1"
-                >
-                  →
+                <span className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1">
+                  &rarr;
                 </span>
               </p>
-            </a>
+            </Link>
           </div>
         </div>
 

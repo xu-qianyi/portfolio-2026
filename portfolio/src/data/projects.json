@@ -8,7 +8,7 @@
     "image": "/images/preview/Datalign.webp",
     "width": 1280,
     "height": 900,
-    "href": "#",
+    "href": "/#project-datalign",
     "industry": "FinTech"
   },
 
@@ -21,7 +21,7 @@
     "image": "/images/preview/website-placeholder.svg",
     "width": 1280,
     "height": 960,
-    "href": "#",
+    "href": "/#project-datalign2",
     "industry": "FinTech"
   },
   {
@@ -45,7 +45,7 @@
     "image": "/images/preview/Nars-playful.json",
     "width": 1280,
     "height": 960,
-    "href": "#",
+    "href": "/work/nars",
     "industry": "User Research"
   }
 ]

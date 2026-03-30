@@ -46,7 +46,8 @@ export default function CustomCursor() {
     const checkGarden = (x: number, y: number) => {
       const target = document.elementFromPoint(x, y);
       const overGarden = !!target?.closest("[data-garden-section]");
-      overGarden ? hide() : show();
+      if (overGarden) hide();
+      else show();
     };
 
     const onMove = (e: PointerEvent) => {

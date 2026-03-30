@@ -458,13 +458,13 @@ export default function Garden() {
   // Normalized distance: both axes mapped to 0–100 so distance is screen-size-independent.
   // Garden diagonal ≈ √(88² + 100²) ≈ 133;  40% of that ≈ 53.
   const MIN_SPAWN_DIST_PCT = 53;
-  const pctDist = (ax: number, ay: number, bx: number, by: number) => {
-    const dx = ax - bx;
-    const dy = (ay - by) / gardenH * 100;
-    return Math.sqrt(dx * dx + dy * dy);
-  };
 
   const randomCrabPos = useCallback((awayFromX?: number, awayFromY?: number) => {
+    const pctDist = (ax: number, ay: number, bx: number, by: number) => {
+      const dx = ax - bx;
+      const dy = (ay - by) / gardenH * 100;
+      return Math.sqrt(dx * dx + dy * dy);
+    };
     const fufuX = posRef.current.x;
     const fufuY = posRef.current.y;
     let x: number, y: number, tries = 0;

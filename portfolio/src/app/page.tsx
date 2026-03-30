@@ -58,7 +58,11 @@ function DotSeparator() {
 
 function ProjectCard({ project }: { project: (typeof projects)[number] }) {
   return (
-    <div style={{ breakInside: "avoid", marginBottom: "48px" }}>
+    <div
+      id={`project-${project.id}`}
+      className="scroll-mt-28"
+      style={{ breakInside: "avoid", marginBottom: "48px" }}
+    >
       <a
         href={project.href}
         className="project-card-link"

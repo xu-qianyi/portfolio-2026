@@ -1,11 +1,31 @@
 "use client";
 
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import SiteFooter from "./SiteFooter";
 
+function scrollToHashElement() {
+  if (typeof window === "undefined") return;
+  const raw = window.location.hash;
+  if (!raw || raw.length < 2) return;
+  const id = decodeURIComponent(raw.slice(1));
+  document.getElementById(id)?.scrollIntoView({ block: "start", behavior: "auto" });
+}
+
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+
+  useEffect(() => {
+    const run = () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(scrollToHashElement);
+      });
+    };
+    run();
+    window.addEventListener("hashchange", scrollToHashElement);
+    return () => window.removeEventListener("hashchange", scrollToHashElement);
+  }, [pathname]);
 
   return (
     <div
