@@ -222,7 +222,7 @@ function Ark7DesignAuditGrid() {
     <div className="mt-2 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
       {ARK7_DESIGN_AUDIT_FINDINGS.map((item) => (
         <div key={item.title} className="flex flex-col gap-3">
-          <div className="relative rounded-lg p-3" style={{ backgroundColor: "#f8f8f8" }}>
+          <div className="relative rounded-lg p-3" style={{ backgroundColor: "var(--color-subtle)" }}>
             <div className="relative h-96 w-full overflow-hidden rounded-md">
               <Image
                 src={item.image}
@@ -297,7 +297,7 @@ function Ark7IterationStoreQuotes() {
               margin: 0,
             }}
           >
-            -{item.author}
+            - {item.author}
           </p>
         </article>
       ))}
@@ -1082,11 +1082,11 @@ export default function Ark7CaseStudyPage() {
               </h1>
             </CaseScrollReveal>
 
-            <CaseScrollReveal className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative">
+            <CaseScrollReveal delay={60} className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative">
               <LottiePreview src="/images/ARK7/ARK7_Case study_Preview.json" loop={false} />
             </CaseScrollReveal>
 
-            <CaseScrollReveal className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-6">
+            <CaseScrollReveal delay={120} className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-6">
               {META_ITEMS.map((item) => (
                 <div key={item.label} className="flex flex-col gap-2">
                   <p
@@ -1118,7 +1118,7 @@ export default function Ark7CaseStudyPage() {
 
           <Ark7MobileNav activeId={activeId} sectionRefs={sectionRefs} />
 
-          <div className="flex flex-col gap-14 md:gap-16">
+          <div className="flex flex-col gap-16 md:gap-20">
             {SECTIONS.map((section, index) => (
               <section
                 key={section.id}
@@ -1128,7 +1128,8 @@ export default function Ark7CaseStudyPage() {
                 }}
                 className="scroll-mt-24 md:scroll-mt-28"
               >
-                <CaseScrollReveal className="flex min-w-0 w-full flex-col gap-5">
+                <div className="flex min-w-0 w-full flex-col gap-7">
+                <CaseScrollReveal>
                 <div className="flex flex-col gap-2">
                   <p style={SECTION_EYEBROW_STYLE}>{section.label}</p>
                   {section.id !== "iteration" && section.id !== "final-solution" && section.id !== "summary" ? (
@@ -1148,7 +1149,9 @@ export default function Ark7CaseStudyPage() {
                     </h2>
                   ) : null}
                 </div>
+                </CaseScrollReveal>
 
+                <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 {section.body.map((paragraph, paragraphIndex) => (
                   <p
                     key={`${section.id}-${paragraphIndex}`}
@@ -1165,7 +1168,7 @@ export default function Ark7CaseStudyPage() {
                 ))}
 
                 {section.id === "iteration" ? (
-                  <div className="mt-4 flex flex-col gap-4 md:mt-5">
+                  <div className="flex flex-col gap-5">
                     <h3
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1283,7 +1286,7 @@ export default function Ark7CaseStudyPage() {
                             margin: 0,
                           }}
                         >
-                          -{item.author}
+                          - {item.author}
                         </p>
                       </article>
                     ))}
@@ -1337,7 +1340,7 @@ export default function Ark7CaseStudyPage() {
                             margin: 0,
                           }}
                         >
-                          -{item.author}
+                          - {item.author}
                         </p>
                       </article>
                     ))}
@@ -1391,7 +1394,7 @@ export default function Ark7CaseStudyPage() {
                             margin: 0,
                           }}
                         >
-                          -{item.author}
+                          - {item.author}
                         </p>
                       </article>
                     ))}
@@ -1445,7 +1448,7 @@ export default function Ark7CaseStudyPage() {
                             margin: 0,
                           }}
                         >
-                          -{item.author}
+                          - {item.author}
                         </p>
                       </article>
                     ))}
@@ -1567,7 +1570,7 @@ export default function Ark7CaseStudyPage() {
                       ))}
                     </ul>
                   </div>
-                  <div className="flex flex-col gap-4" style={{ marginTop: "2rem" }}>
+                  <div className="mt-8 flex flex-col gap-4">
                     <h3
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1833,6 +1836,7 @@ export default function Ark7CaseStudyPage() {
                   <div className="mt-10 h-px w-full bg-[var(--color-ink-14)] md:mt-12" />
                 ) : null}
                 </CaseScrollReveal>
+                </div>
               </section>
             ))}
           </div>

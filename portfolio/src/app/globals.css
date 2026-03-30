@@ -14,6 +14,7 @@
   --color-ink-06:  rgba(26, 26, 26, 0.06);
   --color-border:  rgba(26, 26, 26, 0.2);
   --color-accent-green: #3F7A66;
+  --color-accent-tint: var(--color-accent-tint);
 }
 
 @theme inline {
@@ -117,7 +118,7 @@ body {
   color: var(--color-accent);
   text-decoration-style: dotted;
   text-decoration-color: var(--color-accent);
-  background-color: rgba(236, 69, 35, 0.02);
+  background-color: var(--color-accent-tint);
 }
 
 .hero-company-link:hover .hero-company-link-badge {
@@ -150,7 +151,7 @@ body {
   color: var(--color-accent);
   text-decoration-style: dotted;
   text-decoration-color: var(--color-accent);
-  background-color: rgba(236, 69, 35, 0.02);
+  background-color: var(--color-accent-tint);
 }
 
 .case-inline-link {
@@ -166,7 +167,7 @@ body {
 .case-inline-link:focus-visible {
   color: var(--color-accent);
   text-decoration-color: var(--color-accent);
-  background-color: rgba(236, 69, 35, 0.02);
+  background-color: var(--color-accent-tint);
 }
 
 /* Case study: inline emphasis (ties to --color-accent-green in headings) */
@@ -242,7 +243,7 @@ body {
 .copy-email-nav-btn:hover {
   color: var(--color-accent);
   border-color: rgba(236, 69, 35, 0.5);
-  background-color: rgba(236, 69, 35, 0.02);
+  background-color: var(--color-accent-tint);
 }
 
 .copy-email-nav-btn:focus-visible {
@@ -308,10 +309,10 @@ body {
 /* Case studies: scroll / enter reveal (opacity + translateY). */
 .case-scroll-reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(20px);
   transition:
-    opacity 480ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 600ms cubic-bezier(0.25, 1, 0.5, 1);
+    opacity 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 460ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .case-scroll-reveal.case-scroll-reveal--visible {

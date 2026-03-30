@@ -6,6 +6,7 @@ type CaseScrollRevealProps = {
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
+  delay?: number; // ms — stagger offset within a group
 };
 
 /**
@@ -16,6 +17,7 @@ export default function CaseScrollReveal({
   children,
   className = "",
   style,
+  delay = 0,
 }: CaseScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -54,7 +56,7 @@ export default function CaseScrollReveal({
           }
         }
       },
-      { rootMargin: "0px 0px 12% 0px", threshold: 0.05 },
+      { rootMargin: "0px 0px 4% 0px", threshold: 0.02 },
     );
 
     obs.observe(el);
@@ -70,7 +72,11 @@ export default function CaseScrollReveal({
     .join(" ");
 
   return (
-    <div ref={ref} className={cn} style={style}>
+    <div
+      ref={ref}
+      className={cn}
+      style={{ transitionDelay: delay ? `${delay}ms` : undefined, ...style }}
+    >
       {children}
     </div>
   );

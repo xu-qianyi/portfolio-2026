@@ -120,16 +120,18 @@ Vertical rail with a sliding dot tracking the active section via `IntersectionOb
 - Full-width `16:9` cover image with `border border-[var(--color-ink-14)]`
 - Metadata row: Role / Timeline / Team - 3 cols desktop, stacked mobile
 
-**Section rhythm** (repeats per section, separated by `1px` rule + `mt-10 md:mt-12`):
+**Section rhythm** (sections separated by `gap-16 md:gap-20` + `1px` rule + `mt-10 md:mt-12`):
 
-- Eyebrow: Geist 13px uppercase muted
-- `h2`: tiemposText 24px weight 400 + `2px solid var(--color-accent-green)` left border, `pl-3` - the section argument
+- Eyebrow + `h2` title block: reveals first (CaseScrollReveal, delay 0)
+- Body content: reveals 80ms after title (CaseScrollReveal delay=80); `gap-5` between paragraphs/components
+- Title block → body gap: `gap-7` (28px) — one step above paragraph spacing to signal the title introduces what follows
+- `h2`: tiemposText 24px weight 400 + `2px solid var(--color-accent-green)` left border, `pl-3`
 - Body: Geist 16px / 160% `var(--color-ink-80)`
-- Subsection `h3`: same style as `h2` but with `marginTop: 2rem` to signal new idea within a section
+- Subsection `h3`: same style as `h2`, no extra top margin (use `gap-5` flow)
 
 **Established content sub-patterns** (copy from ARK7 as needed):
 
-- **2×2 image audit grid** - `grid-cols-1 md:grid-cols-2 gap-5 md:gap-6`; each cell: image container (`rounded-lg p-3 bg-[#f8f8f8]`, fixed `h-96` inner div, `object-contain object-top`) + title (Geist 15px weight 600) + body
+- **2×2 image audit grid** - `grid-cols-1 md:grid-cols-2 gap-5 md:gap-6`; each cell: image container (`rounded-lg p-3 bg-[var(--color-subtle)]`, fixed `h-96` inner div, `object-contain object-top`) + title (Geist 15px weight 600) + body
 - **Tab switcher** - tablist right-aligned (`justify-end`); underline tabs (active: `border-[var(--color-ink)]`); panel: `rounded-lg border border-[var(--color-ink-14)] p-5 md:p-8`; image only or image + text layout; switch animation via `ark7-layout-tab-panel-enter`
 - **2-column persona journey** - `grid-cols-1 md:grid-cols-2 gap-8 md:gap-10`; each col: `h3` subsection title + body
 - **Feature reveal** - `<mark className="case-text-highlight">Feature name</mark>` label → 2-col quote grid (no frames; tiemposText 15px italic) → full-width image (`w-full h-auto`, no frame)

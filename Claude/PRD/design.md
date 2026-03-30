@@ -37,6 +37,7 @@ These are hard constraints. If a decision pushes toward any of these, it's the w
 --color-muted:         #737373   /* Secondary labels, meta, footer default */
 --color-accent:        #EC4523   /* Interaction: hovers, badges, footer copy success */
 --color-accent-green:  #3F7A66   /* Case-study editorial only: pull-quote / section rule, inline highlight wash */
+--color-accent-tint:   rgba(236,69,35,0.02) /* Hover background wash on inline links and nav buttons */
 --color-ink-80 …:      rgba(26,26,26,0.8) etc. /* Body narrative on work pages */
 ```
 
@@ -66,7 +67,7 @@ Caption / meta:       Geist, 0.875rem, weight 400, color --color-muted
 Nav:                  Geist, 15px, weight 500, #1a1a1a; desktop `.nav-tab` **color** → `var(--color-muted)` on hover (200ms ease); no underline; grid-layout; logo md:col-span-1; links md:col-start-2 md:col-span-11, gap 24px
 Home hero externals:  Geist, 15px, weight 500; CHANGELOG / LinkedIn / X as `.hero-nav-link`, flex-col items-end, gap 4px (right of headline from lg)
 Footer:               Geist, 15px, weight 500; flex space-between wrap; left: Boston time; right: email + copy/check icon (see §3)
-Work case study:      Eyebrow Geist 13px uppercase muted; section title tiemposText 24px + 2px left `var(--color-accent-green)` + pl-3; subsection h3 same style + marginTop 2rem; body Geist 16px / 160% `var(--color-ink-80)`; hero H1 tiemposText 28px weight 500; data tables tiemposText ~15px. Pull-quotes reuse title rule. Links in prose: `.case-inline-link` (dotted underline, accent hover). Image containers in audit grids: `rounded-lg p-3 bg-[#f8f8f8]`, inner div `h-96 object-contain object-top`.
+Work case study:      Eyebrow Geist 13px uppercase muted; section title tiemposText 24px + 2px left `var(--color-accent-green)` + pl-3; subsection h3 same style + marginTop 2rem; body Geist 16px / 160% `var(--color-ink-80)`; hero H1 tiemposText 28px weight 500; data tables tiemposText ~15px. Pull-quotes reuse title rule. Links in prose: `.case-inline-link` (dotted underline, accent hover). Image containers in audit grids: `rounded-lg p-3 bg-[var(--color-subtle)]`, inner div `h-96 object-contain object-top`.
 ```
 
 **Rules:**
@@ -96,10 +97,11 @@ Marketing “chapters”:  Large vertical gaps (e.g. ~5rem–7rem) between major
 
 ```
 Page vertical:         py-14 md:py-16; horizontal px-6 lg:px-[72px]
-Hero stack → sections: gap-14 md:gap-16 (one clarity bump, not stacked multiples)
-Between SECTIONS:      gap-14 md:gap-16 + `h-px` rule with mt-10 md:mt-12
-Inside one section:    gap-4 (eyebrow, title, body paragraphs, media)
-Research “acts”:       mt-8 md:mt-10 between narrative blocks (e.g. charts → personas → matrix); inside each act, gap-4
+Hero stack (header):   gap-8 md:gap-10 between title, hero image, meta row
+Between SECTIONS:      gap-16 md:gap-20 + `h-px` rule with mt-10 md:mt-12
+Section outer wrapper: gap-7 (title block → body content; one step above paragraph spacing)
+Inside body content:   gap-5 (between paragraphs, between sub-components)
+Research “acts”:       mt-8 md:mt-10 between narrative blocks (e.g. charts → personas → matrix); inside each act, gap-5
 Tables:                my-6 md:my-8 vertical only (no frame); overflow-x-auto
 ```
 
@@ -128,7 +130,7 @@ Cursor:               JS div (CustomCursor.tsx); orange triangle SVG 32×32; cur
 **Rules:**
 
 - Every animation must have a functional reason. "It looks cool" is not a reason.
-- No entrance animations on page load. Content appears immediately - animation is reserved for interaction responses.
+- No entrance animations on the home page or about page. Case study pages (`/work/*`) use `CaseScrollReveal` for scroll-triggered fade-up (opacity + translateY 20px, ~380-460ms ease-out). First-screen elements reveal on load via double rAF; below-fold elements trigger via IntersectionObserver.
 - Hover states on cards: subtle shadow lift + scale(1.015). Never scale more than 1.02.
 
 ---
