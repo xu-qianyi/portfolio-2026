@@ -63,13 +63,16 @@ const SECTIONS: Section[] = [
     body: [],
   },
   {
+    id: "final-solution",
+    label: "Final solution",
+    title: "Ian's journey - from hesitation to confidence",
+    body: [],
+  },
+  {
     id: "summary",
     label: "Summary",
     title: "Outcome and impact",
-    body: [
-      "After launch, the new case-study-backed product narrative improved engagement quality: more users completed property deep dives and reached funding steps with fewer support-related detours.",
-      "The project also gave the team a reusable framework for future launches, aligning product, marketing, and engineering around one shared story: make fractional real-estate investing understandable and trustworthy from first glance to first transaction.",
-    ],
+    body: [],
   },
 ];
 
@@ -163,7 +166,7 @@ const ARK7_DESIGN_AUDIT_FINDINGS = [
   {
     image: "/images/ARK7/inconsistent_card_layout.png",
     title: "Inconsistent card layout",
-    body: "The platform lacks clear design guidelines for card usage, resulting in varied CTA placements—some on the left, some on the right—and mixed placement of images and text. This slows down users' interactions and reduces overall task efficiency.",
+    body: "The platform lacks clear design guidelines for card usage, resulting in varied CTA placements - some on the left, some on the right - and mixed placement of images and text. This slows down users' interactions and reduces overall task efficiency.",
   },
   {
     image: "/images/ARK7/cramped_spacing.png",
@@ -644,6 +647,101 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
   },
 ];
 
+const ARK7_CARD_REVAMP_TABS = [
+  { id: "overall",  label: "Overall",    src: "/images/ARK7/design_revamp_overall.png", alt: "Card revamp overall before and after" },
+  { id: "anatomy",  label: "Anatomy",    src: "/images/ARK7/atonomy.png",               alt: "Card anatomy breakdown" },
+  { id: "cta",      label: "CTA button", src: "/images/ARK7/CTA.png",                   alt: "CTA button changes before and after" },
+  { id: "content",  label: "Content",    src: "/images/ARK7/content.png",               alt: "Content changes before and after" },
+] as const;
+
+function Ark7CardRevampTabs() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [epoch, setEpoch] = useState(0);
+  const tablistId = "ark7-card-revamp-tabs";
+  const active = ARK7_CARD_REVAMP_TABS[activeIndex];
+
+  const select = (i: number) => {
+    if (i === activeIndex) return;
+    setActiveIndex(i);
+    setEpoch((e) => e + 1);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      select(Math.min(activeIndex + 1, ARK7_CARD_REVAMP_TABS.length - 1));
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      select(Math.max(activeIndex - 1, 0));
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      select(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      select(ARK7_CARD_REVAMP_TABS.length - 1);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-5 md:gap-6">
+      <div
+        role="tablist"
+        aria-label="Card component revamp tabs"
+        id={tablistId}
+        onKeyDown={handleKeyDown}
+        className="flex flex-wrap justify-end gap-x-1"
+      >
+        {ARK7_CARD_REVAMP_TABS.map((tab, i) => {
+          const isActive = i === activeIndex;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              id={`${tablistId}-${tab.id}`}
+              aria-selected={isActive}
+              aria-controls={`${tablistId}-panel-${tab.id}`}
+              tabIndex={isActive ? 0 : -1}
+              className={`min-h-11 border-b-2 bg-transparent px-3 py-2.5 text-left transition-[color,border-color] duration-200 ease-out motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
+                isActive
+                  ? "border-[var(--color-ink)] text-[var(--color-ink)]"
+                  : "border-transparent text-[var(--color-muted)] hover:text-[var(--color-ink-80)]"
+              }`}
+              style={{
+                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                fontSize: "14px",
+                lineHeight: "140%",
+                fontWeight: isActive ? 500 : 400,
+                cursor: "inherit",
+              }}
+              onClick={() => select(i)}
+            >
+              {tab.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <div
+        role="tabpanel"
+        id={`${tablistId}-panel-${active.id}`}
+        aria-labelledby={`${tablistId}-${active.id}`}
+        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] p-5 md:p-8"
+      >
+        <Image
+          key={`${active.id}-${epoch}`}
+          src={active.src}
+          alt={active.alt}
+          width={1600}
+          height={1200}
+          className="w-full h-auto rounded-md ark7-layout-tab-panel-enter"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  );
+}
+
 function Ark7LayoutOptionsTabs() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [layoutPanelMotionEpoch, setLayoutPanelMotionEpoch] = useState(0);
@@ -1037,7 +1135,7 @@ export default function Ark7CaseStudyPage() {
                 <CaseScrollReveal className="flex min-w-0 w-full flex-col gap-5">
                 <div className="flex flex-col gap-2">
                   <p style={SECTION_EYEBROW_STYLE}>{section.label}</p>
-                  {section.id !== "iteration" ? (
+                  {section.id !== "iteration" && section.id !== "final-solution" && section.id !== "summary" ? (
                     <h2
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1094,7 +1192,277 @@ export default function Ark7CaseStudyPage() {
                     <Ark7IterationStoreQuotes />
                     <p style={{ ...BODY_TEXT_STYLE }}>Our design audit revealed:</p>
                     <Ark7DesignAuditGrid />
+                    <h3
+                      style={{
+                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                        fontSize: "24px",
+                        lineHeight: "120%",
+                        fontWeight: 400,
+                        color: "var(--color-ink)",
+                        borderLeft: "2px solid var(--color-accent-green)",
+                        paddingLeft: "12px",
+                        marginTop: "2rem",
+                        marginBottom: 0,
+                      }}
+                    >
+                      The Card Component Revamp
+                    </h3>
+                    <p style={{ ...BODY_TEXT_STYLE }}>
+                      Given time constraints, we focused our design system work on the card component - the most heavily used element across the platform, and the building block for all four community features.
+                    </p>
+                    <Ark7CardRevampTabs />
                   </div>
+                ) : null}
+
+                {section.id === "final-solution" ? (
+                  <>
+                  <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
+                    {[
+                      {
+                        title: "Ian's journey - from hesitation to confidence",
+                        body: "Ian discovered ARK7 through a YouTube ad and received a $50 bonus. But as a novice investor, he hesitated - he knew little about the platform or its investment offerings.",
+                      },
+                      {
+                        title: "Lisa's journey - from isolation to ownership",
+                        body: "Lisa has been investing with ARK7 for a year. But after the frozen period ended, she was considering withdrawing - she felt isolated and had no sense of control over her properties.",
+                      },
+                    ].map((col) => (
+                      <div key={col.title} className="flex flex-col gap-4">
+                        <h3
+                          style={{
+                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                            fontSize: "24px",
+                            lineHeight: "120%",
+                            fontWeight: 400,
+                            color: "var(--color-ink)",
+                            borderLeft: "2px solid var(--color-accent-green)",
+                            paddingLeft: "12px",
+                            margin: 0,
+                          }}
+                        >
+                          {col.title}
+                        </h3>
+                        <p style={{ ...BODY_TEXT_STYLE }}>{col.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p style={{ ...BODY_TEXT_STYLE }}>
+                    <mark className="case-text-highlight">News</mark>
+                  </p>
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+                    {[
+                      {
+                        quote: "As I browse the feed, I become familiar with the investment offerings that ARK7 provides and ARK7 itself.",
+                        author: "Ian",
+                      },
+                      {
+                        quote: "I'm eager to see detailed management of my properties. Now, with daily updates and monthly summary, I feel more secure.",
+                        author: "Lisa",
+                      },
+                    ].map((item) => (
+                      <article
+                        key={item.author}
+                        className="flex flex-col gap-3.5 md:gap-4"
+                      >
+                        <p
+                          style={{
+                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                            fontSize: "15px",
+                            lineHeight: "150%",
+                            fontWeight: 400,
+                            fontStyle: "italic",
+                            color: "var(--color-ink)",
+                            margin: 0,
+                          }}
+                        >
+                          &ldquo;{item.quote}&rdquo;
+                        </p>
+                        <p
+                          style={{
+                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                            fontSize: "14px",
+                            lineHeight: "150%",
+                            fontWeight: 500,
+                            color: "var(--color-muted)",
+                            margin: 0,
+                          }}
+                        >
+                          -{item.author}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
+                  <Image
+                    src="/images/ARK7/news.png"
+                    alt="News feature screens - short news, property detail, long article, comment, and notification"
+                    width={1600}
+                    height={900}
+                    className="w-full h-auto"
+                    loading="lazy"
+                  />
+                  <p style={{ ...BODY_TEXT_STYLE }}>
+                    <mark className="case-text-highlight">Voting</mark>
+                  </p>
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+                    {[
+                      {
+                        quote: "As a new user, I can't participate, but viewing the results and comments gives me a valuable peek into the community's decisions and perspectives.",
+                        author: "Ian",
+                      },
+                      {
+                        quote: "Voting empowers me to directly influence key aspects and stay actively involved in our investment community.",
+                        author: "Lisa",
+                      },
+                    ].map((item) => (
+                      <article
+                        key={item.author}
+                        className="flex flex-col gap-3.5 md:gap-4"
+                      >
+                        <p
+                          style={{
+                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                            fontSize: "15px",
+                            lineHeight: "150%",
+                            fontWeight: 400,
+                            fontStyle: "italic",
+                            color: "var(--color-ink)",
+                            margin: 0,
+                          }}
+                        >
+                          &ldquo;{item.quote}&rdquo;
+                        </p>
+                        <p
+                          style={{
+                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                            fontSize: "14px",
+                            lineHeight: "150%",
+                            fontWeight: 500,
+                            color: "var(--color-muted)",
+                            margin: 0,
+                          }}
+                        >
+                          -{item.author}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
+                  <Image
+                    src="/images/ARK7/voting.png"
+                    alt="Voting feature screens"
+                    width={1600}
+                    height={900}
+                    className="w-full h-auto"
+                    loading="lazy"
+                  />
+                  <p style={{ ...BODY_TEXT_STYLE }}>
+                    <mark className="case-text-highlight">Webinar</mark>
+                  </p>
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+                    {[
+                      {
+                        quote: "The webinars offer clear, beginner-friendly insights that simplify real estate investing basics and boost my confidence to invest.",
+                        author: "Ian",
+                      },
+                      {
+                        quote: "Voting empowers me to directly influence key aspects and stay actively involved in our investment community.",
+                        author: "Lisa",
+                      },
+                    ].map((item) => (
+                      <article
+                        key={item.author}
+                        className="flex flex-col gap-3.5 md:gap-4"
+                      >
+                        <p
+                          style={{
+                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                            fontSize: "15px",
+                            lineHeight: "150%",
+                            fontWeight: 400,
+                            fontStyle: "italic",
+                            color: "var(--color-ink)",
+                            margin: 0,
+                          }}
+                        >
+                          &ldquo;{item.quote}&rdquo;
+                        </p>
+                        <p
+                          style={{
+                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                            fontSize: "14px",
+                            lineHeight: "150%",
+                            fontWeight: 500,
+                            color: "var(--color-muted)",
+                            margin: 0,
+                          }}
+                        >
+                          -{item.author}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
+                  <Image
+                    src="/images/ARK7/webinar.png"
+                    alt="Webinar feature screens"
+                    width={1600}
+                    height={900}
+                    className="w-full h-auto"
+                    loading="lazy"
+                  />
+                  <p style={{ ...BODY_TEXT_STYLE }}>
+                    <mark className="case-text-highlight">Discussion</mark>
+                  </p>
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+                    {[
+                      {
+                        quote: "It is incredibly helpful for a newcomer like me. It allows me to observe and learn from investment gurus and enhances my understanding of the market quickly.",
+                        author: "Ian",
+                      },
+                      {
+                        quote: "This pop-up format offers a platform where I can actively engage and share strategies with fellow owners, enhancing our returns through collective knowledge.",
+                        author: "Lisa",
+                      },
+                    ].map((item) => (
+                      <article
+                        key={item.author}
+                        className="flex flex-col gap-3.5 md:gap-4"
+                      >
+                        <p
+                          style={{
+                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                            fontSize: "15px",
+                            lineHeight: "150%",
+                            fontWeight: 400,
+                            fontStyle: "italic",
+                            color: "var(--color-ink)",
+                            margin: 0,
+                          }}
+                        >
+                          &ldquo;{item.quote}&rdquo;
+                        </p>
+                        <p
+                          style={{
+                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                            fontSize: "14px",
+                            lineHeight: "150%",
+                            fontWeight: 500,
+                            color: "var(--color-muted)",
+                            margin: 0,
+                          }}
+                        >
+                          -{item.author}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
+                  <Image
+                    src="/images/ARK7/discussion.png"
+                    alt="Discussion feature screens"
+                    width={1600}
+                    height={900}
+                    className="w-full h-auto"
+                    loading="lazy"
+                  />
+                  </>
                 ) : null}
 
                 {section.id === "design" ? (
@@ -1160,6 +1528,80 @@ export default function Ark7CaseStudyPage() {
                         />
                       </div>
                     </div>
+                  </>
+                ) : null}
+
+                {section.id === "summary" ? (
+                  <>
+                  <div className="flex flex-col gap-4">
+                    <h3
+                      style={{
+                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                        fontSize: "24px",
+                        lineHeight: "120%",
+                        fontWeight: 400,
+                        color: "var(--color-ink)",
+                        borderLeft: "2px solid var(--color-accent-green)",
+                        paddingLeft: "12px",
+                        margin: 0,
+                      }}
+                    >
+                      Measuring trust in numbers
+                    </h3>
+                    <p style={{ ...BODY_TEXT_STYLE }}>
+                      After rolling out the community features, early signals were strong across both user segments:
+                    </p>
+                    <ul className="m-0 flex list-none flex-col gap-3 p-0">
+                      {[
+                        <><span style={{ fontWeight: 600, color: "var(--color-ink)" }}>10%</span> surge in conversion rate</>,
+                        <>New users spent <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>100% more time</span> on the platform during their first login - exploring, learning, and building confidence before investing</>,
+                        <><span style={{ fontWeight: 600, color: "var(--color-ink)" }}>40%</span> increase in transaction volumes in the secondary market</>,
+                        <>Existing investors began re-engaging with the platform rather than withdrawing</>,
+                      ].map((node, i) => (
+                        <li
+                          key={i}
+                          style={{
+                            ...BODY_TEXT_STYLE,
+                            paddingLeft: "1rem",
+                            borderLeft: "2px solid var(--color-ink-14)",
+                          }}
+                        >
+                          {node}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="flex flex-col gap-4" style={{ marginTop: "2rem" }}>
+                    <h3
+                      style={{
+                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                        fontSize: "24px",
+                        lineHeight: "120%",
+                        fontWeight: 400,
+                        color: "var(--color-ink)",
+                        borderLeft: "2px solid var(--color-accent-green)",
+                        paddingLeft: "12px",
+                        margin: 0,
+                      }}
+                    >
+                      What I took away
+                    </h3>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                        fontSize: "15px",
+                        lineHeight: "150%",
+                        fontWeight: 600,
+                        color: "var(--color-ink)",
+                        margin: 0,
+                      }}
+                    >
+                      Navigating the space between user needs and business caution
+                    </p>
+                    <p style={{ ...BODY_TEXT_STYLE }}>
+                      The client was nervous about opening the platform to unfiltered investor commentary - they'd seen community features go wrong before. My instinct was to push back. But sitting with their concern longer, I realized the better question wasn't "how open?" but "what conditions make openness feel safe enough to ship?" That reframe changed the conversation. Time-limited discussions and moderated formats weren't watered-down compromises - they were the constraints that made the design real.
+                    </p>
+                  </div>
                   </>
                 ) : null}
 
@@ -1397,6 +1839,36 @@ export default function Ark7CaseStudyPage() {
                 </CaseScrollReveal>
               </section>
             ))}
+          </div>
+
+          <div className="mt-12 pt-8 md:mt-16">
+            <a href="#" className="group flex flex-col gap-1.5 no-underline">
+              <p
+                style={{
+                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                  fontSize: "12px",
+                  fontWeight: 400,
+                  color: "var(--color-muted)",
+                  margin: 0,
+                }}
+              >
+                Next — Datalign · 2025
+              </p>
+              <p
+                style={{
+                  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                  fontSize: "18px",
+                  lineHeight: "140%",
+                  fontWeight: 400,
+                  color: "var(--color-ink-80)",
+                  margin: 0,
+                  transition: "color 200ms ease-out",
+                }}
+                className="group-hover:text-[var(--color-ink)]"
+              >
+                Making wealth management approachable for everyone →
+              </p>
+            </a>
           </div>
         </div>
 
