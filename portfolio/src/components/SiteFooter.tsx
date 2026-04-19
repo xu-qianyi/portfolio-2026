@@ -89,7 +89,7 @@ export default function SiteFooter() {
   };
 
   return (
-    <footer className="border-t border-[var(--color-ink-14)] px-6 pb-7 pt-5 lg:px-[72px]">
+    <footer className="border-t border-[var(--color-ink-14)] px-6 py-[12px] lg:px-[72px]">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <span style={TEXT_STYLE}>
           {timeStr ? `${timeStr.replace(/\s*(am|pm)/i, "")} Boston, MA` : "Boston, MA"}
