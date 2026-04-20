@@ -1,8 +1,7 @@
 import type { CSSProperties } from "react";
-import Image from "next/image";
 import projects from "@/data/projects.json";
 import { FOOTER_EXTERNAL_LINKS } from "@/data/footerLinks";
-import LottiePreview from "@/components/LottiePreview";
+import ProjectCard from "@/components/ProjectCard";
 
 const HERO_TEXT: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -20,92 +19,6 @@ const HERO_NAV_TEXT: CSSProperties = {
   fontSize: 15,
   fontWeight: 500,
 };
-
-const PROJECT_META: CSSProperties = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "14px",
-  fontWeight: 500,
-  color: "var(--color-muted)",
-  margin: 0,
-  display: "flex",
-  alignItems: "center",
-  gap: "8px",
-  flexWrap: "wrap",
-};
-
-const PROJECT_HEADLINE: CSSProperties = {
-  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-  fontSize: "20px",
-  fontWeight: 400,
-  lineHeight: "130%",
-  color: "var(--color-ink)",
-  margin: 0,
-};
-
-function DotSeparator() {
-  return (
-    <span
-      style={{
-        width: "4px",
-        height: "4px",
-        borderRadius: "50%",
-        backgroundColor: "var(--color-ink-06)",
-        flexShrink: 0,
-      }}
-    />
-  );
-}
-
-function ProjectCard({ project }: { project: (typeof projects)[number] }) {
-  return (
-    <div
-      id={`project-${project.id}`}
-      className="scroll-mt-28"
-      style={{ breakInside: "avoid", marginBottom: "48px" }}
-    >
-      <a
-        href={project.href}
-        className="project-card-link"
-        style={{
-          display: "block",
-          position: "relative",
-          width: "100%",
-          aspectRatio: `${project.width} / ${project.height}`,
-          border: "1px solid rgba(204,209,218,0.2)",
-          overflow: "hidden",
-          backgroundColor: "var(--color-subtle)",
-        }}
-      >
-        <div className="project-card-media">
-          {project.image.endsWith(".json") ? (
-            <LottiePreview src={project.image} />
-          ) : (
-            <Image
-              src={project.image}
-              alt={project.headline}
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              style={{ objectFit: "cover" }}
-            />
-          )}
-        </div>
-      </a>
-
-      <div style={{ marginTop: "16px", display: "flex", flexDirection: "column", gap: "4px" }}>
-        <p style={PROJECT_META}>
-          <span>{project.company}</span>
-          <DotSeparator />
-          <span>{project.industry}</span>
-          <DotSeparator />
-          <span>{project.date}</span>
-          <DotSeparator />
-          <span>{project.type}</span>
-        </p>
-        <p style={PROJECT_HEADLINE}>{project.headline}</p>
-      </div>
-    </div>
-  );
-}
 
 export default function Home() {
   return (

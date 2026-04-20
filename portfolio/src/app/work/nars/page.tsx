@@ -48,7 +48,6 @@ type Section = {
 const SECTIONS: Section[] = [
   { id: "overview", label: "Overview" },
   { id: "research", label: "Research" },
-  { id: "deliverable", label: "Deliverable" },
 ];
 
 const META_ITEMS = [
@@ -425,40 +424,14 @@ export default function NarsCaseStudyPage() {
 
                   <div className="h-px w-full bg-[var(--color-ink-14)] mt-3" />
                 </CaseScrollReveal>
-              </div>
-            </section>
 
-            {/* Deliverable */}
-            <section
-              id="deliverable"
-              ref={(el) => { sectionRefs.current["deliverable"] = el; }}
-              className="scroll-mt-24 md:scroll-mt-28"
-            >
-              <div className="flex min-w-0 w-full flex-col gap-7">
-                <CaseScrollReveal>
-                  <div className="flex flex-col gap-2">
-                    <p style={SECTION_EYEBROW_STYLE}>Deliverable</p>
-                    <h2
-                      style={{
-                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                        fontSize: "24px",
-                        lineHeight: "120%",
-                        fontWeight: 400,
-                        color: "var(--color-ink)",
-                        borderLeft: "2px solid var(--color-accent-brown)",
-                        paddingLeft: "12px",
-                        margin: 0,
-                      }}
-                    >
-                      Full findings in the slide deck
-                    </h2>
+                <CaseScrollReveal delay={120} className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-4">
+                    <h3 style={H3_STYLE}>Full findings in the slide deck</h3>
+                    <p style={BODY_TEXT_STYLE}>
+                      The complete research output - methodology, verbatim quotes, concept rankings, and strategic recommendations - lives in the slide deck below. The deck was delivered to the NARS team and used to inform the final product brief.
+                    </p>
                   </div>
-                </CaseScrollReveal>
-
-                <CaseScrollReveal delay={80} className="flex flex-col gap-5">
-                  <p style={BODY_TEXT_STYLE}>
-                    The complete research output - methodology, verbatim quotes, concept rankings, and strategic recommendations - lives in the slide deck below. The deck was delivered to the NARS team and used to inform the final product brief.
-                  </p>
 
                   <a
                     href="https://drive.google.com/file/d/14pRJPMr1qvlEUS57hHj04Kv8DfdzimoV/view?usp=sharing"

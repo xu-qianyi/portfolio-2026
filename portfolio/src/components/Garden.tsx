@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import Clawd from "./Clawd";
 import CatEars from "./CatEars";
@@ -15,7 +15,7 @@ import {
 } from "./gardenConfig";
 
 // ─── Component ────────────────────────────────────────────────────────────────
-export default function Garden() {
+export default function Garden({ sparse = false }: { sparse?: boolean } = {}) {
   const sectionRef    = useRef<HTMLElement>(null);
   const gardenRef     = useRef<HTMLDivElement>(null);
   const wandCursorRef = useRef<HTMLImageElement>(null);
@@ -596,6 +596,16 @@ export default function Garden() {
 
   const catBImgSrc = catBDisturbed ? ASSETS.catB_2 : ASSETS[CAT_B_KEYS[catBIdx]];
 
+  // Thinned-out flower set for narrow/embedded layouts
+  const flowers = useMemo(() => {
+    if (!sparse) return FLOWERS;
+    return FLOWERS.filter((_, idx) => {
+      if (idx <= 6) return idx % 2 === 0;         // ROW_D: keep 0,2,4,6
+      if (idx <= 13) return (idx - 7) % 2 === 1;  // ROW_A: keep 8,10,12 (staggered)
+      return (idx - 14) % 2 === 0;                // ROW_B: keep 14,16,18,20
+    });
+  }, [sparse]);
+
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
     <>
@@ -649,7 +659,7 @@ export default function Garden() {
                 }}
               >
                 <span>
-                  Tip: Move your mouse (cat teaser) here.{" "}
+                  Tip: Move your mouse (cat teaser) here, or stay still and wait for Clawd to wander out.{" "}
                   <CatEars size={32} color="var(--color-ink)" />
                 </span>
               </p>
@@ -661,12 +671,15 @@ export default function Garden() {
                 position: "relative",
                 width: "100%",
                 height: gardenH + gardenInteractiveArea,
-                background: "var(--color-subtle)",
+                backgroundColor: "#C2CFAD",
+                backgroundImage: "url('/footer/grass_tile.svg')",
+                backgroundRepeat: "repeat",
+                backgroundSize: "64px 64px",
                 overflow: "visible",
               }}
             >
               {/* Flowers */}
-              {FLOWERS.map((item, idx) => (
+              {flowers.map((item, idx) => (
                 <div
                   key={"f" + idx}
                   onMouseEnter={() => wobblePlant(idx)}

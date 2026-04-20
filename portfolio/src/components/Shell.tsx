@@ -15,6 +15,7 @@ function scrollToHashElement() {
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const hideChrome = pathname === "/extras/garden";
 
   useEffect(() => {
     const run = () => {
@@ -44,7 +45,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           flexDirection: "column",
         }}
       >
-        <Navbar />
+        {!hideChrome && <Navbar />}
         <main
           key={pathname}
           className="page-shell-main"
@@ -53,7 +54,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           {children}
         </main>
       </div>
-      <SiteFooter />
+      {!hideChrome && <SiteFooter />}
     </div>
   );
 }

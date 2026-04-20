@@ -102,6 +102,17 @@ body {
   transform: translateY(-1px) scale(1.01);
 }
 
+.project-action-btn:hover,
+.project-action-btn:focus-visible {
+  background-color: var(--color-ink-06) !important;
+  color: var(--color-ink) !important;
+}
+
+.project-card-framed:hover .project-card-visit,
+.project-card-framed:focus-visible .project-card-visit {
+  color: var(--color-ink) !important;
+}
+
 /* cursor:none is handled by CustomCursor.tsx at runtime for pointer devices only */
 
 /* Real <span.hero-company-link-badge> after link text - flows with wrapping; no ::after (avoids overlap + zero-height bugs). */
@@ -328,6 +339,33 @@ body {
     transform: none;
     transition: none;
   }
+}
+
+/* Pixel-art back button (extras/garden page) */
+.pixel-back-btn {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.pixel-back-btn img {
+  transition: transform 120ms ease;
+}
+
+.pixel-back-btn:hover img {
+  transform: translateX(-3px);
+}
+
+.pixel-back-btn:focus-visible {
+  outline: 1.5px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 /* ── Reduced-motion: disable all non-essential animation ─────────────── */
