@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import Garden from "@/components/Garden";
 import DraggablePolaroids from "@/components/DraggablePolaroids";
 
 const HERO_TEXT: CSSProperties = {
@@ -65,16 +64,18 @@ export default function About() {
             given. Jam with the flow, improvise with the rhythm.
           </p>
           <p style={{ ...HERO_TEXT, maxWidth: 600, marginTop: 16 }}>
-            Fufu is my five-year-old brave boy who loves chasing toys around the
-            house and bird watching. I digitized him so you can enjoy your time
-            with him too.
+            If you&apos;re building something, I&apos;m happy to{" "}
+            <a
+              href="mailto:martta.xu@outlook.com"
+              className="hero-company-link"
+            >
+              connect
+            </a>
+            {" "}- currently in Boston, open to relocate.
           </p>
         </div>
         <DraggablePolaroids />
       </section>
-      <div className="min-w-0 w-full shrink-0 grow-0 overflow-x-clip px-[24px] lg:px-[72px]">
-        <Garden />
-      </div>
     </div>
   );
 }

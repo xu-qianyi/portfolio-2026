@@ -23,9 +23,6 @@ export default function Extras() {
         <div className="grid w-full min-w-0 grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
           <div className="min-w-0 lg:col-start-1 flex flex-col gap-4">
             <p style={{ ...HERO_TEXT, color: "var(--color-muted)" }}>
-              If the work page is the making, this is the tinkering.
-            </p>
-            <p style={{ ...HERO_TEXT, color: "var(--color-muted)" }}>
               <span style={{ color: "var(--color-ink)" }}>Side projects and AI prototypes</span>
               {" - things I build on weekends to stay close to the tools, and to find out what a new model can actually do."}
             </p>
