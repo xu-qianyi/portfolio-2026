@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import DraggablePolaroids from "@/components/DraggablePolaroids";
+import CopyEmail from "@/components/CopyEmail";
 
 const HERO_TEXT: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -65,12 +66,7 @@ export default function About() {
           </p>
           <p style={{ ...HERO_TEXT, maxWidth: 600, marginTop: 16 }}>
             If you&apos;re building something, I&apos;m happy to{" "}
-            <a
-              href="mailto:martta.xu@outlook.com"
-              className="hero-company-link"
-            >
-              connect
-            </a>
+            <CopyEmail />
             {" "}- currently in Boston, open to relocate.
           </p>
         </div>
