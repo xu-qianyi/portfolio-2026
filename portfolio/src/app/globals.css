@@ -108,9 +108,10 @@ body {
   color: var(--color-ink) !important;
 }
 
-.project-card-framed:hover .project-card-visit,
-.project-card-framed:focus-visible .project-card-visit {
-  color: var(--color-ink) !important;
+.project-card-framed:hover .project-card-visit-chip,
+.project-card-framed:focus-visible .project-card-visit-chip {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* cursor:none is handled by CustomCursor.tsx at runtime for pointer devices only */

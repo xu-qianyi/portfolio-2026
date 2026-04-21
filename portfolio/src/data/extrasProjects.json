@@ -2,6 +2,7 @@
   {
     "id": "garden",
     "title": "Fufu's garden",
+    "type": "game",
     "headline": "An interactive garden where my cat and his friends come to play",
     "tech": "Cursor · React",
     "image": "/footer/yawn_stand.gif",

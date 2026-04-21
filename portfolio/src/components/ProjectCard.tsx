@@ -106,6 +106,18 @@ const FRAMED_BADGE: CSSProperties = {
   background: "linear-gradient(rgb(240, 160, 110) 0%, rgb(234, 101, 80) 100%)",
 };
 
+const FRAMED_TYPE_PILL: CSSProperties = {
+  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontSize: "11px",
+  fontWeight: 500,
+  lineHeight: "16px",
+  color: "var(--color-accent)",
+  padding: "1px 8px",
+  borderRadius: "99px",
+  border: "1px solid var(--color-accent)",
+  backgroundColor: "transparent",
+};
+
 const FRAMED_ACTION: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "13px",
@@ -196,6 +208,61 @@ function FramedCard({ project }: { project: Project }) {
             style={{ objectFit: "cover" }}
           />
         )}
+        {project.newTab && (
+          <span
+            className="project-card-visit-chip"
+            aria-hidden
+            style={{
+              position: "absolute",
+              top: 12,
+              right: 12,
+              width: 32,
+              height: 32,
+              borderRadius: "50%",
+              backgroundColor: "rgba(255, 255, 255, 0.6)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              border: "1px solid rgba(204, 209, 218, 0.5)",
+              boxShadow: "0 1px 2px rgba(0, 0, 0, 0.04)",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--color-ink)",
+              opacity: 0,
+              transform: "translateY(4px)",
+              transition: "opacity 0.2s ease, transform 0.2s ease",
+              pointerEvents: "none",
+              zIndex: 2,
+            }}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 256 256"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="64"
+                y1="192"
+                x2="192"
+                y2="64"
+                stroke="currentColor"
+                strokeWidth="20"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <polyline
+                points="88 64 192 64 192 168"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="20"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        )}
       </div>
 
       {/* Content */}
@@ -207,64 +274,10 @@ function FramedCard({ project }: { project: Project }) {
           gap: "12px",
         }}
       >
-        {(project.title || project.badge || project.newTab) && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "8px",
-              flexWrap: "wrap",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-              {project.title && <h3 style={FRAMED_TITLE}>{project.title}</h3>}
-              {project.badge && <span style={FRAMED_BADGE}>{project.badge}</span>}
-            </div>
-            {project.newTab && (
-              <span
-                className="project-card-visit"
-                style={{
-                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                  fontSize: 14,
-                  fontWeight: 500,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 4,
-                  color: "rgba(0, 0, 0, 0.3)",
-                  transition: "color 0.15s ease",
-                }}
-              >
-                Visit
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 256 256"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden
-                >
-                  <line
-                    x1="64"
-                    y1="192"
-                    x2="192"
-                    y2="64"
-                    stroke="currentColor"
-                    strokeWidth="20"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <polyline
-                    points="88 64 192 64 192 168"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="20"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-            )}
+        {(project.title || project.badge) && (
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+            {project.title && <h3 style={FRAMED_TITLE}>{project.title}</h3>}
+            {project.badge && <span style={FRAMED_BADGE}>{project.badge}</span>}
           </div>
         )}
         <p style={FRAMED_DESCRIPTION}>{project.headline}</p>
@@ -277,16 +290,25 @@ function FramedCard({ project }: { project: Project }) {
       </div>
 
       {/* Tech stack footer */}
-      {project.tech && (
+      {(project.tech || project.type) && (
         <div
           style={{
             borderTop: "1px solid rgba(204, 209, 218, 0.4)",
             padding: "12px 20px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "8px",
           }}
         >
-          <p style={FRAMED_META}>
-            <span>{project.tech}</span>
-          </p>
+          {project.tech ? (
+            <p style={FRAMED_META}>
+              <span>{project.tech}</span>
+            </p>
+          ) : (
+            <span />
+          )}
+          {project.type && <span style={FRAMED_TYPE_PILL}>{project.type}</span>}
         </div>
       )}
 
