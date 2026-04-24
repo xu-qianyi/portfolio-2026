@@ -5,10 +5,25 @@
     "type": "game",
     "headline": "An interactive garden where my cat and his friends come to play",
     "tech": "Cursor · React",
+    "bg": "#C2CFAD",
+    "bgImage": "url('/footer/grass_tile.svg')",
     "image": "/footer/yawn_stand.gif",
     "width": 64,
     "height": 64,
     "href": "/extras/garden",
+    "bare": true,
+    "newTab": true
+  },
+  {
+    "id": "poetry-fly",
+    "title": "Poetry",
+    "type": "interaction",
+    "headline": "An interaction experiment with text, poems, and articles",
+    "tech": "Claude Code · HTML",
+    "video": "/images/Extras/poetry_recording.webm",
+    "width": 16,
+    "height": 9,
+    "href": "https://xu-qianyi.github.io/poetry_fly_interaction/poetry_fly_2.html",
     "bare": true,
     "newTab": true
   }

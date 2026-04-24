@@ -14,9 +14,12 @@ export type Project = {
   date?: string;
   type?: string;
   headline: string;
-  image: string;
-  width: number;
-  height: number;
+  image?: string;
+  video?: string;
+  bg?: string;
+  bgImage?: string;
+  width?: number;
+  height?: number;
   href: string;
   industry?: string;
   bare?: boolean;
@@ -111,10 +114,10 @@ const FRAMED_TYPE_PILL: CSSProperties = {
   fontSize: "11px",
   fontWeight: 500,
   lineHeight: "16px",
-  color: "var(--color-accent)",
+  color: "var(--color-ink)",
   padding: "1px 8px",
   borderRadius: "99px",
-  border: "1px solid var(--color-accent)",
+  border: "1px solid var(--color-ink)",
   backgroundColor: "transparent",
 };
 
@@ -180,15 +183,29 @@ function FramedCard({ project }: { project: Project }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: project.bare ? "48px 24px" : "0",
-          minHeight: project.bare ? "220px" : undefined,
-          aspectRatio: project.bare ? undefined : `${project.width} / ${project.height}`,
-          backgroundColor: project.bare ? "var(--color-subtle)" : "var(--color-surface)",
+          padding: project.bare && !project.video ? "48px 24px" : "0",
+          minHeight: project.bare && !project.video ? "220px" : undefined,
+          aspectRatio: (project.bare && !project.video) ? undefined : `${project.width} / ${project.height}`,
+          backgroundColor: project.bg ?? (project.bare && !project.video ? "var(--color-subtle)" : "var(--color-surface)"),
+          backgroundImage: project.bgImage,
+          backgroundRepeat: project.bgImage ? "repeat" : undefined,
+          backgroundSize: project.bgImage ? "64px 64px" : undefined,
+          imageRendering: project.bgImage ? "pixelated" : undefined,
           position: "relative",
           overflow: "hidden",
         }}
       >
-        {project.bare ? (
+        {project.video ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          >
+            <source src={project.video} type="video/webm" />
+          </video>
+        ) : !project.image ? null : project.bare ? (
           <Image
             src={project.image}
             alt={project.headline}
