@@ -16,8 +16,10 @@ export type Project = {
   headline: string;
   image?: string;
   video?: string;
+  videoLoop?: boolean;
   bg?: string;
   bgImage?: string;
+  mediaMinHeight?: number;
   width?: number;
   height?: number;
   href: string;
@@ -184,7 +186,7 @@ function FramedCard({ project }: { project: Project }) {
           alignItems: "center",
           justifyContent: "center",
           padding: project.bare && !project.video ? "48px 24px" : "0",
-          minHeight: project.bare && !project.video ? "220px" : undefined,
+          minHeight: project.bare && !project.video ? `${project.mediaMinHeight ?? 220}px` : undefined,
           aspectRatio: (project.bare && !project.video) ? undefined : `${project.width} / ${project.height}`,
           backgroundColor: project.bg ?? (project.bare && !project.video ? "var(--color-subtle)" : "var(--color-surface)"),
           backgroundImage: project.bgImage,
@@ -198,7 +200,7 @@ function FramedCard({ project }: { project: Project }) {
         {project.video ? (
           <video
             autoPlay
-            loop
+            loop={project.videoLoop}
             muted
             playsInline
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}

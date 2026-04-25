@@ -70,7 +70,7 @@ export default function About() {
             {" "}- currently in Boston, open to relocate.
           </p>
         </div>
-        <DraggablePolaroids />
+        <div className="hidden"><DraggablePolaroids /></div>
       </section>
     </div>
   );

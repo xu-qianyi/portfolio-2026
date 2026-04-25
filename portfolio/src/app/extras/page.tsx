@@ -31,7 +31,7 @@ export default function Extras() {
       </section>
 
       <section className="grid-layout pb-20">
-        <div className="col-start-1 col-end-13 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="col-start-1 col-end-13 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
           {extrasProjects.map((project) => (
             <ProjectCard
               key={project.id}
