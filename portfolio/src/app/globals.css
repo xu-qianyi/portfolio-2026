@@ -54,8 +54,12 @@ nav button:focus-visible {
   color: var(--color-muted);
 }
 
-/* Custom cursor is applied via JS in CustomCursor.tsx only for pointer devices.
-   Never hide the native cursor in CSS - it breaks keyboard/assistive-tech users. */
+/* Custom cursor - pure CSS, browser-native rendering, no JS needed */
+@media (pointer: fine) {
+  html, * { cursor: url('/cursor.svg') 2 2, auto !important; }
+  [data-garden-section],
+  [data-garden-section] * { cursor: none !important; }
+}
 
 body {
   background-color: var(--color-surface);
@@ -113,8 +117,6 @@ body {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
-
-/* cursor:none is handled by CustomCursor.tsx at runtime for pointer devices only */
 
 /* Real <span.hero-company-link-badge> after link text - flows with wrapping; no ::after (avoids overlap + zero-height bugs). */
 .hero-company-link .hero-company-link-badge {
