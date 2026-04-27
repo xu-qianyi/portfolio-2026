@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import Image from "next/image";
 import DraggablePolaroids from "@/components/DraggablePolaroids";
 import CopyEmail from "@/components/CopyEmail";
 
@@ -21,6 +22,9 @@ export default function About() {
         aria-label="About"
       >
         <div className="min-w-0 max-w-full lg:max-w-[50%]">
+          <p style={{ ...HERO_TEXT, maxWidth: 600, fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontWeight: 400, fontSize: "24px", marginBottom: 20 }}>
+            <span style={{ color: "var(--color-accent)" }}>Hi I am Martta Xu, a product designer.</span>
+          </p>
           <p style={{ ...HERO_TEXT, maxWidth: 600 }}>
             I studied design and engineering at{" "}
             <a
@@ -69,6 +73,28 @@ export default function About() {
             <CopyEmail />
             {" "}- currently in Boston, open to relocate.
           </p>
+        </div>
+        {/* Photo gallery */}
+        <div className="hidden mt-12 flex gap-2" style={{ alignSelf: "flex-start" }}>
+          {/* Col 1 */}
+          <div className="flex flex-col gap-2">
+            <Image src="/images/about/swing.webp" alt="" width={120} height={90} className="object-cover rounded-sm" style={{ width: 120, height: "auto" }} />
+            <Image src="/images/about/swing-2.webp" alt="" width={120} height={90} className="object-cover rounded-sm" style={{ width: 120, height: "auto" }} />
+          </div>
+          {/* Col 2 */}
+          <div className="flex flex-col gap-2">
+            <Image src="/images/about/graduation.webp" alt="" width={120} height={90} className="object-cover rounded-sm" style={{ width: 120, height: "auto" }} />
+            <Image src="/images/about/commencement.webp" alt="" width={120} height={90} className="object-cover rounded-sm" style={{ width: 120, height: "auto" }} />
+          </div>
+          {/* Col 3 */}
+          <div className="flex flex-col gap-2">
+            <Image src="/images/about/martta-fufu.webp" alt="" width={120} height={90} className="object-cover rounded-sm" style={{ width: 120, height: "auto" }} />
+            <Image src="/images/about/fufu.webp" alt="" width={120} height={90} className="object-cover rounded-sm" style={{ width: 120, height: "auto" }} />
+          </div>
+          {/* Col 4 */}
+          <div className="flex flex-col gap-2">
+            <Image src="/images/about/cat-sleep.webp" alt="" width={120} height={180} className="object-cover rounded-sm" style={{ width: 120, height: "auto" }} />
+          </div>
         </div>
         <div className="hidden"><DraggablePolaroids /></div>
       </section>
