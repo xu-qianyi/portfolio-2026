@@ -117,10 +117,24 @@ export default function Home() {
 
       {/* Project grid */}
       <section className="grid-layout pb-20">
-        <div className="col-start-1 col-end-13 columns-1 lg:columns-2 gap-x-[24px]">
+        {/* mobile: single column */}
+        <div className="col-start-1 col-end-13 lg:hidden">
           {projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
+        </div>
+        {/* desktop: explicit 2-column split — even indices left, odd indices right */}
+        <div className="col-start-1 col-end-13 hidden lg:grid lg:grid-cols-2 lg:gap-x-[24px]">
+          <div>
+            {projects.filter((_, i) => i % 2 === 0).map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+          <div>
+            {projects.filter((_, i) => i % 2 === 1).map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
         </div>
       </section>
     </>

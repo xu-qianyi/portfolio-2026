@@ -3,26 +3,14 @@
     "id": "datalign",
     "company": "Datalign",
     "date": "2025",
-    "type": "Desktop & mobile",
-    "headline": "Making wealth management approachable for everyone",
+    "type": "Web",
+    "headline": "Redesigning the front door of a wealth management marketplace",
     "image": "/images/preview/Datalign.webp",
     "width": 1280,
     "height": 900,
-    "href": "/#project-datalign",
-    "industry": "FinTech"
-  },
-
-  {
-    "id": "datalign2",
-    "company": "Datalign",
-    "date": "2025",
-    "type": "Website",
-    "headline": "Renovate the official website of Datalign",
-    "image": "/images/preview/website-placeholder.svg",
-    "width": 1280,
-    "height": 960,
-    "href": "/#project-datalign2",
-    "industry": "FinTech"
+    "href": "/work/datalign",
+    "industry": "FinTech",
+    "bg": "#fbfbf7"
   },
   {
     "id": "ark7",
