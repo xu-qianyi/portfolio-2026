@@ -1,15 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef, type CSSProperties } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const NAV_LINK: CSSProperties = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "14px",
-  fontWeight: 500,
-  textDecoration: "none",
-};
 
 const NAV_ITEMS = [
   { label: "Work",   href: "/" },
@@ -21,68 +14,49 @@ const RESUME_HREF = "https://drive.google.com"; // TODO: replace with actual res
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [indicatorLeft, setIndicatorLeft] = useState<number | null>(null);
-  const [menuOpen,      setMenuOpen]      = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const linkRefs     = useRef<(HTMLAnchorElement | null)[]>([]);
-
-  useEffect(() => {
-    const recalc = () => {
-      const activeIdx = NAV_ITEMS.findIndex(item =>
-        item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
-      );
-      const el        = linkRefs.current[activeIdx];
-      const container = containerRef.current;
-      if (!el || !container) return;
-      const elRect        = el.getBoundingClientRect();
-      const containerRect = container.getBoundingClientRect();
-      setIndicatorLeft(elRect.left - containerRect.left + elRect.width / 2);
-    };
-    recalc();
-    let resizeTimer: ReturnType<typeof setTimeout>;
-    const onResize = () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(recalc, 150); };
-    window.addEventListener("resize", onResize);
-    return () => { window.removeEventListener("resize", onResize); clearTimeout(resizeTimer); };
-  }, [pathname]);
-
-  // Close menu on navigation
   useEffect(() => { setMenuOpen(false); }, [pathname]);
 
   return (
-    <header
+    <nav
+      aria-label="Main navigation"
+      className="sticky top-0 backdrop-blur-md"
       style={{
-        position: "sticky",
-        top: 0,
         zIndex: 40,
-        backgroundColor: "var(--color-surface)",
+        backgroundColor: "color-mix(in srgb, var(--color-surface) 80%, transparent)",
+        transition: "transform 300ms cubic-bezier(0.25, 1, 0.5, 1)",
       }}
     >
-      <nav className="grid-layout items-center py-[12px]">
+      <div className="flex items-center justify-between py-5 px-6 lg:px-20 mx-auto">
         {/* Logo */}
         <Link
           href="/"
-          className="col-start-1 col-span-6 md:col-span-1"
-          style={{ ...NAV_LINK, color: "var(--color-ink)", display: "inline-flex", alignItems: "center" }}
+          className="outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] text-[rgba(26,26,26,0.85)] hover:text-[#000000] transition-colors duration-150"
+          style={{
+            fontFamily: "Georgia, serif",
+            fontSize: "14px",
+            fontWeight: 500,
+            letterSpacing: "-0.01em",
+            textDecoration: "none",
+          }}
         >
-          <span style={{ whiteSpace: "nowrap" }}>
-            Martta XU
-          </span>
+          Martta XU
         </Link>
 
-        {/* Desktop nav links */}
-        <div
-          ref={containerRef}
-          className="col-start-7 col-span-4 md:col-start-2 md:col-span-11 hidden md:flex items-center"
-          style={{ position: "relative", gap: "24px" }}
-        >
-          {NAV_ITEMS.map((item, i) => (
+        {/* Desktop nav */}
+        <div className="hidden sm:flex items-center gap-1">
+          {NAV_ITEMS.map(item => (
             <Link
               key={item.href}
               href={item.href}
-              ref={el => { linkRefs.current[i] = el; }}
-              className="nav-tab"
-              style={NAV_LINK}
+              className="outline-none rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors h-8 px-3 flex items-center hover:bg-[var(--color-subtle)]"
+              style={{
+                fontSize: "12px",
+                fontWeight: 450,
+                color: "rgba(26, 26, 26, 0.55)",
+                textDecoration: "none",
+              }}
             >
               {item.label}
             </Link>
@@ -91,114 +65,96 @@ export default function Navbar() {
             href={RESUME_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className="nav-tab"
-            style={NAV_LINK}
+            className="outline-none rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors h-8 px-3 flex items-center hover:bg-[var(--color-subtle)]"
+            style={{
+              fontSize: "12px",
+              fontWeight: 450,
+              color: "rgba(26, 26, 26, 0.55)",
+              textDecoration: "none",
+            }}
           >
             Resume
           </a>
-
-          {indicatorLeft !== null && (
-            <span
-              style={{
-                position: "absolute",
-                bottom: "-5px",
-                left: indicatorLeft,
-                transform: "translateX(-50%)",
-                width: 0,
-                height: 0,
-                borderLeft: "3px solid transparent",
-                borderRight: "3px solid transparent",
-                borderBottom: "3px solid var(--color-accent)",
-                transition: "left 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
-                pointerEvents: "none",
-              }}
-            />
-          )}
         </div>
 
-        {/* Mobile hamburger button */}
-        <button
-          className="col-start-7 col-span-6 md:hidden flex justify-end items-center"
-          onClick={() => setMenuOpen(o => !o)}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          style={{ background: "none", border: "none", padding: 0 }}
-        >
-          <HamburgerIcon open={menuOpen} />
-        </button>
-      </nav>
+        {/* Mobile hamburger */}
+        <div className="sm:hidden">
+          <button
+            aria-expanded={menuOpen}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen(o => !o)}
+            className="relative flex items-center justify-center w-10 h-10 -mr-2 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)]"
+          >
+            <span
+              className="absolute rounded-full bg-[var(--color-ink)] transition-transform duration-200"
+              style={{
+                width: 18,
+                height: 2,
+                transitionTimingFunction: "cubic-bezier(0.25, 1, 0.5, 1)",
+                transform: menuOpen
+                  ? "translateY(0px) rotate(45deg)"
+                  : "translateY(-4px) rotate(0deg)",
+              }}
+            />
+            <span
+              className="absolute rounded-full bg-[var(--color-ink)] transition-transform duration-200"
+              style={{
+                width: 18,
+                height: 2,
+                transitionTimingFunction: "cubic-bezier(0.25, 1, 0.5, 1)",
+                transform: menuOpen
+                  ? "translateY(0px) rotate(-45deg)"
+                  : "translateY(4px) rotate(0deg)",
+              }}
+            />
+          </button>
+        </div>
+      </div>
 
       {/* Mobile slide-down menu */}
       <div
-        className="md:hidden"
+        className="sm:hidden"
         style={{
           display: "grid",
           gridTemplateRows: menuOpen ? "1fr" : "0fr",
-          transition: "grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-          borderBottom: menuOpen ? "1px solid #e5e5e5" : "1px solid transparent",
+          transition: "grid-template-rows 0.35s cubic-bezier(0.25, 1, 0.5, 1)",
+          borderBottom: menuOpen ? "1px solid var(--color-border)" : "1px solid transparent",
         }}
       >
         <div style={{ overflow: "hidden" }}>
-          <div style={{ padding: "8px 24px 28px", display: "flex", flexDirection: "column" }}>
-            {NAV_ITEMS.map(item => {
-              const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  style={{ ...NAV_LINK, color: "var(--color-ink)", opacity: isActive ? 1 : 0.4, padding: "9px 0" }}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
+          <div className="flex flex-col px-6 pb-6 pt-1 gap-0.5">
+            {NAV_ITEMS.map(item => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-md h-10 flex items-center px-3 transition-colors hover:bg-[var(--color-subtle)]"
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 450,
+                  color: "rgba(26, 26, 26, 0.55)",
+                  textDecoration: "none",
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
             <a
               href={RESUME_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ ...NAV_LINK, color: "var(--color-ink)", opacity: 0.4, padding: "9px 0" }}
+              className="rounded-md h-10 flex items-center px-3 transition-colors hover:bg-[var(--color-subtle)]"
+              style={{
+                fontSize: "14px",
+                fontWeight: 450,
+                color: "rgba(26, 26, 26, 0.55)",
+                textDecoration: "none",
+              }}
             >
               Resume
             </a>
           </div>
         </div>
       </div>
-    </header>
-  );
-}
-
-function HamburgerIcon({ open }: { open: boolean }) {
-  const bar: CSSProperties = {
-    position: "absolute",
-    left: 0,
-    width: 22,
-    height: 1.5,
-    backgroundColor: "var(--color-ink)",
-    borderRadius: 1,
-  };
-  return (
-    <div style={{ width: 22, height: 14, position: "relative" }}>
-      <span style={{
-        ...bar,
-        top: 0,
-        transformOrigin: "center",
-        transform: open ? "translateY(6.25px) rotate(45deg)" : "none",
-        transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-      }} />
-      <span style={{
-        ...bar,
-        top: "50%",
-        marginTop: -0.75,
-        opacity: open ? 0 : 1,
-        transform: open ? "scaleX(0.3)" : "scaleX(1)",
-        transition: "opacity 0.2s ease, transform 0.25s ease",
-      }} />
-      <span style={{
-        ...bar,
-        bottom: 0,
-        transformOrigin: "center",
-        transform: open ? "translateY(-6.25px) rotate(-45deg)" : "none",
-        transition: "transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-      }} />
-    </div>
+    </nav>
   );
 }
