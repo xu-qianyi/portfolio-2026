@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 
-const BG = "#fbfbf7";
+const BG = "transparent";
 const THEME_BLUE = "#3A6FA5";
 
 const BODY = {
@@ -21,8 +21,15 @@ const H2 = {
   lineHeight: "120%",
   fontWeight: 400,
   color: "var(--color-ink)",
-  borderLeft: `2px solid ${THEME_BLUE}`,
-  paddingLeft: "12px",
+  margin: 0,
+} as const;
+
+const H2_PLAIN = {
+  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+  fontSize: "24px",
+  lineHeight: "120%",
+  fontWeight: 400,
+  color: "var(--color-ink)",
   margin: 0,
 } as const;
 
@@ -36,23 +43,21 @@ const H3 = {
 } as const;
 
 const MARK = {
-  backgroundColor: "rgba(58, 111, 165, 0.18)",
+  backgroundColor: "transparent",
   color: "inherit",
-  padding: "0.08em 0.2em",
+  textDecoration: "underline",
+  textDecorationColor: THEME_BLUE,
+  textUnderlineOffset: "2px",
 } as const;
 
 type NavSection = { id: string; label: string };
 
 const SECTIONS: NavSection[] = [
-  { id: "overview",    label: "Overview" },
-  { id: "audit",       label: "The audit" },
-  { id: "behavior",    label: "User behavior" },
-  { id: "competitive", label: "Looking outward" },
-  { id: "workshop",    label: "The workshop" },
-  { id: "redesign",    label: "The redesign" },
-  { id: "testing",     label: "From insight to test" },
-  { id: "takeaways",   label: "What I'm taking with me" },
-  { id: "results",     label: "Where we are right now" },
+  { id: "overview", label: "Overview" },
+  { id: "research", label: "Research" },
+  { id: "workshop", label: "The workshop" },
+  { id: "design",   label: "Design" },
+  { id: "outcomes", label: "Outcomes" },
 ];
 
 const META_ITEMS = [
@@ -147,7 +152,7 @@ function SectionShell({
 }: {
   id: string;
   label: string;
-  title: string;
+  title?: string;
   sectionRefs: React.MutableRefObject<Record<string, HTMLElement | null>>;
   children: React.ReactNode;
   divider?: boolean;
@@ -166,7 +171,7 @@ function SectionShell({
                 fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                 fontSize: "13px",
                 fontWeight: 500,
-                color: "var(--color-ink-70)",
+                color: "#3B82F6",
                 margin: 0,
                 letterSpacing: "0.02em",
                 textTransform: "uppercase",
@@ -174,7 +179,7 @@ function SectionShell({
             >
               {label}
             </p>
-            <h2 style={H2}>{title}</h2>
+            {title && <h2 style={H2}>{title}</h2>}
           </div>
         </CaseScrollReveal>
         {children}
@@ -353,7 +358,7 @@ export default function DatalignCaseStudyPage() {
               <Img label="Hero image - before/after of the form" aspect="16/9" />
             </CaseScrollReveal>
 
-            <CaseScrollReveal delay={120} className="grid grid-cols-2 gap-5 md:grid-cols-3 md:gap-6">
+            <CaseScrollReveal delay={120} className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
               {META_ITEMS.map((item) => (
                 <div key={item.label} className="flex flex-col gap-2">
                   <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", fontWeight: 500, color: "var(--color-ink)", margin: 0 }}>
@@ -373,9 +378,9 @@ export default function DatalignCaseStudyPage() {
           <div className="flex flex-col gap-16 md:gap-20">
 
             {/* 01 — Overview */}
-            <SectionShell id="overview" label="Overview" title="Overview" sectionRefs={sectionRefs}>
-              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
-                <h3 style={H3}>What Datalign is</h3>
+            <SectionShell id="overview" label="Overview" sectionRefs={sectionRefs}>
+              <CaseScrollReveal delay={80} className="flex flex-col gap-4">
+                <h2 style={H2_PLAIN}>What Datalign is</h2>
                 <p style={BODY}>
                   <a href="https://datalign.com/" target="_blank" rel="noopener noreferrer" style={{ color: "inherit" }}>Datalign</a> is a lead marketplace for wealth management. Consumers fill out a 20-question intake form to get matched with a registered investment advisor (RIA). Partner firms bid on the lead in an auction, and the user is connected with the winning firm.
                 </p>
@@ -387,8 +392,8 @@ export default function DatalignCaseStudyPage() {
               <CaseScrollReveal delay={100}>
                 <Img label="Diagram - Consumer → Form → Match auction → RIA firm → Conversation" aspect="3/1" />
               </CaseScrollReveal>
-              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
-                <h3 style={H3}>The problem</h3>
+              <CaseScrollReveal delay={80} className="flex flex-col gap-4">
+                <h2 style={H2_PLAIN}>The problem</h2>
                 <p style={BODY}>
                   The form had been live for years. It worked: leads came in, matches went out, the business ran.
                 </p>
@@ -409,9 +414,12 @@ export default function DatalignCaseStudyPage() {
               </CaseScrollReveal>
             </SectionShell>
 
-            {/* 02 — The audit */}
-            <SectionShell id="audit" label="The audit" title="The audit" sectionRefs={sectionRefs}>
-              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+            {/* Research */}
+            <SectionShell id="research" label="Research" sectionRefs={sectionRefs}>
+              <CaseScrollReveal>
+                <h2 style={H2}>The audit</h2>
+              </CaseScrollReveal>
+              <CaseScrollReveal delay={80} className="flex flex-col gap-4">
                 <p style={BODY}>
                   I ran a heuristic walkthrough of the live form against Nielsen&apos;s 10 principles. Five recurring issues:
                 </p>
@@ -443,11 +451,11 @@ export default function DatalignCaseStudyPage() {
               <CaseScrollReveal delay={60}>
                 <Img label="Annotated screenshots of the original form" aspect="4/3" />
               </CaseScrollReveal>
-            </SectionShell>
 
-            {/* 03 — User behavior */}
-            <SectionShell id="behavior" label="User behavior" title="Watching what users actually did" sectionRefs={sectionRefs}>
-              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+              <CaseScrollReveal className="mt-6 md:mt-8">
+                <h2 style={H2}>Watching what users actually did</h2>
+              </CaseScrollReveal>
+              <CaseScrollReveal delay={80} className="flex flex-col gap-4">
                 <p style={BODY}>
                   Heuristics show what <em>might</em> be wrong. To find out what <em>was</em> actually wrong, I needed to see the form through real user behavior.
                 </p>
@@ -492,11 +500,11 @@ export default function DatalignCaseStudyPage() {
               <CaseScrollReveal delay={60}>
                 <Img label="Drop-off + U-turn map across the form" aspect="16/9" />
               </CaseScrollReveal>
-            </SectionShell>
 
-            {/* 04 — Looking outward */}
-            <SectionShell id="competitive" label="Looking outward" title="Looking outward" sectionRefs={sectionRefs}>
-              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+              <CaseScrollReveal className="mt-6 md:mt-8">
+                <h2 style={H2}>Looking outward</h2>
+              </CaseScrollReveal>
+              <CaseScrollReveal delay={80} className="flex flex-col gap-4">
                 <p style={BODY}>
                   I mapped 10+ wealth management competitors on a matrix: <em>Functional &rarr; Decent UX &rarr; Well-designed</em>.
                 </p>
@@ -506,7 +514,7 @@ export default function DatalignCaseStudyPage() {
                 <Img label="Competitive landscape matrix" aspect="4/3" />
               </CaseScrollReveal>
 
-              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+              <CaseScrollReveal delay={80} className="flex flex-col gap-4">
                 <p style={BODY}>
                   <mark style={MARK}>The longer the form, the more the experience design matters.</mark>{" "}
                   Datalign sits in the long-form camp (20+ questions) but designs like a short-form tool.
@@ -534,7 +542,7 @@ export default function DatalignCaseStudyPage() {
 
             {/* 05 — The workshop */}
             <SectionShell id="workshop" label="The workshop" title="The workshop: turning research into shared hypotheses" sectionRefs={sectionRefs}>
-              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+              <CaseScrollReveal delay={80} className="flex flex-col gap-4">
                 <p style={BODY}>
                   I organized and facilitated a cross-functional workshop with Product, Engineering, and Data team. Four prompts structured the session:
                 </p>
@@ -577,9 +585,12 @@ export default function DatalignCaseStudyPage() {
               </CaseScrollReveal>
             </SectionShell>
 
-            {/* 06 — The redesign */}
-            <SectionShell id="redesign" label="The redesign" title="The redesign" sectionRefs={sectionRefs}>
-              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+            {/* Design */}
+            <SectionShell id="design" label="Design" sectionRefs={sectionRefs}>
+              <CaseScrollReveal>
+                <h2 style={H2}>The redesign</h2>
+              </CaseScrollReveal>
+              <CaseScrollReveal delay={80} className="flex flex-col gap-4">
                 <p style={{ ...BODY, fontWeight: 500 }}>Three principles came out of the research and the workshop:</p>
                 <div className="flex flex-col gap-3">
                   {DESIGN_PRINCIPLES.map((p) => (
@@ -602,7 +613,7 @@ export default function DatalignCaseStudyPage() {
                 <Img label="Step 1 - Claire intro card" aspect="4/3" />
               </CaseScrollReveal>
 
-              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+              <CaseScrollReveal delay={80} className="flex flex-col gap-4">
                 <p style={{ ...BODY, fontWeight: 500 }}>Each step that follows layers in:</p>
                 <ul className="flex flex-col gap-2 pl-0 m-0 list-none">
                   {[
@@ -625,11 +636,11 @@ export default function DatalignCaseStudyPage() {
               <CaseScrollReveal delay={60}>
                 <Img label="Branching choice screen + key step UI" aspect="4/3" />
               </CaseScrollReveal>
-            </SectionShell>
 
-            {/* 07 — From insight to test */}
-            <SectionShell id="testing" label="From insight to test" title="From insight to test" sectionRefs={sectionRefs}>
-              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+              <CaseScrollReveal className="mt-6 md:mt-8">
+                <h2 style={H2}>From insight to test</h2>
+              </CaseScrollReveal>
+              <CaseScrollReveal delay={80} className="flex flex-col gap-4">
                 <p style={BODY}>
                   Our form is deeply wired into the system. It plugs into the matching engine, multiple internal APIs, and our publishers&apos; APIs. Even a one-character change can take an engineer two days to ship. Testing redesign hypotheses through the in-house build wasn&apos;t viable at the speed we needed.
                 </p>
@@ -664,8 +675,11 @@ export default function DatalignCaseStudyPage() {
               </CaseScrollReveal>
             </SectionShell>
 
-            {/* 08 — What I'm taking with me */}
-            <SectionShell id="takeaways" label="What I'm taking with me" title="What I'm taking with me" sectionRefs={sectionRefs}>
+            {/* Outcomes */}
+            <SectionShell id="outcomes" label="Outcomes" sectionRefs={sectionRefs} divider={false}>
+              <CaseScrollReveal>
+                <h2 style={H2}>What I&apos;m taking with me</h2>
+              </CaseScrollReveal>
               <CaseScrollReveal delay={80} className="flex flex-col gap-6">
                 {TAKEAWAYS.map((item, i) => (
                   <div key={i} className="flex flex-col gap-2">
@@ -674,16 +688,16 @@ export default function DatalignCaseStudyPage() {
                   </div>
                 ))}
               </CaseScrollReveal>
-            </SectionShell>
 
-            {/* 09 — Where we are right now */}
-            <SectionShell id="results" label="Where we are right now" title="Where we are right now" sectionRefs={sectionRefs} divider={false}>
-              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+              <CaseScrollReveal className="mt-6 md:mt-8">
+                <h2 style={H2}>Where we are right now</h2>
+              </CaseScrollReveal>
+              <CaseScrollReveal delay={80} className="flex flex-col gap-4">
                 <p style={BODY}>Phase 1 has shipped. Early data:</p>
               </CaseScrollReveal>
 
               <CaseScrollReveal delay={80}>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 p-5 border border-[var(--color-ink-14)]" style={{ backgroundColor: "var(--color-ink-06)" }}>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 border border-[var(--color-ink-14)]" style={{ backgroundColor: "var(--color-ink-06)" }}>
                   {[
                     { value: "12% → 17%", label: "completion rate across paid traffic (40% lift)" },
                     { value: "9% → 5%",   label: "U-turn rate" },

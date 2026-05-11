@@ -12,7 +12,7 @@ const SECTION_EYEBROW_STYLE = {
   fontWeight: 500,
   letterSpacing: "0.02em",
   textTransform: "uppercase" as const,
-  color: "var(--color-ink-70)",
+  color: "#1EC373",
   margin: 0,
 };
 
@@ -354,7 +354,7 @@ function Ark7PersonaCards() {
           </header>
 
           <div className="flex flex-col gap-2 border-t border-[var(--color-ink-14)] pt-3.5">
-            <p style={{ ...SECTION_EYEBROW_STYLE, fontSize: "12px" }}>User needs</p>
+            <p style={{ ...SECTION_EYEBROW_STYLE, fontSize: "12px", color: "var(--color-ink-70)" }}>User needs</p>
             <ul
               className="m-0 list-disc space-y-1.5 pl-4 marker:text-[var(--color-ink-65)]"
               style={{
@@ -373,7 +373,7 @@ function Ark7PersonaCards() {
           </div>
 
           <div className="rounded-md border border-[var(--color-ink-14)] bg-[var(--color-subtle)] px-3.5 py-2.5">
-            <p style={{ ...SECTION_EYEBROW_STYLE, fontSize: "12px" }}>User goals</p>
+            <p style={{ ...SECTION_EYEBROW_STYLE, fontSize: "12px", color: "var(--color-ink-70)" }}>User goals</p>
             <p style={{ ...BODY_TEXT_STYLE, fontSize: "14px", lineHeight: "150%", marginTop: "6px" }}>
               {p.goalLabel}: {p.goal}
             </p>
@@ -1146,8 +1146,6 @@ export default function Ark7CaseStudyPage() {
                         lineHeight: "120%",
                         fontWeight: 400,
                         color: "var(--color-ink)",
-                        borderLeft: "2px solid var(--color-accent-green)",
-                        paddingLeft: "12px",
                         margin: 0,
                       }}
                     >
@@ -1182,8 +1180,6 @@ export default function Ark7CaseStudyPage() {
                         lineHeight: "120%",
                         fontWeight: 400,
                         color: "var(--color-ink)",
-                        borderLeft: "2px solid var(--color-accent-green)",
-                        paddingLeft: "12px",
                         margin: 0,
                       }}
                     >
@@ -1204,9 +1200,7 @@ export default function Ark7CaseStudyPage() {
                         lineHeight: "120%",
                         fontWeight: 400,
                         color: "var(--color-ink)",
-                        borderLeft: "2px solid var(--color-accent-green)",
-                        paddingLeft: "12px",
-                        marginTop: "2rem",
+                        marginTop: "3rem",
                         marginBottom: 0,
                       }}
                     >
@@ -1240,8 +1234,6 @@ export default function Ark7CaseStudyPage() {
                             lineHeight: "120%",
                             fontWeight: 400,
                             color: "var(--color-ink)",
-                            borderLeft: "2px solid var(--color-accent-green)",
-                            paddingLeft: "12px",
                             margin: 0,
                           }}
                         >
@@ -1251,7 +1243,7 @@ export default function Ark7CaseStudyPage() {
                       </div>
                     ))}
                   </div>
-                  <p style={{ ...BODY_TEXT_STYLE }}>
+                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "1.5rem" }}>
                     <mark className="case-text-highlight">News</mark>
                   </p>
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
@@ -1305,7 +1297,7 @@ export default function Ark7CaseStudyPage() {
                     className="w-full h-auto"
                     loading="lazy"
                   />
-                  <p style={{ ...BODY_TEXT_STYLE }}>
+                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "3rem" }}>
                     <mark className="case-text-highlight">Voting</mark>
                   </p>
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
@@ -1359,7 +1351,7 @@ export default function Ark7CaseStudyPage() {
                     className="w-full h-auto"
                     loading="lazy"
                   />
-                  <p style={{ ...BODY_TEXT_STYLE }}>
+                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "3rem" }}>
                     <mark className="case-text-highlight">Webinar</mark>
                   </p>
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
@@ -1413,7 +1405,7 @@ export default function Ark7CaseStudyPage() {
                     className="w-full h-auto"
                     loading="lazy"
                   />
-                  <p style={{ ...BODY_TEXT_STYLE }}>
+                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "3rem" }}>
                     <mark className="case-text-highlight">Discussion</mark>
                   </p>
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
@@ -1473,7 +1465,7 @@ export default function Ark7CaseStudyPage() {
                 {section.id === "design" ? (
                   <>
                     <Ark7CommunityFeaturesTable />
-                    <div className="mt-8 flex flex-col gap-6 md:mt-10">
+                    <div className="mt-12 flex flex-col gap-6 md:mt-16">
                       <div className="flex flex-col gap-4">
                         <h3
                           style={{
@@ -1482,8 +1474,6 @@ export default function Ark7CaseStudyPage() {
                             lineHeight: "120%",
                             fontWeight: 400,
                             color: "var(--color-ink)",
-                            borderLeft: "2px solid var(--color-accent-green)",
-                            paddingLeft: "12px",
                             margin: 0,
                           }}
                         >
@@ -1500,7 +1490,7 @@ export default function Ark7CaseStudyPage() {
                       </div>
                       <Ark7LayoutOptionsTabs />
                     </div>
-                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
+                    <div className="mt-12 flex flex-col gap-4 md:mt-16">
                       <h3
                         style={{
                           fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1508,8 +1498,6 @@ export default function Ark7CaseStudyPage() {
                           lineHeight: "120%",
                           fontWeight: 400,
                           color: "var(--color-ink)",
-                          borderLeft: "2px solid var(--color-accent-green)",
-                          paddingLeft: "12px",
                           margin: 0,
                         }}
                       >
@@ -1546,8 +1534,6 @@ export default function Ark7CaseStudyPage() {
                         lineHeight: "120%",
                         fontWeight: 400,
                         color: "var(--color-ink)",
-                        borderLeft: "2px solid var(--color-accent-green)",
-                        paddingLeft: "12px",
                         margin: 0,
                       }}
                     >
@@ -1575,7 +1561,7 @@ export default function Ark7CaseStudyPage() {
                       ))}
                     </ul>
                   </div>
-                  <div className="mt-8 flex flex-col gap-4">
+                  <div className="mt-12 flex flex-col gap-4">
                     <h3
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1583,8 +1569,6 @@ export default function Ark7CaseStudyPage() {
                         lineHeight: "120%",
                         fontWeight: 400,
                         color: "var(--color-ink)",
-                        borderLeft: "2px solid var(--color-accent-green)",
-                        paddingLeft: "12px",
                         margin: 0,
                       }}
                     >
@@ -1635,7 +1619,7 @@ export default function Ark7CaseStudyPage() {
                         />
                       </div>
                     </div>
-                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
+                    <div className="mt-12 flex flex-col gap-4 md:mt-16">
                       <h3
                         style={{
                           fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1643,8 +1627,6 @@ export default function Ark7CaseStudyPage() {
                           lineHeight: "120%",
                           fontWeight: 400,
                           color: "var(--color-ink)",
-                          borderLeft: "2px solid var(--color-accent-green)",
-                          paddingLeft: "12px",
                           margin: 0,
                         }}
                       >
@@ -1664,7 +1646,7 @@ export default function Ark7CaseStudyPage() {
                       </p>
                       <Ark7PersonaCards />
                     </div>
-                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
+                    <div className="mt-12 flex flex-col gap-4 md:mt-16">
                       <h3
                         style={{
                           fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1672,8 +1654,6 @@ export default function Ark7CaseStudyPage() {
                           lineHeight: "120%",
                           fontWeight: 400,
                           color: "var(--color-ink)",
-                          borderLeft: "2px solid var(--color-accent-green)",
-                          paddingLeft: "12px",
                           margin: 0,
                         }}
                       >
@@ -1716,7 +1696,7 @@ export default function Ark7CaseStudyPage() {
                         {": How might we build an engaging experience for users to learn and invest with trust?"}
                       </p>
                     </div>
-                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
+                    <div className="mt-12 flex flex-col gap-4 md:mt-16">
                       <h2
                         style={{
                           fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1724,8 +1704,6 @@ export default function Ark7CaseStudyPage() {
                           lineHeight: "120%",
                           fontWeight: 400,
                           color: "var(--color-ink)",
-                          borderLeft: "2px solid var(--color-accent-green)",
-                          paddingLeft: "12px",
                           margin: 0,
                         }}
                       >
@@ -1805,7 +1783,7 @@ export default function Ark7CaseStudyPage() {
                 ) : null}
 
                 {section.continuationTitle && section.continuationBody ? (
-                  <div className="mt-3 flex flex-col gap-5">
+                  <div className="mt-8 flex flex-col gap-5 md:mt-10">
                     <h2
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1813,8 +1791,6 @@ export default function Ark7CaseStudyPage() {
                         lineHeight: "120%",
                         fontWeight: 400,
                         color: "var(--color-ink)",
-                        borderLeft: "2px solid var(--color-accent-green)",
-                        paddingLeft: "12px",
                         margin: 0,
                       }}
                     >

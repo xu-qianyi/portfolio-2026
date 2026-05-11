@@ -188,12 +188,11 @@ body {
 
 /* Case study: inline emphasis (ties to --color-accent-green in headings) */
 .case-text-highlight {
-  background-color: color-mix(in srgb, var(--color-accent-green) 22%, transparent);
+  background-color: transparent;
   color: inherit;
-  padding: 0.08em 0.2em;
-  border-radius: 3px;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  text-decoration: underline;
+  text-decoration-color: #1EC373;
+  text-underline-offset: 2px;
 }
 
 /* ARK7 layout options: tab panel switch (transform + opacity only) */
