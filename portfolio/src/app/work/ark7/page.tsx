@@ -857,15 +857,9 @@ function Ark7LayoutOptionsTabs() {
             </p>
             <ul className="m-0 flex list-none flex-col gap-4 p-0 md:gap-5">
               {active.points.map((node, idx) => (
-                <li
-                  key={`${active.id}-pt-${idx}`}
-                  style={{
-                    ...BODY_TEXT_STYLE,
-                    paddingLeft: "1rem",
-                    borderLeft: "2px solid var(--color-ink-14)",
-                  }}
-                >
-                  {node}
+                <li key={`${active.id}-pt-${idx}`} className="flex gap-3 items-baseline">
+                  <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
+                  <p style={BODY_TEXT_STYLE}>{node}</p>
                 </li>
               ))}
             </ul>
@@ -1548,15 +1542,9 @@ export default function Ark7CaseStudyPage() {
                         <>New users spent <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>100% more time</span> on the platform during their first login - exploring, learning, and building confidence before investing</>,
                         <><span style={{ fontWeight: 600, color: "var(--color-ink)" }}>40%</span> increase in transaction volumes in the secondary market</>,
                       ].map((node, i) => (
-                        <li
-                          key={i}
-                          style={{
-                            ...BODY_TEXT_STYLE,
-                            paddingLeft: "1rem",
-                            borderLeft: "2px solid var(--color-ink-14)",
-                          }}
-                        >
-                          {node}
+                        <li key={i} className="flex gap-3 items-baseline">
+                          <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
+                          <p style={BODY_TEXT_STYLE}>{node}</p>
                         </li>
                       ))}
                     </ul>

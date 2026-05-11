@@ -17,6 +17,7 @@
   --color-accent-brown: #8B4513;
   --color-accent-peach: rgba(232, 185, 150, 0.32);
   --color-accent-tint: var(--color-accent-tint);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
@@ -368,6 +369,38 @@ body {
   outline: 1.5px solid var(--color-accent);
   outline-offset: 4px;
   border-radius: 2px;
+}
+
+/* ── Highlight wipe animation ────────────────────────────────────────── */
+@keyframes highlight-wipe {
+  from { background-size: 0% 100%; }
+  to   { background-size: 100% 100%; }
+}
+
+.highlight {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  padding: 0.08em 0.2em;
+  border-radius: 2px;
+  color: inherit;
+}
+
+.highlight--visible {
+  animation: highlight-wipe var(--highlight-duration, 900ms) var(--ease-out-quint) forwards;
+  animation-delay: var(--highlight-delay, 0ms);
+}
+
+.highlight-peach  { background-image: linear-gradient(to right, var(--color-accent-peach), var(--color-accent-peach)); }
+.highlight-yellow { background-image: linear-gradient(to right, rgba(255, 220, 80, 0.35), rgba(255, 220, 80, 0.35)); }
+.highlight-pink   { background-image: linear-gradient(to right, rgba(255, 182, 193, 0.5), rgba(255, 182, 193, 0.5)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .highlight--visible {
+    animation: none;
+    background-size: 100% 100%;
+  }
 }
 
 /* ── Reduced-motion: disable all non-essential animation ─────────────── */

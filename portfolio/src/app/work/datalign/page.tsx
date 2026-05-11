@@ -569,13 +569,16 @@ export default function DatalignCaseStudyPage() {
                 <p style={BODY}>
                   The output was a list of testable hypotheses - design decisions we had been making on instinct without ever measuring:
                 </p>
-                <ul className="flex flex-col gap-2 pl-4 m-0 list-none" style={{ borderLeft: `2px solid var(--color-ink-14)` }}>
+                <ul className="flex flex-col gap-2 pl-0 m-0 list-none">
                   {[
                     "Does adding a real human avatar drive higher completion?",
                     "Does rewording financial jargon reduce user confusion?",
                     "Is the interstitial screen helping, or hurting?",
                   ].map((a, i) => (
-                    <li key={i}><p style={{ ...BODY, fontStyle: "italic" }}>{a}</p></li>
+                    <li key={i} className="flex gap-3 items-baseline">
+                      <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
+                      <p style={{ ...BODY, fontStyle: "italic" }}>{a}</p>
+                    </li>
                   ))}
                 </ul>
                 <p style={BODY}>
