@@ -138,7 +138,7 @@ function ark7SectionParagraph(
     return (
       <>
         {before}
-        <mark className="case-text-highlight">{RESEARCH_CHANNELS_HIGHLIGHT}</mark>
+        <Highlight variant="green" duration={800}>{RESEARCH_CHANNELS_HIGHLIGHT}</Highlight>
         {after}
       </>
     );
@@ -1109,11 +1109,11 @@ export default function Ark7CaseStudyPage() {
                 Cultivating a Trusted Investment Community
               </h1>
               <p style={{ ...BODY_TEXT_STYLE, marginTop: "4px" }}>
-                ARK7 faced a dual retention problem with both new and existing investors. <Highlight variant="peach" duration={1200}>I led the research, design system work, and end-to-end design of four community features</Highlight> - turning an opaque platform into one users trusted enough to keep investing in.
+                ARK7 faced a dual retention problem with both new and existing investors. <Highlight variant="green" duration={1200}>I led the research, design system work, and end-to-end design of four community features</Highlight> - turning an opaque platform into one users trusted enough to keep investing in.
               </p>
             </CaseScrollReveal>
 
-            <CaseScrollReveal delay={60} className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative rounded-lg mb-0">
+            <CaseScrollReveal delay={60} className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative mb-0">
               <LottiePreview
                 src="/images/ARK7/ARK7_Case%20study_Preview.json"
                 loop={false}
@@ -1169,7 +1169,7 @@ export default function Ark7CaseStudyPage() {
                 }}
                 className="scroll-mt-24 pt-16"
               >
-                <div className="flex min-w-0 w-full flex-col gap-7">
+                <div className="flex min-w-0 w-full flex-col gap-0">
                 <CaseScrollReveal>
                 <div className="flex flex-col gap-0">
                   <SectionDivider label={section.label} />
@@ -1203,7 +1203,7 @@ export default function Ark7CaseStudyPage() {
                 ))}
 
                 {section.id === "iteration" ? (
-                  <div className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-4">
                     <SubHeading>Fixing the foundation first</SubHeading>
                     <p style={{ ...BODY_TEXT_STYLE }}>
                       Before shipping the community features, we had to address something more
@@ -1213,7 +1213,7 @@ export default function Ark7CaseStudyPage() {
                     <Ark7IterationStoreQuotes />
                     <p style={{ ...BODY_TEXT_STYLE }}>Our design audit revealed:</p>
                     <Ark7DesignAuditGrid />
-                    <SubHeading className="mt-8">The Card Component Revamp</SubHeading>
+                    <SubHeading className="mt-4">The Card Component Revamp</SubHeading>
                     <p style={{ ...BODY_TEXT_STYLE }}>
                       Given time constraints, we focused our design system work on the card component - the most heavily used element across the platform, and the building block for all four community features.
                     </p>
@@ -1241,7 +1241,7 @@ export default function Ark7CaseStudyPage() {
                     ))}
                   </div>
                   <p style={{ ...BODY_TEXT_STYLE, marginTop: "1.5rem" }}>
-                    <mark className="case-text-highlight">News</mark>
+                    <Highlight variant="green" duration={600}>News</Highlight>
                   </p>
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
                     {[
@@ -1294,8 +1294,8 @@ export default function Ark7CaseStudyPage() {
                     className="w-full h-auto"
                     loading="lazy"
                   />
-                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "3rem" }}>
-                    <mark className="case-text-highlight">Voting</mark>
+                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "2rem" }}>
+                    <Highlight variant="green" duration={600}>Voting</Highlight>
                   </p>
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
                     {[
@@ -1348,8 +1348,8 @@ export default function Ark7CaseStudyPage() {
                     className="w-full h-auto"
                     loading="lazy"
                   />
-                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "3rem" }}>
-                    <mark className="case-text-highlight">Webinar</mark>
+                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "2rem" }}>
+                    <Highlight variant="green" duration={600}>Webinar</Highlight>
                   </p>
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
                     {[
@@ -1402,8 +1402,8 @@ export default function Ark7CaseStudyPage() {
                     className="w-full h-auto"
                     loading="lazy"
                   />
-                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "3rem" }}>
-                    <mark className="case-text-highlight">Discussion</mark>
+                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "2rem" }}>
+                    <Highlight variant="green" duration={600}>Discussion</Highlight>
                   </p>
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
                     {[
@@ -1462,21 +1462,19 @@ export default function Ark7CaseStudyPage() {
                 {section.id === "design" ? (
                   <>
                     <Ark7CommunityFeaturesTable />
-                    <div className="mt-12 flex flex-col gap-6 md:mt-16">
+                    <div className="mt-8 flex flex-col gap-5 md:mt-10">
                       <div className="flex flex-col gap-4">
                         <SubHeading>Entry point: one tab, four touchpoints</SubHeading>
                         <p style={{ ...BODY_TEXT_STYLE }}>
                           We evaluated three layout options for integrating the community features. The
                           winning approach:{" "}
-                          <mark className="case-text-highlight">
-                            a dedicated tab with a feed flow
-                          </mark>
+                          <Highlight variant="green" duration={800}>a dedicated tab with a feed flow</Highlight>
                           , using information cards at the top to surface each feature.
                         </p>
                       </div>
                       <Ark7LayoutOptionsTabs />
                     </div>
-                    <div className="mt-12 flex flex-col gap-4 md:mt-16">
+                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
                       <SubHeading>Core flow: mapping out the overall UX in the feed with a user flow</SubHeading>
                       <p style={{ ...BODY_TEXT_STYLE }}>
                         We developed user flows to systematically map out each step a user takes
@@ -1519,7 +1517,7 @@ export default function Ark7CaseStudyPage() {
                       ))}
                     </ul>
                   </div>
-                  <div className="mt-12 flex flex-col gap-4">
+                  <div className="mt-8 flex flex-col gap-4">
                     <SubHeading>What I took away</SubHeading>
                     <p
                       style={{
@@ -1531,7 +1529,7 @@ export default function Ark7CaseStudyPage() {
                         margin: 0,
                       }}
                     >
-                      <mark className="case-text-highlight">Navigating the space between user needs and business caution</mark>
+                      <Highlight variant="green" duration={1100}>Navigating the space between user needs and business caution</Highlight>
                     </p>
                     <p style={{ ...BODY_TEXT_STYLE }}>
                       The client was nervous about opening the platform to unfiltered investor commentary - they&apos;d seen community features go wrong before. My instinct was to push back. But sitting with their concern longer, I realized the better question wasn&apos;t &ldquo;how open?&rdquo; but &ldquo;what conditions make openness feel safe enough to ship?&rdquo; That reframe changed the conversation. Time-limited discussions and moderated formats weren&apos;t watered-down compromises - they were the constraints that made the design real.
@@ -1566,7 +1564,7 @@ export default function Ark7CaseStudyPage() {
                         />
                       </div>
                     </div>
-                    <div className="mt-12 flex flex-col gap-4 md:mt-16">
+                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
                       <SubHeading>Two users, one shared problem</SubHeading>
                       <p style={{ ...BODY_TEXT_STYLE }}>
                         The research revealed two distinct user profiles whose frustrations pointed to
@@ -1574,10 +1572,10 @@ export default function Ark7CaseStudyPage() {
                       </p>
                       <Ark7PersonaCards />
                     </div>
-                    <div className="mt-12 flex flex-col gap-4 md:mt-16">
+                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
                       <SubHeading>Refining the problem</SubHeading>
                       <p style={{ ...BODY_TEXT_STYLE }}>
-                        <mark className="case-text-highlight">Initial question</mark>
+                        <Highlight variant="green" duration={700}>Initial question</Highlight>
                         {": How might we help different users build trust at ARK7?"}
                       </p>
                       <p style={{ ...BODY_TEXT_STYLE }}>
@@ -1585,33 +1583,17 @@ export default function Ark7CaseStudyPage() {
                       </p>
                       <Ark7PersonaBusinessMappingTable />
                       <p style={{ ...BODY_TEXT_STYLE }}>
-                        <mark className="case-text-highlight">Refined question</mark>
+                        <Highlight variant="green" duration={700}>Refined question</Highlight>
                         {": How might we build an engaging experience for users to learn and invest with trust?"}
                       </p>
                     </div>
-                    <div className="mt-12 flex flex-col gap-4 md:mt-16">
+                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
                       <SubHeading>Competitor analysis: understanding how rivals foster trust and engage users</SubHeading>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                          fontSize: "16px",
-                          lineHeight: "160%",
-                          color: "var(--color-ink-80)",
-                          margin: 0,
-                        }}
-                      >
+                      <p style={{ ...BODY_TEXT_STYLE }}>
                         I conducted a thorough competitive audit of similar apps to understand their
                         product and design strategies for building trust and engaging users.
                       </p>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                          fontSize: "16px",
-                          lineHeight: "160%",
-                          color: "var(--color-ink-80)",
-                          margin: 0,
-                        }}
-                      >
+                      <p style={{ ...BODY_TEXT_STYLE }}>
                         Given that there are only two direct competitors, we also examined companies in
                         the broader financial sector.
                       </p>
@@ -1626,28 +1608,41 @@ export default function Ark7CaseStudyPage() {
                           className="w-full h-auto object-contain"
                         />
                       </div>
-                      <p style={BODY_TEXT_STYLE}>Three insights stood out:</p>
-                      <p style={BODY_TEXT_STYLE}>
-                        <span className="font-semibold text-[var(--color-ink)]">
-                          Interactive content drives longer engagement.
-                        </span>{" "}
-                        Platforms with interactive elements saw more frequent return visits and deeper
-                        exploration.
-                      </p>
-                      <p style={BODY_TEXT_STYLE}>
-                        <span className="font-semibold text-[var(--color-ink)]">
-                          Community connection makes users feel safer.
-                        </span>{" "}
-                        When users could see and interact with other investors, their confidence in
-                        the platform increased.
-                      </p>
-                      <p style={BODY_TEXT_STYLE}>
-                        <span className="font-semibold text-[var(--color-ink)]">
-                          Webinars are the strongest trust signal.
-                        </span>{" "}
-                        Real-time, expert-led sessions resonated most with users seeking guidance -
-                        more than static content or forums.
-                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-1">
+                        {[
+                          {
+                            step: "01",
+                            label: "Interactive content drives longer engagement.",
+                            body: "Platforms with interactive elements saw more frequent return visits and deeper exploration.",
+                          },
+                          {
+                            step: "02",
+                            label: "Community connection makes users feel safer.",
+                            body: "When users could see and interact with other investors, their confidence in the platform increased.",
+                          },
+                          {
+                            step: "03",
+                            label: "Webinars are the strongest trust signal.",
+                            body: "Real-time, expert-led sessions resonated most with users seeking guidance - more than static content or forums.",
+                          },
+                        ].map((item) => (
+                          <div
+                            key={item.step}
+                            className="rounded-lg p-4"
+                            style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}
+                          >
+                            <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "16px", fontWeight: 500, letterSpacing: "-0.01em", color: "rgba(26,26,26,0.85)", marginBottom: "4px" }}>
+                              {item.step}
+                            </div>
+                            <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "16px", fontWeight: 500, letterSpacing: "-0.01em", color: "rgba(26,26,26,0.85)", marginBottom: "6px", lineHeight: "1.3" }}>
+                              {item.label}
+                            </div>
+                            <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.45", color: "rgba(26,26,26,0.5)" }}>
+                              {item.body}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 ) : null}
