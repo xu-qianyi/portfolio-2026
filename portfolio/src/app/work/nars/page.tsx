@@ -20,12 +20,13 @@ type Section = { id: string; label: string };
 const SECTIONS: Section[] = [
   { id: "overview", label: "Overview" },
   { id: "research", label: "Research" },
+  { id: "outcome", label: "Outcome" },
 ];
 
 const META_ITEMS = [
-  { label: "Role", value: "Lead User Researcher" },
+  { label: "Team", value: "3 Researchers" },
   { label: "Timeframe", value: "2022 (1 month)" },
-  { label: "Tools", value: "LookLook Analytics, MS PowerPoint, MS Excel, Python" },
+  { label: "Tools", value: "LookLook Analytics, MS PowerPoint, MS Excel" },
 ];
 
 function SectionDivider({ label }: { label: string }) {
@@ -248,7 +249,7 @@ export default function NarsCaseStudyPage() {
                 NARS Longwear Foundation concept testing - US &amp; China insights
               </h1>
               <p style={{ ...BODY, marginTop: "4px" }}>
-                LookLook&apos;s user testing platform enabled concurrent research across two distinct beauty markets. <Highlight variant="peach" duration={1200}>I led recruitment, in-depth interviews, concept testing, and naming feedback</Highlight> - directly shaping a product now on shelves.
+                <Highlight variant="peach" duration={1200}>I designed a cross-cultural research framework</Highlight> to surface divergent consumer expectations across the US and Chinese beauty markets - synthesizing findings that directly shaped NARS&apos;s formulation direction, regional naming strategy, and market positioning for a product now on shelves.
               </p>
             </CaseScrollReveal>
 
@@ -332,13 +333,13 @@ export default function NarsCaseStudyPage() {
                     marginTop: 0,
                   }}
                 >
-                  Helping NARS launch a foundation users actually want
+                  Decoding cross-market complexity before the product brief locked
                 </h2>
               </CaseScrollReveal>
 
               <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
                 <p style={BODY}>
-                  At{" "}
+                  NARS came to{" "}
                   <a
                     href="https://www.looklook.app"
                     target="_blank"
@@ -347,19 +348,19 @@ export default function NarsCaseStudyPage() {
                   >
                     LookLook
                   </a>
-                  , I led a comprehensive user research initiative for NARS&apos;s longwear foundation, focusing on user needs in the U.S. and China. Leveraging LookLook&apos;s user testing platform, I recruited and screened participants, conducted in-depth interviews, concept testing, and naming feedback to identify key user pain points and preferences.
+                  {" "}with an unresolved question: which formulation direction and product story would resonate across two structurally different beauty markets. Without US-China comparative data, any positioning decision carried real commercial risk.
                 </p>
                 <p style={BODY}>
-                  These insights were instrumental in shaping NARS&apos;s product design, branding, and market positioning. The longwear foundation is now launched - the research directly shaped a product aligned with consumer expectations.
+                  I designed and ran the research end-to-end - from participant screener to final synthesis - structured to isolate where the two markets converged and where they required separate strategies.
                 </p>
 
                 <div className="flex flex-col gap-3 mt-2">
                   <SubHeading>The challenge</SubHeading>
                   <p style={BODY}>
-                    As NARS prepared to expand its longwear foundation line, the brand faced a highly competitive market where consumer expectations were rapidly evolving. Users in the U.S. and China had diverse needs - breathable formulas, long-lasting wear, clean ingredients, and a wide shade range.
+                    NARS had strong category intuition but no cross-market data to validate it. With a formulation decision and naming brief both approaching deadlines, the team needed fast, credible signal on which product attributes would land - and which required different positioning in each market.
                   </p>
                   <p style={BODY}>
-                    Existing longwear foundations were frequently criticized for discomfort, poor shade matching, and transferability. NARS needed research-backed direction before committing to a formulation and positioning strategy.
+                    Going in without that data meant committing to a strategy built on assumptions. The research brief was designed to eliminate that risk before the product brief locked.
                   </p>
                 </div>
               </CaseScrollReveal>
@@ -391,7 +392,7 @@ export default function NarsCaseStudyPage() {
 
               <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
                 <p style={BODY}>
-                  The research ran in parallel across two distinct markets. U.S. and Chinese consumers approach beauty products differently - from how they evaluate shade range to how much they trust ingredient lists. Running both simultaneously meant we could identify what was universal and what was market-specific.
+                  The study ran in parallel across both markets. Running them simultaneously was a deliberate design choice: it let us separate universal consumer truths from market-specific preferences, rather than over-indexing on either.
                 </p>
 
                 <div className="flex flex-col gap-4 mt-2">
@@ -401,22 +402,22 @@ export default function NarsCaseStudyPage() {
                       {
                         step: "01",
                         label: "Recruitment & screening",
-                        body: "Identified and screened participants across both markets to ensure representative coverage of skin tones, usage habits, and foundation experience levels.",
+                        body: "Screened participants across both markets for representative coverage of skin tones, foundation experience, and usage frequency - ensuring the sample could surface meaningful differences, not just noise.",
                       },
                       {
                         step: "02",
                         label: "In-depth interviews",
-                        body: "One-on-one sessions exploring current foundation routines, pain points, and unmet needs - with particular focus on longwear claims and how users evaluate them.",
+                        body: "One-on-one sessions probing current foundation routines, pain points, and reactions to longwear claims - including how users evaluate and trust those claims in each market.",
                       },
                       {
                         step: "03",
                         label: "Concept testing",
-                        body: "Presented multiple product concepts and formulation directions to gauge reactions, preference rankings, and the reasoning behind them.",
+                        body: "Presented multiple formulation directions and product concepts, capturing preference rankings and the reasoning behind them to identify which attributes were genuinely valued versus merely tolerated.",
                       },
                       {
                         step: "04",
                         label: "Naming feedback",
-                        body: "Tested candidate product names for clarity, memorability, and brand fit across both cultural contexts.",
+                        body: "Tested candidate product names for comprehension, resonance, and brand fit in both cultural contexts - a critical input given how differently English and phonetic names perform in the Chinese market.",
                       },
                     ].map((item) => (
                       <div
@@ -464,14 +465,82 @@ export default function NarsCaseStudyPage() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-3 mt-2">
+              </CaseScrollReveal>
+            </section>
+
+            {/* Outcome */}
+            <section
+              id="outcome"
+              ref={(el) => { sectionRefs.current["outcome"] = el; }}
+              className="scroll-mt-24 pt-16"
+            >
+              <CaseScrollReveal>
+                <SectionDivider label="Outcome" />
+                <h2
+                  style={{
+                    fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                    fontSize: "24px",
+                    lineHeight: "1.4",
+                    fontWeight: 500,
+                    letterSpacing: "-0.01em",
+                    color: "var(--color-ink)",
+                    marginBottom: "1rem",
+                    marginTop: 0,
+                  }}
+                >
+                  What the data decided
+                </h2>
+              </CaseScrollReveal>
+
+              <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
+                <div className="flex flex-col gap-4">
                   <SubHeading>Key findings</SubHeading>
-                  <p style={BODY}>
-                    Across both markets, users consistently rated <Highlight variant="peach" duration={800}>breathability and transfer-resistance</Highlight> as the top two priorities - over shade range and finish. This directly challenged NARS&apos;s initial assumption that shade diversity would be the primary differentiator in China.
-                  </p>
-                  <p style={BODY}>
-                    Chinese consumers showed significantly higher sensitivity to ingredient transparency and &ldquo;skin-friendly&rdquo; claims, while U.S. users prioritized longevity and color payoff. The naming research revealed that English-derived names performed better than phonetic transliterations in the Chinese market - informing the final go-to-market naming approach.
-                  </p>
+                  <div className="flex flex-col gap-4 my-1">
+                    {[
+                      {
+                        label: "Breathability ranked above shade range",
+                        body: "Both markets put breathability and transfer-resistance first - ahead of shade range and finish. This challenged NARS's initial formulation assumptions and redirected the brief.",
+                      },
+                      {
+                        label: "Markets split on what \"good\" means",
+                        body: "Chinese consumers prioritized ingredient transparency and skin-friendly claims. US consumers prioritized longevity and color payoff. The same product required two distinct positioning stories.",
+                      },
+                      {
+                        label: "Names don't translate - they lose",
+                        body: "English-derived names outperformed phonetic transliterations in the Chinese market. This finding directly determined the final go-to-market naming approach.",
+                      },
+                    ].map((item) => (
+                      <div
+                        key={item.label}
+                        className="rounded-lg p-4"
+                        style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}
+                      >
+                        <div
+                          style={{
+                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                            fontSize: "16px",
+                            fontWeight: 500,
+                            letterSpacing: "-0.01em",
+                            color: "rgba(26,26,26,0.85)",
+                            marginBottom: "6px",
+                            lineHeight: "1.3",
+                          }}
+                        >
+                          {item.label}
+                        </div>
+                        <div
+                          style={{
+                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                            fontSize: "13px",
+                            lineHeight: "1.45",
+                            color: "rgba(26,26,26,0.5)",
+                          }}
+                        >
+                          {item.body}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </CaseScrollReveal>
 
@@ -479,7 +548,7 @@ export default function NarsCaseStudyPage() {
                 <div className="flex flex-col gap-3">
                   <SubHeading>Full findings in the slide deck</SubHeading>
                   <p style={BODY}>
-                    The complete research output - methodology, verbatim quotes, concept rankings, and strategic recommendations - lives in the slide deck below. The deck was delivered to the NARS team and used to inform the final product brief.
+                    The complete output - methodology, verbatim quotes, concept rankings, and synthesis - is in the 103-page slide deck below. It was delivered to the NARS team and used to inform the final product brief.
                   </p>
                 </div>
 
