@@ -150,7 +150,7 @@ const ARK7_PERSONAS = [
   {
     name: "Lisa",
     role: "Existing Investor",
-    tags: ["ENTJ", "Social Investor", "Tech-Savvy"],
+    tags: ["Existing Investor", "Social Investor", "Tech-Savvy"],
     needs: [
       "Has been investing with ARK7 for a year",
       "Doesn't know how her properties are managed or how ARK7 performs",
@@ -164,7 +164,7 @@ const ARK7_PERSONAS = [
   {
     name: "Ian",
     role: "New User",
-    tags: ["ENFP", "Busy", "Influence-Seeker", "Novice Investor"],
+    tags: ["New User", "Busy", "Influence-Seeker", "Novice Investor"],
     needs: [
       "Discovered ARK7 through a YouTube ad and received a $50 bonus",
       "Cautious about who to trust - available information feels limited",
@@ -609,21 +609,10 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
     imageAlt: "Mobile wireframe: information cards and feature tiles on the home tab",
     title: "Information cards on the home tab",
     points: [
-      <>
-        Users can{" "}
-        <span className="font-semibold text-[var(--color-ink)]">quickly identify the purpose</span>{" "}
-        of each feature and decide which one they want to explore.
-      </>,
-      <>Optimize page load times so it is easier to develop.</>,
-      <>
-        Users&apos;{" "}
-        <span className="font-semibold text-[var(--color-ink)]">attention may be diverted</span> by
-        features they find uninteresting and are not willing to explore further.
-      </>,
-      <>
-        An abundance of options and entrances could{" "}
-        <span className="font-semibold text-[var(--color-ink)]">overwhelm users</span>.
-      </>,
+      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Feature intent is immediately legible - users self-select without needing to explore.</>,
+      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Simplest to develop; no new navigation patterns or state management required.</>,
+      <><span className="font-semibold text-[var(--color-ink)]">Con:</span> Users who aren&apos;t interested in a visible card may disengage before scrolling further.</>,
+      <><span className="font-semibold text-[var(--color-ink)]">Con:</span> Four cards in a row creates decision overhead on first view.</>,
     ],
   },
   {
@@ -635,23 +624,9 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
     imageAlt: "Mobile wireframe: home and feed tabs with a vertical content feed",
     title: "Feed in the home tab",
     points: [
-      <>
-        A feed provides a{" "}
-        <span className="font-semibold text-[var(--color-ink)]">more cohesive</span> approach to
-        interaction.
-      </>,
-      <>
-        A mixed feed{" "}
-        <span className="font-semibold text-[var(--color-ink)]">increases content discovery</span> and
-        engagement by exposing users to diverse content.
-      </>,
-      <>
-        Home and feed have{" "}
-        <span className="font-semibold text-[var(--color-ink)]">
-          two different types of interaction
-        </span>
-        , and serve two different functions.
-      </>,
+      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Feed creates a continuous scroll pattern - consistent with how users read content on other platforms.</>,
+      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Mixed content exposes users to features they didn&apos;t seek out.</>,
+      <><span className="font-semibold text-[var(--color-ink)]">Con:</span> Home tab serves a different job - portfolio overview. Mixing in community content creates mode confusion.</>,
     ],
   },
   {
@@ -663,20 +638,9 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
     imageAlt: "Mobile wireframe: dedicated news feed tab with bottom navigation",
     title: "Dedicated tab with a feed",
     points: [
-      <>
-        A feed provides a{" "}
-        <span className="font-semibold text-[var(--color-ink)]">more cohesive</span> approach to
-        interaction.
-      </>,
-      <>
-        A mixed feed{" "}
-        <span className="font-semibold text-[var(--color-ink)]">increases content discovery</span> and
-        engagement by exposing users to diverse content.
-      </>,
-      <>
-        All four features serve the same intention: giving users a shared{" "}
-        <span className="font-semibold text-[var(--color-ink)]">community experience</span>.
-      </>,
+      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Feed pattern keeps interaction consistent.</>,
+      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Content discovery is higher than with static cards.</>,
+      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> A dedicated tab makes the intent clear - community is its own space, separate from the investment dashboard.</>,
     ],
   },
 ];
@@ -919,7 +883,7 @@ function Ark7MobileNav({
   return (
     <nav
       aria-label="Case study sections"
-      className="md:hidden sticky top-14 z-10 bg-[var(--color-surface)] border-b border-[var(--color-ink-14)]"
+      className="md:hidden sticky top-[61px] z-10 bg-[var(--color-surface)] border-b border-[var(--color-ink-14)]"
     >
       <div className="flex overflow-x-auto" style={{ scrollbarWidth: "none" }}>
         {SECTIONS.map((section) => {
@@ -1109,7 +1073,7 @@ export default function Ark7CaseStudyPage() {
                 Cultivating a Trusted Investment Community
               </h1>
               <p style={{ ...BODY_TEXT_STYLE, marginTop: "4px" }}>
-                ARK7 faced a dual retention problem with both new and existing investors. <Highlight variant="green" duration={1200}>I led the research, design system work, and end-to-end design of four community features</Highlight> - turning an opaque platform into one users trusted enough to keep investing in.
+                ARK7 had a retention problem on both ends - new users weren&apos;t converting, and existing investors were pulling out after the lock-up period. <Highlight variant="green" duration={1200}>I led research, design system work, and end-to-end design of four community features</Highlight> that gave users enough transparency and social proof to stay.
               </p>
             </CaseScrollReveal>
 
@@ -1246,11 +1210,11 @@ export default function Ark7CaseStudyPage() {
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
                     {[
                       {
-                        quote: "As I browse the feed, I become familiar with the investment offerings that ARK7 provides and ARK7 itself.",
+                        quote: "Scrolling through the feed actually helped me understand what ARK7 offers - I didn't feel like I was going in blind anymore.",
                         author: "Ian",
                       },
                       {
-                        quote: "I'm eager to see detailed management of my properties. Now, with daily updates and monthly summary, I feel more secure.",
+                        quote: "I wanted to know what was happening with my properties. The daily updates make it feel less like a black box.",
                         author: "Lisa",
                       },
                     ].map((item) => (
@@ -1300,11 +1264,11 @@ export default function Ark7CaseStudyPage() {
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
                     {[
                       {
-                        quote: "As a new user, I can't participate, but viewing the results and comments gives me a valuable peek into the community's decisions and perspectives.",
+                        quote: "I can't vote yet, but seeing how other investors think through decisions actually helped me feel less lost.",
                         author: "Ian",
                       },
                       {
-                        quote: "Voting empowers me to directly influence key aspects and stay actively involved in our investment community.",
+                        quote: "It's the first time I've felt like I have any say in what happens with my properties.",
                         author: "Lisa",
                       },
                     ].map((item) => (
@@ -1354,11 +1318,11 @@ export default function Ark7CaseStudyPage() {
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
                     {[
                       {
-                        quote: "The webinars offer clear, beginner-friendly insights that simplify real estate investing basics and boost my confidence to invest.",
+                        quote: "I don't have a finance background, so the beginner sessions were genuinely useful. I actually understood what I was putting money into.",
                         author: "Ian",
                       },
                       {
-                        quote: "I rely on the webinar for deep market insights and quarterly reviews, perfect for refining strategies and learning from industry leaders.",
+                        quote: "The quarterly reviews are worth it. You can ask questions directly instead of just reading a report.",
                         author: "Lisa",
                       },
                     ].map((item) => (
@@ -1408,11 +1372,11 @@ export default function Ark7CaseStudyPage() {
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
                     {[
                       {
-                        quote: "It is incredibly helpful for a newcomer like me. It allows me to observe and learn from investment gurus and enhances my understanding of the market quickly.",
+                        quote: "It's nice to see what more experienced investors are doing before I put my money down.",
                         author: "Ian",
                       },
                       {
-                        quote: "This pop-up format offers a platform where I can actively engage and share strategies with fellow owners, enhancing our returns through collective knowledge.",
+                        quote: "Finally a place to compare notes with people in the same property. We figured out something together that none of us would have caught alone.",
                         author: "Lisa",
                       },
                     ].map((item) => (
@@ -1475,12 +1439,9 @@ export default function Ark7CaseStudyPage() {
                       <Ark7LayoutOptionsTabs />
                     </div>
                     <div className="mt-8 flex flex-col gap-4 md:mt-10">
-                      <SubHeading>Core flow: mapping out the overall UX in the feed with a user flow</SubHeading>
+                      <SubHeading>Core flow</SubHeading>
                       <p style={{ ...BODY_TEXT_STYLE }}>
-                        We developed user flows to systematically map out each step a user takes
-                        within our application, from initial entry to final interaction. This approach
-                        not only helps in understanding and predicting user behavior but also ensures
-                        a seamless navigation experience.
+                        We mapped flows for each of the four features, tracing the path from community tab entry to the key action in each feature - surfacing where friction was highest and where confidence-building moments needed to land.
                       </p>
                       <div className="mt-6 mb-3 w-full overflow-hidden md:mt-8 md:mb-5">
                         <Image
@@ -1502,13 +1463,13 @@ export default function Ark7CaseStudyPage() {
                   <div className="flex flex-col gap-4">
                     <SubHeading>Measuring trust in numbers</SubHeading>
                     <p style={{ ...BODY_TEXT_STYLE }}>
-                      After rolling out the community features, early signals were strong across both user segments:
+                      Initial telemetry after the community features shipped showed movement across both segments:
                     </p>
                     <ul className="m-0 flex list-none flex-col gap-3 p-0">
                       {[
-                        <><span style={{ fontWeight: 600, color: "var(--color-ink)" }}>10%</span> surge in conversion rate</>,
-                        <>New users spent <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>100% more time</span> on the platform during their first login - exploring, learning, and building confidence before investing</>,
-                        <><span style={{ fontWeight: 600, color: "var(--color-ink)" }}>40%</span> increase in transaction volumes in the secondary market</>,
+                        <><span style={{ fontWeight: 600, color: "var(--color-ink)" }}>10%</span> lift in new user conversion rate</>,
+                        <>New users spent <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>2× longer</span> on the platform in their first session - reading, exploring, and getting comfortable before investing</>,
+                        <><span style={{ fontWeight: 600, color: "var(--color-ink)" }}>40%</span> increase in secondary market transaction volume</>,
                       ].map((node, i) => (
                         <li key={i} className="flex gap-3 items-baseline">
                           <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
@@ -1540,35 +1501,32 @@ export default function Ark7CaseStudyPage() {
 
                 {section.id === "research" ? (
                   <div className="mt-4 flex flex-col md:mt-5">
-                    <div className="my-4 grid grid-cols-1 gap-6 md:my-6 md:grid-cols-2 md:gap-8 lg:gap-10">
-                      <div className="w-full overflow-hidden">
-                        <Image
-                          src="/images/ARK7/ARK7-market%20analysis.webp"
-                          alt="ARK7 marketing analysis across mobile app, website, and social channels"
-                          width={3494}
-                          height={1462}
-                          sizes="(max-width: 767px) 100vw, 392px"
-                          loading="lazy"
-                          className="w-full h-auto object-contain"
-                        />
-                      </div>
-                      <div className="w-full overflow-hidden">
-                        <Image
-                          src="/images/ARK7/Arrived-market%20analysis.webp"
-                          alt="Arrived marketing analysis across mobile app, website, and social channels"
-                          width={3498}
-                          height={1468}
-                          sizes="(max-width: 767px) 100vw, 392px"
-                          loading="lazy"
-                          className="w-full h-auto object-contain"
-                        />
-                      </div>
+                    <div className="relative rounded-lg overflow-hidden bg-[var(--color-subtle)] my-4 md:my-6 flex flex-col gap-6 p-10">
+                      <Image
+                        src="/images/ARK7/ARK7-market%20analysis.webp"
+                        alt="ARK7 marketing analysis across mobile app, website, and social channels"
+                        width={3494}
+                        height={1462}
+                        sizes="70vw"
+                        loading="lazy"
+                        className="block w-[70%] h-auto mx-auto"
+                      />
+                      <Image
+                        src="/images/ARK7/Arrived-market%20analysis.webp"
+                        alt="Arrived marketing analysis across mobile app, website, and social channels"
+                        width={3498}
+                        height={1468}
+                        sizes="70vw"
+                        loading="lazy"
+                        className="block w-[70%] h-auto mx-auto"
+                      />
+                      <span className="absolute inset-0 rounded-lg pointer-events-none" style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.08)" }} />
                     </div>
                     <div className="mt-8 flex flex-col gap-4 md:mt-10">
                       <SubHeading>Two users, one shared problem</SubHeading>
                       <p style={{ ...BODY_TEXT_STYLE }}>
                         The research revealed two distinct user profiles whose frustrations pointed to
-                        the same root cause.
+                        the same root cause. The following archetypes were synthesized from public sentiment across TrustPilot, App Store reviews, Reddit, and YouTube - not direct user interviews.
                       </p>
                       <Ark7PersonaCards />
                     </div>
@@ -1588,14 +1546,9 @@ export default function Ark7CaseStudyPage() {
                       </p>
                     </div>
                     <div className="mt-8 flex flex-col gap-4 md:mt-10">
-                      <SubHeading>Competitor analysis: understanding how rivals foster trust and engage users</SubHeading>
+                      <SubHeading>Competitor analysis: how rival platforms build trust and drive engagement</SubHeading>
                       <p style={{ ...BODY_TEXT_STYLE }}>
-                        I conducted a thorough competitive audit of similar apps to understand their
-                        product and design strategies for building trust and engaging users.
-                      </p>
-                      <p style={{ ...BODY_TEXT_STYLE }}>
-                        Given that there are only two direct competitors, we also examined companies in
-                        the broader financial sector.
+                        With only two direct competitors in fractional real estate, I expanded the audit to include broader fintech platforms - specifically ones with community or social investing features.
                       </p>
                       <div className="my-3 w-full overflow-hidden md:my-5">
                         <Image

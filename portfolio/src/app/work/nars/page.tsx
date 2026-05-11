@@ -76,7 +76,7 @@ function NarsMobileNav({
   return (
     <nav
       aria-label="Case study sections"
-      className="md:hidden sticky top-14 z-10 bg-[var(--color-surface)] border-b border-[var(--color-ink-14)]"
+      className="md:hidden sticky top-[61px] z-10 bg-[var(--color-surface)] border-b border-[var(--color-ink-14)]"
     >
       <div className="flex overflow-x-auto" style={{ scrollbarWidth: "none" }}>
         {SECTIONS.map((section) => {
