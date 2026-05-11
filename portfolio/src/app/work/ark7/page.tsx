@@ -1113,7 +1113,7 @@ export default function Ark7CaseStudyPage() {
               </p>
             </CaseScrollReveal>
 
-            <CaseScrollReveal delay={60} className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative mb-0">
+            <CaseScrollReveal delay={60} className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative rounded-lg mb-0">
               <LottiePreview
                 src="/images/ARK7/ARK7_Case%20study_Preview.json"
                 loop={false}

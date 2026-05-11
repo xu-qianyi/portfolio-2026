@@ -255,7 +255,7 @@ export default function NarsCaseStudyPage() {
 
             <CaseScrollReveal
               delay={60}
-              className="w-full overflow-hidden border border-[var(--color-ink-14)] bg-[var(--color-subtle)] mb-0"
+              className="w-full overflow-hidden rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-subtle)] mb-0"
             >
               <div className="relative">
                 <Image
@@ -267,7 +267,7 @@ export default function NarsCaseStudyPage() {
                   priority
                 />
                 <span
-                  className="absolute inset-0 pointer-events-none"
+                  className="absolute inset-0 rounded-lg pointer-events-none"
                   style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.08)" }}
                 />
               </div>
