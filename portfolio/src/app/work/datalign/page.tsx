@@ -58,7 +58,7 @@ const SECTIONS: NavSection[] = [
 const META_ITEMS = [
   { label: "Role",     value: "Product Designer (Summer/Fall Co-op)" },
   { label: "Timeline", value: "May - Dec 2025" },
-  { label: "Team",     value: "Lead Designer (me), Engineers, Data Analysts" },
+  { label: "Team",     value: "1 Designer (me), 2 Engineers, 1 DS, 2 CSM" },
 ];
 
 const AUDIT_ISSUES = [
@@ -139,14 +139,14 @@ function Img({ label, aspect = "16/9" }: { label: string; aspect?: string }) {
 
 function SectionShell({
   id,
-  num,
+  label,
   title,
   sectionRefs,
   children,
   divider = true,
 }: {
   id: string;
-  num: string;
+  label: string;
   title: string;
   sectionRefs: React.MutableRefObject<Record<string, HTMLElement | null>>;
   children: React.ReactNode;
@@ -164,14 +164,15 @@ function SectionShell({
             <p
               style={{
                 fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "12px",
-                fontWeight: 600,
-                color: "var(--color-muted)",
+                fontSize: "13px",
+                fontWeight: 500,
+                color: "var(--color-ink-70)",
                 margin: 0,
-                letterSpacing: "0.04em",
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
               }}
             >
-              {num}
+              {label}
             </p>
             <h2 style={H2}>{title}</h2>
           </div>
@@ -344,7 +345,7 @@ export default function DatalignCaseStudyPage() {
                 Datalign &bull; FinTech
               </p>
               <h1 style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "28px", lineHeight: "110%", fontWeight: 500, color: "var(--color-ink)", margin: 0 }}>
-                Redesigning Datalign&apos;s lead gen form - the front door of a wealth management marketplace
+                Redesigning the front door of a wealth management marketplace
               </h1>
             </CaseScrollReveal>
 
@@ -372,11 +373,11 @@ export default function DatalignCaseStudyPage() {
           <div className="flex flex-col gap-16 md:gap-20">
 
             {/* 01 — Overview */}
-            <SectionShell id="overview" num="01" title="Overview" sectionRefs={sectionRefs}>
+            <SectionShell id="overview" label="Overview" title="Overview" sectionRefs={sectionRefs}>
               <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 <h3 style={H3}>What Datalign is</h3>
                 <p style={BODY}>
-                  Datalign is a lead marketplace for wealth management. Consumers fill out a 20-question intake form to get matched with a registered investment advisor (RIA). Partner firms bid on the lead in an auction, and the user is connected with the winning firm.
+                  <a href="https://datalign.com/" target="_blank" rel="noopener noreferrer" style={{ color: "inherit" }}>Datalign</a> is a lead marketplace for wealth management. Consumers fill out a 20-question intake form to get matched with a registered investment advisor (RIA). Partner firms bid on the lead in an auction, and the user is connected with the winning firm.
                 </p>
                 <p style={BODY}>
                   The form <em>is</em> the front door.{" "}
@@ -409,7 +410,7 @@ export default function DatalignCaseStudyPage() {
             </SectionShell>
 
             {/* 02 — The audit */}
-            <SectionShell id="audit" num="02" title="The audit" sectionRefs={sectionRefs}>
+            <SectionShell id="audit" label="The audit" title="The audit" sectionRefs={sectionRefs}>
               <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 <p style={BODY}>
                   I ran a heuristic walkthrough of the live form against Nielsen&apos;s 10 principles. Five recurring issues:
@@ -445,7 +446,7 @@ export default function DatalignCaseStudyPage() {
             </SectionShell>
 
             {/* 03 — User behavior */}
-            <SectionShell id="behavior" num="03" title="Watching what users actually did" sectionRefs={sectionRefs}>
+            <SectionShell id="behavior" label="User behavior" title="Watching what users actually did" sectionRefs={sectionRefs}>
               <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 <p style={BODY}>
                   Heuristics show what <em>might</em> be wrong. To find out what <em>was</em> actually wrong, I needed to see the form through real user behavior.
@@ -494,7 +495,7 @@ export default function DatalignCaseStudyPage() {
             </SectionShell>
 
             {/* 04 — Looking outward */}
-            <SectionShell id="competitive" num="04" title="Looking outward" sectionRefs={sectionRefs}>
+            <SectionShell id="competitive" label="Looking outward" title="Looking outward" sectionRefs={sectionRefs}>
               <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 <p style={BODY}>
                   I mapped 10+ wealth management competitors on a matrix: <em>Functional &rarr; Decent UX &rarr; Well-designed</em>.
@@ -532,7 +533,7 @@ export default function DatalignCaseStudyPage() {
             </SectionShell>
 
             {/* 05 — The workshop */}
-            <SectionShell id="workshop" num="05" title="The workshop: turning research into shared hypotheses" sectionRefs={sectionRefs}>
+            <SectionShell id="workshop" label="The workshop" title="The workshop: turning research into shared hypotheses" sectionRefs={sectionRefs}>
               <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 <p style={BODY}>
                   I organized and facilitated a cross-functional workshop with Product, Engineering, and Data team. Four prompts structured the session:
@@ -577,7 +578,7 @@ export default function DatalignCaseStudyPage() {
             </SectionShell>
 
             {/* 06 — The redesign */}
-            <SectionShell id="redesign" num="06" title="The redesign" sectionRefs={sectionRefs}>
+            <SectionShell id="redesign" label="The redesign" title="The redesign" sectionRefs={sectionRefs}>
               <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 <p style={{ ...BODY, fontWeight: 500 }}>Three principles came out of the research and the workshop:</p>
                 <div className="flex flex-col gap-3">
@@ -627,7 +628,7 @@ export default function DatalignCaseStudyPage() {
             </SectionShell>
 
             {/* 07 — From insight to test */}
-            <SectionShell id="testing" num="07" title="From insight to test" sectionRefs={sectionRefs}>
+            <SectionShell id="testing" label="From insight to test" title="From insight to test" sectionRefs={sectionRefs}>
               <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 <p style={BODY}>
                   Our form is deeply wired into the system. It plugs into the matching engine, multiple internal APIs, and our publishers&apos; APIs. Even a one-character change can take an engineer two days to ship. Testing redesign hypotheses through the in-house build wasn&apos;t viable at the speed we needed.
@@ -664,7 +665,7 @@ export default function DatalignCaseStudyPage() {
             </SectionShell>
 
             {/* 08 — What I'm taking with me */}
-            <SectionShell id="takeaways" num="08" title="What I'm taking with me" sectionRefs={sectionRefs}>
+            <SectionShell id="takeaways" label="What I'm taking with me" title="What I'm taking with me" sectionRefs={sectionRefs}>
               <CaseScrollReveal delay={80} className="flex flex-col gap-6">
                 {TAKEAWAYS.map((item, i) => (
                   <div key={i} className="flex flex-col gap-2">
@@ -676,7 +677,7 @@ export default function DatalignCaseStudyPage() {
             </SectionShell>
 
             {/* 09 — Where we are right now */}
-            <SectionShell id="results" num="09" title="Where we are right now" sectionRefs={sectionRefs} divider={false}>
+            <SectionShell id="results" label="Where we are right now" title="Where we are right now" sectionRefs={sectionRefs} divider={false}>
               <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 <p style={BODY}>Phase 1 has shipped. Early data:</p>
               </CaseScrollReveal>

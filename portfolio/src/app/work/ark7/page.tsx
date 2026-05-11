@@ -1561,7 +1561,6 @@ export default function Ark7CaseStudyPage() {
                         <><span style={{ fontWeight: 600, color: "var(--color-ink)" }}>10%</span> surge in conversion rate</>,
                         <>New users spent <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>100% more time</span> on the platform during their first login - exploring, learning, and building confidence before investing</>,
                         <><span style={{ fontWeight: 600, color: "var(--color-ink)" }}>40%</span> increase in transaction volumes in the secondary market</>,
-                        <>Existing investors began re-engaging with the platform rather than withdrawing</>,
                       ].map((node, i) => (
                         <li
                           key={i}
@@ -1850,9 +1849,9 @@ export default function Ark7CaseStudyPage() {
           <div className="mt-12 pt-8 md:mt-16">
             <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", marginBottom: "2rem" }} />
             <Link
-              href="/#project-datalign"
+              href="/work/datalign"
               className="group flex flex-col gap-1.5 no-underline"
-              aria-label="Next project home: Datalign, 2025 — Making wealth management approachable for everyone"
+              aria-label="Next project: Datalign, 2025 — Redesigning the front door of a wealth management marketplace"
             >
               <p
                 style={{
@@ -1875,7 +1874,7 @@ export default function Ark7CaseStudyPage() {
                 }}
                 className="text-[var(--color-muted)] transition-colors duration-200 ease-out group-hover:text-[#1A1A1A]"
               >
-                Making wealth management approachable for everyone{" "}
+                Redesigning the front door of a wealth management marketplace{" "}
                 <span className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1">
                   &rarr;
                 </span>
