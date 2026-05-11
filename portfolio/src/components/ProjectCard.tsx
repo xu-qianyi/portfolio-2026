@@ -35,7 +35,7 @@ export type Project = {
 
 const PROJECT_META: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "14px",
+  fontSize: "12px",
   fontWeight: 500,
   color: "var(--color-muted)",
   margin: 0,
@@ -47,7 +47,7 @@ const PROJECT_META: CSSProperties = {
 
 const PROJECT_HEADLINE: CSSProperties = {
   fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-  fontSize: "20px",
+  fontSize: "17px",
   fontWeight: 400,
   lineHeight: "130%",
   color: "var(--color-ink)",
@@ -56,7 +56,7 @@ const PROJECT_HEADLINE: CSSProperties = {
 
 const PROJECT_HEADLINE_MINIMAL: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "16px",
+  fontSize: "14px",
   fontWeight: 500,
   lineHeight: "150%",
   color: "var(--color-ink)",
@@ -411,6 +411,7 @@ export default function ProjectCard({
           width: "100%",
           aspectRatio: `${project.width} / ${project.height}`,
           border: "1px solid rgba(204,209,218,0.2)",
+          borderRadius: "8px",
           overflow: "hidden",
           backgroundColor: "var(--color-subtle)",
         }}
