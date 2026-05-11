@@ -15,7 +15,7 @@ export default function Highlight({
   duration?: number;
   delay?: number;
 }) {
-  const ref = useRef<HTMLMarkElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const el = ref.current;

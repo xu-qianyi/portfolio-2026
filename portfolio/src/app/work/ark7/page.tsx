@@ -5,16 +5,45 @@ import Image from "next/image";
 import Link from "next/link";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 import LottiePreview from "@/components/LottiePreview";
+import Highlight from "@/components/Highlight";
 
-const SECTION_EYEBROW_STYLE = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "13px",
-  fontWeight: 500,
-  letterSpacing: "0.02em",
-  textTransform: "uppercase" as const,
-  color: "#1EC373",
-  margin: 0,
-};
+function SectionDivider({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-3 mb-4">
+      <span
+        style={{
+          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+          fontSize: "13px",
+          fontWeight: 550,
+          letterSpacing: "-0.005em",
+          color: "var(--color-ink-80)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {label}
+      </span>
+      <div className="flex-1 h-px bg-[var(--color-ink-14)]" />
+    </div>
+  );
+}
+
+function SubHeading({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <h3
+      className={className}
+      style={{
+        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+        fontSize: "18px",
+        lineHeight: "1.4",
+        fontWeight: 500,
+        color: "var(--color-ink)",
+        margin: 0,
+      }}
+    >
+      {children}
+    </h3>
+  );
+}
 
 type Section = {
   id: string;
@@ -150,8 +179,9 @@ const ARK7_PERSONAS = [
 
 const BODY_TEXT_STYLE = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "16px",
-  lineHeight: "160%",
+  fontSize: "14px",
+  lineHeight: "1.45rem",
+  letterSpacing: "-0.005em",
   color: "var(--color-ink-80)",
   margin: 0,
 } as const;
@@ -354,7 +384,7 @@ function Ark7PersonaCards() {
           </header>
 
           <div className="flex flex-col gap-2 border-t border-[var(--color-ink-14)] pt-3.5">
-            <p style={{ ...SECTION_EYEBROW_STYLE, fontSize: "12px", color: "var(--color-ink-70)" }}>User needs</p>
+            <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "12px", fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase" as const, color: "var(--color-ink-70)", margin: 0 }}>User needs</p>
             <ul
               className="m-0 list-disc space-y-1.5 pl-4 marker:text-[var(--color-ink-65)]"
               style={{
@@ -373,7 +403,7 @@ function Ark7PersonaCards() {
           </div>
 
           <div className="rounded-md border border-[var(--color-ink-14)] bg-[var(--color-subtle)] px-3.5 py-2.5">
-            <p style={{ ...SECTION_EYEBROW_STYLE, fontSize: "12px", color: "var(--color-ink-70)" }}>User goals</p>
+            <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "12px", fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase" as const, color: "var(--color-ink-70)", margin: 0 }}>User goals</p>
             <p style={{ ...BODY_TEXT_STYLE, fontSize: "14px", lineHeight: "150%", marginTop: "6px" }}>
               {p.goalLabel}: {p.goal}
             </p>
@@ -852,7 +882,7 @@ function Ark7LayoutOptionsTabs() {
             >
               {active.title}
             </h3>
-            <p style={{ ...SECTION_EYEBROW_STYLE, color: "var(--color-muted)" }}>
+            <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "12px", fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase", color: "var(--color-muted)", margin: 0 }}>
               Design consideration
             </p>
             <ul className="m-0 flex list-none flex-col gap-4 p-0 md:gap-5">
@@ -1022,7 +1052,7 @@ export default function Ark7CaseStudyPage() {
                       className="text-left transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                       style={{
                         fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                        fontSize: "15px",
+                        fontSize: "12px",
                         lineHeight: "160%",
                         fontWeight: 500,
                         color: "var(--color-ink)",
@@ -1049,35 +1079,41 @@ export default function Ark7CaseStudyPage() {
           </nav>
         </aside>
 
-        <div className="flex w-full min-w-0 max-w-[800px] flex-col gap-14 md:gap-16">
-          <header className="flex flex-col gap-8 md:gap-10">
-            <CaseScrollReveal className="flex flex-col gap-2">
+        <div className="flex w-full min-w-0 max-w-[800px] flex-col gap-0">
+          <header className="pb-8">
+            <CaseScrollReveal className="flex flex-col gap-3 mb-4">
               <p
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                  fontSize: "14px",
+                  fontSize: "10px",
                   fontWeight: 500,
-                  color: "var(--color-muted)",
+                  letterSpacing: ".04em",
+                  textTransform: "uppercase",
+                  color: "var(--color-ink-70)",
                   margin: 0,
                 }}
               >
-                ARK7 • FinTech
+                ARK7 / FinTech
               </p>
               <h1
                 style={{
                   fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                   fontSize: "28px",
-                  lineHeight: "110%",
+                  lineHeight: "1.15",
                   fontWeight: 500,
+                  letterSpacing: "-0.01em",
                   color: "var(--color-ink)",
                   margin: 0,
                 }}
               >
                 Cultivating a Trusted Investment Community
               </h1>
+              <p style={{ ...BODY_TEXT_STYLE, marginTop: "4px" }}>
+                ARK7 faced a dual retention problem with both new and existing investors. <Highlight variant="peach" duration={1200}>I led the research, design system work, and end-to-end design of four community features</Highlight> - turning an opaque platform into one users trusted enough to keep investing in.
+              </p>
             </CaseScrollReveal>
 
-            <CaseScrollReveal delay={60} className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative">
+            <CaseScrollReveal delay={60} className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative rounded-lg mb-0">
               <LottiePreview
                 src="/images/ARK7/ARK7_Case%20study_Preview.json"
                 loop={false}
@@ -1086,39 +1122,44 @@ export default function Ark7CaseStudyPage() {
               />
             </CaseScrollReveal>
 
-            <CaseScrollReveal delay={120} className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-6">
-              {META_ITEMS.map((item) => (
-                <div key={item.label} className="flex flex-col gap-2">
-                  <p
-                    style={{
-                      fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                      fontSize: "14px",
-                      fontWeight: 500,
-                      color: "var(--color-ink)",
-                      margin: 0,
-                    }}
-                  >
-                    {item.label}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                      fontSize: "16px",
-                      lineHeight: "150%",
-                      color: "var(--color-ink-80)",
-                      margin: 0,
-                    }}
-                  >
-                    {item.value}
-                  </p>
-                </div>
-              ))}
+            <CaseScrollReveal delay={120}>
+              <div
+                className="grid grid-cols-3 gap-x-8 gap-y-4 mt-6 pt-5"
+                style={{ borderTop: "1px solid var(--color-ink-06)" }}
+              >
+                {META_ITEMS.map((item) => (
+                  <div key={item.label} className="flex flex-col gap-0.5">
+                    <div
+                      style={{
+                        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                        fontSize: "10px",
+                        fontWeight: 500,
+                        letterSpacing: ".04em",
+                        textTransform: "uppercase",
+                        color: "var(--color-ink-70)",
+                      }}
+                    >
+                      {item.label}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                        fontSize: "13px",
+                        lineHeight: "1.45",
+                        color: "var(--color-ink-65)",
+                      }}
+                    >
+                      {item.value}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </CaseScrollReveal>
           </header>
 
           <Ark7MobileNav activeId={activeId} sectionRefs={sectionRefs} />
 
-          <div className="flex flex-col gap-16 md:gap-20">
+          <div className="flex flex-col">
             {SECTIONS.map((section, index) => (
               <section
                 key={section.id}
@@ -1126,21 +1167,23 @@ export default function Ark7CaseStudyPage() {
                 ref={(el) => {
                   sectionRefs.current[section.id] = el;
                 }}
-                className="scroll-mt-24 md:scroll-mt-28"
+                className="scroll-mt-24 pt-16"
               >
                 <div className="flex min-w-0 w-full flex-col gap-7">
                 <CaseScrollReveal>
-                <div className="flex flex-col gap-2">
-                  <p style={SECTION_EYEBROW_STYLE}>{section.label}</p>
+                <div className="flex flex-col gap-0">
+                  <SectionDivider label={section.label} />
                   {section.id !== "iteration" && section.id !== "final-solution" && section.id !== "summary" ? (
                     <h2
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                         fontSize: "24px",
-                        lineHeight: "120%",
-                        fontWeight: 400,
+                        lineHeight: "1.4",
+                        fontWeight: 500,
+                        letterSpacing: "-0.01em",
                         color: "var(--color-ink)",
-                        margin: 0,
+                        marginBottom: "1rem",
+                        marginTop: 0,
                       }}
                     >
                       {section.title}
@@ -1149,17 +1192,11 @@ export default function Ark7CaseStudyPage() {
                 </div>
                 </CaseScrollReveal>
 
-                <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+                <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
                 {section.body.map((paragraph, paragraphIndex) => (
                   <p
                     key={`${section.id}-${paragraphIndex}`}
-                    style={{
-                      fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                      fontSize: "16px",
-                      lineHeight: "160%",
-                      color: "var(--color-ink-80)",
-                      margin: 0,
-                    }}
+                    style={{ ...BODY_TEXT_STYLE }}
                   >
                     {ark7SectionParagraph(section.id, paragraphIndex, paragraph)}
                   </p>
@@ -1167,18 +1204,7 @@ export default function Ark7CaseStudyPage() {
 
                 {section.id === "iteration" ? (
                   <div className="flex flex-col gap-5">
-                    <h3
-                      style={{
-                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                        fontSize: "24px",
-                        lineHeight: "120%",
-                        fontWeight: 400,
-                        color: "var(--color-ink)",
-                        margin: 0,
-                      }}
-                    >
-                      Fixing the foundation first
-                    </h3>
+                    <SubHeading>Fixing the foundation first</SubHeading>
                     <p style={{ ...BODY_TEXT_STYLE }}>
                       Before shipping the community features, we had to address something more
                       fundamental. The existing design system was undermining user trust at a visual
@@ -1187,19 +1213,7 @@ export default function Ark7CaseStudyPage() {
                     <Ark7IterationStoreQuotes />
                     <p style={{ ...BODY_TEXT_STYLE }}>Our design audit revealed:</p>
                     <Ark7DesignAuditGrid />
-                    <h3
-                      style={{
-                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                        fontSize: "24px",
-                        lineHeight: "120%",
-                        fontWeight: 400,
-                        color: "var(--color-ink)",
-                        marginTop: "3rem",
-                        marginBottom: 0,
-                      }}
-                    >
-                      The Card Component Revamp
-                    </h3>
+                    <SubHeading className="mt-8">The Card Component Revamp</SubHeading>
                     <p style={{ ...BODY_TEXT_STYLE }}>
                       Given time constraints, we focused our design system work on the card component - the most heavily used element across the platform, and the building block for all four community features.
                     </p>
@@ -1220,19 +1234,8 @@ export default function Ark7CaseStudyPage() {
                         body: "Lisa has been investing with ARK7 for a year. But after the frozen period ended, she was considering withdrawing - she felt isolated and had no sense of control over her properties.",
                       },
                     ].map((col) => (
-                      <div key={col.title} className="flex flex-col gap-4">
-                        <h3
-                          style={{
-                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                            fontSize: "24px",
-                            lineHeight: "120%",
-                            fontWeight: 400,
-                            color: "var(--color-ink)",
-                            margin: 0,
-                          }}
-                        >
-                          {col.title}
-                        </h3>
+                      <div key={col.title} className="flex flex-col gap-3">
+                        <SubHeading>{col.title}</SubHeading>
                         <p style={{ ...BODY_TEXT_STYLE }}>{col.body}</p>
                       </div>
                     ))}
@@ -1461,18 +1464,7 @@ export default function Ark7CaseStudyPage() {
                     <Ark7CommunityFeaturesTable />
                     <div className="mt-12 flex flex-col gap-6 md:mt-16">
                       <div className="flex flex-col gap-4">
-                        <h3
-                          style={{
-                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                            fontSize: "24px",
-                            lineHeight: "120%",
-                            fontWeight: 400,
-                            color: "var(--color-ink)",
-                            margin: 0,
-                          }}
-                        >
-                          Entry point: one tab, four touchpoints
-                        </h3>
+                        <SubHeading>Entry point: one tab, four touchpoints</SubHeading>
                         <p style={{ ...BODY_TEXT_STYLE }}>
                           We evaluated three layout options for integrating the community features. The
                           winning approach:{" "}
@@ -1485,18 +1477,7 @@ export default function Ark7CaseStudyPage() {
                       <Ark7LayoutOptionsTabs />
                     </div>
                     <div className="mt-12 flex flex-col gap-4 md:mt-16">
-                      <h3
-                        style={{
-                          fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                          fontSize: "24px",
-                          lineHeight: "120%",
-                          fontWeight: 400,
-                          color: "var(--color-ink)",
-                          margin: 0,
-                        }}
-                      >
-                        Core flow: mapping out the overall UX in the feed with a user flow
-                      </h3>
+                      <SubHeading>Core flow: mapping out the overall UX in the feed with a user flow</SubHeading>
                       <p style={{ ...BODY_TEXT_STYLE }}>
                         We developed user flows to systematically map out each step a user takes
                         within our application, from initial entry to final interaction. This approach
@@ -1521,18 +1502,7 @@ export default function Ark7CaseStudyPage() {
                 {section.id === "summary" ? (
                   <>
                   <div className="flex flex-col gap-4">
-                    <h3
-                      style={{
-                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                        fontSize: "24px",
-                        lineHeight: "120%",
-                        fontWeight: 400,
-                        color: "var(--color-ink)",
-                        margin: 0,
-                      }}
-                    >
-                      Measuring trust in numbers
-                    </h3>
+                    <SubHeading>Measuring trust in numbers</SubHeading>
                     <p style={{ ...BODY_TEXT_STYLE }}>
                       After rolling out the community features, early signals were strong across both user segments:
                     </p>
@@ -1550,18 +1520,7 @@ export default function Ark7CaseStudyPage() {
                     </ul>
                   </div>
                   <div className="mt-12 flex flex-col gap-4">
-                    <h3
-                      style={{
-                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                        fontSize: "24px",
-                        lineHeight: "120%",
-                        fontWeight: 400,
-                        color: "var(--color-ink)",
-                        margin: 0,
-                      }}
-                    >
-                      What I took away
-                    </h3>
+                    <SubHeading>What I took away</SubHeading>
                     <p
                       style={{
                         fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -1608,95 +1567,30 @@ export default function Ark7CaseStudyPage() {
                       </div>
                     </div>
                     <div className="mt-12 flex flex-col gap-4 md:mt-16">
-                      <h3
-                        style={{
-                          fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                          fontSize: "24px",
-                          lineHeight: "120%",
-                          fontWeight: 400,
-                          color: "var(--color-ink)",
-                          margin: 0,
-                        }}
-                      >
-                        Two users, one shared problem
-                      </h3>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                          fontSize: "16px",
-                          lineHeight: "160%",
-                          color: "var(--color-ink-80)",
-                          margin: 0,
-                        }}
-                      >
+                      <SubHeading>Two users, one shared problem</SubHeading>
+                      <p style={{ ...BODY_TEXT_STYLE }}>
                         The research revealed two distinct user profiles whose frustrations pointed to
                         the same root cause.
                       </p>
                       <Ark7PersonaCards />
                     </div>
                     <div className="mt-12 flex flex-col gap-4 md:mt-16">
-                      <h3
-                        style={{
-                          fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                          fontSize: "24px",
-                          lineHeight: "120%",
-                          fontWeight: 400,
-                          color: "var(--color-ink)",
-                          margin: 0,
-                        }}
-                      >
-                        Refining the problem
-                      </h3>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                          fontSize: "16px",
-                          lineHeight: "160%",
-                          color: "var(--color-ink-80)",
-                          margin: 0,
-                        }}
-                      >
+                      <SubHeading>Refining the problem</SubHeading>
+                      <p style={{ ...BODY_TEXT_STYLE }}>
                         <mark className="case-text-highlight">Initial question</mark>
                         {": How might we help different users build trust at ARK7?"}
                       </p>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                          fontSize: "16px",
-                          lineHeight: "160%",
-                          color: "var(--color-ink-80)",
-                          margin: 0,
-                        }}
-                      >
+                      <p style={{ ...BODY_TEXT_STYLE }}>
                         To sharpen this, I mapped each persona&apos;s goals against business goals:
                       </p>
                       <Ark7PersonaBusinessMappingTable />
-                      <p
-                        style={{
-                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                          fontSize: "16px",
-                          lineHeight: "160%",
-                          color: "var(--color-ink-80)",
-                          margin: 0,
-                        }}
-                      >
+                      <p style={{ ...BODY_TEXT_STYLE }}>
                         <mark className="case-text-highlight">Refined question</mark>
                         {": How might we build an engaging experience for users to learn and invest with trust?"}
                       </p>
                     </div>
                     <div className="mt-12 flex flex-col gap-4 md:mt-16">
-                      <h2
-                        style={{
-                          fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                          fontSize: "24px",
-                          lineHeight: "120%",
-                          fontWeight: 400,
-                          color: "var(--color-ink)",
-                          margin: 0,
-                        }}
-                      >
-                        Competitor analysis: understanding how rivals foster trust and engage users
-                      </h2>
+                      <SubHeading>Competitor analysis: understanding how rivals foster trust and engage users</SubHeading>
                       <p
                         style={{
                           fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -1771,39 +1665,14 @@ export default function Ark7CaseStudyPage() {
                 ) : null}
 
                 {section.continuationTitle && section.continuationBody ? (
-                  <div className="mt-8 flex flex-col gap-5 md:mt-10">
-                    <h2
-                      style={{
-                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                        fontSize: "24px",
-                        lineHeight: "120%",
-                        fontWeight: 400,
-                        color: "var(--color-ink)",
-                        margin: 0,
-                      }}
-                    >
-                      {section.continuationTitle}
-                    </h2>
+                  <div className="mt-8 flex flex-col gap-3.5 md:mt-10">
+                    <SubHeading>{section.continuationTitle}</SubHeading>
                     {section.continuationBody.map((paragraph) => (
-                      <p
-                        key={paragraph}
-                        style={{
-                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                          fontSize: "16px",
-                          lineHeight: "160%",
-                          color: "var(--color-ink-80)",
-                          margin: 0,
-                        }}
-                      >
-                        {paragraph}
-                      </p>
+                      <p key={paragraph} style={{ ...BODY_TEXT_STYLE }}>{paragraph}</p>
                     ))}
                   </div>
                 ) : null}
 
-                {index < SECTIONS.length - 1 ? (
-                  <div className="mt-10 h-px w-full bg-[var(--color-ink-14)] md:mt-12" />
-                ) : null}
                 </CaseScrollReveal>
                 </div>
               </section>
@@ -1811,23 +1680,12 @@ export default function Ark7CaseStudyPage() {
           </div>
 
           <div className="mt-12 pt-8 md:mt-16">
-            <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", marginBottom: "2rem" }} />
             <Link
               href="/work/datalign"
-              className="group flex flex-col gap-1.5 no-underline"
+              className="group flex flex-col gap-3 no-underline"
               aria-label="Next project: Datalign, 2025 — Redesigning the front door of a wealth management marketplace"
             >
-              <p
-                style={{
-                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                  fontSize: "12px",
-                  fontWeight: 400,
-                  color: "var(--color-muted)",
-                  margin: 0,
-                }}
-              >
-                Next Project &mdash; Datalign &middot; 2025
-              </p>
+              <SectionDivider label="Next project" />
               <p
                 style={{
                   fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
