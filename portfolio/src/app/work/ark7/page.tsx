@@ -28,9 +28,9 @@ function SectionDivider({ label }: { label: string }) {
   );
 }
 
-function SubHeading({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
+function SubHeading({ children, className, style, as: Tag = "h3" }: { children: React.ReactNode; className?: string; style?: React.CSSProperties; as?: "h2" | "h3" }) {
   return (
-    <h3
+    <Tag
       className={className}
       style={{
         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -44,7 +44,7 @@ function SubHeading({ children, className, style }: { children: React.ReactNode;
       }}
     >
       {children}
-    </h3>
+    </Tag>
   );
 }
 
@@ -172,6 +172,35 @@ const ARK7_PERSONAS = [
     ],
     goalLabel: "His goal",
     goal: "Transparency, guidance, and confidence before committing money.",
+  },
+] as const;
+
+const ARK7_PERSONA_FRAMES = [
+  {
+    id: "lisa",
+    tabLabel: "Lisa",
+    personaType: "Regular investor",
+    statusQuo: [
+      "Has been investing with ARK7 for a year but has no visibility into how her properties are managed.",
+      "Doesn't know who the other co-owners are or how decisions get made.",
+      "Feels like a passive passenger rather than an actual owner.",
+    ],
+    userNeed: "More influence on decisions",
+    businessNeed: "Retain and increase investment",
+    strategySteps: ["Update", "Inform", "Engage", "Invest"],
+  },
+  {
+    id: "ian",
+    tabLabel: "Ian",
+    personaType: "New investor",
+    statusQuo: [
+      "Discovered ARK7 through a YouTube ad and received a $50 bonus - but still hasn't invested.",
+      "Cautious about who to trust - available information feels limited.",
+      "Wants to know who else is investing and what they think.",
+    ],
+    userNeed: "Clear understanding & confidence before investing",
+    businessNeed: "Convert to regular investor",
+    strategySteps: ["Introduce / Educate", "Engage", "Invest"],
   },
 ] as const;
 
@@ -340,7 +369,7 @@ function Ark7PersonaCards() {
           className="flex flex-col gap-3.5 rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] px-4 py-3.5 md:px-5 md:py-4"
         >
           <header>
-            <h3
+            <p
               className="flex w-full flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
               style={{
                 fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -375,7 +404,7 @@ function Ark7PersonaCards() {
                   {p.tags.join(" · ")}
                 </span>
               </span>
-            </h3>
+            </p>
           </header>
 
           <div className="flex flex-col gap-2 border-t border-[var(--color-ink-14)] pt-3.5">
@@ -624,7 +653,7 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
     imageWidth: 1040,
     imageHeight: 2215,
     imageAlt: "Mobile wireframe: dedicated news feed tab with bottom navigation",
-    title: "Dedicated tab with a feed",
+    title: "✅ Dedicated tab with a feed",
     points: [
       <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Feed pattern keeps interaction consistent.</>,
       <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Content discovery is higher than with static cards.</>,
@@ -923,7 +952,7 @@ function Ark7LayoutOptionsTabs() {
             />
           </div>
           <div className="flex min-w-0 flex-col gap-5 md:gap-6 md:pt-0.5">
-            <h3
+            <p
               style={{
                 fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                 fontSize: "20px",
@@ -934,7 +963,7 @@ function Ark7LayoutOptionsTabs() {
               }}
             >
               {active.title}
-            </h3>
+            </p>
             <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "12px", fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase", color: "var(--color-muted)", margin: 0 }}>
               Design consideration
             </p>
@@ -947,6 +976,202 @@ function Ark7LayoutOptionsTabs() {
               ))}
             </ul>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Ark7PersonaTabs() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [epoch, setEpoch] = useState(0);
+  const tablistId = "ark7-persona-tabs";
+  const active = ARK7_PERSONA_FRAMES[activeIndex];
+
+  const select = (i: number) => {
+    if (i === activeIndex) return;
+    setActiveIndex(i);
+    setEpoch((e) => e + 1);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      select(Math.min(activeIndex + 1, ARK7_PERSONA_FRAMES.length - 1));
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      select(Math.max(activeIndex - 1, 0));
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      select(0);
+    } else if (e.key === "End") {
+      e.preventDefault();
+      select(ARK7_PERSONA_FRAMES.length - 1);
+    }
+  };
+
+  const LABEL_STYLE: React.CSSProperties = {
+    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+    fontSize: "11px",
+    fontWeight: 500,
+    letterSpacing: "0.06em",
+    textTransform: "uppercase",
+    color: "var(--color-muted)",
+  };
+
+  const NEED_TEXT_STYLE: React.CSSProperties = {
+    fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+    fontSize: "15px",
+    lineHeight: "1.4",
+    fontWeight: 400,
+    color: "var(--color-ink)",
+    margin: 0,
+  };
+
+  return (
+    <div className="flex flex-col gap-5 md:gap-6">
+      {/* Tab list */}
+      <div
+        role="tablist"
+        aria-label="Persona tabs"
+        id={tablistId}
+        onKeyDown={handleKeyDown}
+        className="flex flex-wrap justify-end gap-x-1"
+      >
+        {ARK7_PERSONA_FRAMES.map((frame, i) => {
+          const isActive = i === activeIndex;
+          return (
+            <button
+              key={frame.id}
+              type="button"
+              role="tab"
+              id={`${tablistId}-${frame.id}`}
+              aria-selected={isActive}
+              aria-controls={`${tablistId}-panel-${frame.id}`}
+              tabIndex={isActive ? 0 : -1}
+              className={`min-h-11 border-b-2 bg-transparent px-3 py-2.5 text-left transition-[color,border-color] duration-200 ease-out motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
+                isActive
+                  ? "border-[var(--color-ink)] text-[var(--color-ink)]"
+                  : "border-transparent text-[var(--color-muted)] hover:text-[var(--color-ink-80)]"
+              }`}
+              style={{
+                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                fontSize: "14px",
+                lineHeight: "140%",
+                fontWeight: isActive ? 500 : 400,
+                cursor: "inherit",
+              }}
+              onClick={() => select(i)}
+            >
+              {frame.tabLabel}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Tab panel */}
+      <div
+        key={`${active.id}-${epoch}`}
+        role="tabpanel"
+        id={`${tablistId}-panel-${active.id}`}
+        aria-labelledby={`${tablistId}-${active.id}`}
+        className={`rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] p-6 md:p-8${epoch > 0 ? " ark7-layout-tab-panel-enter" : ""}`}
+      >
+        {/* Persona header */}
+        <div className="mb-5 md:mb-6">
+          <p style={{ ...LABEL_STYLE, marginBottom: "4px" }}>{active.personaType}</p>
+          <p
+            style={{
+              fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+              fontSize: "22px",
+              lineHeight: "1.2",
+              fontWeight: 500,
+              color: "var(--color-ink)",
+              margin: 0,
+            }}
+          >
+            {active.tabLabel}
+          </p>
+        </div>
+
+        {/* Status quo */}
+        <div className="flex flex-col gap-3 mb-5">
+          <p style={LABEL_STYLE}>Status quo</p>
+          <ul className="m-0 list-none p-0 flex flex-col gap-2.5">
+            {active.statusQuo.map((item, i) => (
+              <li
+                key={i}
+                className="flex gap-2 items-baseline ark7-persona-bullet-in"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <span style={{ color: "var(--color-ink-14)", flexShrink: 0, fontSize: "16px", lineHeight: "160%", fontWeight: 600 }}>·</span>
+                <p
+                  style={{
+                    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                    fontSize: "13px",
+                    lineHeight: "1.55",
+                    color: "var(--color-ink-70)",
+                    margin: 0,
+                  }}
+                >
+                  {item}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* User need + Business need */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div
+            className="ark7-persona-need-in flex flex-col gap-3 rounded-lg border border-[var(--color-ink-06)] bg-[var(--color-subtle)] p-4"
+            style={{ animationDelay: "220ms" }}
+          >
+            <p style={LABEL_STYLE}>User need</p>
+            <p style={NEED_TEXT_STYLE}>{active.userNeed}</p>
+          </div>
+          <div
+            className="ark7-persona-need-in flex flex-col gap-3 rounded-lg border border-[var(--color-ink-06)] bg-[var(--color-subtle)] p-4"
+            style={{ animationDelay: "300ms" }}
+          >
+            <p style={LABEL_STYLE}>Business need</p>
+            <p style={NEED_TEXT_STYLE}>{active.businessNeed}</p>
+          </div>
+        </div>
+
+        {/* Strategy flow */}
+        <div
+          className="mt-4 pt-5 border-t border-[var(--color-ink-06)] flex flex-wrap items-center gap-x-2 gap-y-1"
+        >
+          {active.strategySteps.map((step, i) => (
+            <span key={step} className="flex items-center gap-x-2">
+              <span
+                className="ark7-persona-step-in"
+                style={{
+                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                  fontSize: "16px",
+                  fontWeight: 500,
+                  color: "var(--color-ink)",
+                  animationDelay: `${440 + i * 70}ms`,
+                }}
+              >
+                {step}
+              </span>
+              {i < active.strategySteps.length - 1 && (
+                <span
+                  className="ark7-persona-step-in"
+                  style={{
+                    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                    color: "var(--color-muted)",
+                    fontSize: "14px",
+                    animationDelay: `${475 + i * 70}ms`,
+                  }}
+                >
+                  →
+                </span>
+              )}
+            </span>
+          ))}
         </div>
       </div>
     </div>
@@ -1227,7 +1452,7 @@ export default function Ark7CaseStudyPage() {
                 <CaseScrollReveal>
                 <div className="flex flex-col gap-0">
                   <SectionDivider label={section.label} />
-                  {section.id !== "iteration" && section.id !== "summary" ? (
+                  {section.id !== "iteration" ? (
                     <h2
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1259,7 +1484,7 @@ export default function Ark7CaseStudyPage() {
 
                 {section.id === "iteration" ? (
                   <div className="flex flex-col gap-4">
-                    <SubHeading>Fixing the foundation first</SubHeading>
+                    <SubHeading as="h2">Fixing the foundation first</SubHeading>
                     <p style={{ ...BODY_TEXT_STYLE }}>
                       Before shipping the community features, we had to address something more
                       fundamental. The existing design system was undermining user trust at a visual
@@ -1268,7 +1493,7 @@ export default function Ark7CaseStudyPage() {
                     <Ark7IterationStoreQuotes />
                     <p style={{ ...BODY_TEXT_STYLE }}>Our design audit revealed:</p>
                     <Ark7DesignAuditGrid />
-                    <SubHeading style={{ marginTop: "2.5rem" }}>The Card Component Revamp</SubHeading>
+                    <SubHeading as="h2" style={{ marginTop: "2.5rem" }}>The Card Component Revamp</SubHeading>
                     <p style={{ ...BODY_TEXT_STYLE }}>
                       Given time constraints, we focused our design system work on the card component - the most heavily used element across the platform, and the building block for all four community features.
                     </p>
@@ -1399,13 +1624,13 @@ export default function Ark7CaseStudyPage() {
 
                 {section.id === "research" ? (
                   <div className="mt-4 flex flex-col md:mt-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-1 mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-1 mb-1">
                       {[
                         { step: "01", label: "Public sentiment", body: "Scraped TrustPilot, App Store reviews, Reddit, and YouTube comments to capture unfiltered user reactions." },
                         { step: "02", label: "CS team interviews", body: "Talked with ARK7's customer service team to map what complaints actually reached them - and what they couldn't explain." },
                         { step: "03", label: "Benchmarking against Arrived", body: "Deep-dived into Arrived - ARK7's closest direct competitor - to understand what they were doing differently to keep investors engaged." },
                       ].map((item) => (
-                        <div key={item.label} className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] p-4">
+                        <div key={item.label} className="rounded-lg bg-[var(--color-surface)] p-4">
                           <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)", marginBottom: "10px" }}>{item.step}</div>
                           <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "rgba(26,26,26,0.85)", marginBottom: "6px", lineHeight: "1.3" }}>{item.label}</div>
                           <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.45", color: "rgba(26,26,26,0.5)" }}>{item.body}</div>
@@ -1436,19 +1661,7 @@ export default function Ark7CaseStudyPage() {
                       <p style={{ ...BODY_TEXT_STYLE }}>
                         Mapping user needs against business goals revealed a single bottleneck: both user types were stuck on opacity, just approaching it from opposite ends. That narrowed &ldquo;build trust&rdquo; into a specific, designable question.
                       </p>
-                      <div className="relative rounded-lg overflow-hidden p-6 md:p-10" style={{ backgroundColor: "var(--color-subtle)" }}>
-                        <Image
-                          src="/images/ARK7/Bridge%20the%20gap.svg"
-                          alt="Bridge the gap - HMW question mapping from user needs to business goals"
-                          width={1600}
-                          height={900}
-                          sizes="(max-width: 767px) 100vw, 800px"
-                          loading="lazy"
-                          unoptimized
-                          className="block w-full h-auto"
-                        />
-                        <span className="absolute inset-0 rounded-lg pointer-events-none" style={{ boxShadow: "inset 0 0 0 1.5px rgba(26,26,26,0.12)" }} />
-                      </div>
+                      <Ark7PersonaTabs />
                     </div>
 
                   </div>

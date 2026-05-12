@@ -1,9 +1,10 @@
 @import "tailwindcss";
+@import "remixicon/fonts/remixicon.css";
 
 :root {
   --color-ink:     #1A1A1A;
   --color-surface: #FFFFFF;
-  --color-subtle:  #F5F5F5;
+  --color-subtle:  #F4F5F7;
   --color-muted:   #737373;
   --color-accent:  #EC4523;
   --color-ink-90:  rgba(26, 26, 26, 0.9);
@@ -218,6 +219,51 @@ body {
   }
 }
 
+/* ARK7 persona tabs: staggered element animations */
+@keyframes ark7-persona-bullet-in {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ark7-persona-need-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ark7-persona-step-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ark7-persona-arc-draw {
+  from { stroke-dashoffset: 160; opacity: 0; }
+  to   { stroke-dashoffset: 0;   opacity: 1; }
+}
+
+.ark7-persona-bullet-in {
+  opacity: 0;
+  animation: ark7-persona-bullet-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ark7-persona-need-in {
+  opacity: 0;
+  animation: ark7-persona-need-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ark7-persona-step-in {
+  opacity: 0;
+  animation: ark7-persona-step-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ark7-persona-bullet-in,
+  .ark7-persona-need-in,
+  .ark7-persona-step-in {
+    animation: none;
+    opacity: 1;
+  }
+}
+
 .copy-email-wrapper {
   position: relative;
   display: inline-block;
@@ -395,6 +441,7 @@ body {
 .highlight-peach  { background-image: linear-gradient(to right, var(--color-accent-peach), var(--color-accent-peach)); }
 .highlight-yellow { background-image: linear-gradient(to right, rgba(255, 220, 80, 0.35), rgba(255, 220, 80, 0.35)); }
 .highlight-pink   { background-image: linear-gradient(to right, rgba(255, 182, 193, 0.5), rgba(255, 182, 193, 0.5)); }
+.highlight-green  { background-image: linear-gradient(to right, rgba(30, 195, 115, 0.22), rgba(30, 195, 115, 0.22)); }
 
 @media (prefers-reduced-motion: reduce) {
   .highlight--visible {
