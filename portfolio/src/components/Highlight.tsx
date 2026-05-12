@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-type HighlightVariant = "peach" | "yellow" | "pink";
+type HighlightVariant = "peach" | "yellow" | "pink" | "green" | "blue";
 
 export default function Highlight({
   children,

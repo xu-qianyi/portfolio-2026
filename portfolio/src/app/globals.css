@@ -442,6 +442,7 @@ body {
 .highlight-yellow { background-image: linear-gradient(to right, rgba(255, 220, 80, 0.35), rgba(255, 220, 80, 0.35)); }
 .highlight-pink   { background-image: linear-gradient(to right, rgba(255, 182, 193, 0.5), rgba(255, 182, 193, 0.5)); }
 .highlight-green  { background-image: linear-gradient(to right, rgba(30, 195, 115, 0.22), rgba(30, 195, 115, 0.22)); }
+.highlight-blue   { background-image: linear-gradient(to right, rgba(0, 158, 255, 0.16), rgba(0, 158, 255, 0.16)); }
 
 @media (prefers-reduced-motion: reduce) {
   .highlight--visible {
