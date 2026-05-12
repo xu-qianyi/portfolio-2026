@@ -27,17 +27,19 @@ function SectionDivider({ label }: { label: string }) {
   );
 }
 
-function SubHeading({ children, className }: { children: React.ReactNode; className?: string }) {
+function SubHeading({ children, className, style }: { children: React.ReactNode; className?: string; style?: React.CSSProperties }) {
   return (
     <h3
       className={className}
       style={{
         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
         fontSize: "18px",
-        lineHeight: "1.4",
+        lineHeight: "1.3",
         fontWeight: 500,
         color: "var(--color-ink)",
         margin: 0,
+        textWrap: "balance" as const,
+        ...style,
       }}
     >
       {children}
@@ -175,7 +177,7 @@ const ARK7_PERSONAS = [
 const BODY_TEXT_STYLE = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "14px",
-  lineHeight: "1.45rem",
+  lineHeight: "1.6",
   letterSpacing: "-0.005em",
   color: "var(--color-ink-80)",
   margin: 0,
@@ -246,7 +248,7 @@ function ark7StoreQuoteInner(text: string): ReactNode {
 function Ark7DesignAuditGrid() {
   return (
     <div className="mt-2 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-      {ARK7_DESIGN_AUDIT_FINDINGS.map((item) => (
+      {ARK7_DESIGN_AUDIT_FINDINGS.map((item, i) => (
         <div key={item.title} className="flex flex-col gap-3">
           <div className="relative rounded-lg p-3" style={{ backgroundColor: "var(--color-subtle)" }}>
             <div className="relative h-96 w-full overflow-hidden rounded-md">
@@ -259,13 +261,27 @@ function Ark7DesignAuditGrid() {
             </div>
           </div>
           <div className="flex flex-col gap-1.5">
+            <div
+              style={{
+                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                fontSize: "11px",
+                fontWeight: 500,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase" as const,
+                color: "rgba(26,26,26,0.35)",
+                marginBottom: "2px",
+              }}
+            >
+              {String(i + 1).padStart(2, "0")}
+            </div>
             <p
               style={{
                 fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                 fontSize: "15px",
-                lineHeight: "150%",
-                fontWeight: 600,
-                color: "var(--color-ink)",
+                lineHeight: "1.3",
+                fontWeight: 500,
+                letterSpacing: "-0.01em",
+                color: "rgba(26,26,26,0.85)",
                 margin: 0,
               }}
             >
@@ -283,10 +299,7 @@ function Ark7IterationStoreQuotes() {
   return (
     <div className="mt-6 grid grid-cols-1 gap-5 md:mt-8 md:grid-cols-2 md:gap-6">
       {ARK7_STORE_REVIEW_QUOTES.map((item) => (
-        <article
-          key={item.source}
-          className="flex flex-col gap-3.5 rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] px-4 py-4 md:gap-4 md:px-5 md:py-5"
-        >
+        <div key={item.source} className="flex flex-col gap-2">
           <p
             style={{
               fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -300,32 +313,18 @@ function Ark7IterationStoreQuotes() {
           >
             {item.source}
           </p>
-          <p
-            style={{
-              fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-              fontSize: "17px",
-              lineHeight: "150%",
-              fontWeight: 400,
-              fontStyle: "italic",
-              color: "var(--color-ink)",
-              margin: 0,
-            }}
+          <blockquote
+            className="my-4 pl-5 py-1"
+            style={{ borderLeft: "1.5px solid rgba(0, 0, 0, 0.08)" }}
           >
-            &ldquo;{ark7StoreQuoteInner(item.quote)}&rdquo;
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-              fontSize: "14px",
-              lineHeight: "150%",
-              fontWeight: 500,
-              color: "var(--color-muted)",
-              margin: 0,
-            }}
-          >
-            - {item.author}
-          </p>
-        </article>
+            <p className="text-[14px] font-[450] leading-[1.6] italic text-[rgba(0,0,0,.65)]">
+              &ldquo;{ark7StoreQuoteInner(item.quote)}&rdquo;
+            </p>
+            <cite className="block mt-2 text-[12px] font-[450] text-[rgba(0,0,0,.3)] not-italic">
+              — {item.author}
+            </cite>
+          </blockquote>
+        </div>
       ))}
     </div>
   );
@@ -530,7 +529,7 @@ function Ark7CommunityFeaturesTable() {
               A content feed covering market trends, investment tips, and property updates
             </td>
             <td className={`${cellPad} pl-2 md:pl-3`}>
-              <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Transparency</span>
+              <span style={{ fontWeight: 500, color: "var(--color-ink)" }}>Transparency</span>
               {" - "}keeps users informed about their investments and the platform
             </td>
           </tr>
@@ -542,7 +541,7 @@ function Ark7CommunityFeaturesTable() {
               Lets seasoned investors weigh in on operational decisions for their properties
             </td>
             <td className={`${cellPad} pl-2 md:pl-3`}>
-              <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Agency</span>
+              <span style={{ fontWeight: 500, color: "var(--color-ink)" }}>Agency</span>
               {" - "}gives investors a voice, making them feel like owners, not passengers
             </td>
           </tr>
@@ -554,7 +553,7 @@ function Ark7CommunityFeaturesTable() {
               Time-limited, pop-up forums tied to specific properties
             </td>
             <td className={`${cellPad} pl-2 md:pl-3`}>
-              <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Belonging</span>
+              <span style={{ fontWeight: 500, color: "var(--color-ink)" }}>Belonging</span>
               {" - "}connects investors with each other around shared stakes
             </td>
           </tr>
@@ -566,7 +565,7 @@ function Ark7CommunityFeaturesTable() {
               Live and recorded sessions with real estate experts and ARK7 team
             </td>
             <td className={`${cellPad} pl-2 md:pl-3`}>
-              <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>Education</span>
+              <span style={{ fontWeight: 500, color: "var(--color-ink)" }}>Education</span>
               {" - "}builds confidence through knowledge and direct access to experts
             </td>
           </tr>
@@ -800,7 +799,7 @@ function Ark7LayoutOptionsTabs() {
         role="tabpanel"
         id={`${tablistId}-panel-${active.id}`}
         aria-labelledby={`${tablistId}-${active.id}`}
-        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] px-5 py-7 md:px-8 md:py-9"
+        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] px-5 pt-12 pb-8 md:px-8"
       >
         <div
           key={`${active.id}-${layoutPanelMotionEpoch}`}
@@ -1056,6 +1055,7 @@ export default function Ark7CaseStudyPage() {
                   letterSpacing: "-0.01em",
                   color: "var(--color-ink)",
                   margin: 0,
+                  textWrap: "balance" as const,
                 }}
               >
                 Cultivating a Trusted Investment Community
@@ -1130,12 +1130,13 @@ export default function Ark7CaseStudyPage() {
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                         fontSize: "24px",
-                        lineHeight: "1.4",
+                        lineHeight: "1.2",
                         fontWeight: 500,
                         letterSpacing: "-0.01em",
                         color: "var(--color-ink)",
                         marginBottom: "1rem",
                         marginTop: 0,
+                        textWrap: "balance" as const,
                       }}
                     >
                       {section.title}
@@ -1165,7 +1166,7 @@ export default function Ark7CaseStudyPage() {
                     <Ark7IterationStoreQuotes />
                     <p style={{ ...BODY_TEXT_STYLE }}>Our design audit revealed:</p>
                     <Ark7DesignAuditGrid />
-                    <SubHeading className="mt-4">The Card Component Revamp</SubHeading>
+                    <SubHeading style={{ marginTop: "2.5rem" }}>The Card Component Revamp</SubHeading>
                     <p style={{ ...BODY_TEXT_STYLE }}>
                       Given time constraints, we focused our design system work on the card component - the most heavily used element across the platform, and the building block for all four community features.
                     </p>
@@ -1212,12 +1213,12 @@ export default function Ark7CaseStudyPage() {
                       >
                         <p
                           style={{
-                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                            fontSize: "15px",
-                            lineHeight: "150%",
-                            fontWeight: 400,
+                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                            fontSize: "14px",
+                            lineHeight: "1.6",
+                            fontWeight: 450,
                             fontStyle: "italic",
-                            color: "var(--color-ink)",
+                            color: "rgba(0,0,0,.65)",
                             margin: 0,
                           }}
                         >
@@ -1246,7 +1247,7 @@ export default function Ark7CaseStudyPage() {
                     className="w-full h-auto"
                     loading="lazy"
                   />
-                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "2rem" }}>
+                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "4rem" }}>
                     <Highlight variant="green" duration={600}>Voting</Highlight>
                   </p>
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
@@ -1266,12 +1267,12 @@ export default function Ark7CaseStudyPage() {
                       >
                         <p
                           style={{
-                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                            fontSize: "15px",
-                            lineHeight: "150%",
-                            fontWeight: 400,
+                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                            fontSize: "14px",
+                            lineHeight: "1.6",
+                            fontWeight: 450,
                             fontStyle: "italic",
-                            color: "var(--color-ink)",
+                            color: "rgba(0,0,0,.65)",
                             margin: 0,
                           }}
                         >
@@ -1300,7 +1301,7 @@ export default function Ark7CaseStudyPage() {
                     className="w-full h-auto"
                     loading="lazy"
                   />
-                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "2rem" }}>
+                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "4rem" }}>
                     <Highlight variant="green" duration={600}>Webinar</Highlight>
                   </p>
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
@@ -1320,12 +1321,12 @@ export default function Ark7CaseStudyPage() {
                       >
                         <p
                           style={{
-                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                            fontSize: "15px",
-                            lineHeight: "150%",
-                            fontWeight: 400,
+                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                            fontSize: "14px",
+                            lineHeight: "1.6",
+                            fontWeight: 450,
                             fontStyle: "italic",
-                            color: "var(--color-ink)",
+                            color: "rgba(0,0,0,.65)",
                             margin: 0,
                           }}
                         >
@@ -1354,7 +1355,7 @@ export default function Ark7CaseStudyPage() {
                     className="w-full h-auto"
                     loading="lazy"
                   />
-                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "2rem" }}>
+                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "4rem" }}>
                     <Highlight variant="green" duration={600}>Discussion</Highlight>
                   </p>
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
@@ -1374,12 +1375,12 @@ export default function Ark7CaseStudyPage() {
                       >
                         <p
                           style={{
-                            fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                            fontSize: "15px",
-                            lineHeight: "150%",
-                            fontWeight: 400,
+                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                            fontSize: "14px",
+                            lineHeight: "1.6",
+                            fontWeight: 450,
                             fontStyle: "italic",
-                            color: "var(--color-ink)",
+                            color: "rgba(0,0,0,.65)",
                             margin: 0,
                           }}
                         >
@@ -1463,20 +1464,30 @@ export default function Ark7CaseStudyPage() {
                     <p style={{ ...BODY_TEXT_STYLE }}>
                       Initial telemetry after the community features shipped showed movement across both segments:
                     </p>
-                    <ul className="m-0 flex list-none flex-col gap-3 p-0">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-5 mt-1">
                       {[
-                        <><span style={{ fontWeight: 600, color: "var(--color-ink)" }}>10%</span> lift in new user conversion rate</>,
-                        <>New users spent <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>2× longer</span> on the platform in their first session - reading, exploring, and getting comfortable before investing</>,
-                        <><span style={{ fontWeight: 600, color: "var(--color-ink)" }}>40%</span> increase in secondary market transaction volume</>,
-                      ].map((node, i) => (
-                        <li key={i} className="flex gap-3 items-baseline">
-                          <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
-                          <p style={BODY_TEXT_STYLE}>{node}</p>
-                        </li>
+                        { metric: "10%", label: "lift in new user conversion rate" },
+                        { metric: "2×", label: "longer on the platform in their first session - reading, exploring, and getting comfortable before investing" },
+                        { metric: "40%", label: "increase in secondary market transaction volume" },
+                      ].map((item) => (
+                        <div key={item.metric} className="flex flex-col gap-3 pt-4">
+                          <p style={{
+                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                            fontSize: "36px",
+                            lineHeight: "1",
+                            fontWeight: 400,
+                            letterSpacing: "-0.03em",
+                            color: "var(--color-ink)",
+                            margin: 0,
+                          }}>
+                            {item.metric}
+                          </p>
+                          <p style={{ ...BODY_TEXT_STYLE }}>{item.label}</p>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
-                  <div className="mt-8 flex flex-col gap-4">
+                  <div className="mt-12 flex flex-col gap-4">
                     <SubHeading>What I took away</SubHeading>
                     <p
                       style={{
@@ -1506,8 +1517,8 @@ export default function Ark7CaseStudyPage() {
                         { step: "03", label: "Benchmarking against Arrived", body: "Deep-dived into Arrived - ARK7's closest direct competitor - to understand what they were doing differently to keep investors engaged." },
                       ].map((item) => (
                         <div key={item.label} className="rounded-lg p-4" style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}>
-                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)", marginBottom: "6px" }}>{item.step}</div>
-                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 600, letterSpacing: "-0.01em", color: "rgba(26,26,26,0.85)", marginBottom: "6px", lineHeight: "1.3" }}>{item.label}</div>
+                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)", marginBottom: "10px" }}>{item.step}</div>
+                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "rgba(26,26,26,0.85)", marginBottom: "6px", lineHeight: "1.3" }}>{item.label}</div>
                           <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.45", color: "rgba(26,26,26,0.5)" }}>{item.body}</div>
                         </div>
                       ))}
@@ -1567,7 +1578,7 @@ export default function Ark7CaseStudyPage() {
                 ) : null}
 
                 {section.continuationTitle && section.continuationBody ? (
-                  <div className="mt-8 flex flex-col gap-3.5 md:mt-10">
+                  <div className="mt-10 flex flex-col gap-3.5 md:mt-14">
                     <SubHeading>{section.continuationTitle}</SubHeading>
                     {section.continuationBody.map((paragraph) => (
                       <p key={paragraph} style={{ ...BODY_TEXT_STYLE }}>{paragraph}</p>
