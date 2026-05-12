@@ -70,12 +70,9 @@ const SECTIONS: Section[] = [
   {
     id: "research",
     label: "Research",
-    title: "No direct access to users - so I found them elsewhere",
+    title: "Defining the trust gap without direct access",
     body: [
-      "The client managed all user communication directly to maintain consistency and confidentiality. This meant no user interviews, no surveys, no direct contact.",
-      "Rather than treating this as a dead end, I looked for where users were already talking.",
-      "I mined four public channels - TrustPilot, App Store reviews, Reddit, and YouTube comments - and paired these findings with interviews with ARK7's customer service team and an analysis of the company's marketing channels. I also conducted a competitive audit of similar platforms.",
-      "Across every channel, one theme surfaced again and again: a lack of trust.",
+      "The client managed all user communication directly, so I couldn't run interviews. Instead, I triangulated from three sources:",
     ],
   },
   {
@@ -149,28 +146,26 @@ function ark7SectionParagraph(
 const ARK7_PERSONAS = [
   {
     name: "Lisa",
-    role: "Existing Investor",
-    tags: ["Existing Investor", "Social Investor", "Tech-Savvy"],
+    role: "Isolated Investor",
+    tags: ["Regular Investor"],
     needs: [
-      "Has been investing with ARK7 for a year",
-      "Doesn't know how her properties are managed or how ARK7 performs",
-      "Has no idea who the other shared owners are",
-      "Feels she has no control over her investments",
-      "Considering withdrawal due to feeling isolated and powerless",
+      "Has been investing with ARK7 for a year but has no visibility into how her properties are managed",
+      "Doesn't know who the other co-owners are or how decisions get made",
+      "Feels like a passive passenger rather than an actual owner",
+      "Considering withdrawal after the lock-up period ends",
     ],
     goalLabel: "Her goal",
     goal: "More influence on decisions. A sense of belonging and trust.",
   },
   {
     name: "Ian",
-    role: "New User",
-    tags: ["New User", "Busy", "Influence-Seeker", "Novice Investor"],
+    role: "Skeptical Newcomer",
+    tags: ["New Investor"],
     needs: [
-      "Discovered ARK7 through a YouTube ad and received a $50 bonus",
+      "Discovered ARK7 through a YouTube ad and received a $50 bonus - but still hasn't invested",
       "Cautious about who to trust - available information feels limited",
-      "Wants to know who else is investing",
-      "Doesn't want to invest alone",
-      "Hesitating to invest because the platform feels opaque",
+      "Wants to know who else is investing and what they think",
+      "Platform feels like a black box - not enough signal to trust it with real money",
     ],
     goalLabel: "His goal",
     goal: "Transparency, guidance, and confidence before committing money.",
@@ -338,7 +333,7 @@ function Ark7IterationStoreQuotes() {
 
 function Ark7PersonaCards() {
   return (
-    <div className="flex flex-col gap-6 md:gap-7">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
       {ARK7_PERSONAS.map((p) => (
         <article
           key={p.name}
@@ -384,7 +379,6 @@ function Ark7PersonaCards() {
           </header>
 
           <div className="flex flex-col gap-2 border-t border-[var(--color-ink-14)] pt-3.5">
-            <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "12px", fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase" as const, color: "var(--color-ink-70)", margin: 0 }}>User needs</p>
             <ul
               className="m-0 list-disc space-y-1.5 pl-4 marker:text-[var(--color-ink-65)]"
               style={{
@@ -402,12 +396,6 @@ function Ark7PersonaCards() {
             </ul>
           </div>
 
-          <div className="rounded-md border border-[var(--color-ink-14)] bg-[var(--color-subtle)] px-3.5 py-2.5">
-            <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "12px", fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase" as const, color: "var(--color-ink-70)", margin: 0 }}>User goals</p>
-            <p style={{ ...BODY_TEXT_STYLE, fontSize: "14px", lineHeight: "150%", marginTop: "6px" }}>
-              {p.goalLabel}: {p.goal}
-            </p>
-          </div>
         </article>
       ))}
     </div>
@@ -1425,7 +1413,17 @@ export default function Ark7CaseStudyPage() {
 
                 {section.id === "design" ? (
                   <>
-                    <Ark7CommunityFeaturesTable />
+                    <div className="relative my-6 rounded-lg overflow-hidden px-6 py-4 md:my-8 md:px-32 md:py-6">
+                      <Image
+                        src="/images/ARK7/matrix.svg"
+                        alt="Eisenhower-style matrix mapping 12 community features by effort and trust impact, narrowed to four"
+                        width={827}
+                        height={545}
+                        unoptimized
+                        className="block w-full md:w-4/5 mx-auto h-auto"
+                      />
+                      <span className="absolute inset-0 rounded-lg pointer-events-none" style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.1)" }} />
+                    </div>
                     <div className="mt-8 flex flex-col gap-5 md:mt-10">
                       <div className="flex flex-col gap-4">
                         <SubHeading>Entry point: one tab, four touchpoints</SubHeading>
@@ -1501,102 +1499,58 @@ export default function Ark7CaseStudyPage() {
 
                 {section.id === "research" ? (
                   <div className="mt-4 flex flex-col md:mt-5">
-                    <div className="relative rounded-lg overflow-hidden bg-[var(--color-subtle)] my-4 md:my-6 flex flex-col gap-6 p-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-1 mb-4">
+                      {[
+                        { step: "01", label: "Public sentiment", body: "Scraped TrustPilot, App Store reviews, Reddit, and YouTube comments to capture unfiltered user reactions." },
+                        { step: "02", label: "CS team interviews", body: "Talked with ARK7's customer service team to map what complaints actually reached them - and what they couldn't explain." },
+                        { step: "03", label: "Benchmarking against Arrived", body: "Deep-dived into Arrived - ARK7's closest direct competitor - to understand what they were doing differently to keep investors engaged." },
+                      ].map((item) => (
+                        <div key={item.label} className="rounded-lg p-4" style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}>
+                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)", marginBottom: "6px" }}>{item.step}</div>
+                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 600, letterSpacing: "-0.01em", color: "rgba(26,26,26,0.85)", marginBottom: "6px", lineHeight: "1.3" }}>{item.label}</div>
+                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.45", color: "rgba(26,26,26,0.5)" }}>{item.body}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="relative rounded-lg overflow-hidden bg-[var(--color-subtle)] mt-6 md:mt-8 p-6 md:p-10">
                       <Image
-                        src="/images/ARK7/ARK7-market%20analysis.webp"
-                        alt="ARK7 marketing analysis across mobile app, website, and social channels"
-                        width={3494}
-                        height={1462}
-                        sizes="70vw"
+                        src="/images/ARK7/Competitor%20analysis.svg"
+                        alt="Competitor analysis comparing ARK7 and Arrived across mobile app, website, and social channels"
+                        width={1600}
+                        height={900}
+                        sizes="(max-width: 767px) 100vw, 800px"
                         loading="lazy"
-                        className="block w-[70%] h-auto mx-auto"
-                      />
-                      <Image
-                        src="/images/ARK7/Arrived-market%20analysis.webp"
-                        alt="Arrived marketing analysis across mobile app, website, and social channels"
-                        width={3498}
-                        height={1468}
-                        sizes="70vw"
-                        loading="lazy"
-                        className="block w-[70%] h-auto mx-auto"
+                        unoptimized
+                        className="block w-full h-auto mx-auto"
                       />
                       <span className="absolute inset-0 rounded-lg pointer-events-none" style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.08)" }} />
                     </div>
+                    <p style={{ ...BODY_TEXT_STYLE, marginTop: "1.5rem" }}>
+                      Arrived ran webinars, published expert walkthroughs, and kept community spaces active. Users could see how others invested, ask questions directly, and build conviction before committing. ARK7 offered the same product - same price range, same asset class - with none of that context.
+                    </p>
+                    <p style={{ ...BODY_TEXT_STYLE, marginTop: "0.75rem" }}>
+                      Public sentiment across TrustPilot, App Store, Reddit, and YouTube confirmed it from the user side. <Highlight variant="green" duration={800}>Complaints weren&apos;t about bugs or pricing - they were about opacity.</Highlight> Returns showed up in the dashboard; the reasoning behind them didn&apos;t. No visibility into property management, no sense of who co-owned their assets, no signal that anyone else trusted the platform with real money.
+                    </p>
                     <div className="mt-8 flex flex-col gap-4 md:mt-10">
-                      <SubHeading>Two users, one shared problem</SubHeading>
+                      <SubHeading>The problem, reframed</SubHeading>
                       <p style={{ ...BODY_TEXT_STYLE }}>
-                        The research revealed two distinct user profiles whose frustrations pointed to
-                        the same root cause. The following archetypes were synthesized from public sentiment across TrustPilot, App Store reviews, Reddit, and YouTube - not direct user interviews.
+                        Mapping user needs against business goals revealed a single bottleneck: both user types were stuck on opacity, just approaching it from opposite ends. That narrowed &ldquo;build trust&rdquo; into a specific, designable question.
                       </p>
-                      <Ark7PersonaCards />
-                    </div>
-                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
-                      <SubHeading>Refining the problem</SubHeading>
-                      <p style={{ ...BODY_TEXT_STYLE }}>
-                        <Highlight variant="green" duration={700}>Initial question</Highlight>
-                        {": How might we help different users build trust at ARK7?"}
-                      </p>
-                      <p style={{ ...BODY_TEXT_STYLE }}>
-                        To sharpen this, I mapped each persona&apos;s goals against business goals:
-                      </p>
-                      <Ark7PersonaBusinessMappingTable />
-                      <p style={{ ...BODY_TEXT_STYLE }}>
-                        <Highlight variant="green" duration={700}>Refined question</Highlight>
-                        {": How might we build an engaging experience for users to learn and invest with trust?"}
-                      </p>
-                    </div>
-                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
-                      <SubHeading>Competitor analysis: how rival platforms build trust and drive engagement</SubHeading>
-                      <p style={{ ...BODY_TEXT_STYLE }}>
-                        With only two direct competitors in fractional real estate, I expanded the audit to include broader fintech platforms - specifically ones with community or social investing features.
-                      </p>
-                      <div className="my-3 w-full overflow-hidden md:my-5">
+                      <div className="relative rounded-lg overflow-hidden p-6 md:p-10">
                         <Image
-                          src="/images/ARK7/ark7_competitors.webp"
-                          alt="Competitive audit: similar apps and broader financial sector companies"
-                          width={2589}
-                          height={822}
+                          src="/images/ARK7/Bridge%20the%20gap.svg"
+                          alt="Bridge the gap - HMW question mapping from user needs to business goals"
+                          width={1600}
+                          height={900}
                           sizes="(max-width: 767px) 100vw, 800px"
                           loading="lazy"
-                          className="w-full h-auto object-contain"
+                          unoptimized
+                          className="block w-full h-auto"
                         />
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-1">
-                        {[
-                          {
-                            step: "01",
-                            label: "Interactive content drives longer engagement.",
-                            body: "Platforms with interactive elements saw more frequent return visits and deeper exploration.",
-                          },
-                          {
-                            step: "02",
-                            label: "Community connection makes users feel safer.",
-                            body: "When users could see and interact with other investors, their confidence in the platform increased.",
-                          },
-                          {
-                            step: "03",
-                            label: "Webinars are the strongest trust signal.",
-                            body: "Real-time, expert-led sessions resonated most with users seeking guidance - more than static content or forums.",
-                          },
-                        ].map((item) => (
-                          <div
-                            key={item.step}
-                            className="rounded-lg p-4"
-                            style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}
-                          >
-                            <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "16px", fontWeight: 500, letterSpacing: "-0.01em", color: "rgba(26,26,26,0.85)", marginBottom: "4px" }}>
-                              {item.step}
-                            </div>
-                            <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "16px", fontWeight: 500, letterSpacing: "-0.01em", color: "rgba(26,26,26,0.85)", marginBottom: "6px", lineHeight: "1.3" }}>
-                              {item.label}
-                            </div>
-                            <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.45", color: "rgba(26,26,26,0.5)" }}>
-                              {item.body}
-                            </div>
-                          </div>
-                        ))}
+                        <span className="absolute inset-0 rounded-lg pointer-events-none" style={{ boxShadow: "inset 0 0 0 1.5px rgba(26,26,26,0.12)" }} />
                       </div>
                     </div>
+
                   </div>
                 ) : null}
 
