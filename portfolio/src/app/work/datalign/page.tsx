@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
+import BackToTop from "@/components/BackToTop";
 
 const BG = "transparent";
 const THEME_BLUE = "#3A6FA5";
@@ -747,6 +748,7 @@ export default function DatalignCaseStudyPage() {
 
         <div className="hidden md:block" />
       </main>
+      <BackToTop />
     </div>
   );
 }

@@ -4,11 +4,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 import Highlight from "@/components/Highlight";
+import BackToTop from "@/components/BackToTop";
 
 const BODY = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "14px",
-  lineHeight: "1.45rem",
+  lineHeight: "1.6",
   letterSpacing: "-0.005em",
   color: "var(--color-ink-80)",
   margin: 0,
@@ -55,10 +56,11 @@ function SubHeading({ children }: { children: React.ReactNode }) {
       style={{
         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
         fontSize: "18px",
-        lineHeight: "1.4",
+        lineHeight: "1.3",
         fontWeight: 500,
         color: "var(--color-ink)",
         margin: 0,
+        textWrap: "balance" as const,
       }}
     >
       {children}
@@ -244,6 +246,7 @@ export default function NarsCaseStudyPage() {
                   letterSpacing: "-0.01em",
                   color: "var(--color-ink)",
                   margin: 0,
+                  textWrap: "balance" as const,
                 }}
               >
                 NARS Longwear Foundation concept testing - US &amp; China insights
@@ -325,12 +328,13 @@ export default function NarsCaseStudyPage() {
                   style={{
                     fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                     fontSize: "24px",
-                    lineHeight: "1.4",
+                    lineHeight: "1.2",
                     fontWeight: 500,
                     letterSpacing: "-0.01em",
                     color: "var(--color-ink)",
                     marginBottom: "1rem",
                     marginTop: 0,
+                    textWrap: "balance" as const,
                   }}
                 >
                   Decoding cross-market complexity before the product brief locked
@@ -378,12 +382,13 @@ export default function NarsCaseStudyPage() {
                   style={{
                     fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                     fontSize: "24px",
-                    lineHeight: "1.4",
+                    lineHeight: "1.2",
                     fontWeight: 500,
                     letterSpacing: "-0.01em",
                     color: "var(--color-ink)",
                     marginBottom: "1rem",
                     marginTop: 0,
+                    textWrap: "balance" as const,
                   }}
                 >
                   Listening to both markets at once
@@ -480,12 +485,13 @@ export default function NarsCaseStudyPage() {
                   style={{
                     fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                     fontSize: "24px",
-                    lineHeight: "1.4",
+                    lineHeight: "1.2",
                     fontWeight: 500,
                     letterSpacing: "-0.01em",
                     color: "var(--color-ink)",
                     marginBottom: "1rem",
                     marginTop: 0,
+                    textWrap: "balance" as const,
                   }}
                 >
                   What the data decided
@@ -631,6 +637,7 @@ export default function NarsCaseStudyPage() {
 
         <div className="hidden md:block" />
       </main>
+      <BackToTop />
     </div>
   );
 }

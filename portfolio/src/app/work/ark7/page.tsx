@@ -6,6 +6,7 @@ import Link from "next/link";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 import LottiePreview from "@/components/LottiePreview";
 import Highlight from "@/components/Highlight";
+import BackToTop from "@/components/BackToTop";
 
 function SectionDivider({ label }: { label: string }) {
   return (
@@ -95,9 +96,9 @@ const SECTIONS: Section[] = [
   {
     id: "final-solution",
     label: "Final solution",
-    title: "Ian's journey - from hesitation to confidence",
+    title: "Four features, two users",
     body: [
-      "With the card foundation stable, we built the four community features on top of it. Here's how they landed for each user.",
+      "The research had already told us what was missing. With the design foundation in place, we built the four community features that filled those gaps.",
     ],
   },
   {
@@ -250,7 +251,7 @@ function Ark7DesignAuditGrid() {
     <div className="mt-2 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
       {ARK7_DESIGN_AUDIT_FINDINGS.map((item, i) => (
         <div key={item.title} className="flex flex-col gap-3">
-          <div className="relative rounded-lg p-3" style={{ backgroundColor: "var(--color-subtle)" }}>
+          <div className="relative rounded-lg p-3" style={{ border: "1px solid var(--color-ink-14)" }}>
             <div className="relative h-96 w-full overflow-hidden rounded-md">
               <Image
                 src={item.image}
@@ -297,7 +298,7 @@ function Ark7DesignAuditGrid() {
 
 function Ark7IterationStoreQuotes() {
   return (
-    <div className="mt-6 grid grid-cols-1 gap-5 md:mt-8 md:grid-cols-2 md:gap-6">
+    <div className="mt-6 flex flex-col gap-5 md:mt-8">
       {ARK7_STORE_REVIEW_QUOTES.map((item) => (
         <div key={item.source} className="flex flex-col gap-2">
           <p
@@ -727,6 +728,107 @@ function Ark7CardRevampTabs() {
   );
 }
 
+const ARK7_PROTOTYPE_FEATURES = [
+  {
+    id: "voting",
+    name: "Voting",
+    trust: "Agency",
+    videoSrc: "/images/ARK7/Voting.webm",
+    description:
+      "When the property manager proposes a renovation or makes a budget call, you can weigh in. It's a small thing that changes how ownership actually feels - less like a passenger, more like someone with a real stake.",
+  },
+  {
+    id: "webinar",
+    name: "Webinar",
+    trust: "Education",
+    videoSrc: "/images/ARK7/Webinar.webm",
+    description:
+      "Instead of piecing things together from Reddit threads and YouTube comments, you can hear directly from ARK7's team and real estate experts. Q&As are live, and recordings stick around so nothing gets missed.",
+  },
+  {
+    id: "news",
+    name: "News",
+    trust: "Transparency",
+    videoSrc: "/images/ARK7/News.webm",
+    description:
+      "Market updates, property highlights, investment tips - all in one place. You don't have to refresh five tabs to know what's happening with your money.",
+  },
+  {
+    id: "discussion",
+    name: "Discussion",
+    trust: "Belonging",
+    videoSrc: "/images/ARK7/Discussion.webm",
+    description:
+      "For a limited window after a major property event, co-investors can talk in the same space. It's temporary by design - low-stakes enough to actually say something, specific enough to matter.",
+  },
+] as const;
+
+function Ark7PrototypeFeatures() {
+  return (
+    <div className="flex flex-col gap-16 mt-6 md:gap-20 md:mt-8">
+      {ARK7_PROTOTYPE_FEATURES.map((feature) => (
+        <div
+          key={feature.id}
+          className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] md:items-center md:gap-14"
+        >
+          <div className="flex justify-center md:justify-start">
+            <div
+              className="relative w-full overflow-hidden"
+              style={{
+                maxWidth: "200px",
+                borderRadius: "2.25rem",
+                boxShadow: "0 4px 28px rgba(0,0,0,0.13)",
+                outline: "1px solid rgba(0,0,0,0.07)",
+              }}
+            >
+              <video
+                src={feature.videoSrc}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="block w-full h-auto"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <span
+              style={{
+                display: "inline-flex",
+                alignSelf: "flex-start",
+                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                fontSize: "11px",
+                fontWeight: 500,
+                letterSpacing: "0.04em",
+                textTransform: "uppercase" as const,
+                color: "var(--color-ink-80)",
+                background: "var(--color-ink-06)",
+                borderRadius: "999px",
+                padding: "3px 10px",
+              }}
+            >
+              {feature.trust}
+            </span>
+            <h3
+              style={{
+                fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+                fontSize: "22px",
+                lineHeight: "1.2",
+                fontWeight: 500,
+                color: "var(--color-ink)",
+                margin: 0,
+              }}
+            >
+              {feature.name}
+            </h3>
+            <p style={{ ...BODY_TEXT_STYLE }}>{feature.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Ark7LayoutOptionsTabs() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [layoutPanelMotionEpoch, setLayoutPanelMotionEpoch] = useState(0);
@@ -1125,7 +1227,7 @@ export default function Ark7CaseStudyPage() {
                 <CaseScrollReveal>
                 <div className="flex flex-col gap-0">
                   <SectionDivider label={section.label} />
-                  {section.id !== "iteration" && section.id !== "final-solution" && section.id !== "summary" ? (
+                  {section.id !== "iteration" && section.id !== "summary" ? (
                     <h2
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -1175,241 +1277,7 @@ export default function Ark7CaseStudyPage() {
                 ) : null}
 
                 {section.id === "final-solution" ? (
-                  <>
-                  <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
-                    {[
-                      {
-                        title: "Ian's journey - from hesitation to confidence",
-                        body: "Ian discovered ARK7 through a YouTube ad and received a $50 bonus. But as a novice investor, he hesitated - he knew little about the platform or its investment offerings.",
-                      },
-                      {
-                        title: "Lisa's journey - from isolation to ownership",
-                        body: "Lisa has been investing with ARK7 for a year. But after the frozen period ended, she was considering withdrawing - she felt isolated and had no sense of control over her properties.",
-                      },
-                    ].map((col) => (
-                      <div key={col.title} className="flex flex-col gap-3">
-                        <SubHeading>{col.title}</SubHeading>
-                        <p style={{ ...BODY_TEXT_STYLE }}>{col.body}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "1.5rem" }}>
-                    <Highlight variant="green" duration={600}>News</Highlight>
-                  </p>
-                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-                    {[
-                      {
-                        quote: "Scrolling through the feed actually helped me understand what ARK7 offers - I didn't feel like I was going in blind anymore.",
-                        author: "Ian",
-                      },
-                      {
-                        quote: "I wanted to know what was happening with my properties. The daily updates make it feel less like a black box.",
-                        author: "Lisa",
-                      },
-                    ].map((item) => (
-                      <article
-                        key={item.author}
-                        className="flex flex-col gap-3.5 md:gap-4"
-                      >
-                        <p
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "14px",
-                            lineHeight: "1.6",
-                            fontWeight: 450,
-                            fontStyle: "italic",
-                            color: "rgba(0,0,0,.65)",
-                            margin: 0,
-                          }}
-                        >
-                          &ldquo;{item.quote}&rdquo;
-                        </p>
-                        <p
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "14px",
-                            lineHeight: "150%",
-                            fontWeight: 500,
-                            color: "var(--color-muted)",
-                            margin: 0,
-                          }}
-                        >
-                          - {item.author}
-                        </p>
-                      </article>
-                    ))}
-                  </div>
-                  <Image
-                    src="/images/ARK7/news.webp"
-                    alt="News feature screens - short news, property detail, long article, comment, and notification"
-                    width={1600}
-                    height={900}
-                    className="w-full h-auto"
-                    loading="lazy"
-                  />
-                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "4rem" }}>
-                    <Highlight variant="green" duration={600}>Voting</Highlight>
-                  </p>
-                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-                    {[
-                      {
-                        quote: "I can't vote yet, but seeing how other investors think through decisions actually helped me feel less lost.",
-                        author: "Ian",
-                      },
-                      {
-                        quote: "It's the first time I've felt like I have any say in what happens with my properties.",
-                        author: "Lisa",
-                      },
-                    ].map((item) => (
-                      <article
-                        key={item.author}
-                        className="flex flex-col gap-3.5 md:gap-4"
-                      >
-                        <p
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "14px",
-                            lineHeight: "1.6",
-                            fontWeight: 450,
-                            fontStyle: "italic",
-                            color: "rgba(0,0,0,.65)",
-                            margin: 0,
-                          }}
-                        >
-                          &ldquo;{item.quote}&rdquo;
-                        </p>
-                        <p
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "14px",
-                            lineHeight: "150%",
-                            fontWeight: 500,
-                            color: "var(--color-muted)",
-                            margin: 0,
-                          }}
-                        >
-                          - {item.author}
-                        </p>
-                      </article>
-                    ))}
-                  </div>
-                  <Image
-                    src="/images/ARK7/voting.webp"
-                    alt="Voting feature screens"
-                    width={1600}
-                    height={900}
-                    className="w-full h-auto"
-                    loading="lazy"
-                  />
-                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "4rem" }}>
-                    <Highlight variant="green" duration={600}>Webinar</Highlight>
-                  </p>
-                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-                    {[
-                      {
-                        quote: "I don't have a finance background, so the beginner sessions were genuinely useful. I actually understood what I was putting money into.",
-                        author: "Ian",
-                      },
-                      {
-                        quote: "The quarterly reviews are worth it. You can ask questions directly instead of just reading a report.",
-                        author: "Lisa",
-                      },
-                    ].map((item) => (
-                      <article
-                        key={item.author}
-                        className="flex flex-col gap-3.5 md:gap-4"
-                      >
-                        <p
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "14px",
-                            lineHeight: "1.6",
-                            fontWeight: 450,
-                            fontStyle: "italic",
-                            color: "rgba(0,0,0,.65)",
-                            margin: 0,
-                          }}
-                        >
-                          &ldquo;{item.quote}&rdquo;
-                        </p>
-                        <p
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "14px",
-                            lineHeight: "150%",
-                            fontWeight: 500,
-                            color: "var(--color-muted)",
-                            margin: 0,
-                          }}
-                        >
-                          - {item.author}
-                        </p>
-                      </article>
-                    ))}
-                  </div>
-                  <Image
-                    src="/images/ARK7/webinar.webp"
-                    alt="Webinar feature screens"
-                    width={1600}
-                    height={900}
-                    className="w-full h-auto"
-                    loading="lazy"
-                  />
-                  <p style={{ ...BODY_TEXT_STYLE, marginTop: "4rem" }}>
-                    <Highlight variant="green" duration={600}>Discussion</Highlight>
-                  </p>
-                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-                    {[
-                      {
-                        quote: "It's nice to see what more experienced investors are doing before I put my money down.",
-                        author: "Ian",
-                      },
-                      {
-                        quote: "Finally a place to compare notes with people in the same property. We figured out something together that none of us would have caught alone.",
-                        author: "Lisa",
-                      },
-                    ].map((item) => (
-                      <article
-                        key={item.author}
-                        className="flex flex-col gap-3.5 md:gap-4"
-                      >
-                        <p
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "14px",
-                            lineHeight: "1.6",
-                            fontWeight: 450,
-                            fontStyle: "italic",
-                            color: "rgba(0,0,0,.65)",
-                            margin: 0,
-                          }}
-                        >
-                          &ldquo;{item.quote}&rdquo;
-                        </p>
-                        <p
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "14px",
-                            lineHeight: "150%",
-                            fontWeight: 500,
-                            color: "var(--color-muted)",
-                            margin: 0,
-                          }}
-                        >
-                          - {item.author}
-                        </p>
-                      </article>
-                    ))}
-                  </div>
-                  <Image
-                    src="/images/ARK7/discussion.webp"
-                    alt="Discussion feature screens"
-                    width={1600}
-                    height={900}
-                    className="w-full h-auto"
-                    loading="lazy"
-                  />
-                  </>
+                  <Ark7PrototypeFeatures />
                 ) : null}
 
                 {section.id === "design" ? (
@@ -1489,20 +1357,41 @@ export default function Ark7CaseStudyPage() {
                   </div>
                   <div className="mt-12 flex flex-col gap-4">
                     <SubHeading>What I took away</SubHeading>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                        fontSize: "15px",
-                        lineHeight: "150%",
-                        fontWeight: 400,
-                        color: "var(--color-ink)",
-                        margin: 0,
-                      }}
-                    >
-                      <Highlight variant="green" duration={1100}>Navigating the space between user needs and business caution</Highlight>
-                    </p>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                      <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)" }}>01</div>
+                      <p
+                        style={{
+                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                          fontSize: "15px",
+                          lineHeight: "150%",
+                          fontWeight: 400,
+                          color: "var(--color-ink)",
+                          margin: 0,
+                        }}
+                      >
+                        Navigating the space between user needs and business caution
+                      </p>
+                    </div>
                     <p style={{ ...BODY_TEXT_STYLE }}>
-                      The client was nervous about opening the platform to unfiltered investor commentary - they&apos;d seen community features go wrong before. My instinct was to push back. But sitting with their concern longer, I realized the better question wasn&apos;t &ldquo;how open?&rdquo; but &ldquo;what conditions make openness feel safe enough to ship?&rdquo; That reframe changed the conversation. Time-limited discussions and moderated formats weren&apos;t watered-down compromises - they were the constraints that made the design real.
+                      User needs and business goals don&apos;t always point the same way - and sometimes that tension is real, not just a communication problem. When they conflict, defaulting to one side doesn&apos;t work. Designs that ignore business constraints don&apos;t ship. Decisions that ignore users don&apos;t hold. The job is trusting your product instinct enough to find where both can actually be served.
+                    </p>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "4px", marginTop: "1rem" }}>
+                      <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)" }}>02</div>
+                      <p
+                        style={{
+                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                          fontSize: "15px",
+                          lineHeight: "150%",
+                          fontWeight: 400,
+                          color: "var(--color-ink)",
+                          margin: 0,
+                        }}
+                      >
+                        Not everything we designed survived
+                      </p>
+                    </div>
+                    <p style={{ ...BODY_TEXT_STYLE }}>
+                      After handoff, the product was reshaped multiple times - today only the News feature is still live. The honest part isn&apos;t what was outside my control. Some research moved faster than it should have, and decisions ended up built on thinner ground than I&apos;d want. Speed is a real constraint, but the right response isn&apos;t to do everything faster. It&apos;s to know what needs protecting. I didn&apos;t always get that right here.
                     </p>
                   </div>
                   </>
@@ -1516,7 +1405,7 @@ export default function Ark7CaseStudyPage() {
                         { step: "02", label: "CS team interviews", body: "Talked with ARK7's customer service team to map what complaints actually reached them - and what they couldn't explain." },
                         { step: "03", label: "Benchmarking against Arrived", body: "Deep-dived into Arrived - ARK7's closest direct competitor - to understand what they were doing differently to keep investors engaged." },
                       ].map((item) => (
-                        <div key={item.label} className="rounded-lg p-4" style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}>
+                        <div key={item.label} className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] p-4">
                           <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)", marginBottom: "10px" }}>{item.step}</div>
                           <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "rgba(26,26,26,0.85)", marginBottom: "6px", lineHeight: "1.3" }}>{item.label}</div>
                           <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.45", color: "rgba(26,26,26,0.5)" }}>{item.body}</div>
@@ -1547,7 +1436,7 @@ export default function Ark7CaseStudyPage() {
                       <p style={{ ...BODY_TEXT_STYLE }}>
                         Mapping user needs against business goals revealed a single bottleneck: both user types were stuck on opacity, just approaching it from opposite ends. That narrowed &ldquo;build trust&rdquo; into a specific, designable question.
                       </p>
-                      <div className="relative rounded-lg overflow-hidden p-6 md:p-10">
+                      <div className="relative rounded-lg overflow-hidden p-6 md:p-10" style={{ backgroundColor: "var(--color-subtle)" }}>
                         <Image
                           src="/images/ARK7/Bridge%20the%20gap.svg"
                           alt="Bridge the gap - HMW question mapping from user needs to business goals"
@@ -1620,6 +1509,7 @@ export default function Ark7CaseStudyPage() {
 
         <div className="hidden md:block" />
       </main>
+      <BackToTop />
     </div>
   );
 }
