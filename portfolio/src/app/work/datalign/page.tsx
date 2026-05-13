@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
@@ -26,24 +27,27 @@ const AUDIT_ISSUES = [
 
 const BEHAVIORAL_PATTERNS = [
   {
+    icon: "ri-time-line",
     title: "The interstitial screen looked like a finish line.",
     body: 'Our mid-flow "Did you know?" educational interlude looked like a match result. Users waited 30+ seconds for something to happen, then closed the tab. /match became our top U-turn exit.',
+    image: "/images/Datalign form/interstitial.png",
   },
   {
+    icon: "ri-arrow-go-back-line",
     title: "Users wanted to verify their numbers - and couldn't.",
     body: "After entering income and assets, users tried to jump back to double-check. There was no jump-to navigation. They had to click back 5-10 times, losing context each step. Many gave up.",
   },
   {
+    icon: "ri-error-warning-line",
     title: "Alert-driven U-turns.",
     body: "The Next button stayed active on required questions. No asterisks. Users clicked through, got an alert, assumed it referred to the previous page, and went back. A likely driver of the 9% U-turn rate.",
   },
 ];
 
 const OTHER_PATTERNS = [
-  "Step 1 dropped 40% of Forbes traffic - landing copy was failing immediately",
-  "Step 10 was the biggest mid-flow drop for Finance Advisors traffic - a complex question with high cognitive load",
-  "86% of Finance Advisors traffic was on mobile, but our form was desktop-first",
-  'Jargon like "Principal" excluded users with lower financial literacy - invisible in metrics, obvious in replays',
+  { text: "Step 1 (Landing screen) dropped 40% of publisher traffic - landing copy was failing immediately.", image: "/images/Datalign form/step 1.png" },
+  { text: "Step 10 (Asset breakdown) had the highest mid-flow drop-off - the question was too complex.", image: "/images/Datalign form/step 10.png" },
+  { text: 'Jargon like "Principal" excluded users with lower financial literacy - invisible in metrics, obvious in replays', image: "/images/Datalign form/jargon.png" },
 ];
 
 const DESIGN_PRINCIPLES = [
@@ -200,6 +204,11 @@ export default function DatalignCaseStudyPage() {
   const navListRef  = useRef<HTMLDivElement | null>(null);
   const [activeId, setActiveId] = useState(SECTIONS[0].id);
   const [dotY, setDotY]         = useState(0);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  useEffect(() => {
+    document.body.style.overflow = lightboxSrc ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [lightboxSrc]);
 
   const sectionIds = useMemo(() => SECTIONS.map((s) => s.id), []);
 
@@ -434,19 +443,18 @@ export default function DatalignCaseStudyPage() {
                       The form had been live for years. It worked: leads came in, matches went out, the business ran.
                     </p>
                     <p style={BODY}>But &ldquo;worked&rdquo; had a ceiling:</p>
-                    <ul className="flex flex-col gap-3 pl-0 m-0 list-none">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-5 mt-1">
                       {[
-                        { stat: "12% completion rate", detail: "across paid traffic" },
-                        { stat: "9% of sessions ended in a U-turn", detail: "users navigated in circles before giving up" },
-                        { stat: "1 in 3 users said they would not recommend the experience", detail: "citing the form as too long, too clinical, and disconnected from why any of it mattered" },
+                        { stat: "12%", detail: "completion rate across paid traffic" },
+                        { stat: "9%", detail: "of sessions ended in a U-turn - users navigated in circles before giving up" },
+                        { stat: "1 in 3", detail: "users said they would not recommend the experience, citing the form as too long, too clinical, and disconnected from why any of it mattered" },
                       ].map((item, i) => (
-                        <li key={i} className="flex gap-3 items-start">
-                          <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
-                          <p style={BODY}><strong>{item.stat}</strong> - {item.detail}</p>
-                        </li>
+                        <div key={i} className="flex flex-col gap-3 pt-4">
+                          <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "36px", lineHeight: 1, fontWeight: 400, letterSpacing: "-0.03em", color: "var(--color-ink)", margin: 0 }}>{item.stat}</p>
+                          <p style={BODY}>{item.detail}</p>
+                        </div>
                       ))}
-                    </ul>
-                    <p style={BODY}>The form was functional. It had never been designed.</p>
+                    </div>
                   </div>
                 </CaseScrollReveal>
               </div>
@@ -475,33 +483,12 @@ export default function DatalignCaseStudyPage() {
                         textWrap: "balance" as const,
                       }}
                     >
-                      The audit
+                      What broke and why
                     </h2>
                   </div>
                 </CaseScrollReveal>
 
                 <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
-                  <p style={BODY}>
-                    I ran a heuristic walkthrough of the live form against Nielsen&apos;s 10 principles. Five recurring issues:
-                  </p>
-                  <div className="overflow-x-auto">
-                    <table className="w-full border-collapse" style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif" }}>
-                      <thead>
-                        <tr>
-                          <th className="text-left border-b-2 border-[var(--color-ink-14)] py-2 pr-6" style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-ink-70)", letterSpacing: "0.02em", textTransform: "uppercase" }}>Issue</th>
-                          <th className="text-left border-b-2 border-[var(--color-ink-14)] py-2" style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-ink-70)", letterSpacing: "0.02em", textTransform: "uppercase" }}>What it costs</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {AUDIT_ISSUES.map((row, i) => (
-                          <tr key={i}>
-                            <td className="py-3 pr-6 border-b border-[var(--color-ink-06)] align-top" style={{ ...BODY, color: "var(--color-ink)", width: "50%" }}>{row.issue}</td>
-                            <td className="py-3 border-b border-[var(--color-ink-06)] align-top" style={BODY}>{row.cost}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
                   <p style={BODY}>
                     Across all five issues, one thing was clear:{" "}
                     <Highlight variant="blue" duration={800}>the form was built for the auction, not for the person filling it out.</Highlight>{" "}
@@ -509,7 +496,12 @@ export default function DatalignCaseStudyPage() {
                   </p>
 
                   <div className="mt-6 md:mt-8">
-                    <Img label="Annotated screenshots of the original form" aspect="4/3" />
+                    <div style={{ backgroundColor: "var(--color-subtle)", borderRadius: "12px", padding: "64px" }}>
+                      <img src="/images/Datalign form/UX audit.svg" alt="Annotated screenshots of the original form" style={{ width: "100%", display: "block" }} />
+                    </div>
+                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-50)", margin: 0, textAlign: "center" }}>
+                      One typical page - design and usability issues identified during the audit.
+                    </p>
                   </div>
 
                   <div className="flex flex-col gap-3.5 mt-8 md:mt-10">
@@ -519,38 +511,49 @@ export default function DatalignCaseStudyPage() {
                     </p>
                     <p style={BODY}>
                       I pulled{" "}
-                      <Highlight variant="blue" duration={800}>5,162 Forbes SEM sessions and 13,559 Finance Advisors sessions from Hotjar (18,700 total)</Highlight>, used AI to analyze them at scale, and ran a follow-up watch party with a peer designer on the sessions the data couldn&apos;t explain on its own.
+                      <Highlight variant="blue" duration={800}>5,162 Forbes SEM sessions and 13,559 Finance Advisors sessions from Hotjar (18,700 total)</Highlight>, used ChatGPT to clean and analyze the data at scale, and ran a follow-up watch party with a peer designer on the sessions the data couldn&apos;t explain on its own.
                     </p>
                     <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>Three behaviors stood out:</p>
                     <div className="flex flex-col gap-3">
                       {BEHAVIORAL_PATTERNS.map((pattern, i) => (
                         <div key={i} className="flex gap-4 rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] p-5">
                           <div
-                            className="shrink-0 flex items-center justify-center rounded-full"
-                            style={{ width: "24px", height: "24px", minWidth: "24px", backgroundColor: "var(--color-ink)", color: "#fff", fontSize: "11px", fontFamily: "var(--font-geist-sans)", fontWeight: 600, lineHeight: 1, marginTop: "2px" }}
+                            className="shrink-0 flex items-center justify-center"
+                            style={{ width: "24px", height: "24px", minWidth: "24px", marginTop: "2px" }}
                           >
-                            {i + 1}
+                            <i className={pattern.icon} style={{ fontSize: "18px", color: "var(--color-ink-50)" }} />
                           </div>
-                          <div className="flex flex-col gap-2">
-                            <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>{pattern.title}</p>
-                            <p style={BODY}>{pattern.body}</p>
+                          <div className="flex gap-4 flex-1 min-w-0 items-end">
+                            <div className="flex flex-col gap-2 flex-1 min-w-0">
+                              <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>{pattern.title}</p>
+                              <p style={BODY}>{pattern.body}</p>
+                            </div>
+                            {pattern.image && (
+                              <button
+                                onClick={() => setLightboxSrc(pattern.image!)}
+                                className="relative shrink-0 rounded overflow-hidden"
+                                style={{ width: "80px", border: "1px solid var(--color-ink-14)", background: "none", padding: 0, cursor: "zoom-in" }}
+                                aria-label="Expand image"
+                              >
+                                <img src={pattern.image} alt="" style={{ width: "80px", display: "block" }} />
+                                <div className="absolute inset-0 flex items-center justify-center" style={{ background: "rgba(0,0,0,0.18)" }}>
+                                  <i className="ri-zoom-in-line" style={{ fontSize: "14px", color: "#fff" }} />
+                                </div>
+                              </button>
+                            )}
                           </div>
                         </div>
                       ))}
                     </div>
                     <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>A few more patterns from the data:</p>
-                    <ul className="flex flex-col gap-2 pl-0 m-0 list-none">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6" style={{ background: "var(--color-subtle)", borderRadius: 12, padding: 32 }}>
                       {OTHER_PATTERNS.map((p, i) => (
-                        <li key={i} className="flex gap-3 items-start">
-                          <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
-                          <p style={BODY}>{p}</p>
-                        </li>
+                        <div key={i} className="flex flex-col gap-3">
+                          <img src={p.image} alt="" style={{ width: "100%", height: "auto", display: "block", borderRadius: 6 }} />
+                          <p style={BODY}>{p.text}</p>
+                        </div>
                       ))}
-                    </ul>
-                  </div>
-
-                  <div className="mt-6 md:mt-8">
-                    <Img label="Drop-off + U-turn map across the form" aspect="16/9" />
+                    </div>
                   </div>
 
                   <div className="flex flex-col gap-3.5 mt-8 md:mt-10">
@@ -559,8 +562,8 @@ export default function DatalignCaseStudyPage() {
                       I mapped 10+ wealth management competitors on a matrix: <em>Functional &rarr; Decent UX &rarr; Well-designed</em>.
                     </p>
 
-                    <div className="mt-6 md:mt-8">
-                      <Img label="Competitive landscape matrix" aspect="4/3" />
+                    <div className="mt-6 md:mt-8" style={{ background: "var(--color-subtle)", borderRadius: 12, padding: 64, marginBottom: 32 }}>
+                      <img src="/images/Datalign form/Landscape.png" alt="Competitive landscape matrix" style={{ width: "100%", display: "block", borderRadius: 8 }} />
                     </div>
 
                     <p style={BODY}>
@@ -624,7 +627,7 @@ export default function DatalignCaseStudyPage() {
                   </p>
 
                   <div className="mt-6 md:mt-8">
-                    <Img label="Photo or FigJam screenshot from the workshop" aspect="16/9" />
+                    <img src="/images/Datalign form/workshop.png" alt="Photo from the workshop" style={{ width: "100%", display: "block", borderRadius: 8 }} />
                   </div>
 
                   <div className="flex flex-col gap-2 mt-6">
@@ -819,7 +822,7 @@ export default function DatalignCaseStudyPage() {
                   ))}
 
                   <div className="flex flex-col gap-3.5 mt-8 md:mt-10">
-                    <SubHeading>Where we are right now</SubHeading>
+                    <h2 style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "24px", lineHeight: "1.2", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink)", marginBottom: "1rem", marginTop: 0, textWrap: "balance" }}>Where we are right now</h2>
                     <p style={BODY}>Phase 1 has shipped. Early data:</p>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-5 mt-1">
                       {[
@@ -827,7 +830,7 @@ export default function DatalignCaseStudyPage() {
                         { value: "9% → 5%",   label: "U-turn rate" },
                         { value: "~half",     label: "Step 1 drop-off" },
                       ].map((stat) => (
-                        <div key={stat.label} className="flex flex-col gap-3 pt-4" style={{ borderTop: "1px solid var(--color-ink-06)" }}>
+                        <div key={stat.label} className="flex flex-col gap-3">
                           <p style={{
                             fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                             fontSize: "36px",
@@ -843,7 +846,7 @@ export default function DatalignCaseStudyPage() {
                         </div>
                       ))}
                     </div>
-                    <p style={BODY}>Phase 2 is testing now.</p>
+
                   </div>
                 </CaseScrollReveal>
               </div>
@@ -880,6 +883,19 @@ export default function DatalignCaseStudyPage() {
         <div className="hidden md:block" />
       </main>
       <BackToTop />
+      {lightboxSrc && typeof document !== "undefined" && createPortal(
+        <div
+          style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.75)", cursor: "zoom-out" }}
+          onClick={() => setLightboxSrc(null)}
+        >
+          <img
+            src={lightboxSrc}
+            alt=""
+            style={{ maxWidth: "90vw", maxHeight: "90vh", borderRadius: "8px", boxShadow: "0 24px 64px rgba(0,0,0,0.4)", cursor: "zoom-out", display: "block" }}
+          />
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
