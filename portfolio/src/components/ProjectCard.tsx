@@ -400,7 +400,7 @@ export default function ProjectCard({
     <div
       id={`project-${project.id}`}
       className="scroll-mt-28"
-      style={{ breakInside: "avoid", marginBottom: "48px" }}
+      style={{ breakInside: "avoid", marginBottom: "24px" }}
     >
       <a
         href={project.href}

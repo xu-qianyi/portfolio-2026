@@ -52,6 +52,7 @@ export default function LottiePreview({
         animationData={animationData}
         loop={loop}
         autoplay
+        rendererSettings={{ preserveAspectRatio: "xMidYMid slice" }}
         style={{ width: "100%", height: "100%", position: "absolute", top: 0, left: 0 }}
       />
     );
