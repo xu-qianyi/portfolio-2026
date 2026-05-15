@@ -214,7 +214,7 @@ function FramedCard({ project }: { project: Project }) {
             alt={project.headline}
             width={project.width}
             height={project.height}
-            unoptimized={project.image.endsWith(".gif")}
+            unoptimized={project.image.endsWith(".gif") || project.image.endsWith(".svg")}
             style={{ imageRendering: "pixelated", display: "block" }}
           />
         ) : project.image.endsWith(".json") ? (
@@ -425,6 +425,7 @@ export default function ProjectCard({
               alt={project.headline}
               fill
               sizes={sizes}
+              unoptimized={project.image.endsWith(".svg")}
               style={{ objectFit: "cover" }}
             />
           )}

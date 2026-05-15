@@ -4,11 +4,11 @@ import ProjectCard from "@/components/ProjectCard";
 
 const HERO_TEXT: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "16px",
-  fontWeight: 500,
-  color: "var(--color-ink)",
-  lineHeight: "150%",
-  letterSpacing: "0px",
+  fontSize: "14px",
+  fontWeight: 450,
+  color: "rgba(0,0,0,0.8)",
+  lineHeight: "1.45rem",
+  letterSpacing: "-0.005em",
   margin: 0,
 };
 

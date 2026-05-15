@@ -53,7 +53,7 @@ const OTHER_PATTERNS = [
 const DESIGN_PRINCIPLES = [
   { num: "01", title: "Earn the next question.",             body: "Build trust before asking sensitive info." },
   { num: "02", title: "Give value back as users give input.", body: "Every answer should make the next moment feel personalized, not just feed a backend." },
-  { num: "03", title: "Have a personality.",                 body: "A consistent voice that makes users feel seen." },
+  { num: "03", title: "Have a personality.",                 body: "A consistent voice that reduces cognitive friction and builds institutional trust." },
 ];
 
 const TEST_PHASES = [
@@ -64,19 +64,15 @@ const TEST_PHASES = [
 
 const TAKEAWAYS = [
   {
-    title: 'Things that "work" can still be undesigned.',
-    body: "The form had shipped leads for years. That didn't mean it had been designed. On any inherited system, the first question is what's there because someone decided, versus what's there because it accumulated.",
-  },
-  {
-    title: "Simple things sit on top of complex systems.",
-    body: "Our form was 20 questions on the surface, a web of APIs underneath. Shipping the redesign step by step, not all at once, wasn't slow. It was the only path the system could absorb.",
+    title: "Phased delivery was the design, not the workaround.",
+    body: "The form's 20 visible questions ran through a web of internal and publisher APIs where even small changes carried real shipping risk. That depth set the strategy: layout first, content second, traffic optimization third. Each phase was scoped to what we could safely change - not to what felt comfortable.",
   },
 ];
 
 const META_ITEMS = [
   { label: "Role",     value: "Product Designer (Summer/Fall Co-op)" },
   { label: "Timeline", value: "May - Dec 2025" },
-  { label: "Team",     value: "Product Designer (me), 1 Senior designer, CSM, 2 Engineers, Data team" },
+  { label: "Team",     value: "Product Designer (me), 1 Senior Designer, CSM, 2 Engineers, Data Team" },
 ];
 
 type NavSection = { id: string; label: string };
@@ -341,7 +337,7 @@ export default function DatalignCaseStudyPage() {
               <p style={{ ...BODY, marginTop: "4px" }}>
                 The form had been live for years and converted just 12% of paid traffic - it was functional, never designed.{" "}
                 <Highlight variant="blue" duration={1200}>I researched the failure modes, facilitated a cross-functional workshop, and redesigned the intake experience end-to-end</Highlight>{" "}
-                to earn user trust question by question.
+                to address the structural failure modes behind an 88% abandonment rate.
               </p>
             </CaseScrollReveal>
 
@@ -443,13 +439,13 @@ export default function DatalignCaseStudyPage() {
                       The form had been live for years. It worked: leads came in, matches went out, the business ran.
                     </p>
                     <p style={BODY}>But &ldquo;worked&rdquo; had a ceiling:</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-5 mt-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-1">
                       {[
                         { stat: "12%", detail: "completion rate across paid traffic" },
                         { stat: "9%", detail: "of sessions ended in a U-turn - users navigated in circles before giving up" },
-                        { stat: "1 in 3", detail: "users said they would not recommend the experience, citing the form as too long, too clinical, and disconnected from why any of it mattered" },
+                        { stat: "1 in 3", detail: "users said they would not recommend the experience, citing the form as too long, too clinical, and lacking contextual justification for each question" },
                       ].map((item, i) => (
-                        <div key={i} className="flex flex-col gap-3 pt-4">
+                        <div key={i} className="flex flex-col gap-3 rounded-lg p-4" style={{ background: "#fff", boxShadow: "none" }}>
                           <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "36px", lineHeight: 1, fontWeight: 400, letterSpacing: "-0.03em", color: "var(--color-ink)", margin: 0 }}>{item.stat}</p>
                           <p style={BODY}>{item.detail}</p>
                         </div>
@@ -496,10 +492,10 @@ export default function DatalignCaseStudyPage() {
                   </p>
 
                   <div className="mt-6 md:mt-8">
-                    <div style={{ backgroundColor: "var(--color-subtle)", borderRadius: "12px", padding: "64px" }}>
+                    <div className="p-8 md:p-16 rounded-xl" style={{ backgroundColor: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
                       <img src="/images/Datalign form/UX audit.svg" alt="Annotated screenshots of the original form" style={{ width: "100%", display: "block" }} />
                     </div>
-                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-50)", margin: 0, textAlign: "center" }}>
+                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-50)", marginTop: "8px", textAlign: "center", opacity: 0.65 }}>
                       One typical page - design and usability issues identified during the audit.
                     </p>
                   </div>
@@ -507,11 +503,11 @@ export default function DatalignCaseStudyPage() {
                   <div className="flex flex-col gap-3.5 mt-8 md:mt-10">
                     <SubHeading>Watching what users actually did</SubHeading>
                     <p style={BODY}>
-                      Heuristics show what <em>might</em> be wrong. To find out what <em>was</em> actually wrong, I needed to see the form through real user behavior.
+                      To validate the heuristics, I analyzed real user behavior at scale.
                     </p>
                     <p style={BODY}>
                       I pulled{" "}
-                      <Highlight variant="blue" duration={800}>5,162 Forbes SEM sessions and 13,559 Finance Advisors sessions from Hotjar (18,700 total)</Highlight>, used ChatGPT to clean and analyze the data at scale, and ran a follow-up watch party with a peer designer on the sessions the data couldn&apos;t explain on its own.
+                      <Highlight variant="blue" duration={800}>5,162 Forbes SEM sessions and 13,559 Finance Advisors sessions from Hotjar (18,700 total)</Highlight>, used ChatGPT to clean and analyze the data at scale, and <Highlight variant="blue" duration={800}>ran a follow-up watch party</Highlight> with a peer designer on the sessions the data couldn&apos;t explain on its own.
                     </p>
                     <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>Three behaviors stood out:</p>
                     <div className="flex flex-col gap-3">
@@ -526,7 +522,7 @@ export default function DatalignCaseStudyPage() {
                           <div className="flex gap-4 flex-1 min-w-0 items-end">
                             <div className="flex flex-col gap-2 flex-1 min-w-0">
                               <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>{pattern.title}</p>
-                              <p style={BODY}>{pattern.body}</p>
+                              <p style={{ ...BODY, color: "var(--color-ink-50)", opacity: 0.5 }}>{pattern.body}</p>
                             </div>
                             {pattern.image && (
                               <button
@@ -545,14 +541,16 @@ export default function DatalignCaseStudyPage() {
                         </div>
                       ))}
                     </div>
-                    <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>A few more patterns from the data:</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6" style={{ background: "var(--color-subtle)", borderRadius: 12, padding: 32 }}>
+                    <div className="flex flex-col gap-3.5 mt-6 mb-2">
+                    <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>A few more patterns identified during watch parties:</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-8 rounded-xl" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
                       {OTHER_PATTERNS.map((p, i) => (
                         <div key={i} className="flex flex-col gap-3">
                           <img src={p.image} alt="" style={{ width: "100%", height: "auto", display: "block", borderRadius: 6 }} />
-                          <p style={BODY}>{p.text}</p>
+                          <p style={{ ...BODY, color: "var(--color-ink-50)", opacity: 0.5 }}>{p.text}</p>
                         </div>
                       ))}
+                    </div>
                     </div>
                   </div>
 
@@ -562,9 +560,12 @@ export default function DatalignCaseStudyPage() {
                       I mapped 10+ wealth management competitors on a matrix: <em>Functional &rarr; Decent UX &rarr; Well-designed</em>.
                     </p>
 
-                    <div className="mt-6 md:mt-8" style={{ background: "var(--color-subtle)", borderRadius: 12, padding: 64, marginBottom: 32 }}>
+                    <div className="mt-6 md:mt-8 p-8 md:p-16 rounded-xl" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
                       <img src="/images/Datalign form/Landscape.png" alt="Competitive landscape matrix" style={{ width: "100%", display: "block", borderRadius: 8 }} />
                     </div>
+                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-50)", marginTop: "8px", textAlign: "center", opacity: 0.65 }}>
+                      Datalign lands in the functional quadrant - with one of the longest forms on the map.
+                    </p>
 
                     <p style={BODY}>
                       <Highlight variant="blue" duration={800}>The longer the form, the more the experience design matters.</Highlight>{" "}
@@ -573,20 +574,18 @@ export default function DatalignCaseStudyPage() {
                     <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>A few competitors I looked at closely:</p>
                     <ul className="flex flex-col gap-3 pl-0 m-0 list-none">
                       {[
-                        { name: "Facet",                          body: "Friendly first-person narrator, gradual engagement, social proof at moments of hesitation." },
+                        { name: "Facet",                          body: "First-person narrator, gradual engagement, social proof at decision points." },
                         { name: "Boldin",                         body: "In-line financial analysis as you complete the form, rewarding users for continuing." },
                         { name: "Quinn (NerdWallet, SmartAsset)", body: "Chat-style interaction with logical grouping." },
                       ].map((item) => (
                         <li key={item.name} className="flex gap-3 items-start">
                           <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
-                          <p style={BODY}><strong>{item.name}</strong> - {item.body}</p>
+                          <p style={BODY}><span style={{ fontWeight: 600 }}>{item.name}</span> - {item.body}</p>
                         </li>
                       ))}
                     </ul>
-                    <p style={BODY}>Then I looked outside the category. One thing stuck with me.</p>
                     <p style={BODY}>
-                      <strong>Personality is the experience.</strong> Cleo and Lemonade are intake-form products like ours - users answer a series of questions before they get value. But their forms have a voice. Cleo is bold and cheeky. Lemonade&apos;s Maya is warm and patient. The mechanic is the same as ours. The feel is not.{" "}
-                      Datalign had no voice at all.
+                      <span style={{ fontWeight: 600 }}>Looking outside the category surfaced one consistent pattern.</span> Cleo and Lemonade use the same intake-form mechanic as Datalign - users answer a series of questions before they get value - but both sustain completion through a consistent editorial voice. Datalign had none.
                     </p>
                   </div>
                 </CaseScrollReveal>
@@ -630,16 +629,16 @@ export default function DatalignCaseStudyPage() {
                     <img src="/images/Datalign form/workshop.png" alt="Photo from the workshop" style={{ width: "100%", display: "block", borderRadius: 8 }} />
                   </div>
 
-                  <div className="flex flex-col gap-2 mt-6">
+                  <div className="mt-6 grid grid-cols-2 gap-3">
                     {[
-                      "What do we like about the current form?",
-                      "What do we not like?",
-                      "What assumptions have we never tested?",
-                      "How do we get there?",
-                    ].map((q, i) => (
-                      <div key={i} className="flex gap-4 items-start py-3 border-b border-[var(--color-ink-06)]">
-                        <span style={{ fontFamily: "var(--font-geist-sans)", fontSize: "13px", fontWeight: 600, color: "var(--color-muted)", flexShrink: 0, lineHeight: "160%", minWidth: "20px" }}>{i + 1}.</span>
-                        <p style={{ ...BODY, fontStyle: "italic" }}>&ldquo;{q}&rdquo;</p>
+                      { num: "Question 1", q: "What do we like about the current form?" },
+                      { num: "Question 2", q: "What do we not like?" },
+                      { num: "Question 3", q: "What assumptions have we never tested?" },
+                      { num: "Question 4", q: "How do we get there?" },
+                    ].map(({ num, q }) => (
+                      <div key={num} className="flex flex-col gap-2 rounded-lg p-4" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
+                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: 1.5, fontWeight: 550, letterSpacing: "-0.005em", color: "rgba(26,26,26,0.85)", margin: 0 }}>{num}</p>
+                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: 1.5, letterSpacing: "-0.005em", color: "rgba(26,26,26,0.45)", margin: 0 }}>{q}</p>
                       </div>
                     ))}
                   </div>
@@ -659,8 +658,9 @@ export default function DatalignCaseStudyPage() {
                     ))}
                   </ul>
                   <p style={BODY}>
-                    These became the core of our AB testing plan. Bringing the team into the same room turned my research into{" "}
-                    <Highlight variant="blue" duration={800}>the team&apos;s research</Highlight> - which meant they had buy-in to ship it.
+                    These became the core of our AB testing plan.{" "}
+                    <Highlight variant="blue" duration={800}>Structuring the session this way converted individual research findings into a shared testing roadmap</Highlight>{" "}
+                    - with Product and Engineering aligned on priorities before a line of design was drawn.
                   </p>
                 </CaseScrollReveal>
               </div>
@@ -696,11 +696,12 @@ export default function DatalignCaseStudyPage() {
 
                 <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
                   <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>Three principles came out of the research and the workshop:</p>
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-5">
                     {DESIGN_PRINCIPLES.map((p) => (
-                      <div key={p.num} className="flex gap-4 items-start">
-                        <span style={{ fontFamily: "var(--font-geist-sans)", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)", flexShrink: 0, lineHeight: "160%", paddingTop: "2px" }}>{p.num}</span>
-                        <p style={BODY}><strong>{p.title}</strong> {p.body}</p>
+                      <div key={p.num} className="flex flex-col gap-1.5">
+                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)" }}>{p.num}</div>
+                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", lineHeight: "150%", fontWeight: 500, color: "var(--color-ink)", margin: 0 }}>{p.title}</p>
+                        <p style={BODY}>{p.body}</p>
                       </div>
                     ))}
                   </div>
@@ -721,7 +722,7 @@ export default function DatalignCaseStudyPage() {
                   <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>Each step that follows layers in:</p>
                   <ul className="flex flex-col gap-2 pl-0 m-0 list-none">
                     {[
-                      "A persona (Claire) who narrates with warmth instead of sales copy",
+                      "A persona (Claire) who provides contextual narration instead of transactional copy",
                       'Data nuggets that contextualize each question ("Investors who work with an advisor are 3x more confident about reaching their goals")',
                       "A progress indicator so users know where they are",
                       "Branching paths - Plaid auto-complete (4 min), phone call, or manual entry (10 min)",
@@ -743,13 +744,11 @@ export default function DatalignCaseStudyPage() {
                   <div className="flex flex-col gap-3.5 mt-8 md:mt-10">
                     <SubHeading>From insight to test</SubHeading>
                     <p style={BODY}>
-                      Our form is deeply wired into the system. It plugs into the matching engine, multiple internal APIs, and our publishers&apos; APIs. Even a one-character change can take an engineer two days to ship. Testing redesign hypotheses through the in-house build wasn&apos;t viable at the speed we needed.
+                      The form connects to the matching engine, internal scoring APIs, and publisher contracts that lock question order and field names. A single letter change takes two days of engineering effort. So I proposed shipping the redesign through{" "}
+                      <Highlight variant="blue" duration={800}>Heyflow</Highlight>
+                      , an online form testing platform, on Datalign&apos;s live traffic. Build the form twice, test in weeks not quarters.
                     </p>
-                    <p style={BODY}>
-                      So I proposed shipping the redesign through{" "}
-                      <Highlight variant="blue" duration={800}>Heyflow</Highlight> - a no-code platform with conditional logic and built-in AB testing - as a stop-gap before the in-house build.
-                    </p>
-                    <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>Three-phase rollout:</p>
+                    <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>We had 20+ variables to test. They broke down into three phases:</p>
                     <div className="overflow-x-auto">
                       <table className="w-full border-collapse" style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif" }}>
                         <thead>
@@ -771,7 +770,7 @@ export default function DatalignCaseStudyPage() {
                       </table>
                     </div>
                     <p style={BODY}>
-                      Layout first, then content, then traffic-source fit. The in-house build that follows is shaped by what we learn here.
+                      Layout before content before traffic fit. Any lift has a clean explanation. The in-house build inherits only what we prove.
                     </p>
                   </div>
                 </CaseScrollReveal>
@@ -801,25 +800,27 @@ export default function DatalignCaseStudyPage() {
                         textWrap: "balance" as const,
                       }}
                     >
-                      What I&apos;m taking with me
+                      Learnings
                     </h2>
                   </div>
                 </CaseScrollReveal>
 
                 <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
-                  {TAKEAWAYS.map((item, i) => (
-                    <div key={i} className="flex flex-col gap-2" style={{ marginTop: i > 0 ? "1rem" : 0 }}>
-                      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)" }}>
-                          {String(i + 1).padStart(2, "0")}
+                  <div className="flex flex-col gap-6">
+                    {TAKEAWAYS.map((item, i) => (
+                      <div key={i} className="flex flex-col gap-2">
+                        <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)" }}>
+                            {String(i + 1).padStart(2, "0")}
+                          </div>
+                          <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", lineHeight: "150%", fontWeight: 400, color: "var(--color-ink)", margin: 0 }}>
+                            {item.title}
+                          </p>
                         </div>
-                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", lineHeight: "150%", fontWeight: 400, color: "var(--color-ink)", margin: 0 }}>
-                          {item.title}
-                        </p>
+                        <p style={BODY}>{item.body}</p>
                       </div>
-                      <p style={BODY}>{item.body}</p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
 
                   <div className="flex flex-col gap-3.5 mt-8 md:mt-10">
                     <h2 style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "24px", lineHeight: "1.2", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink)", marginBottom: "1rem", marginTop: 0, textWrap: "balance" }}>Where we are right now</h2>

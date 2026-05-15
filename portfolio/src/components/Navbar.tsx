@@ -28,13 +28,13 @@ export default function Navbar() {
         transition: "transform 300ms cubic-bezier(0.25, 1, 0.5, 1)",
       }}
     >
-      <div className="flex items-center justify-between py-5 px-6 lg:px-20 mx-auto">
+      <div className="flex items-center justify-between py-5 px-6 lg:px-[72px] mx-auto">
         {/* Logo */}
         <Link
           href="/"
           className="outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] text-[rgba(26,26,26,0.85)] hover:text-[#000000] transition-colors duration-150"
           style={{
-            fontFamily: "Georgia, serif",
+            fontFamily: "Geist, sans-serif",
             fontSize: "14px",
             fontWeight: 500,
             letterSpacing: "-0.01em",
