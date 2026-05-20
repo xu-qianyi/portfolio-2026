@@ -71,7 +71,7 @@ const TAKEAWAYS = [
 
 const META_ITEMS = [
   { label: "Role",     value: "Product Designer (Summer/Fall Co-op)" },
-  { label: "Timeline", value: "May - Dec 2025" },
+  { label: "Product type", value: "Lead generation form (Web)" },
   { label: "Team",     value: "Product Designer (me), 1 Senior Designer, CSM, 2 Engineers, Data Team" },
 ];
 
@@ -342,7 +342,14 @@ export default function DatalignCaseStudyPage() {
             </CaseScrollReveal>
 
             <CaseScrollReveal delay={60} className="mb-0">
-              <Img label="Hero image - before/after of the form" aspect="16/9" />
+              <video
+                src="/images/Datalign form/part1.webm"
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{ width: "100%", display: "block", borderRadius: 8 }}
+              />
             </CaseScrollReveal>
 
             <CaseScrollReveal delay={120}>
@@ -586,6 +593,18 @@ export default function DatalignCaseStudyPage() {
                     </ul>
                     <p style={BODY}>
                       <span style={{ fontWeight: 600 }}>Looking outside the category surfaced one consistent pattern.</span> Cleo and Lemonade use the same intake-form mechanic as Datalign - users answer a series of questions before they get value - but both sustain completion through a consistent editorial voice. Datalign had none.
+                    </p>
+                    <p style={BODY}>
+                      Two intake form paradigms dominate the space: conversational and traditional sequential. Conversational forms sustain completion through editorial voice; users feel guided rather than interrogated. Lemonade and Quinn both use this approach.
+                    </p>
+                    <p style={BODY}>
+                      But Datalign&rsquo;s form embeds across publisher sites, each with their own API constraints and preferred form length. Narrative control isn&rsquo;t possible at that scale.
+                    </p>
+                    <p style={BODY}>
+                      The constraint reframed the question: what drives completion in conversational forms isn&rsquo;t the format, it&rsquo;s the voice. That could be decoupled from the structure entirely.
+                    </p>
+                    <p style={BODY}>
+                      The solution kept the sequential format publishers require and introduced Claire as a separate layer. At each question, Claire surfaces what users are most likely to ask. The form stays portable. The voice stays consistent.
                     </p>
                   </div>
                 </CaseScrollReveal>
