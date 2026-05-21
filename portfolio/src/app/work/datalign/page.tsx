@@ -51,18 +51,28 @@ const OTHER_PATTERNS = [
 
 const DESIGN_DECISIONS = [
   {
-    pain: "The form opened with a question, not a name. Clinical copy, no warmth, no explanation for why questions were being asked. Users felt processed.",
-    solution: "Claire - a personal financial concierge - opens the form and guides users through. Each step gives something back: a data point, a reason, a sense that the next question was earned.",
-    image: "Step 1 - Claire intro card",
+    before: "The form opened with a question, not a name. Clinical copy, no warmth, no explanation for why questions were being asked. Users felt processed.",
+    after: "Claire, a personal financial concierge, opens the form and guides users through. Each step gives something back: a data point, a reason, a sense that the next question was earned.",
+    image: "Step 1: Claire intro card",
   },
   {
-    pain: "Users had no idea how far they were or how much was left. The interstitial screen looked like a finish line - users waited, then closed the tab.",
-    solution: "A persistent progress bar so users always know where they are. Branching entry paths upfront: Plaid auto-complete (4 min), phone call, or manual entry (10 min) - users choose their commitment level before they start.",
-    image: "Progress bar + branching choice screen",
+    before: "Fixing a mistake meant clicking back 5-10 times and losing all context. There was no way to jump to a specific step or verify answers without starting over.",
+    after: "A persistent step navigator lets users jump to any question and edit in place. Review mode shows a summary before submission - no backtracking required.",
+    image: "Step navigator + review screen",
   },
   {
-    pain: "Income and asset questions came before the form had earned them. Sliders defaulted to 'Other' at $800K, making the form feel inaccurate.",
-    solution: "High-friction questions move to the end, after trust is built. Sliders replaced with typed fields and asset buckets.",
+    before: "The form asked for sensitive financial data before explaining what it was for or what users would get in return. No relationship, no reason to trust.",
+    after: "Claire frames the value exchange before the hard questions: your answers help match you with an advisor who fits your situation. Users give data after understanding what it earns them.",
+    image: "Trust-building intro screen",
+  },
+  {
+    before: "'Why we ask' was hidden or absent. Users skipped questions they didn't understand, filled them in wrong, or abandoned the form entirely.",
+    after: "Claire surfaces the reason for each question inline, before users have to wonder. Plain language, no jargon, no asterisks.",
+    image: "Inline 'why we ask' tooltip",
+  },
+  {
+    before: "Income and asset questions appeared early, before any trust was established. Sliders defaulted to 'Other' at $800K, making the form feel inaccurate.",
+    after: "High-friction questions move to the end, after trust is built. Typed fields replace sliders; structured asset buckets replace open-ended guesswork.",
     image: "High-friction question redesign",
   },
 ];
@@ -551,7 +561,7 @@ export default function DatalignCaseStudyPage() {
                           <img src="/images/Datalign form/Traditional.svg" alt="Traditional form pattern - data-first, sequential" style={{ width: "100%", display: "block" }} />
                         </div>
                         <div className="flex flex-col gap-3 p-6 md:p-8 justify-center" style={{ background: "var(--color-surface)" }}>
-                          <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 600, color: "var(--color-ink)", margin: 0 }}>Traditional</p>
+                          <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "13px", fontWeight: 400, color: "#3B6FD4", background: "#EEF3FF", borderRadius: "6px", padding: "2px 10px", display: "inline-block", alignSelf: "flex-start", marginBottom: "8px" }}>Traditional</span>
                           <div className="flex flex-col gap-2">
                             <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Efficient - low friction, familiar pattern</p></div>
                             <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Works when brand trust is pre-established</p></div>
@@ -566,7 +576,7 @@ export default function DatalignCaseStudyPage() {
                           <img src="/images/Datalign form/Conversational.svg" alt="Conversational form pattern - relationship-first" style={{ width: "100%", display: "block" }} />
                         </div>
                         <div className="flex flex-col gap-3 p-6 md:p-8 justify-center" style={{ background: "var(--color-surface)" }}>
-                          <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 600, color: "var(--color-ink)", margin: 0 }}>Conversational</p>
+                          <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "13px", fontWeight: 400, color: "#3B6FD4", background: "#EEF3FF", borderRadius: "6px", padding: "2px 10px", display: "inline-block", alignSelf: "flex-start", marginBottom: "8px" }}>Conversational</span>
                           <div className="flex flex-col gap-2">
                             <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Builds trust progressively throughout the flow</p></div>
                             <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Reduces anxiety before sensitive questions</p></div>
@@ -607,7 +617,7 @@ export default function DatalignCaseStudyPage() {
                         textWrap: "balance" as const,
                       }}
                     >
-                      Pressure-testing the research with the team
+                      The workshop pressure-tested the direction and shaped the AB test plan.
                     </h2>
                   </div>
                 </CaseScrollReveal>
@@ -621,17 +631,14 @@ export default function DatalignCaseStudyPage() {
                     <img src="/images/Datalign form/v1.svg" alt="V1 design - pure conversational form proposal" style={{ width: "100%", display: "block" }} />
                   </div>
                   <p style={BODY}>
-                    The API locked question order and field names - a single change took two days of engineering effort.
+                    Conversational was technically possible, but with multiple APIs on the form, it meant costly engineering and partner negotiations we couldn&apos;t justify.
                   </p>
                   <p style={BODY}>
-                    That left one question: what actually makes a Conversational form work? Not the structure - the feeling. Warmth, a real human presence, the sense of being guided rather than processed. Those qualities aren&apos;t structural. They could transfer - and that became the working principle: <Highlight variant="blue" duration={800}>Conversational tone, Traditional structure.</Highlight>
+                    The question shifted: not structure, but feeling. Warmth, human presence, the sense of being guided rather than processed. Those qualities aren&apos;t structural. They can transfer. Working principle: <Highlight variant="blue" duration={800}>Conversational tone, Traditional structure.</Highlight>
                   </p>
-                  <p style={BODY}>
-                    I mapped three hypotheses around what Conversational does well: a real avatar for human presence, plain language over jargon for warmth, and removing the interstitial screen to maintain guided momentum. These became the AB test plan.
-                  </p>
-
                   <div className="mt-2 md:mt-4 mb-2">
                     <img src="/images/Datalign form/workshop.png" alt="Photo from the workshop" style={{ width: "100%", display: "block", borderRadius: 8 }} />
+                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-50)", marginTop: "8px", textAlign: "center" }}>Cross-functional workshop with Product, Engineering, and Data to align on hypotheses.</p>
                   </div>
                 </CaseScrollReveal>
               </div>
@@ -668,17 +675,19 @@ export default function DatalignCaseStudyPage() {
                 <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                   <div className="flex flex-col gap-10 md:gap-14 mt-2">
                     {DESIGN_DECISIONS.map((item, i) => (
-                      <div key={i} className="flex flex-col gap-4">
-                        <div className="flex flex-col gap-2 rounded-lg p-4 md:p-5" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.06)" }}>
-                          <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-40)" }}>Pain</span>
-                          <p style={{ ...BODY, color: "var(--color-ink-65)" }}>{item.pain}</p>
-                        </div>
-                        <div className="flex flex-col gap-3 pl-1">
-                          <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-50)" }}>Solution</span>
-                          <p style={BODY}>{item.solution}</p>
-                          <div className="mt-2">
-                            <Img label={item.image} aspect="4/3" />
+                      <div key={i} className="flex flex-col gap-0">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 rounded-xl overflow-hidden" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
+                          <div className="flex flex-col gap-2 p-5 md:p-6" style={{ background: "var(--color-subtle)" }}>
+                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-30)" }}>Before</span>
+                            <p style={{ ...BODY, color: "var(--color-ink-50)" }}>{item.before}</p>
                           </div>
+                          <div className="flex flex-col gap-2 p-5 md:p-6" style={{ background: "var(--color-surface)" }}>
+                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-50)" }}>After</span>
+                            <p style={BODY}>{item.after}</p>
+                          </div>
+                        </div>
+                        <div className="mt-3">
+                          <Img label={item.image} aspect="16/9" />
                         </div>
                       </div>
                     ))}
