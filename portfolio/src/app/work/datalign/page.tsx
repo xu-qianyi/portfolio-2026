@@ -27,33 +27,44 @@ const AUDIT_ISSUES = [
 
 const BEHAVIORAL_PATTERNS = [
   {
-    icon: "ri-time-line",
     title: "The interstitial screen looked like a finish line.",
-    body: 'Our mid-flow "Did you know?" educational interlude looked like a match result. Users waited 30+ seconds for something to happen, then closed the tab. /match became our top U-turn exit.',
+    body: "Users waited, then closed the tab.",
     image: "/images/Datalign form/interstitial.png",
   },
   {
-    icon: "ri-arrow-go-back-line",
-    title: "Users wanted to verify their numbers - and couldn't.",
-    body: "After entering income and assets, users tried to jump back to double-check. There was no jump-to navigation. They had to click back 5-10 times, losing context each step. Many gave up.",
+    title: "Users wanted to verify their numbers. They couldn't.",
+    body: "No jump-to navigation meant clicking back 5-10 times and losing all context.",
+    image: "/images/Datalign form/unable to verify numbers.png",
   },
   {
-    icon: "ri-error-warning-line",
-    title: "Alert-driven U-turns.",
-    body: "The Next button stayed active on required questions. No asterisks. Users clicked through, got an alert, assumed it referred to the previous page, and went back. A likely driver of the 9% U-turn rate.",
+    title: "The Next button was always active.",
+    body: "No fields were marked required. Users rage-clicked through, hit an error, and left.",
+    image: "/images/Datalign form/alert.png",
   },
 ];
 
 const OTHER_PATTERNS = [
-  { text: "Step 1 (Landing screen) dropped 40% of publisher traffic - landing copy was failing immediately.", image: "/images/Datalign form/step 1.png" },
-  { text: "Step 10 (Asset breakdown) had the highest mid-flow drop-off - the question was too complex.", image: "/images/Datalign form/step 10.png" },
-  { text: 'Jargon like "Principal" excluded users with lower financial literacy - invisible in metrics, obvious in replays', image: "/images/Datalign form/jargon.png" },
+  { text: "Step 1 dropped 40% of publisher traffic. The landing copy was failing from the start.", image: "/images/Datalign form/step 1.png" },
+  { text: "Step 10 had the highest mid-flow drop-off. The question was too complex.", image: "/images/Datalign form/step 10.png" },
+  { text: 'Jargon like "Principal" excluded users with lower financial literacy. Invisible in metrics, obvious in replays.', image: "/images/Datalign form/jargon.png" },
 ];
 
-const DESIGN_PRINCIPLES = [
-  { num: "01", title: "Earn the next question.",             body: "Build trust before asking sensitive info." },
-  { num: "02", title: "Give value back as users give input.", body: "Every answer should make the next moment feel personalized, not just feed a backend." },
-  { num: "03", title: "Have a personality.",                 body: "A consistent voice that reduces cognitive friction and builds institutional trust." },
+const DESIGN_DECISIONS = [
+  {
+    pain: "The form opened with a question, not a name. Clinical copy, no warmth, no explanation for why questions were being asked. Users felt processed.",
+    solution: "Claire - a personal financial concierge - opens the form and guides users through. Each step gives something back: a data point, a reason, a sense that the next question was earned.",
+    image: "Step 1 - Claire intro card",
+  },
+  {
+    pain: "Users had no idea how far they were or how much was left. The interstitial screen looked like a finish line - users waited, then closed the tab.",
+    solution: "A persistent progress bar so users always know where they are. Branching entry paths upfront: Plaid auto-complete (4 min), phone call, or manual entry (10 min) - users choose their commitment level before they start.",
+    image: "Progress bar + branching choice screen",
+  },
+  {
+    pain: "Income and asset questions came before the form had earned them. Sliders defaulted to 'Other' at $800K, making the form feel inaccurate.",
+    solution: "High-friction questions move to the end, after trust is built. Sliders replaced with typed fields and asset buckets.",
+    image: "High-friction question redesign",
+  },
 ];
 
 const TEST_PHASES = [
@@ -65,7 +76,7 @@ const TEST_PHASES = [
 const TAKEAWAYS = [
   {
     title: "Phased delivery was the design, not the workaround.",
-    body: "The form's 20 visible questions ran through a web of internal and publisher APIs where even small changes carried real shipping risk. That depth set the strategy: layout first, content second, traffic optimization third. Each phase was scoped to what we could safely change - not to what felt comfortable.",
+    body: "The form's 20 questions ran through internal and publisher APIs. Small changes had real shipping risk. So we phased: layout first, content second, traffic last. Each phase shipped only what we could safely touch.",
   },
 ];
 
@@ -78,11 +89,11 @@ const META_ITEMS = [
 type NavSection = { id: string; label: string };
 
 const SECTIONS: NavSection[] = [
-  { id: "overview", label: "Overview" },
-  { id: "research", label: "Research" },
-  { id: "workshop", label: "The workshop" },
-  { id: "design",   label: "Design" },
-  { id: "outcomes", label: "Outcomes" },
+  { id: "overview",  label: "Overview" },
+  { id: "research",  label: "Research" },
+  { id: "workshop",  label: "Workshop" },
+  { id: "design",    label: "Design" },
+  { id: "outcomes",  label: "Outcomes" },
 ];
 
 function SectionDivider({ label }: { label: string }) {
@@ -91,10 +102,11 @@ function SectionDivider({ label }: { label: string }) {
       <span
         style={{
           fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-          fontSize: "13px",
-          fontWeight: 550,
-          letterSpacing: "-0.005em",
-          color: "var(--color-ink-80)",
+          fontSize: "11px",
+          fontWeight: 500,
+          letterSpacing: "0.06em",
+          textTransform: "uppercase" as const,
+          color: "var(--color-ink-50)",
           whiteSpace: "nowrap",
         }}
       >
@@ -335,9 +347,8 @@ export default function DatalignCaseStudyPage() {
                 Redesigning the front door of a wealth management marketplace
               </h1>
               <p style={{ ...BODY, marginTop: "4px" }}>
-                The form had been live for years and converted just 12% of paid traffic - it was functional, never designed.{" "}
-                <Highlight variant="blue" duration={1200}>I researched the failure modes, facilitated a cross-functional workshop, and redesigned the intake experience end-to-end</Highlight>{" "}
-                to address the structural failure modes behind an 88% abandonment rate.
+                The lead generation form had been live for years and converted just 12% of paid traffic. Functional, never designed.{" "}
+                <Highlight variant="blue" duration={1200}>I mapped the failure modes, ran a cross-functional workshop, and redesigned the intake experience from scratch.</Highlight>
               </p>
             </CaseScrollReveal>
 
@@ -366,7 +377,7 @@ export default function DatalignCaseStudyPage() {
                         fontWeight: 500,
                         letterSpacing: ".04em",
                         textTransform: "uppercase",
-                        color: "var(--color-ink-70)",
+                        color: "var(--color-ink-50)",
                       }}
                     >
                       {item.label}
@@ -376,7 +387,7 @@ export default function DatalignCaseStudyPage() {
                         fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                         fontSize: "13px",
                         lineHeight: "1.45",
-                        color: "var(--color-ink-65)",
+                        color: "var(--color-ink-80)",
                       }}
                     >
                       {item.value}
@@ -396,40 +407,21 @@ export default function DatalignCaseStudyPage() {
             <section
               id="overview"
               ref={(el) => { sectionRefs.current["overview"] = el; }}
-              className="scroll-mt-24 pt-16"
+              className="scroll-mt-24 pt-20"
             >
               <div className="flex min-w-0 w-full flex-col gap-0">
                 <CaseScrollReveal>
                   <div className="flex flex-col gap-0">
                     <SectionDivider label="Overview" />
-                    <h2
-                      style={{
-                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                        fontSize: "24px",
-                        lineHeight: "1.2",
-                        fontWeight: 500,
-                        letterSpacing: "-0.01em",
-                        color: "var(--color-ink)",
-                        marginBottom: "1rem",
-                        marginTop: 0,
-                        textWrap: "balance" as const,
-                      }}
-                    >
-                      What Datalign is
-                    </h2>
                   </div>
                 </CaseScrollReveal>
 
-                <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
+                <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                   <p style={BODY}>
-                    <a href="https://datalign.com/" target="_blank" rel="noopener noreferrer" className="case-inline-link">Datalign</a> is a lead marketplace for wealth management. Consumers fill out a 20-question intake form to get matched with a registered investment advisor (RIA). Partner firms bid on the lead in an auction, and the user is connected with the winning firm.
-                  </p>
-                  <p style={BODY}>
-                    The form <em>is</em> the front door.{" "}
-                    <Highlight variant="blue" duration={800}>No form, no match, no business.</Highlight>
+                    <a href="https://datalign.com/" target="_blank" rel="noopener noreferrer" className="case-inline-link">Datalign</a> matches consumers with financial advisors through a 20-question intake form. Partner firms bid on the lead in an auction. <Highlight variant="blue" duration={800}>No form, no match, no business.</Highlight>
                   </p>
 
-                  <div className="mt-6 md:mt-8">
+                  <div className="mt-2 md:mt-4">
                     <Image
                       src="/images/Datalign form/who is datalign.svg"
                       alt="Diagram showing how Datalign connects consumers through a form to a match auction and then to an RIA firm"
@@ -440,21 +432,17 @@ export default function DatalignCaseStudyPage() {
                     />
                   </div>
 
-                  <div className="flex flex-col gap-3.5 mt-6 md:mt-8">
+                  <div className="flex flex-col gap-4 mt-10 md:mt-12">
                     <SubHeading>The problem</SubHeading>
-                    <p style={BODY}>
-                      The form had been live for years. It worked: leads came in, matches went out, the business ran.
-                    </p>
-                    <p style={BODY}>But &ldquo;worked&rdquo; had a ceiling:</p>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-1">
                       {[
                         { stat: "12%", detail: "completion rate across paid traffic" },
-                        { stat: "9%", detail: "of sessions ended in a U-turn - users navigated in circles before giving up" },
-                        { stat: "1 in 3", detail: "users said they would not recommend the experience, citing the form as too long, too clinical, and lacking contextual justification for each question" },
+                        { stat: "9%", detail: "of sessions ended in a U-turn. Users navigated in circles before giving up." },
+                        { stat: "1 in 3", detail: "users said they wouldn't recommend it - too long, too clinical, no explanation for why each question was being asked" },
                       ].map((item, i) => (
                         <div key={i} className="flex flex-col gap-3 rounded-lg p-4" style={{ background: "#fff", boxShadow: "none" }}>
                           <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "36px", lineHeight: 1, fontWeight: 400, letterSpacing: "-0.03em", color: "var(--color-ink)", margin: 0 }}>{item.stat}</p>
-                          <p style={BODY}>{item.detail}</p>
+                          <p style={{ ...BODY, color: "var(--color-ink-50)" }}>{item.detail}</p>
                         </div>
                       ))}
                     </div>
@@ -467,7 +455,7 @@ export default function DatalignCaseStudyPage() {
             <section
               id="research"
               ref={(el) => { sectionRefs.current["research"] = el; }}
-              className="scroll-mt-24 pt-16"
+              className="scroll-mt-24 pt-20"
             >
               <div className="flex min-w-0 w-full flex-col gap-0">
                 <CaseScrollReveal>
@@ -491,136 +479,121 @@ export default function DatalignCaseStudyPage() {
                   </div>
                 </CaseScrollReveal>
 
-                <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
-                  <p style={BODY}>
-                    Across all five issues, one thing was clear:{" "}
-                    <Highlight variant="blue" duration={800}>the form was built for the auction, not for the person filling it out.</Highlight>{" "}
-                    Each question existed because the matching engine needed it, not because the user understood why it mattered.
-                  </p>
-
-                  <div className="mt-6 md:mt-8">
+                <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+                  <div className="mt-0 md:mt-2">
                     <div className="p-8 md:p-16 rounded-xl" style={{ backgroundColor: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
                       <img src="/images/Datalign form/UX audit.svg" alt="Annotated screenshots of the original form" style={{ width: "100%", display: "block" }} />
                     </div>
-                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-50)", marginTop: "8px", textAlign: "center", opacity: 0.65 }}>
-                      One typical page - design and usability issues identified during the audit.
+                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-50)", marginTop: "8px", textAlign: "center" }}>
+                      One typical page. Design and usability issues identified during the audit.
                     </p>
                   </div>
 
-                  <div className="flex flex-col gap-3.5 mt-8 md:mt-10">
-                    <SubHeading>Watching what users actually did</SubHeading>
-                    <p style={BODY}>
-                      To validate the heuristics, I analyzed real user behavior at scale.
-                    </p>
+                  <div className="flex flex-col gap-4 mt-12 md:mt-14">
+                    <SubHeading>18,700 sessions revealed where users gave up - and why</SubHeading>
                     <p style={BODY}>
                       I pulled{" "}
-                      <Highlight variant="blue" duration={800}>5,162 Forbes SEM sessions and 13,559 Finance Advisors sessions from Hotjar (18,700 total)</Highlight>, used ChatGPT to clean and analyze the data at scale, and <Highlight variant="blue" duration={800}>ran a follow-up watch party</Highlight> with a peer designer on the sessions the data couldn&apos;t explain on its own.
+                      <Highlight variant="blue" duration={800}>5,162 Forbes SEM sessions and 13,559 Finance Advisors sessions from Hotjar</Highlight>, used ChatGPT to clean and analyze the data at scale, and <Highlight variant="blue" duration={800}>ran a follow-up watch party</Highlight> with a peer designer on the sessions the data couldn&apos;t explain on its own.
                     </p>
-                    <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>Three behaviors stood out:</p>
-                    <div className="flex flex-col gap-3">
-                      {BEHAVIORAL_PATTERNS.map((pattern, i) => (
-                        <div key={i} className="flex gap-4 rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] p-5">
-                          <div
-                            className="shrink-0 flex items-center justify-center"
-                            style={{ width: "24px", height: "24px", minWidth: "24px", marginTop: "2px" }}
-                          >
-                            <i className={pattern.icon} style={{ fontSize: "18px", color: "var(--color-ink-50)" }} />
-                          </div>
-                          <div className="flex gap-4 flex-1 min-w-0 items-end">
-                            <div className="flex flex-col gap-2 flex-1 min-w-0">
-                              <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>{pattern.title}</p>
-                              <p style={{ ...BODY, color: "var(--color-ink-50)", opacity: 0.5 }}>{pattern.body}</p>
+                    <div className="rounded-xl p-5 md:p-8 mt-1" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
+                      <p style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "18px", lineHeight: "1.3", fontWeight: 500, color: "var(--color-ink-65)", margin: "0 0 2rem", textAlign: "center", textWrap: "balance" as const }}>Confusing design was driving U-turns and drop-offs</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                        {BEHAVIORAL_PATTERNS.map((pattern, i) => (
+                          <div key={i} className="flex flex-col gap-3">
+                            <button
+                              onClick={() => setLightboxSrc(pattern.image)}
+                              className="relative rounded-lg overflow-hidden"
+                              style={{ padding: 0, background: "none", border: "none", cursor: "zoom-in", display: "block", width: "100%", aspectRatio: "4/3" }}
+                              aria-label="Expand image"
+                            >
+                              <img src={pattern.image} alt="" style={{ width: "100%", height: "100%", display: "block", objectFit: "cover", objectPosition: "top center", borderRadius: 6 }} />
+                              <div className="absolute inset-0 flex items-end justify-end p-2 opacity-0 hover:opacity-100 transition-opacity duration-150" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.18) 0%, transparent 60%)", borderRadius: 6 }}>
+                                <i className="ri-zoom-in-line" style={{ fontSize: "13px", color: "#fff" }} />
+                              </div>
+                            </button>
+                            <div className="flex flex-col gap-1">
+                              <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink-80)" }}>{pattern.title}</p>
+                              <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.55", letterSpacing: "-0.005em", color: "var(--color-ink-40)" }}>{pattern.body}</p>
                             </div>
-                            {pattern.image && (
-                              <button
-                                onClick={() => setLightboxSrc(pattern.image!)}
-                                className="relative shrink-0 rounded overflow-hidden"
-                                style={{ width: "80px", border: "1px solid var(--color-ink-14)", background: "none", padding: 0, cursor: "zoom-in" }}
-                                aria-label="Expand image"
-                              >
-                                <img src={pattern.image} alt="" style={{ width: "80px", display: "block" }} />
-                                <div className="absolute inset-0 flex items-center justify-center" style={{ background: "rgba(0,0,0,0.18)" }}>
-                                  <i className="ri-zoom-in-line" style={{ fontSize: "14px", color: "#fff" }} />
-                                </div>
-                              </button>
-                            )}
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex flex-col gap-3.5 mt-6 mb-2">
-                    <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>A few more patterns identified during watch parties:</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-8 rounded-xl" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
-                      {OTHER_PATTERNS.map((p, i) => (
-                        <div key={i} className="flex flex-col gap-3">
-                          <img src={p.image} alt="" style={{ width: "100%", height: "auto", display: "block", borderRadius: 6 }} />
-                          <p style={{ ...BODY, color: "var(--color-ink-50)", opacity: 0.5 }}>{p.text}</p>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-3.5 mt-8 md:mt-10">
-                    <SubHeading>Looking outward</SubHeading>
+                  <div className="flex flex-col gap-4 mt-12 md:mt-14">
+                    <SubHeading>The best competitors had a consistent voice. Datalign had none.</SubHeading>
                     <p style={BODY}>
-                      I mapped 10+ wealth management competitors on a matrix: <em>Functional &rarr; Decent UX &rarr; Well-designed</em>.
+                      I mapped 10+ competitors across a <em>Functional &rarr; Decent UX &rarr; Well-designed</em> axis. <Highlight variant="blue" duration={800}>The longer the form, the more experience design matters</Highlight> - Datalign runs 20+ questions but designs like a short-form tool.
                     </p>
 
                     <div className="mt-6 md:mt-8 p-8 md:p-16 rounded-xl" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
                       <img src="/images/Datalign form/Landscape.png" alt="Competitive landscape matrix" style={{ width: "100%", display: "block", borderRadius: 8 }} />
                     </div>
-                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-50)", marginTop: "8px", textAlign: "center", opacity: 0.65 }}>
-                      Datalign lands in the functional quadrant - with one of the longest forms on the map.
+                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-50)", marginTop: "8px", textAlign: "center" }}>
+                      Datalign lands in the functional quadrant, with one of the longest forms on the map.
                     </p>
 
                     <p style={BODY}>
-                      <Highlight variant="blue" duration={800}>The longer the form, the more the experience design matters.</Highlight>{" "}
-                      Datalign sits in the long-form camp (20+ questions) but designs like a short-form tool.
+                      The ones doing it well - Facet, Boldin, Quinn - carry users through with a consistent editorial voice. Datalign had none.
                     </p>
-                    <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>A few competitors I looked at closely:</p>
-                    <ul className="flex flex-col gap-3 pl-0 m-0 list-none">
-                      {[
-                        { name: "Facet",                          body: "First-person narrator, gradual engagement, social proof at decision points." },
-                        { name: "Boldin",                         body: "In-line financial analysis as you complete the form, rewarding users for continuing." },
-                        { name: "Quinn (NerdWallet, SmartAsset)", body: "Chat-style interaction with logical grouping." },
-                      ].map((item) => (
-                        <li key={item.name} className="flex gap-3 items-start">
-                          <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
-                          <p style={BODY}><span style={{ fontWeight: 600 }}>{item.name}</span> - {item.body}</p>
-                        </li>
-                      ))}
-                    </ul>
+                  </div>
+
+                  <div className="flex flex-col gap-4 mt-12 md:mt-14">
+                    <SubHeading>Outside fintech, two patterns dominate.</SubHeading>
                     <p style={BODY}>
-                      <span style={{ fontWeight: 600 }}>Looking outside the category surfaced one consistent pattern.</span> Cleo and Lemonade use the same intake-form mechanic as Datalign - users answer a series of questions before they get value - but both sustain completion through a consistent editorial voice. Datalign had none.
+                      Lead gen and intake forms outside the industry split into two models.
                     </p>
+                    <div className="flex flex-col gap-4 mt-2">
+                      {/* Traditional */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-xl overflow-hidden" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
+                        <div className="p-6 md:p-10" style={{ background: "var(--color-subtle)" }}>
+                          <img src="/images/Datalign form/Traditional.svg" alt="Traditional form pattern - data-first, sequential" style={{ width: "100%", display: "block" }} />
+                        </div>
+                        <div className="flex flex-col gap-3 p-6 md:p-8 justify-center" style={{ background: "var(--color-surface)" }}>
+                          <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 600, color: "var(--color-ink)", margin: 0 }}>Traditional</p>
+                          <div className="flex flex-col gap-2">
+                            <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Efficient - low friction, familiar pattern</p></div>
+                            <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Works when brand trust is pre-established</p></div>
+                            <div className="flex gap-2 items-start"><i className="ri-close-circle-fill" style={{ fontSize: "15px", color: "#DC2626", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Feels transactional - data before relationship</p></div>
+                            <div className="flex gap-2 items-start"><i className="ri-close-circle-fill" style={{ fontSize: "15px", color: "#DC2626", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>High drop-off with cold, unfamiliar traffic</p></div>
+                          </div>
+                        </div>
+                      </div>
+                      {/* Conversational */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-xl overflow-hidden" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
+                        <div className="p-6 md:p-10" style={{ background: "var(--color-subtle)" }}>
+                          <img src="/images/Datalign form/Conversational.svg" alt="Conversational form pattern - relationship-first" style={{ width: "100%", display: "block" }} />
+                        </div>
+                        <div className="flex flex-col gap-3 p-6 md:p-8 justify-center" style={{ background: "var(--color-surface)" }}>
+                          <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 600, color: "var(--color-ink)", margin: 0 }}>Conversational</p>
+                          <div className="flex flex-col gap-2">
+                            <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Builds trust progressively throughout the flow</p></div>
+                            <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Reduces anxiety before sensitive questions</p></div>
+                            <div className="flex gap-2 items-start"><i className="ri-close-circle-fill" style={{ fontSize: "15px", color: "#DC2626", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Slower - more reading, more steps</p></div>
+                            <div className="flex gap-2 items-start"><i className="ri-close-circle-fill" style={{ fontSize: "15px", color: "#DC2626", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Harder to layer onto a locked question structure</p></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <p style={BODY}>
-                      Two intake form paradigms dominate the space: conversational and traditional sequential. Conversational forms sustain completion through editorial voice; users feel guided rather than interrogated. Lemonade and Quinn both use this approach.
-                    </p>
-                    <p style={BODY}>
-                      But Datalign&rsquo;s form embeds across publisher sites, each with their own API constraints and preferred form length. Narrative control isn&rsquo;t possible at that scale.
-                    </p>
-                    <p style={BODY}>
-                      The constraint reframed the question: what drives completion in conversational forms isn&rsquo;t the format, it&rsquo;s the voice. That could be decoupled from the structure entirely.
-                    </p>
-                    <p style={BODY}>
-                      The solution kept the sequential format publishers require and introduced Claire as a separate layer. At each question, Claire surfaces what users are most likely to ask. The form stays portable. The voice stays consistent.
+                      <Highlight variant="blue" duration={800}>Datalign&apos;s users arrive through paid traffic - no prior relationship, no brand familiarity. The research pointed toward Conversational.</Highlight>
                     </p>
                   </div>
                 </CaseScrollReveal>
               </div>
             </section>
 
-            {/* The workshop */}
+            {/* Workshop */}
             <section
               id="workshop"
               ref={(el) => { sectionRefs.current["workshop"] = el; }}
-              className="scroll-mt-24 pt-16"
+              className="scroll-mt-24 pt-20"
             >
               <div className="flex min-w-0 w-full flex-col gap-0">
                 <CaseScrollReveal>
                   <div className="flex flex-col gap-0">
-                    <SectionDivider label="The workshop" />
+                    <SectionDivider label="Workshop" />
                     <h2
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
@@ -634,53 +607,32 @@ export default function DatalignCaseStudyPage() {
                         textWrap: "balance" as const,
                       }}
                     >
-                      Turning research into shared hypotheses
+                      Pressure-testing the research with the team
                     </h2>
                   </div>
                 </CaseScrollReveal>
 
-                <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
+                <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                   <p style={BODY}>
-                    I organized and facilitated a cross-functional workshop with Product, Engineering, and Data team. Four prompts structured the session:
+                    I brought the research and a Conversational design proposal to a cross-functional workshop with Product, Engineering, and Data. The goal: align on the direction, then pressure-test the hypotheses.
+                  </p>
+                  <div className="rounded-xl p-6 md:p-10 flex flex-col gap-4" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
+                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-50)", margin: 0 }}>V1 - Conversational</p>
+                    <img src="/images/Datalign form/v1.svg" alt="V1 design - pure conversational form proposal" style={{ width: "100%", display: "block" }} />
+                  </div>
+                  <p style={BODY}>
+                    The API locked question order and field names - a single change took two days of engineering effort.
+                  </p>
+                  <p style={BODY}>
+                    That left one question: what actually makes a Conversational form work? Not the structure - the feeling. Warmth, a real human presence, the sense of being guided rather than processed. Those qualities aren&apos;t structural. They could transfer - and that became the working principle: <Highlight variant="blue" duration={800}>Conversational tone, Traditional structure.</Highlight>
+                  </p>
+                  <p style={BODY}>
+                    I mapped three hypotheses around what Conversational does well: a real avatar for human presence, plain language over jargon for warmth, and removing the interstitial screen to maintain guided momentum. These became the AB test plan.
                   </p>
 
-                  <div className="mt-6 md:mt-8">
+                  <div className="mt-2 md:mt-4 mb-2">
                     <img src="/images/Datalign form/workshop.png" alt="Photo from the workshop" style={{ width: "100%", display: "block", borderRadius: 8 }} />
                   </div>
-
-                  <div className="mt-6 grid grid-cols-2 gap-3">
-                    {[
-                      { num: "Question 1", q: "What do we like about the current form?" },
-                      { num: "Question 2", q: "What do we not like?" },
-                      { num: "Question 3", q: "What assumptions have we never tested?" },
-                      { num: "Question 4", q: "How do we get there?" },
-                    ].map(({ num, q }) => (
-                      <div key={num} className="flex flex-col gap-2 rounded-lg p-4" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
-                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: 1.5, fontWeight: 550, letterSpacing: "-0.005em", color: "rgba(26,26,26,0.85)", margin: 0 }}>{num}</p>
-                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: 1.5, letterSpacing: "-0.005em", color: "rgba(26,26,26,0.45)", margin: 0 }}>{q}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <p style={BODY}>
-                    The output was a list of testable hypotheses - design decisions we had been making on instinct without ever measuring:
-                  </p>
-                  <ul className="flex flex-col gap-2 pl-0 m-0 list-none">
-                    {[
-                      "Does adding a real human avatar drive higher completion?",
-                      "Does rewording financial jargon reduce user confusion?",
-                      "Is the interstitial screen helping, or hurting?",
-                    ].map((a, i) => (
-                      <li key={i} className="flex gap-3 items-baseline">
-                        <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
-                        <p style={{ ...BODY, fontStyle: "italic" }}>{a}</p>
-                      </li>
-                    ))}
-                  </ul>
-                  <p style={BODY}>
-                    These became the core of our AB testing plan.{" "}
-                    <Highlight variant="blue" duration={800}>Structuring the session this way converted individual research findings into a shared testing roadmap</Highlight>{" "}
-                    - with Product and Engineering aligned on priorities before a line of design was drawn.
-                  </p>
                 </CaseScrollReveal>
               </div>
             </section>
@@ -689,7 +641,7 @@ export default function DatalignCaseStudyPage() {
             <section
               id="design"
               ref={(el) => { sectionRefs.current["design"] = el; }}
-              className="scroll-mt-24 pt-16"
+              className="scroll-mt-24 pt-20"
             >
               <div className="flex min-w-0 w-full flex-col gap-0">
                 <CaseScrollReveal>
@@ -708,60 +660,32 @@ export default function DatalignCaseStudyPage() {
                         textWrap: "balance" as const,
                       }}
                     >
-                      The redesign
+                      From a transaction to a conversation
                     </h2>
                   </div>
                 </CaseScrollReveal>
 
-                <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
-                  <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>Three principles came out of the research and the workshop:</p>
-                  <div className="flex flex-col gap-5">
-                    {DESIGN_PRINCIPLES.map((p) => (
-                      <div key={p.num} className="flex flex-col gap-1.5">
-                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)" }}>{p.num}</div>
-                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", lineHeight: "150%", fontWeight: 500, color: "var(--color-ink)", margin: 0 }}>{p.title}</p>
-                        <p style={BODY}>{p.body}</p>
+                <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-10 md:gap-14 mt-2">
+                    {DESIGN_DECISIONS.map((item, i) => (
+                      <div key={i} className="flex flex-col gap-4">
+                        <div className="flex flex-col gap-2 rounded-lg p-4 md:p-5" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.06)" }}>
+                          <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-40)" }}>Pain</span>
+                          <p style={{ ...BODY, color: "var(--color-ink-65)" }}>{item.pain}</p>
+                        </div>
+                        <div className="flex flex-col gap-3 pl-1">
+                          <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-50)" }}>Solution</span>
+                          <p style={BODY}>{item.solution}</p>
+                          <div className="mt-2">
+                            <Img label={item.image} aspect="4/3" />
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>
-                  <p style={BODY}>The new form opens with a name, not a question:</p>
-                  <blockquote
-                    className="pl-5 my-2"
-                    style={{ borderLeft: "1.5px solid rgba(0, 0, 0, 0.08)", margin: 0 }}
-                  >
-                    <p className="text-[14px] font-[450] leading-[1.6] italic text-[rgba(0,0,0,.65)]">
-                      &ldquo;Hi, I&apos;m Claire - your personal financial concierge. How should I call you?&rdquo;
-                    </p>
-                  </blockquote>
 
-                  <div className="mt-6 md:mt-8">
-                    <Img label="Step 1 - Claire intro card" aspect="4/3" />
-                  </div>
-
-                  <p style={{ ...BODY, fontWeight: 500, color: "var(--color-ink)" }}>Each step that follows layers in:</p>
-                  <ul className="flex flex-col gap-2 pl-0 m-0 list-none">
-                    {[
-                      "A persona (Claire) who provides contextual narration instead of transactional copy",
-                      'Data nuggets that contextualize each question ("Investors who work with an advisor are 3x more confident about reaching their goals")',
-                      "A progress indicator so users know where they are",
-                      "Branching paths - Plaid auto-complete (4 min), phone call, or manual entry (10 min)",
-                    ].map((item, i) => (
-                      <li key={i} className="flex gap-3 items-start">
-                        <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
-                        <p style={BODY}>{item}</p>
-                      </li>
-                    ))}
-                  </ul>
-                  <p style={BODY}>
-                    High-friction questions (income, assets) come <em>after</em> trust is built, and use simpler inputs (typed fields, asset buckets) instead of the original sliders.
-                  </p>
-
-                  <div className="mt-6 md:mt-8">
-                    <Img label="Branching choice screen + key step UI" aspect="4/3" />
-                  </div>
-
-                  <div className="flex flex-col gap-3.5 mt-8 md:mt-10">
-                    <SubHeading>From insight to test</SubHeading>
+                  <div className="flex flex-col gap-4 mt-12 md:mt-14">
+                    <SubHeading>Shipping the redesign without touching the backend</SubHeading>
                     <p style={BODY}>
                       The form connects to the matching engine, internal scoring APIs, and publisher contracts that lock question order and field names. A single letter change takes two days of engineering effort. So I proposed shipping the redesign through{" "}
                       <Highlight variant="blue" duration={800}>Heyflow</Highlight>
@@ -772,9 +696,9 @@ export default function DatalignCaseStudyPage() {
                       <table className="w-full border-collapse" style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif" }}>
                         <thead>
                           <tr>
-                            <th className="text-left border-b-2 border-[var(--color-ink-14)] py-2 pr-5" style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-ink-70)", letterSpacing: "0.02em", textTransform: "uppercase", width: "60px" }}>Phase</th>
-                            <th className="text-left border-b-2 border-[var(--color-ink-14)] py-2 pr-5" style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-ink-70)", letterSpacing: "0.02em", textTransform: "uppercase" }}>Ship</th>
-                            <th className="text-left border-b-2 border-[var(--color-ink-14)] py-2" style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-ink-70)", letterSpacing: "0.02em", textTransform: "uppercase" }}>Measure</th>
+                            <th className="text-left border-b-2 border-[var(--color-ink-14)] py-2 pr-5" style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-ink-50)", letterSpacing: "0.02em", textTransform: "uppercase", width: "60px" }}>Phase</th>
+                            <th className="text-left border-b-2 border-[var(--color-ink-14)] py-2 pr-5" style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-ink-50)", letterSpacing: "0.02em", textTransform: "uppercase" }}>Ship</th>
+                            <th className="text-left border-b-2 border-[var(--color-ink-14)] py-2" style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-ink-50)", letterSpacing: "0.02em", textTransform: "uppercase" }}>Measure</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -782,7 +706,7 @@ export default function DatalignCaseStudyPage() {
                             <tr key={i}>
                               <td className="py-3 pr-5 border-b border-[var(--color-ink-06)] align-top" style={{ ...BODY, fontWeight: 600, color: "var(--color-ink)" }}>{row.phase}</td>
                               <td className="py-3 pr-5 border-b border-[var(--color-ink-06)] align-top" style={BODY}>{row.ship}</td>
-                              <td className="py-3 border-b border-[var(--color-ink-06)] align-top" style={{ ...BODY, color: "var(--color-ink-70)" }}>{row.measure}</td>
+                              <td className="py-3 border-b border-[var(--color-ink-06)] align-top" style={{ ...BODY, color: "var(--color-ink-50)" }}>{row.measure}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -800,13 +724,13 @@ export default function DatalignCaseStudyPage() {
             <section
               id="outcomes"
               ref={(el) => { sectionRefs.current["outcomes"] = el; }}
-              className="scroll-mt-24 pt-16"
+              className="scroll-mt-24 pt-20"
             >
               <div className="flex min-w-0 w-full flex-col gap-0">
                 <CaseScrollReveal>
                   <div className="flex flex-col gap-0">
                     <SectionDivider label="Outcomes" />
-                    <h2
+                    <h3
                       style={{
                         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
                         fontSize: "24px",
@@ -819,29 +743,29 @@ export default function DatalignCaseStudyPage() {
                         textWrap: "balance" as const,
                       }}
                     >
-                      Learnings
-                    </h2>
+                      What I took away
+                    </h3>
                   </div>
                 </CaseScrollReveal>
 
-                <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
+                <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                   <div className="flex flex-col gap-6">
                     {TAKEAWAYS.map((item, i) => (
                       <div key={i} className="flex flex-col gap-2">
                         <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)" }}>
+                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-50)" }}>
                             {String(i + 1).padStart(2, "0")}
                           </div>
-                          <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", lineHeight: "150%", fontWeight: 400, color: "var(--color-ink)", margin: 0 }}>
+                          <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", lineHeight: "150%", fontWeight: 500, color: "var(--color-ink)", margin: 0 }}>
                             {item.title}
                           </p>
                         </div>
-                        <p style={BODY}>{item.body}</p>
+                        <p style={{ ...BODY, color: "var(--color-ink-50)" }}>{item.body}</p>
                       </div>
                     ))}
                   </div>
 
-                  <div className="flex flex-col gap-3.5 mt-8 md:mt-10">
+                  <div className="flex flex-col gap-4 mt-12 md:mt-14">
                     <h2 style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "24px", lineHeight: "1.2", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink)", marginBottom: "1rem", marginTop: 0, textWrap: "balance" }}>Where we are right now</h2>
                     <p style={BODY}>Phase 1 has shipped. Early data:</p>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-5 mt-1">
@@ -862,7 +786,7 @@ export default function DatalignCaseStudyPage() {
                           }}>
                             {stat.value}
                           </p>
-                          <p style={BODY}>{stat.label}</p>
+                          <p style={{ ...BODY, color: "var(--color-ink-50)" }}>{stat.label}</p>
                         </div>
                       ))}
                     </div>
@@ -875,7 +799,7 @@ export default function DatalignCaseStudyPage() {
           </div>
 
           {/* Footer nav */}
-          <div className="mt-12 pt-8 md:mt-16">
+          <div className="mt-16 pt-10 md:mt-24">
             <Link
               href="/work/ark7"
               className="group flex flex-col gap-3 no-underline"
