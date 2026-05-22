@@ -51,29 +51,39 @@ const OTHER_PATTERNS = [
 
 const DESIGN_DECISIONS = [
   {
-    before: "The form opened with a question, not a name. Clinical copy, no warmth, no explanation for why questions were being asked. Users felt processed.",
-    after: "Claire, a personal financial concierge, opens the form and guides users through. Each step gives something back: a data point, a reason, a sense that the next question was earned.",
-    image: "Step 1: Claire intro card",
+    heading: "A guide, not a gatekeeper",
+    before: "No name, no warmth. Users felt processed.",
+    beforeImage: "/images/Datalign form/Before- 1.svg",
+    after: "Claire opens the form and guides users through. Each step earns the next.",
+    afterImage: "/images/Datalign form/after1.gif",
   },
   {
-    before: "Fixing a mistake meant clicking back 5-10 times and losing all context. There was no way to jump to a specific step or verify answers without starting over.",
-    after: "A persistent step navigator lets users jump to any question and edit in place. Review mode shows a summary before submission - no backtracking required.",
-    image: "Step navigator + review screen",
+    heading: "Navigation that doesn't punish mistakes",
+    before: "Fixing a mistake meant clicking back 5-10 times and losing all context.",
+    beforeImage: null,
+    after: "A step navigator lets users jump and edit in place. Review before submit.",
+    afterImage: null,
   },
   {
-    before: "The form asked for sensitive financial data before explaining what it was for or what users would get in return. No relationship, no reason to trust.",
-    after: "Claire frames the value exchange before the hard questions: your answers help match you with an advisor who fits your situation. Users give data after understanding what it earns them.",
-    image: "Trust-building intro screen",
+    heading: "Earning data, not demanding it",
+    before: "Sensitive data asked before any relationship was built.",
+    beforeImage: null,
+    after: "Claire explains the exchange first. Users give data after understanding what it earns them.",
+    afterImage: null,
   },
   {
-    before: "'Why we ask' was hidden or absent. Users skipped questions they didn't understand, filled them in wrong, or abandoned the form entirely.",
-    after: "Claire surfaces the reason for each question inline, before users have to wonder. Plain language, no jargon, no asterisks.",
-    image: "Inline 'why we ask' tooltip",
+    heading: "Explaining before users have to wonder",
+    before: "'Why we ask' was absent. Users guessed or left.",
+    beforeImage: null,
+    after: "The reason surfaces inline, before users wonder. No jargon.",
+    afterImage: null,
   },
   {
-    before: "Income and asset questions appeared early, before any trust was established. Sliders defaulted to 'Other' at $800K, making the form feel inaccurate.",
-    after: "High-friction questions move to the end, after trust is built. Typed fields replace sliders; structured asset buckets replace open-ended guesswork.",
-    image: "High-friction question redesign",
+    heading: "Sensitive questions earn their place",
+    before: "Sensitive questions appeared early. Sliders defaulted to 'Other' at $800K.",
+    beforeImage: null,
+    after: "Hard questions move to the end. Typed fields replace sliders.",
+    afterImage: null,
   },
 ];
 
@@ -83,12 +93,7 @@ const TEST_PHASES = [
   { phase: "3", ship: "Standalone landing pages for paid traffic",             measure: "Conversion by traffic source" },
 ];
 
-const TAKEAWAYS = [
-  {
-    title: "Phased delivery was the design, not the workaround.",
-    body: "The form's 20 questions ran through internal and publisher APIs. Small changes had real shipping risk. So we phased: layout first, content second, traffic last. Each phase shipped only what we could safely touch.",
-  },
-];
+const TAKEAWAYS: { title: string; body: string }[] = [];
 
 const META_ITEMS = [
   { label: "Role",     value: "Product Designer (Summer/Fall Co-op)" },
@@ -673,21 +678,39 @@ export default function DatalignCaseStudyPage() {
                 </CaseScrollReveal>
 
                 <CaseScrollReveal delay={80} className="flex flex-col gap-5">
-                  <div className="flex flex-col gap-10 md:gap-14 mt-2">
+                  <div className="flex flex-col gap-12 md:gap-16 mt-2">
                     {DESIGN_DECISIONS.map((item, i) => (
-                      <div key={i} className="flex flex-col gap-0">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 rounded-xl overflow-hidden" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
-                          <div className="flex flex-col gap-2 p-5 md:p-6" style={{ background: "var(--color-subtle)" }}>
-                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-30)" }}>Before</span>
-                            <p style={{ ...BODY, color: "var(--color-ink-50)" }}>{item.before}</p>
+                      <div key={i} className="flex flex-col gap-4">
+                        <h3 style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "20px", lineHeight: "1.25", fontWeight: 500, color: "var(--color-ink)", margin: 0 }}>
+                          {item.heading}
+                        </h3>
+                        <div className="grid grid-cols-2 gap-x-3 gap-y-2 md:gap-x-4">
+                          {/* Before image - row 1 */}
+                          <div className="rounded-xl overflow-hidden flex items-center justify-center min-h-0" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
+                            {item.beforeImage ? (
+                              <img src={item.beforeImage} alt="" style={{ maxWidth: "calc(100% - 48px)", maxHeight: "100%", width: "auto", height: "auto", display: "block" }} />
+                            ) : (
+                              <Img label="Before" aspect="4/3" />
+                            )}
                           </div>
-                          <div className="flex flex-col gap-2 p-5 md:p-6" style={{ background: "var(--color-surface)" }}>
-                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-50)" }}>After</span>
-                            <p style={BODY}>{item.after}</p>
+                          {/* After image - row 1 */}
+                          <div className="rounded-xl overflow-hidden" style={{ background: "var(--color-surface)", border: "1px solid rgba(0,0,0,0.08)" }}>
+                            {item.afterImage ? (
+                              <img src={item.afterImage} alt="" style={{ width: "100%", display: "block" }} />
+                            ) : (
+                              <Img label="After" aspect="4/3" />
+                            )}
                           </div>
-                        </div>
-                        <div className="mt-3">
-                          <Img label={item.image} aspect="16/9" />
+                          {/* Before caption - row 2 */}
+                          <div className="flex flex-col gap-1 px-1">
+                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "#B91C1C", background: "#FEE2E2", borderRadius: "4px", padding: "2px 7px", display: "inline-block" }}>Before</span>
+                            <p style={{ ...BODY, fontSize: "13px", color: "var(--color-ink-50)", margin: 0 }}>{item.before}</p>
+                          </div>
+                          {/* After caption - row 2 */}
+                          <div className="flex flex-col gap-1 px-1">
+                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "#166534", background: "#D1EDDA", borderRadius: "4px", padding: "2px 7px", display: "inline-block" }}>After</span>
+                            <p style={{ ...BODY, fontSize: "13px", margin: 0 }}>{item.after}</p>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -721,9 +744,7 @@ export default function DatalignCaseStudyPage() {
                         </tbody>
                       </table>
                     </div>
-                    <p style={BODY}>
-                      Layout before content before traffic fit. Any lift has a clean explanation. The in-house build inherits only what we prove.
-                    </p>
+
                   </div>
                 </CaseScrollReveal>
               </div>
@@ -739,41 +760,10 @@ export default function DatalignCaseStudyPage() {
                 <CaseScrollReveal>
                   <div className="flex flex-col gap-0">
                     <SectionDivider label="Outcomes" />
-                    <h3
-                      style={{
-                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                        fontSize: "24px",
-                        lineHeight: "1.2",
-                        fontWeight: 500,
-                        letterSpacing: "-0.01em",
-                        color: "var(--color-ink)",
-                        marginBottom: "1rem",
-                        marginTop: 0,
-                        textWrap: "balance" as const,
-                      }}
-                    >
-                      What I took away
-                    </h3>
                   </div>
                 </CaseScrollReveal>
 
                 <CaseScrollReveal delay={80} className="flex flex-col gap-5">
-                  <div className="flex flex-col gap-6">
-                    {TAKEAWAYS.map((item, i) => (
-                      <div key={i} className="flex flex-col gap-2">
-                        <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-50)" }}>
-                            {String(i + 1).padStart(2, "0")}
-                          </div>
-                          <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", lineHeight: "150%", fontWeight: 500, color: "var(--color-ink)", margin: 0 }}>
-                            {item.title}
-                          </p>
-                        </div>
-                        <p style={{ ...BODY, color: "var(--color-ink-50)" }}>{item.body}</p>
-                      </div>
-                    ))}
-                  </div>
-
                   <div className="flex flex-col gap-4 mt-12 md:mt-14">
                     <h2 style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "24px", lineHeight: "1.2", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink)", marginBottom: "1rem", marginTop: 0, textWrap: "balance" }}>Where we are right now</h2>
                     <p style={BODY}>Phase 1 has shipped. Early data:</p>
