@@ -418,9 +418,9 @@ export default function ProjectCard({
         }}
       >
         <div className="project-card-media">
-          {project.image.endsWith(".json") ? (
+          {project.image?.endsWith(".json") ? (
             <LottiePreview src={project.image} />
-          ) : (
+          ) : project.image ? (
             <Image
               src={project.image}
               alt={project.headline}
@@ -429,7 +429,7 @@ export default function ProjectCard({
               unoptimized={project.image.endsWith(".gif")}
               style={{ objectFit: "cover" }}
             />
-          )}
+          ) : null}
         </div>
       </a>
       <div

@@ -569,7 +569,7 @@ export default function DatalignCaseStudyPage() {
                           <img src="/images/Datalign form/Traditional.webp" alt="Traditional form pattern - data-first, sequential" style={{ width: "100%", display: "block" }} />
                         </div>
                         <div className="flex flex-col gap-3 p-6 md:p-8 justify-center" style={{ background: "var(--color-surface)" }}>
-                          <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "13px", fontWeight: 400, color: "#3B6FD4", background: "#EEF3FF", borderRadius: "6px", padding: "2px 10px", display: "inline-block", alignSelf: "flex-start", marginBottom: "8px" }}>Traditional</span>
+                          <span style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "13px", fontWeight: 400, color: "#3B6FD4", background: "#EEF3FF", borderRadius: "6px", padding: "2px 10px", display: "inline-block", alignSelf: "flex-start", marginBottom: "8px" }}>Traditional</span>
                           <div className="flex flex-col gap-2">
                             <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Efficient - low friction, familiar pattern</p></div>
                             <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Works when brand trust is pre-established</p></div>
@@ -584,7 +584,7 @@ export default function DatalignCaseStudyPage() {
                           <img src="/images/Datalign form/Conversational.webp" alt="Conversational form pattern - relationship-first" style={{ width: "100%", display: "block" }} />
                         </div>
                         <div className="flex flex-col gap-3 p-6 md:p-8 justify-center" style={{ background: "var(--color-surface)" }}>
-                          <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "13px", fontWeight: 400, color: "#3B6FD4", background: "#EEF3FF", borderRadius: "6px", padding: "2px 10px", display: "inline-block", alignSelf: "flex-start", marginBottom: "8px" }}>Conversational</span>
+                          <span style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "13px", fontWeight: 400, color: "#3B6FD4", background: "#EEF3FF", borderRadius: "6px", padding: "2px 10px", display: "inline-block", alignSelf: "flex-start", marginBottom: "8px" }}>Conversational</span>
                           <div className="flex flex-col gap-2">
                             <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Builds trust progressively throughout the flow</p></div>
                             <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...BODY, margin: 0 }}>Reduces anxiety before sensitive questions</p></div>
