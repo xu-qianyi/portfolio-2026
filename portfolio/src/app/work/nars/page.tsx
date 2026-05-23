@@ -26,7 +26,7 @@ const SECTIONS: Section[] = [
 
 const META_ITEMS = [
   { label: "Team", value: "3 Researchers" },
-  { label: "Timeframe", value: "2022 (1 month)" },
+  { label: "Timeframe", value: "1 month" },
   { label: "Tools", value: "LookLook Analytics, MS PowerPoint, MS Excel" },
 ];
 
@@ -246,10 +246,10 @@ export default function NarsCaseStudyPage() {
                   letterSpacing: "-0.01em",
                   color: "var(--color-ink)",
                   margin: 0,
-                  textWrap: "balance" as const,
+                  textWrap: "pretty" as const,
                 }}
               >
-                NARS Longwear Foundation concept testing - US &amp; China insights
+                NARS Longwear Foundation concept testing<br />- US &amp; China insights
               </h1>
               <p style={{ ...BODY, marginTop: "4px" }}>
                 <Highlight variant="peach" duration={1200}>I designed a cross-cultural research framework</Highlight> to surface divergent consumer expectations across the US and Chinese beauty markets - synthesizing findings that directly shaped NARS&apos;s formulation direction, regional naming strategy, and market positioning for a product now on shelves.

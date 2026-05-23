@@ -3,7 +3,7 @@
     "id": "datalign",
     "company": "Datalign",
     "date": "2025",
-    "type": "Form",
+    "type": "Web",
     "headline": "Redesigning the front door of a wealth management marketplace",
     "image": "/images/preview/DA form preview.svg",
     "width": 1280,
@@ -28,7 +28,6 @@
   {
     "id": "looklook-nars",
     "company": "LookLook",
-    "date": "2023",
     "type": "Consumer research, concept testing",
     "headline": "NARS Longwear Foundation concept testing - US & China insights",
     "image": "/images/preview/Nars-playful.json",

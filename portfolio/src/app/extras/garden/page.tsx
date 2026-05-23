@@ -20,7 +20,7 @@ export default function GardenPage() {
         className="pixel-back-btn"
       >
         <img
-          src="/footer/back_arrow.svg"
+          src="/footer/back_arrow.webp"
           alt=""
           width={24}
           height={24}

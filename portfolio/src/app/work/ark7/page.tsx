@@ -1510,7 +1510,7 @@ export default function Ark7CaseStudyPage() {
                   <>
                     <div className="relative my-6 rounded-lg overflow-hidden px-6 py-4 md:my-8 md:px-32 md:py-6">
                       <Image
-                        src="/images/ARK7/matrix.svg"
+                        src="/images/ARK7/matrix.webp"
                         alt="Eisenhower-style matrix mapping 12 community features by effort and trust impact, narrowed to four"
                         width={827}
                         height={545}
@@ -1640,7 +1640,7 @@ export default function Ark7CaseStudyPage() {
                     </div>
                     <div className="relative rounded-lg overflow-hidden bg-[var(--color-subtle)] mt-6 md:mt-8 p-6 md:p-10">
                       <Image
-                        src="/images/ARK7/Competitor%20analysis.svg"
+                        src="/images/ARK7/Competitor%20analysis.webp"
                         alt="Competitor analysis comparing ARK7 and Arrived across mobile app, website, and social channels"
                         width={1600}
                         height={900}

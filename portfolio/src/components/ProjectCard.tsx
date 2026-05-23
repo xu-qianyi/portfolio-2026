@@ -214,7 +214,7 @@ function FramedCard({ project }: { project: Project }) {
             alt={project.headline}
             width={project.width}
             height={project.height}
-            unoptimized={project.image.endsWith(".gif") || project.image.endsWith(".svg")}
+            unoptimized={project.image.endsWith(".gif")}
             style={{ imageRendering: "pixelated", display: "block" }}
           />
         ) : project.image.endsWith(".json") ? (
@@ -225,6 +225,7 @@ function FramedCard({ project }: { project: Project }) {
             alt={project.headline}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            unoptimized={project.image.endsWith(".svg")}
             style={{ objectFit: "cover" }}
           />
         )}
@@ -425,7 +426,7 @@ export default function ProjectCard({
               alt={project.headline}
               fill
               sizes={sizes}
-              unoptimized={project.image.endsWith(".svg")}
+              unoptimized={project.image.endsWith(".gif")}
               style={{ objectFit: "cover" }}
             />
           )}
