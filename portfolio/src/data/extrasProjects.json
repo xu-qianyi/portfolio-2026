@@ -7,7 +7,7 @@
     "tech": "Cursor · React",
     "mediaMinHeight": 240,
     "bg": "#C2CFAD",
-    "bgImage": "url('/footer/grass_tile.svg')",
+    "bgImage": "url('/footer/grass_tile.webp')",
     "image": "/footer/yawn_stand.gif",
     "width": 64,
     "height": 64,
@@ -20,7 +20,7 @@
     "title": "AI assistant experience research",
     "type": "UX research",
     "headline": "UX patterns in AI assistant experience",
-    "image": "/images/Extras/AI assistant research.svg",
+    "image": "/images/Extras/AI assistant research.webp",
     "width": 1024,
     "height": 768,
     "href": "#"

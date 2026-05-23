@@ -664,7 +664,7 @@ export default function DatalignCaseStudyPage() {
                 <CaseScrollReveal delay={80}>
                   <div className="p-16 md:p-24">
                     <img
-                      src="/images/Datalign form/Claire.svg"
+                      src="/images/Datalign form/Claire.webp"
                       alt="Claire - the conversational guide character introduced in the redesigned Datalign form"
                       style={{ width: "100%", display: "block" }}
                     />
