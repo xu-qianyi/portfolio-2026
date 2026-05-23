@@ -16,6 +16,16 @@
     "newTab": true
   },
   {
+    "id": "ai-assistant-research",
+    "title": "AI assistant experience research",
+    "type": "UX research",
+    "headline": "UX patterns in AI assistant experience",
+    "image": "/images/Extras/AI assistant research.svg",
+    "width": 1024,
+    "height": 768,
+    "href": "#"
+  },
+  {
     "id": "poetry-fly",
     "title": "Poetry",
     "type": "interaction",
