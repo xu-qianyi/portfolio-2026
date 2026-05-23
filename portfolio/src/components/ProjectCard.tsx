@@ -190,7 +190,7 @@ function FramedCard({ project }: { project: Project }) {
           minHeight: project.bare && !project.video ? `${project.mediaMinHeight ?? 220}px` : undefined,
           aspectRatio: (project.bare && !project.video) ? undefined : `${project.width} / ${project.height}`,
           backgroundColor: project.bg ?? (project.bare && !project.video ? "var(--color-subtle)" : "var(--color-surface)"),
-          backgroundImage: project.bgImage,
+          backgroundImage: project.bgImage ? `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${project.bgImage}')` : undefined,
           backgroundRepeat: project.bgImage ? "repeat" : undefined,
           backgroundSize: project.bgImage ? "64px 64px" : undefined,
           imageRendering: project.bgImage ? "pixelated" : undefined,

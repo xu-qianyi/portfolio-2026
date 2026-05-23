@@ -8,6 +8,8 @@ import CaseScrollReveal from "@/components/CaseScrollReveal";
 import Highlight from "@/components/Highlight";
 import BackToTop from "@/components/BackToTop";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const BODY = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "14px",
@@ -29,58 +31,58 @@ const BEHAVIORAL_PATTERNS = [
   {
     title: "The interstitial screen looked like a finish line.",
     body: "Users waited, then closed the tab.",
-    image: "/images/Datalign form/interstitial.webp",
+    image: `${BASE}/images/Datalign form/interstitial.webp`,
   },
   {
     title: "Users wanted to verify their numbers. They couldn't.",
     body: "No jump-to navigation meant clicking back 5-10 times and losing all context.",
-    image: "/images/Datalign form/unable to verify numbers.webp",
+    image: `${BASE}/images/Datalign form/unable to verify numbers.webp`,
   },
   {
     title: "The Next button was always active.",
     body: "No fields were marked required. Users rage-clicked through, hit an error, and left.",
-    image: "/images/Datalign form/alert.webp",
+    image: `${BASE}/images/Datalign form/alert.webp`,
   },
 ];
 
 const OTHER_PATTERNS = [
-  { text: "Step 1 dropped 40% of publisher traffic. The landing copy was failing from the start.", image: "/images/Datalign form/step 1.webp" },
-  { text: "Step 10 had the highest mid-flow drop-off. The question was too complex.", image: "/images/Datalign form/step 10.webp" },
-  { text: 'Jargon like "Principal" excluded users with lower financial literacy. Invisible in metrics, obvious in replays.', image: "/images/Datalign form/jargon.webp" },
+  { text: "Step 1 dropped 40% of publisher traffic. The landing copy was failing from the start.", image: `${BASE}/images/Datalign form/step 1.webp` },
+  { text: "Step 10 had the highest mid-flow drop-off. The question was too complex.", image: `${BASE}/images/Datalign form/step 10.webp` },
+  { text: 'Jargon like "Principal" excluded users with lower financial literacy. Invisible in metrics, obvious in replays.', image: `${BASE}/images/Datalign form/jargon.webp` },
 ];
 
 const DESIGN_DECISIONS = [
   {
     heading: "A guide, not a gatekeeper",
     before: "Users landed on the form with no context. No warmth, no explanation, just a sudden question.",
-    beforeImage: "/images/Datalign form/Before- 1.webp",
+    beforeImage: `${BASE}/images/Datalign form/Before- 1.webp`,
     beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))", borderRadius: "10px" },
     after: "Claire opens the form and explains who Datalign is and why it's worth trusting. Each question is earned, not demanded.",
-    afterImage: "/images/Datalign form/after1.gif",
+    afterImage: `${BASE}/images/Datalign form/after1.gif`,
   },
   {
     heading: "Navigation that doesn't punish mistakes",
     before: "Fixing a mistake meant clicking back 5-10 times and losing all context.",
-    beforeImage: "/images/Datalign form/navigation-before.gif",
+    beforeImage: `${BASE}/images/Datalign form/navigation-before.gif`,
     beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))", borderRadius: "10px" },
     after: "A step navigator lets users jump back, edit what they've filled in, and pick up where they left off.",
-    afterImage: "/images/Datalign form/navigation-after.gif",
+    afterImage: `${BASE}/images/Datalign form/navigation-after.gif`,
   },
   {
     heading: "Explaining before users have to wonder",
     before: "'Why we ask' was easy to miss. Most users scrolled past without ever seeing it.",
-    beforeImage: "/images/Datalign form/Explaining before.gif",
+    beforeImage: `${BASE}/images/Datalign form/Explaining before.gif`,
     beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))", borderRadius: "10px" },
     after: "The reason surfaces inline, before users wonder. No jargon.",
-    afterImage: "/images/Datalign form/explaining-after.gif",
+    afterImage: `${BASE}/images/Datalign form/explaining-after.gif`,
   },
   {
     heading: "Interstitial that moves users forward, not out",
     before: "The interstitial looked like a completion screen. Users assumed they were done, waited for nothing to happen, and left.",
-    beforeImage: "/images/Datalign form/interstitial.webp",
+    beforeImage: `${BASE}/images/Datalign form/interstitial.webp`,
     beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))", borderRadius: "10px" },
     after: "Claire reads the moment. The tone adapts to how users feel, then guides them forward. Not past them.",
-    afterImage: "/images/Datalign form/interstitial-after.gif",
+    afterImage: `${BASE}/images/Datalign form/interstitial-after.gif`,
   },
 ];
 
@@ -367,7 +369,7 @@ export default function DatalignCaseStudyPage() {
 
             <CaseScrollReveal delay={60} className="mb-0">
               <video
-                src="/images/Datalign form/part1.webm"
+                src={`${BASE}/images/Datalign form/part1.webm`}
                 autoPlay
                 loop
                 muted
@@ -518,7 +520,7 @@ export default function DatalignCaseStudyPage() {
                 <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                   <div className="mt-0 md:mt-2">
                     <div className="p-8 md:p-16 rounded-xl" style={{ backgroundColor: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
-                      <img src="/images/Datalign form/UX audit.webp" alt="Annotated screenshots of the original form" style={{ width: "100%", display: "block" }} />
+                      <img src={`${BASE}/images/Datalign form/UX audit.webp`} alt="Annotated screenshots of the original form" style={{ width: "100%", display: "block" }} />
                     </div>
                     <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-50)", marginTop: "8px", textAlign: "center" }}>
                       One typical page. Design and usability issues identified during the audit.
@@ -550,7 +552,7 @@ export default function DatalignCaseStudyPage() {
                       I mapped 10+ competitors across a <em>Functional &rarr; Decent UX &rarr; Well-designed</em> axis. <Highlight variant="blue" duration={800}>The longer the form, the more experience design matters</Highlight> - Datalign runs 20+ questions but designs like a short-form tool.
                     </p>
                     <div className="mt-2 py-8 px-6 md:px-10 rounded-xl" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
-                      <img src="/images/Datalign form/Landscape.webp" alt="Competitive landscape matrix" style={{ width: "100%", display: "block", borderRadius: 8 }} />
+                      <img src={`${BASE}/images/Datalign form/Landscape.webp`} alt="Competitive landscape matrix" style={{ width: "100%", display: "block", borderRadius: 8 }} />
                     </div>
                     <p style={BODY}>
                       The ones doing it well - Facet, Boldin, Quinn - carry users through with a consistent editorial voice. Datalign had none.
@@ -566,7 +568,7 @@ export default function DatalignCaseStudyPage() {
                       {/* Traditional */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-xl overflow-hidden" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
                         <div className="p-6 md:p-10" style={{ background: "var(--color-subtle)" }}>
-                          <img src="/images/Datalign form/Traditional.webp" alt="Traditional form pattern - data-first, sequential" style={{ width: "100%", display: "block" }} />
+                          <img src={`${BASE}/images/Datalign form/Traditional.webp`} alt="Traditional form pattern - data-first, sequential" style={{ width: "100%", display: "block" }} />
                         </div>
                         <div className="flex flex-col gap-3 p-6 md:p-8 justify-center" style={{ background: "var(--color-surface)" }}>
                           <span style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "13px", fontWeight: 400, color: "#3B6FD4", background: "#EEF3FF", borderRadius: "6px", padding: "2px 10px", display: "inline-block", alignSelf: "flex-start", marginBottom: "8px" }}>Traditional</span>
@@ -581,7 +583,7 @@ export default function DatalignCaseStudyPage() {
                       {/* Conversational */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-xl overflow-hidden" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
                         <div className="p-6 md:p-10" style={{ background: "var(--color-subtle)" }}>
-                          <img src="/images/Datalign form/Conversational.webp" alt="Conversational form pattern - relationship-first" style={{ width: "100%", display: "block" }} />
+                          <img src={`${BASE}/images/Datalign form/Conversational.webp`} alt="Conversational form pattern - relationship-first" style={{ width: "100%", display: "block" }} />
                         </div>
                         <div className="flex flex-col gap-3 p-6 md:p-8 justify-center" style={{ background: "var(--color-surface)" }}>
                           <span style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "13px", fontWeight: 400, color: "#3B6FD4", background: "#EEF3FF", borderRadius: "6px", padding: "2px 10px", display: "inline-block", alignSelf: "flex-start", marginBottom: "8px" }}>Conversational</span>
@@ -639,10 +641,10 @@ export default function DatalignCaseStudyPage() {
                   </p>
                   <div className="rounded-xl p-6 md:p-10 flex flex-col gap-4 mt-2" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
                     <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "var(--color-ink-50)", margin: 0 }}>V1 - Conversational</p>
-                    <img src="/images/Datalign form/v1.webp" alt="V1 design - pure conversational form proposal" style={{ width: "100%", display: "block" }} />
+                    <img src={`${BASE}/images/Datalign form/v1.webp`} alt="V1 design - pure conversational form proposal" style={{ width: "100%", display: "block" }} />
                   </div>
                   <div>
-                    <img src="/images/Datalign form/workshop.webp" alt="Photo from the workshop" style={{ width: "100%", display: "block", borderRadius: 8 }} />
+                    <img src={`${BASE}/images/Datalign form/workshop.webp`} alt="Photo from the workshop" style={{ width: "100%", display: "block", borderRadius: 8 }} />
                     <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-50)", marginTop: "8px", textAlign: "center" }}>Cross-functional workshop with Product, Engineering, and Data to align on hypotheses.</p>
                   </div>
                 </CaseScrollReveal>
@@ -664,7 +666,7 @@ export default function DatalignCaseStudyPage() {
                 <CaseScrollReveal delay={80}>
                   <div className="p-16 md:p-24">
                     <img
-                      src="/images/Datalign form/Claire.webp"
+                      src={`${BASE}/images/Datalign form/Claire.webp`}
                       alt="Claire - the conversational guide character introduced in the redesigned Datalign form"
                       style={{ width: "100%", display: "block" }}
                     />

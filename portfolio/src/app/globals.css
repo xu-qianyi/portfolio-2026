@@ -58,9 +58,7 @@ nav button:focus-visible {
   color: var(--color-muted);
 }
 
-/* Custom cursor - pure CSS, browser-native rendering, no JS needed */
 @media (pointer: fine) {
-  html, * { cursor: url('/cursor.svg') 2 2, auto !important; }
   [data-garden-section],
   [data-garden-section] * { cursor: none !important; }
 }

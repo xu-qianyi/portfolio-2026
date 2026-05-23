@@ -7,7 +7,7 @@
     "tech": "Cursor · React",
     "mediaMinHeight": 240,
     "bg": "#C2CFAD",
-    "bgImage": "url('/footer/grass_tile.webp')",
+    "bgImage": "/footer/grass_tile.webp",
     "image": "/footer/yawn_stand.gif",
     "width": 64,
     "height": 64,
