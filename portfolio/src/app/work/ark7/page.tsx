@@ -792,6 +792,8 @@ const ARK7_PROTOTYPE_FEATURES = [
   },
 ] as const;
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 function Ark7PrototypeFeatures() {
   return (
     <div className="flex flex-col gap-16 mt-6 md:gap-20 md:mt-8">
@@ -811,7 +813,7 @@ function Ark7PrototypeFeatures() {
               }}
             >
               <video
-                src={feature.videoSrc}
+                src={`${BASE}${feature.videoSrc}`}
                 autoPlay
                 loop
                 muted

@@ -210,7 +210,7 @@ function FramedCard({ project }: { project: Project }) {
             playsInline
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           >
-            <source src={project.video} type="video/webm" />
+            <source src={h(project.video)} type="video/webm" />
           </video>
         ) : !project.image ? null : project.bare ? (
           <Image
