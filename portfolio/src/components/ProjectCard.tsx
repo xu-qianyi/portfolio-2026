@@ -2,6 +2,9 @@ import type { CSSProperties } from "react";
 import Image from "@/components/Img";
 import LottiePreview from "./LottiePreview";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const h = (href: string) => href.startsWith("http") ? href : `${BASE}${href}`;
+
 export type ProjectAction = {
   label: string;
   href?: string;
@@ -160,7 +163,7 @@ function FramedCard({ project }: { project: Project }) {
   const wrapperProps = hasActions
     ? {}
     : {
-        href: project.href,
+        href: h(project.href),
         ...(project.newTab
           ? { target: "_blank", rel: "noopener noreferrer" }
           : {}),
@@ -347,7 +350,7 @@ function FramedCard({ project }: { project: Project }) {
             action.href ? (
               <a
                 key={i}
-                href={action.href}
+                href={action.href ? h(action.href) : undefined}
                 target={action.external ? "_blank" : undefined}
                 rel={action.external ? "noopener noreferrer" : undefined}
                 className="project-action-btn"
@@ -404,7 +407,7 @@ export default function ProjectCard({
       style={{ breakInside: "avoid", marginBottom: "24px" }}
     >
       <a
-        href={project.href}
+        href={h(project.href)}
         className="project-card-link"
         style={{
           display: "block",

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import Link from "next/link";
 import projects from "@/data/projects.json";
 import { FOOTER_EXTERNAL_LINKS } from "@/data/footerLinks";
 import ProjectCard from "@/components/ProjectCard";
@@ -41,12 +42,12 @@ export default function Home() {
               </span>
             </span>
             , building in wealth management. Previously: design(contract) at{" "}
-            <a href="/work/ark7" className="hero-company-link">
+            <Link href="/work/ark7" className="hero-company-link">
               ARK7
               <span className="hero-company-link-badge" aria-hidden>
                 2
               </span>
-            </a>
+            </Link>
             , engineering at{" "}
             <a
               href="https://www.thoughtworks.com/"

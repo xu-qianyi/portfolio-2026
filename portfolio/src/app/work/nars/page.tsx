@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "@/components/Img";
+import Link from "next/link";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 import Highlight from "@/components/Highlight";
 import BackToTop from "@/components/BackToTop";
@@ -609,7 +610,7 @@ export default function NarsCaseStudyPage() {
 
           {/* Next case */}
           <div className="mt-12 pt-8 md:mt-16">
-            <a
+            <Link
               href="/work/ark7"
               className="group flex flex-col gap-3 no-underline"
               aria-label="Next project: ARK7, 2023 — Building trust in fractional real estate investing"
@@ -630,7 +631,7 @@ export default function NarsCaseStudyPage() {
                   &rarr;
                 </span>
               </p>
-            </a>
+            </Link>
           </div>
 
         </div>
