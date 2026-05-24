@@ -10,12 +10,14 @@ const geistSans = Geist({
   display: "swap",
 });
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   title: "Martta Xu",
   description:
     "I design access. Product designer with roots in consulting and a bias for clarity.",
   icons: {
-    icon: "/images/favicon-sunflower.svg",
+    icon: `${BASE}/images/favicon-sunflower.svg`,
   },
 };
 
