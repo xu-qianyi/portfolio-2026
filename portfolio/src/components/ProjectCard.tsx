@@ -23,6 +23,7 @@ export type Project = {
   bg?: string;
   bgImage?: string;
   mediaMinHeight?: number;
+  mediaAspectRatio?: string;
   width?: number;
   height?: number;
   href: string;
@@ -191,8 +192,8 @@ function FramedCard({ project }: { project: Project }) {
           alignItems: "center",
           justifyContent: "center",
           padding: project.bare && !project.video ? "48px 24px" : "0",
-          minHeight: project.bare && !project.video ? `${project.mediaMinHeight ?? 220}px` : undefined,
-          aspectRatio: (project.bare && !project.video) ? undefined : `${project.width} / ${project.height}`,
+          minHeight: (project.bare && !project.video && !project.mediaAspectRatio) ? `${project.mediaMinHeight ?? 220}px` : undefined,
+          aspectRatio: (project.bare && !project.video) ? project.mediaAspectRatio : `${project.width} / ${project.height}`,
           backgroundColor: project.bg ?? (project.bare && !project.video ? "var(--color-subtle)" : "var(--color-surface)"),
           backgroundImage: project.bgImage ? `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${project.bgImage}')` : undefined,
           backgroundRepeat: project.bgImage ? "repeat" : undefined,

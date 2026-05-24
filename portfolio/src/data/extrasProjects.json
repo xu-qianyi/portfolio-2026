@@ -5,7 +5,7 @@
     "type": "game",
     "headline": "An interactive garden where my cat and his friends come to play",
     "tech": "Cursor · React",
-    "mediaMinHeight": 240,
+    "mediaAspectRatio": "16 / 9",
     "bg": "#C2CFAD",
     "bgImage": "/footer/grass_tile.webp",
     "image": "/footer/yawn_stand.gif",
