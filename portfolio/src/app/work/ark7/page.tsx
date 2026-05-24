@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import Image from "next/image";
+import Image from "@/components/Img";
 import Link from "next/link";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 import LottiePreview from "@/components/LottiePreview";

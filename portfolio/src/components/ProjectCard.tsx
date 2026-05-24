@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import Image from "next/image";
+import Image from "@/components/Img";
 import LottiePreview from "./LottiePreview";
 
 export type ProjectAction = {

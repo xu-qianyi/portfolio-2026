@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/Img";
 import Lottie from "lottie-react";
 
 type LottiePreviewProps = {
@@ -26,7 +26,8 @@ export default function LottiePreview({
     setAnimationData(null);
     setUseFallback(false);
 
-    fetch(src)
+    const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+    fetch(`${base}${src}`)
       .then(async (res) => {
         if (!res.ok) throw new Error(`Lottie fetch ${res.status}`);
         const text = await res.text();
