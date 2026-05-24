@@ -23,7 +23,8 @@
     "image": "/images/Extras/AI assistant research.webp",
     "width": 1024,
     "height": 768,
-    "href": "#"
+    "href": "#",
+    "contain": true
   },
   {
     "id": "poetry-fly",

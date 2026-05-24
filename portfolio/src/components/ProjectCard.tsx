@@ -34,6 +34,7 @@ export type Project = {
   badge?: string;
   actions?: ProjectAction[];
   newTab?: boolean;
+  contain?: boolean;
 };
 
 const PROJECT_META: CSSProperties = {
@@ -229,7 +230,7 @@ function FramedCard({ project }: { project: Project }) {
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             unoptimized={project.image.endsWith(".svg")}
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: project.contain ? "contain" : "cover" }}
           />
         )}
         {project.newTab && (
