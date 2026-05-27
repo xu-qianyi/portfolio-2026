@@ -16,6 +16,7 @@
     "fresh": "lsof -ti :3000 | xargs kill -9 2>/dev/null || true; rm -rf .next; next dev"
   },
   "dependencies": {
+    "@microsoft/clarity": "^1.0.2",
     "lottie-react": "^2.4.1",
     "next": "^15.5.14",
     "react": "18.3.1",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import Shell from "@/components/Shell";
+import ClarityProvider from "@/components/ClarityProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} antialiased`}>
         <style dangerouslySetInnerHTML={{ __html: `@media (pointer: fine) { html, * { cursor: url('${base}/cursor.svg') 2 2, auto !important; } }` }} />
+        <ClarityProvider />
         <Shell>{children}</Shell>
       </body>
     </html>
