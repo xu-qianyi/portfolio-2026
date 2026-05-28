@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { label: "Extras", href: "/extras" },
 ];
 
-const RESUME_HREF = "https://drive.google.com"; // TODO: replace with actual resume link
+const RESUME_HREF = "https://drive.google.com/file/d/16KysaUm1SO-1tESx4_cw_5OXSoTEk0k8/view?usp=sharing";
 
 export default function Navbar() {
   const pathname = usePathname();

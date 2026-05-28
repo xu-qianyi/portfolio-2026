@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   icons: {
     icon: `${BASE}/images/favicon-sunflower.svg`,
   },
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
