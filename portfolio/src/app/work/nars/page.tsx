@@ -9,7 +9,7 @@ import BackToTop from "@/components/BackToTop";
 
 const BODY = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "14px",
+  fontSize: "15px",
   lineHeight: "1.6",
   letterSpacing: "-0.005em",
   color: "var(--color-ink-80)",
@@ -102,7 +102,7 @@ function NarsMobileNav({
               }`}
               style={{
                 fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "14px",
+                fontSize: "15px",
                 fontWeight: isActive ? 500 : 400,
                 background: "transparent",
                 cursor: "inherit",
@@ -582,7 +582,7 @@ export default function NarsCaseStudyPage() {
                       <p
                         style={{
                           fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                          fontSize: "14px",
+                          fontSize: "15px",
                           fontWeight: 500,
                           color: "#fff",
                           margin: 0,

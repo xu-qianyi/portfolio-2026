@@ -12,7 +12,7 @@ const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const BODY = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "14px",
+  fontSize: "15px",
   lineHeight: "1.6",
   letterSpacing: "-0.005em",
   color: "var(--color-ink-80)",
@@ -206,7 +206,7 @@ function DatalignMobileNav({
               }`}
               style={{
                 fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "14px",
+                fontSize: "15px",
                 fontWeight: isActive ? 500 : 400,
                 background: "transparent",
                 cursor: "inherit",

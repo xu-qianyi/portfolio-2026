@@ -206,7 +206,7 @@ const ARK7_PERSONA_FRAMES = [
 
 const BODY_TEXT_STYLE = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "14px",
+  fontSize: "15px",
   lineHeight: "1.6",
   letterSpacing: "-0.005em",
   color: "var(--color-ink-80)",
@@ -347,7 +347,7 @@ function Ark7IterationStoreQuotes() {
             className="my-4 pl-5 py-1"
             style={{ borderLeft: "1.5px solid rgba(0, 0, 0, 0.08)" }}
           >
-            <p className="text-[14px] font-[450] leading-[1.6] italic text-[rgba(0,0,0,.65)]">
+            <p className="text-[15px] font-[450] leading-[1.6] italic text-[rgba(0,0,0,.65)]">
               &ldquo;{ark7StoreQuoteInner(item.quote)}&rdquo;
             </p>
             <cite className="block mt-2 text-[12px] font-[450] text-[rgba(0,0,0,.3)] not-italic">
@@ -373,7 +373,7 @@ function Ark7PersonaCards() {
               className="flex w-full flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
               style={{
                 fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "14px",
+                fontSize: "15px",
                 lineHeight: "150%",
                 fontWeight: 400,
                 color: "var(--color-ink-80)",
@@ -394,7 +394,7 @@ function Ark7PersonaCards() {
                 className="min-w-0 max-w-full text-right sm:max-w-[min(100%,28rem)]"
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                  fontSize: "14px",
+                  fontSize: "15px",
                   lineHeight: "150%",
                 }}
               >
@@ -412,7 +412,7 @@ function Ark7PersonaCards() {
               className="m-0 list-disc space-y-1.5 pl-4 marker:text-[var(--color-ink-65)]"
               style={{
                 fontFamily: BODY_TEXT_STYLE.fontFamily,
-                fontSize: "14px",
+                fontSize: "15px",
                 lineHeight: "150%",
                 color: "var(--color-ink-80)",
               }}
@@ -724,7 +724,7 @@ function Ark7CardRevampTabs() {
               }`}
               style={{
                 fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "14px",
+                fontSize: "15px",
                 lineHeight: "140%",
                 fontWeight: isActive ? 500 : 400,
                 cursor: "inherit",
@@ -915,7 +915,7 @@ function Ark7LayoutOptionsTabs() {
               }`}
               style={{
                 fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "14px",
+                fontSize: "15px",
                 lineHeight: "140%",
                 fontWeight: isActive ? 500 : 400,
                 cursor: "inherit",
@@ -1058,7 +1058,7 @@ function Ark7PersonaTabs() {
               }`}
               style={{
                 fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "14px",
+                fontSize: "15px",
                 lineHeight: "140%",
                 fontWeight: isActive ? 500 : 400,
                 cursor: "inherit",
@@ -1165,7 +1165,7 @@ function Ark7PersonaTabs() {
                   style={{
                     fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                     color: "var(--color-muted)",
-                    fontSize: "14px",
+                    fontSize: "15px",
                     animationDelay: `${475 + i * 70}ms`,
                   }}
                 >
@@ -1224,7 +1224,7 @@ function Ark7MobileNav({
               }`}
               style={{
                 fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "14px",
+                fontSize: "15px",
                 fontWeight: isActive ? 500 : 400,
                 background: "transparent",
                 cursor: "inherit",

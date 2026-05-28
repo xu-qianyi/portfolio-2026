@@ -61,7 +61,7 @@ const PROJECT_HEADLINE: CSSProperties = {
 
 const PROJECT_HEADLINE_MINIMAL: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "14px",
+  fontSize: "15px",
   fontWeight: 500,
   lineHeight: "150%",
   color: "var(--color-ink)",

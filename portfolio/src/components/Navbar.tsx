@@ -34,7 +34,7 @@ export default function Navbar() {
           className="outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] text-[rgba(26,26,26,0.85)] hover:text-[#000000] transition-colors duration-150"
           style={{
             fontFamily: "Geist, sans-serif",
-            fontSize: "14px",
+            fontSize: "15px",
             fontWeight: 500,
             letterSpacing: "-0.01em",
             textDecoration: "none",
@@ -51,7 +51,7 @@ export default function Navbar() {
               href={item.href}
               className="outline-none rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors h-8 px-3 flex items-center hover:bg-[var(--color-subtle)]"
               style={{
-                fontSize: "12px",
+                fontSize: "13px",
                 fontWeight: 450,
                 color: "rgba(26, 26, 26, 0.55)",
                 textDecoration: "none",
@@ -66,7 +66,7 @@ export default function Navbar() {
             rel="noopener noreferrer"
             className="outline-none rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors h-8 px-3 flex items-center hover:bg-[var(--color-subtle)]"
             style={{
-              fontSize: "12px",
+              fontSize: "13px",
               fontWeight: 450,
               color: "rgba(26, 26, 26, 0.55)",
               textDecoration: "none",
@@ -128,7 +128,7 @@ export default function Navbar() {
                 href={item.href}
                 className="rounded-md h-10 flex items-center px-3 transition-colors hover:bg-[var(--color-subtle)]"
                 style={{
-                  fontSize: "14px",
+                  fontSize: "15px",
                   fontWeight: 450,
                   color: "rgba(26, 26, 26, 0.55)",
                   textDecoration: "none",
@@ -143,7 +143,7 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="rounded-md h-10 flex items-center px-3 transition-colors hover:bg-[var(--color-subtle)]"
               style={{
-                fontSize: "14px",
+                fontSize: "15px",
                 fontWeight: 450,
                 color: "rgba(26, 26, 26, 0.55)",
                 textDecoration: "none",
