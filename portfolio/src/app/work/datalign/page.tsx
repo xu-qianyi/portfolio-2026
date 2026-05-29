@@ -138,11 +138,11 @@ function SubHeading({ children }: { children: React.ReactNode }) {
       style={{
         fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
         fontSize: "18px",
-        lineHeight: "1.3",
+        lineHeight: "1.5",
         fontWeight: 500,
         color: "var(--color-ink)",
         margin: 0,
-        textWrap: "balance" as const,
+        textWrap: "pretty" as const,
       }}
     >
       {children}
@@ -476,7 +476,7 @@ export default function DatalignCaseStudyPage() {
                       {[
                         { stat: "12%", detail: "completion rate across paid traffic" },
                         { stat: "9%", detail: "of sessions ended in a U-turn - users navigated in circles before giving up" },
-                        { stat: "1 in 3", detail: "users said they would not recommend the experience, citing the form as too long, too clinical, and lacking contextual justification for each question" },
+                        { stat: "1 in 3", detail: "users said they would not recommend the experience" },
                       ].map((item, i) => (
                         <div key={i} className="flex flex-col gap-3 rounded-lg p-4" style={{ background: "#fff", boxShadow: "none" }}>
                           <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "36px", lineHeight: 1, fontWeight: 400, letterSpacing: "-0.03em", color: "var(--color-ink)", margin: 0 }}>{item.stat}</p>
@@ -528,10 +528,7 @@ export default function DatalignCaseStudyPage() {
                   </div>
 
                   <div className="flex flex-col gap-4 mt-12 md:mt-14">
-                    <SubHeading>18,700 sessions revealed how the current design led users to give up - and why</SubHeading>
-                    <p style={BODY}>
-                      I pulled 5,162 Forbes SEM sessions and 13,559 Finance Advisors sessions from Hotjar, used ChatGPT to clean and analyze the data at scale, and ran a follow-up watch party with a peer designer on the sessions the data couldn&apos;t explain on its own.
-                    </p>
+                    <SubHeading>I pulled and audited 5,162 SEM sessions and 13,559 Finance Advisors sessions from Hotjar, using ChatGPT to analyze at scale.</SubHeading>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
                       {BEHAVIORAL_PATTERNS.map((pattern, i) => (
                         <div key={i} className="rounded-lg p-4" style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}>
@@ -545,14 +542,30 @@ export default function DatalignCaseStudyPage() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-4 mt-12 md:mt-14">
-                    <h3 style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "18px", lineHeight: "1.3", fontWeight: 500, color: "var(--color-ink)", margin: 0, textWrap: "balance" }}>...these are fixable UI problems. However<span style={{ opacity: 0.35 }}>...</span></h3>
-                    <SubHeading>the best competitors had a consistent voice. Datalign had none.</SubHeading>
-                    <p style={BODY}>
-                      I mapped 10+ competitors across a <em>Functional &rarr; Decent UX &rarr; Well-designed</em> axis. <Highlight variant="blue" duration={800}>The longer the form, the more experience design matters</Highlight> - Datalign runs 20+ questions but designs like a short-form tool.
-                    </p>
-                    <div className="mt-2 py-8 px-6 md:px-10 rounded-xl" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
-                      <img src={`${BASE}/images/Datalign form/Landscape.webp`} alt="Competitive landscape matrix" style={{ width: "100%", display: "block", borderRadius: 8 }} />
+                  <div className="flex flex-col gap-4" style={{ marginTop: "32px" }}>
+                    <h3 style={{ fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif", fontSize: "18px", lineHeight: "1.5", fontWeight: 500, color: "var(--color-ink)", margin: 0, textWrap: "pretty" }}>...these are fixable UI problems.<span style={{ opacity: 0.35 }}>...</span></h3>
+                    <SubHeading>However, why we need to redesign the entire experience? Because it has the worst experience in the industry.</SubHeading>
+                    <div className="mt-2 grid" style={{ padding: "32px 0", gridTemplateColumns: "repeat(3, 160px)", justifyContent: "center", justifyItems: "start", gap: "32px" }}>
+                      {[
+                        { dot: "#ef4444", label: "Functional", items: ["Money Pickle", "Wise Advisor", "Savvy Wealth"], highlight: "Datalign Advisory" },
+                        { dot: "#eab308", label: "Decent UX", items: ["Advisor.com", "NerdWallet", "Zoe Financial", "WealthRamp", "Finance HQ", "Facet"] },
+                        { dot: "#22c55e", label: "Well-designed", items: ["Quinn", "Boldin"] },
+                      ].map(({ dot, label, items, highlight }: { dot: string; label: string; items: string[]; highlight?: string }) => (
+                        <div key={label} className="flex flex-col gap-3">
+                          <div className="flex items-center gap-2">
+                            <span style={{ width: 10, height: 10, borderRadius: "50%", background: dot, flexShrink: 0, display: "inline-block" }} />
+                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", fontWeight: 500, color: "var(--color-ink)" }}>{label}</span>
+                          </div>
+                          <div className="flex flex-col gap-2">
+                            {items.map(name => (
+                              <span key={name} style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", color: "var(--color-ink-50)" }}>{name}</span>
+                            ))}
+                            {highlight && (
+                              <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", color: "#ef4444" }}>{highlight}</span>
+                            )}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                     <p style={BODY}>
                       The ones doing it well - Facet, Boldin, Quinn - carry users through with a consistent editorial voice. Datalign had none.
