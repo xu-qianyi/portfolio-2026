@@ -135,8 +135,8 @@ const TAKEAWAYS: { title: string; body: string }[] = [];
 
 const META_ITEMS = [
   { label: "Role",     value: "Product Designer (Summer/Fall Co-op)" },
-  { label: "Timeframe", value: "4 weeks" },
   { label: "Team",     value: "Product Designer (me), 1 Senior Designer, CSM, 2 Engineers, Data Team" },
+  { label: "Timeframe", value: "4 weeks" },
 ];
 
 type NavSection = { id: string; label: string };
@@ -460,27 +460,34 @@ export default function DatalignCaseStudyPage() {
                     <SubHeading>...these are fixable UI problems.<span style={{ opacity: 0.35 }}>...</span></SubHeading>
                     <p style={CASE_BODY}>However, why we need to redesign the entire experience? <Highlight variant="blue" duration={1400}>Because it has the worst experience in the industry.</Highlight></p>
 
-                    <div className="mt-2 grid" style={{ padding: "32px 0", gridTemplateColumns: "repeat(3, 160px)", justifyContent: "center", justifyItems: "start", gap: "32px" }}>
-                      {[
-                        { dot: "#ef4444", label: "Functional", items: ["Money Pickle", "Wise Advisor", "Savvy Wealth"], highlight: "Datalign Advisory" },
-                        { dot: "#eab308", label: "Decent UX", items: ["Advisor.com", "NerdWallet", "Zoe Financial", "WealthRamp", "Finance HQ", "Facet"] },
-                        { dot: "#22c55e", label: "Well-designed", items: ["Quinn", "Boldin"] },
-                      ].map(({ dot, label, items, highlight }: { dot: string; label: string; items: string[]; highlight?: string }) => (
-                        <div key={label} className="flex flex-col gap-3">
-                          <div className="flex items-center gap-2">
-                            <span style={{ width: 10, height: 10, borderRadius: "50%", background: dot, flexShrink: 0, display: "inline-block" }} />
-                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, color: "var(--color-ink)" }}>{label}</span>
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            {items.map(name => (
-                              <span key={name} style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", color: "var(--color-ink-50)" }}>{name}</span>
-                            ))}
-                            {highlight && (
-                              <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", color: "#ef4444" }}>{highlight}</span>
-                            )}
-                          </div>
+                    <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4" style={{ padding: "8px 0 32px" }}>
+                      {/* Functional */}
+                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "rgba(239,68,68,0.08)" }}>
+                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(239,68,68,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                          <i className="ri-error-warning-line" style={{ fontSize: 22, color: "#ef4444" }} />
                         </div>
-                      ))}
+                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Functional</div>
+                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
+                          <span style={{ color: "var(--color-ink-50)" }}>Money Pickle, Wise Advisor, Savvy Wealth, </span>
+                          <span style={{ color: "#ef4444" }}>Datalign Advisory</span>
+                        </p>
+                      </div>
+                      {/* Decent UX */}
+                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "rgba(234,179,8,0.08)" }}>
+                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(234,179,8,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                          <i className="ri-medal-line" style={{ fontSize: 22, color: "#ca8a04" }} />
+                        </div>
+                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Decent UX</div>
+                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", lineHeight: 1.6, color: "var(--color-ink-50)", margin: 0 }}>Advisor.com, NerdWallet, Zoe Financial, WealthRamp, Finance HQ, Facet</p>
+                      </div>
+                      {/* Well-designed */}
+                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "rgba(34,197,94,0.08)" }}>
+                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(34,197,94,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                          <i className="ri-trophy-line" style={{ fontSize: 22, color: "#16a34a" }} />
+                        </div>
+                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Well-designed</div>
+                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", lineHeight: 1.6, color: "var(--color-ink-50)", margin: 0 }}>Quinn, Boldin</p>
+                      </div>
                     </div>
                     <p style={CASE_BODY}>
                       The ones doing it well (Facet, Boldin, Quinn) carry users through with a consistent editorial voice. Datalign had none.
