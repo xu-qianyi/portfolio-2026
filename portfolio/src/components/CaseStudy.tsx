@@ -5,15 +5,8 @@ import Link from "next/link";
 export type MetaItem = { label: string; value: string };
 
 // ── Shared style tokens ──────────────────────────────────────────────
-export const CASE_BODY = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "15px",
-  lineHeight: "1.6",
-  letterSpacing: "-0.005em",
-  color: "var(--color-ink-80)",
-  margin: 0,
-} as const satisfies React.CSSProperties;
 
+// Tiempos serif — H1 / H2 / H3 only
 export const CASE_H1 = {
   fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
   fontSize: "28px",
@@ -37,6 +30,28 @@ export const CASE_H2 = {
   textWrap: "balance" as const,
 } satisfies React.CSSProperties;
 
+// H3 — component-level heading (feature names, persona names, design decision titles)
+export const CASE_H3 = {
+  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+  fontSize: "20px",
+  lineHeight: "1.25",
+  fontWeight: 500,
+  letterSpacing: "-0.01em",
+  color: "var(--color-ink)",
+  margin: 0,
+  textWrap: "balance" as const,
+} satisfies React.CSSProperties;
+
+// Geist sans — H4 and below
+export const CASE_BODY = {
+  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontSize: "15px",
+  lineHeight: "1.6",
+  letterSpacing: "-0.005em",
+  color: "var(--color-ink-80)",
+  margin: 0,
+} as const satisfies React.CSSProperties;
+
 export const CASE_EYEBROW = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "10px",
@@ -44,6 +59,37 @@ export const CASE_EYEBROW = {
   letterSpacing: ".04em",
   textTransform: "uppercase" as const,
   color: "var(--color-ink-70)",
+  margin: 0,
+} satisfies React.CSSProperties;
+
+// Small uppercase label (used inside components: step labels, section tags, etc.)
+export const CASE_LABEL = {
+  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontSize: "11px",
+  fontWeight: 500,
+  letterSpacing: "0.06em",
+  textTransform: "uppercase" as const,
+  color: "var(--color-ink-50)",
+  margin: 0,
+} satisfies React.CSSProperties;
+
+// Image captions and card body text
+export const CASE_CAPTION = {
+  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontSize: "13px",
+  lineHeight: "1.5",
+  color: "var(--color-ink-50)",
+  margin: 0,
+} satisfies React.CSSProperties;
+
+// Large stat / impact numbers
+export const CASE_STAT = {
+  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontSize: "36px",
+  lineHeight: "1",
+  fontWeight: 400,
+  letterSpacing: "-0.03em",
+  color: "var(--color-ink)",
   margin: 0,
 } satisfies React.CSSProperties;
 
@@ -82,6 +128,7 @@ export function SectionDivider({ label }: { label: string }) {
   );
 }
 
+// H4 — sub-section heading, Geist sans
 export function SubHeading({
   children,
   as: Tag = "h3",
@@ -97,10 +144,11 @@ export function SubHeading({
     <Tag
       className={className}
       style={{
-        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
         fontSize: "18px",
         lineHeight: "1.3",
-        fontWeight: 500,
+        fontWeight: 550,
+        letterSpacing: "-0.01em",
         color: "var(--color-ink)",
         margin: 0,
         textWrap: "balance",
@@ -128,6 +176,96 @@ export function CaseMetaGrid({ items }: { items: MetaItem[] }) {
   );
 }
 
+// ── Content types ────────────────────────────────────────────────────
+export type MethodItem = {
+  step?: string;   // optional — "01", "02"…
+  label: string;
+  body: string;
+};
+
+export type StatItem = {
+  value: string;
+  label: string;
+};
+
+// ── Layout components ────────────────────────────────────────────────
+
+// SubHeading + content, gap-4 baked in. Pass className for outer mt-*.
+export function CaseSubSection({
+  heading,
+  children,
+  className,
+  headingAs = "h3",
+}: {
+  heading: React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
+  headingAs?: "h2" | "h3";
+}) {
+  return (
+    <div className={`flex flex-col gap-5${className ? ` ${className}` : ""}`}>
+      <SubHeading as={headingAs}>{heading}</SubHeading>
+      {children}
+    </div>
+  );
+}
+
+// Numbered method / research / finding cards. cols defaults to 3.
+export function CaseMethodGrid({
+  items,
+  cols = 3,
+  variant = "elevated",
+}: {
+  items: MethodItem[];
+  cols?: 1 | 2 | 3;
+  variant?: "elevated" | "flat";
+}) {
+  const colClass = cols === 2 ? " sm:grid-cols-2" : cols === 3 ? " sm:grid-cols-3" : "";
+  const cardStyle =
+    variant === "elevated"
+      ? { background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }
+      : { background: "var(--color-surface)" };
+  return (
+    <div className={`grid grid-cols-1${colClass} gap-4`}>
+      {items.map((item, i) => (
+        <div key={i} className="rounded-lg p-4" style={cardStyle}>
+          {item.step !== undefined && (
+            <div style={{ ...CASE_LABEL, color: "var(--color-ink-40)", marginBottom: "10px" }}>
+              {item.step}
+            </div>
+          )}
+          <div style={{
+            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+            fontSize: "15px",
+            fontWeight: 500,
+            letterSpacing: "-0.01em",
+            color: "var(--color-ink-80)",
+            marginBottom: "6px",
+            lineHeight: "1.3",
+          }}>
+            {item.label}
+          </div>
+          <div style={CASE_CAPTION}>{item.body}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Large stat numbers + labels, 3-column grid.
+export function CaseStatGrid({ items }: { items: StatItem[] }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-5">
+      {items.map((item, i) => (
+        <div key={i} className="flex flex-col gap-3 pt-4">
+          <p style={CASE_STAT}>{item.value}</p>
+          <p style={{ ...CASE_BODY, color: "var(--color-ink-50)" }}>{item.label}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function CaseNextProject({ href, label }: { href: string; label: string }) {
   return (
     <Link
@@ -138,9 +276,9 @@ export function CaseNextProject({ href, label }: { href: string; label: string }
       <SectionDivider label="Next project" />
       <p
         style={{
-          fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
           fontSize: "18px",
-          lineHeight: "140%",
+          lineHeight: "1.3",
           fontWeight: 400,
           margin: 0,
         }}

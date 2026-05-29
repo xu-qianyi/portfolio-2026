@@ -11,10 +11,19 @@ import {
   CASE_BODY,
   CASE_H1,
   CASE_H2,
+  CASE_H3,
   CASE_EYEBROW,
+  CASE_LABEL,
+  CASE_CAPTION,
+  CASE_STAT,
   SectionDivider,
   SubHeading,
   CaseMetaGrid,
+  CaseSubSection,
+  CaseMethodGrid,
+  CaseStatGrid,
+  type MethodItem,
+  type StatItem,
 } from "@/components/CaseStudy";
 
 type Section = {
@@ -173,6 +182,17 @@ const ARK7_PERSONA_FRAMES = [
   },
 ] as const;
 
+const ARK7_METHOD_ITEMS: MethodItem[] = [
+  { step: "01", label: "Public sentiment",           body: "Scraped TrustPilot, App Store reviews, Reddit, and YouTube comments to capture unfiltered user reactions." },
+  { step: "02", label: "CS team interviews",         body: "Talked with ARK7's customer service team to map what complaints actually reached them - and what they couldn't explain." },
+  { step: "03", label: "Benchmarking against Arrived", body: "Deep-dived into Arrived - ARK7's closest direct competitor - to understand what they were doing differently to keep investors engaged." },
+];
+
+const ARK7_STAT_ITEMS: StatItem[] = [
+  { value: "10%",  label: "lift in new user conversion rate" },
+  { value: "2×",   label: "longer on the platform in their first session - reading, exploring, and getting comfortable before investing" },
+  { value: "40%",  label: "increase in secondary market transaction volume" },
+];
 
 const ARK7_DESIGN_AUDIT_FINDINGS = [
   {
@@ -259,7 +279,7 @@ function Ark7DesignAuditGrid() {
                 fontWeight: 500,
                 letterSpacing: "0.06em",
                 textTransform: "uppercase" as const,
-                color: "rgba(26,26,26,0.35)",
+                color: "var(--color-ink-40)",
                 marginBottom: "2px",
               }}
             >
@@ -272,13 +292,13 @@ function Ark7DesignAuditGrid() {
                 lineHeight: "1.3",
                 fontWeight: 500,
                 letterSpacing: "-0.01em",
-                color: "rgba(26,26,26,0.85)",
+                color: "var(--color-ink-80)",
                 margin: 0,
               }}
             >
               {item.title}
             </p>
-            <p style={{ ...CASE_BODY, color: "rgba(26,26,26,0.5)" }}>{item.body}</p>
+            <p style={{ ...CASE_BODY, color: "var(--color-ink-50)" }}>{item.body}</p>
           </div>
         </div>
       ))}
@@ -332,32 +352,12 @@ function Ark7PersonaCards() {
           <header>
             <p
               className="flex w-full flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
-              style={{
-                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "15px",
-                lineHeight: "150%",
-                fontWeight: 400,
-                color: "var(--color-ink-80)",
-                margin: 0,
-              }}
+              style={{ ...CASE_BODY, color: "var(--color-ink-80)" }}
             >
-              <span
-                style={{
-                  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                  fontSize: "20px",
-                  fontWeight: 500,
-                  color: "var(--color-ink)",
-                }}
-              >
-                {p.name}
-              </span>
+              <span style={CASE_H3}>{p.name}</span>
               <span
                 className="min-w-0 max-w-full text-right sm:max-w-[min(100%,28rem)]"
-                style={{
-                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                  fontSize: "15px",
-                  lineHeight: "150%",
-                }}
+                style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", lineHeight: "1.5" }}
               >
                 <span style={{ color: "var(--color-ink-70)" }}>{p.role}</span>
                 <span style={{ color: "var(--color-muted)" }}> · </span>
@@ -371,12 +371,7 @@ function Ark7PersonaCards() {
           <div className="flex flex-col gap-2 border-t border-[var(--color-ink-14)] pt-3.5">
             <ul
               className="m-0 list-disc space-y-1.5 pl-4 marker:text-[var(--color-ink-65)]"
-              style={{
-                fontFamily: CASE_BODY.fontFamily,
-                fontSize: "15px",
-                lineHeight: "150%",
-                color: "var(--color-ink-80)",
-              }}
+              style={{ fontFamily: CASE_BODY.fontFamily, fontSize: "15px", lineHeight: "1.6", color: "var(--color-ink-80)" }}
             >
               {p.needs.map((line) => (
                 <li key={line} className="pl-0.5">
@@ -393,9 +388,9 @@ function Ark7PersonaCards() {
 }
 
 const TABLE_SERIF = {
-  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "15px",
-  lineHeight: "150%",
+  lineHeight: "1.5",
 } as const;
 
 function Ark7PersonaBusinessMappingTable() {
@@ -660,42 +655,50 @@ function Ark7CardRevampTabs() {
 
   return (
     <div className="flex flex-col gap-5 md:gap-6">
-      <div
-        role="tablist"
-        aria-label="Card component revamp tabs"
-        id={tablistId}
-        onKeyDown={handleKeyDown}
-        className="flex flex-wrap justify-end gap-x-1"
-      >
-        {ARK7_CARD_REVAMP_TABS.map((tab, i) => {
-          const isActive = i === activeIndex;
-          return (
-            <button
-              key={tab.id}
-              type="button"
-              role="tab"
-              id={`${tablistId}-${tab.id}`}
-              aria-selected={isActive}
-              aria-controls={`${tablistId}-panel-${tab.id}`}
-              tabIndex={isActive ? 0 : -1}
-              className={`min-h-11 border-b-2 bg-transparent px-3 py-2.5 text-left transition-[color,border-color] duration-200 ease-out motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
-                isActive
-                  ? "border-[var(--color-ink)] text-[var(--color-ink)]"
-                  : "border-transparent text-[var(--color-muted)] hover:text-[var(--color-ink-80)]"
-              }`}
-              style={{
-                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "15px",
-                lineHeight: "140%",
-                fontWeight: isActive ? 500 : 400,
-                cursor: "inherit",
-              }}
-              onClick={() => select(i)}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
+      <div className="flex justify-center">
+        <div
+          role="tablist"
+          aria-label="Card component revamp tabs"
+          id={tablistId}
+          onKeyDown={handleKeyDown}
+          className="inline-flex items-center p-1 rounded-full"
+          style={{ background: "var(--color-ink-06)", border: "1px solid var(--color-ink-14)" }}
+        >
+          {ARK7_CARD_REVAMP_TABS.map((tab, i) => {
+            const isActive = i === activeIndex;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                id={`${tablistId}-${tab.id}`}
+                aria-selected={isActive}
+                aria-controls={`${tablistId}-panel-${tab.id}`}
+                tabIndex={isActive ? 0 : -1}
+                className="relative px-4 py-1.5 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                style={{
+                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                  fontSize: "11px",
+                  fontWeight: 500,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: isActive ? "#fff" : "var(--color-muted)",
+                  cursor: "inherit",
+                  borderRadius: "999px",
+                }}
+                onClick={() => select(i)}
+              >
+                {isActive && (
+                  <span
+                    className="absolute inset-0 rounded-full"
+                    style={{ background: "var(--color-ink)" }}
+                  />
+                )}
+                <span className="relative z-10">{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div
@@ -786,13 +789,9 @@ function Ark7PrototypeFeatures() {
           <div className="flex flex-col gap-3">
             <span
               style={{
+                ...CASE_LABEL,
                 display: "inline-flex",
                 alignSelf: "flex-start",
-                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "11px",
-                fontWeight: 500,
-                letterSpacing: "0.04em",
-                textTransform: "uppercase" as const,
                 color: "var(--color-ink-80)",
                 background: "var(--color-ink-06)",
                 borderRadius: "999px",
@@ -801,19 +800,8 @@ function Ark7PrototypeFeatures() {
             >
               {feature.trust}
             </span>
-            <h3
-              style={{
-                fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                fontSize: "22px",
-                lineHeight: "1.2",
-                fontWeight: 500,
-                color: "var(--color-ink)",
-                margin: 0,
-              }}
-            >
-              {feature.name}
-            </h3>
-            <p style={{ ...CASE_BODY, color: "rgba(26,26,26,0.5)" }}>{feature.description}</p>
+            <h3 style={CASE_H3}>{feature.name}</h3>
+            <p style={{ ...CASE_BODY, color: "var(--color-ink-50)" }}>{feature.description}</p>
           </div>
         </div>
       ))}
@@ -851,42 +839,50 @@ function Ark7LayoutOptionsTabs() {
 
   return (
     <div className="flex flex-col gap-5 md:gap-6">
-      <div
-        role="tablist"
-        aria-label="Three layout options compared"
-        id={tablistId}
-        onKeyDown={handleKeyDown}
-        className="flex flex-wrap justify-end gap-x-1"
-      >
-        {ARK7_LAYOUT_OPTIONS.map((opt, i) => {
-          const isActive = i === activeIndex;
-          return (
-            <button
-              key={opt.id}
-              type="button"
-              role="tab"
-              id={`${tablistId}-${opt.id}`}
-              aria-selected={isActive}
-              aria-controls={`${tablistId}-panel-${opt.id}`}
-              tabIndex={isActive ? 0 : -1}
-              className={`min-h-11 border-b-2 bg-transparent px-3 py-2.5 text-left transition-[color,border-color] duration-200 ease-out motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
-                isActive
-                  ? "border-[var(--color-ink)] text-[var(--color-ink)]"
-                  : "border-transparent text-[var(--color-muted)] hover:text-[var(--color-ink-80)]"
-              }`}
-              style={{
-                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "15px",
-                lineHeight: "140%",
-                fontWeight: isActive ? 500 : 400,
-                cursor: "inherit",
-              }}
-              onClick={() => selectLayoutTab(i)}
-            >
-              {opt.tabLabel}
-            </button>
-          );
-        })}
+      <div className="flex justify-center">
+        <div
+          role="tablist"
+          aria-label="Three layout options compared"
+          id={tablistId}
+          onKeyDown={handleKeyDown}
+          className="inline-flex items-center p-1 rounded-full"
+          style={{ background: "var(--color-ink-06)", border: "1px solid var(--color-ink-14)" }}
+        >
+          {ARK7_LAYOUT_OPTIONS.map((opt, i) => {
+            const isActive = i === activeIndex;
+            return (
+              <button
+                key={opt.id}
+                type="button"
+                role="tab"
+                id={`${tablistId}-${opt.id}`}
+                aria-selected={isActive}
+                aria-controls={`${tablistId}-panel-${opt.id}`}
+                tabIndex={isActive ? 0 : -1}
+                className="relative px-4 py-1.5 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                style={{
+                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                  fontSize: "11px",
+                  fontWeight: 500,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: isActive ? "#fff" : "var(--color-muted)",
+                  cursor: "inherit",
+                  borderRadius: "999px",
+                }}
+                onClick={() => selectLayoutTab(i)}
+              >
+                {isActive && (
+                  <span
+                    className="absolute inset-0 rounded-full"
+                    style={{ background: "var(--color-ink)" }}
+                  />
+                )}
+                <span className="relative z-10">{opt.tabLabel}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <div
@@ -915,21 +911,8 @@ function Ark7LayoutOptionsTabs() {
             />
           </div>
           <div className="flex min-w-0 flex-col gap-5 md:gap-6 md:pt-0.5">
-            <p
-              style={{
-                fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                fontSize: "20px",
-                lineHeight: "124%",
-                fontWeight: 500,
-                color: "var(--color-ink)",
-                margin: 0,
-              }}
-            >
-              {active.title}
-            </p>
-            <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "12px", fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase", color: "var(--color-muted)", margin: 0 }}>
-              Design consideration
-            </p>
+            <p style={CASE_H3}>{active.title}</p>
+            <p style={{ ...CASE_LABEL, color: "var(--color-muted)" }}>Design consideration</p>
             <ul className="m-0 flex list-none flex-col gap-4 p-0 md:gap-5">
               {active.points.map((node, idx) => (
                 <li key={`${active.id}-pt-${idx}`} className="flex gap-3 items-baseline">
@@ -973,17 +956,10 @@ function Ark7PersonaTabs() {
     }
   };
 
-  const LABEL_STYLE: React.CSSProperties = {
-    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-    fontSize: "11px",
-    fontWeight: 500,
-    letterSpacing: "0.06em",
-    textTransform: "uppercase",
-    color: "var(--color-muted)",
-  };
+  const LABEL_STYLE: React.CSSProperties = { ...CASE_LABEL, color: "var(--color-muted)" };
 
   const NEED_TEXT_STYLE: React.CSSProperties = {
-    fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
     fontSize: "15px",
     lineHeight: "1.4",
     fontWeight: 400,
@@ -994,42 +970,50 @@ function Ark7PersonaTabs() {
   return (
     <div className="flex flex-col gap-5 md:gap-6">
       {/* Tab list */}
-      <div
-        role="tablist"
-        aria-label="Persona tabs"
-        id={tablistId}
-        onKeyDown={handleKeyDown}
-        className="flex flex-wrap justify-end gap-x-1"
-      >
-        {ARK7_PERSONA_FRAMES.map((frame, i) => {
-          const isActive = i === activeIndex;
-          return (
-            <button
-              key={frame.id}
-              type="button"
-              role="tab"
-              id={`${tablistId}-${frame.id}`}
-              aria-selected={isActive}
-              aria-controls={`${tablistId}-panel-${frame.id}`}
-              tabIndex={isActive ? 0 : -1}
-              className={`min-h-11 border-b-2 bg-transparent px-3 py-2.5 text-left transition-[color,border-color] duration-200 ease-out motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
-                isActive
-                  ? "border-[var(--color-ink)] text-[var(--color-ink)]"
-                  : "border-transparent text-[var(--color-muted)] hover:text-[var(--color-ink-80)]"
-              }`}
-              style={{
-                fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                fontSize: "15px",
-                lineHeight: "140%",
-                fontWeight: isActive ? 500 : 400,
-                cursor: "inherit",
-              }}
-              onClick={() => select(i)}
-            >
-              {frame.tabLabel}
-            </button>
-          );
-        })}
+      <div className="flex justify-center">
+        <div
+          role="tablist"
+          aria-label="Persona tabs"
+          id={tablistId}
+          onKeyDown={handleKeyDown}
+          className="inline-flex items-center p-1 rounded-full"
+          style={{ background: "var(--color-ink-06)", border: "1px solid var(--color-ink-14)" }}
+        >
+          {ARK7_PERSONA_FRAMES.map((frame, i) => {
+            const isActive = i === activeIndex;
+            return (
+              <button
+                key={frame.id}
+                type="button"
+                role="tab"
+                id={`${tablistId}-${frame.id}`}
+                aria-selected={isActive}
+                aria-controls={`${tablistId}-panel-${frame.id}`}
+                tabIndex={isActive ? 0 : -1}
+                className="relative px-4 py-1.5 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                style={{
+                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                  fontSize: "11px",
+                  fontWeight: 500,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: isActive ? "#fff" : "var(--color-muted)",
+                  cursor: "inherit",
+                  borderRadius: "999px",
+                }}
+                onClick={() => select(i)}
+              >
+                {isActive && (
+                  <span
+                    className="absolute inset-0 rounded-full"
+                    style={{ background: "var(--color-ink)" }}
+                  />
+                )}
+                <span className="relative z-10">{frame.tabLabel}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Tab panel */}
@@ -1043,18 +1027,7 @@ function Ark7PersonaTabs() {
         {/* Persona header */}
         <div className="mb-5 md:mb-6">
           <p style={{ ...LABEL_STYLE, marginBottom: "4px" }}>{active.personaType}</p>
-          <p
-            style={{
-              fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-              fontSize: "22px",
-              lineHeight: "1.2",
-              fontWeight: 500,
-              color: "var(--color-ink)",
-              margin: 0,
-            }}
-          >
-            {active.tabLabel}
-          </p>
+          <p style={CASE_H3}>{active.tabLabel}</p>
         </div>
 
         {/* Status quo */}
@@ -1068,17 +1041,7 @@ function Ark7PersonaTabs() {
                 style={{ animationDelay: `${i * 80}ms` }}
               >
                 <span style={{ color: "var(--color-ink-14)", flexShrink: 0, fontSize: "16px", lineHeight: "160%", fontWeight: 600 }}>·</span>
-                <p
-                  style={{
-                    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                    fontSize: "13px",
-                    lineHeight: "1.55",
-                    color: "var(--color-ink-70)",
-                    margin: 0,
-                  }}
-                >
-                  {item}
-                </p>
+                <p style={{ ...CASE_CAPTION, color: "var(--color-ink-70)" }}>{item}</p>
               </li>
             ))}
           </ul>
@@ -1358,7 +1321,7 @@ export default function Ark7CaseStudyPage() {
                 ref={(el) => {
                   sectionRefs.current[section.id] = el;
                 }}
-                className="scroll-mt-24 pt-16"
+                className="scroll-mt-24 pt-20"
               >
                 <div className="flex min-w-0 w-full flex-col gap-0">
                 <CaseScrollReveal>
@@ -1370,7 +1333,7 @@ export default function Ark7CaseStudyPage() {
                 </div>
                 </CaseScrollReveal>
 
-                <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
+                <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 {section.body.map((paragraph, paragraphIndex) => (
                   <p
                     key={`${section.id}-${paragraphIndex}`}
@@ -1381,23 +1344,25 @@ export default function Ark7CaseStudyPage() {
                 ))}
 
                 {section.id === "iteration" ? (
-                  <div className="flex flex-col gap-4">
-                    <SubHeading as="h2">Fixing the foundation first</SubHeading>
-                    <p style={{ ...CASE_BODY }}>
+                  <>
+                  <CaseSubSection heading="Fixing the foundation first" headingAs="h2">
+                    <p style={CASE_BODY}>
                       Before shipping the community features, we stepped back. At a visual level, the platform was already working against itself - signaling cheap and inconsistent before a user ever reached the content.
                     </p>
-                    <p style={{ ...CASE_BODY }}>
+                    <p style={CASE_BODY}>
                       Trust-building features can&apos;t land on a foundation like that. Rebuilding the card component wasn&apos;t a detour from the brief - it was the prerequisite.
                     </p>
                     <Ark7IterationStoreQuotes />
-                    <p style={{ ...CASE_BODY }}>Our design audit revealed:</p>
+                    <p style={CASE_BODY}>Our design audit revealed:</p>
                     <Ark7DesignAuditGrid />
-                    <SubHeading as="h2" style={{ marginTop: "2.5rem" }}>The Card Component Revamp</SubHeading>
-                    <p style={{ ...CASE_BODY }}>
+                  </CaseSubSection>
+                  <CaseSubSection heading="The Card Component Revamp" headingAs="h2" className="mt-10">
+                    <p style={CASE_BODY}>
                       Given time constraints, we focused our design system work on the card component - the most heavily used element across the platform, and the building block for all four community features.
                     </p>
                     <Ark7CardRevampTabs />
-                  </div>
+                  </CaseSubSection>
+                  </>
                 ) : null}
 
                 {section.id === "final-solution" ? (
@@ -1406,7 +1371,7 @@ export default function Ark7CaseStudyPage() {
 
                 {section.id === "design" ? (
                   <>
-                    <div className="relative my-6 rounded-lg overflow-hidden px-6 py-4 md:my-8 md:px-32 md:py-6">
+                    <div className="relative my-8 rounded-lg overflow-hidden px-6 py-4 md:my-12 md:px-32 md:py-6">
                       <Image
                         src="/images/ARK7/matrix.webp"
                         alt="Eisenhower-style matrix mapping 12 community features by effort and trust impact, narrowed to four"
@@ -1417,126 +1382,67 @@ export default function Ark7CaseStudyPage() {
                       />
                       <span className="absolute inset-0 rounded-lg pointer-events-none" style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.1)" }} />
                     </div>
-                    <div className="mt-8 flex flex-col gap-5 md:mt-10">
-                      <div className="flex flex-col gap-4">
-                        <SubHeading>Entry point: one tab, four touchpoints</SubHeading>
-                        <p style={{ ...CASE_BODY }}>
+                    <div className="mt-10 flex flex-col gap-8">
+                      <CaseSubSection heading="Entry point: one tab, four touchpoints">
+                        <p style={CASE_BODY}>
                           We evaluated three layout options for integrating the community features. The
                           winning approach:{" "}
                           <Highlight variant="green" duration={800}>a dedicated tab with a feed flow</Highlight>
                           , using information cards at the top to surface each feature.
                         </p>
-                      </div>
-                      <Ark7LayoutOptionsTabs />
-                    </div>
-                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
-                      <SubHeading>Core flow</SubHeading>
-                      <p style={{ ...CASE_BODY }}>
-                        We mapped flows for each of the four features, tracing the path from community tab entry to the key action in each feature - surfacing where friction was highest and where confidence-building moments needed to land.
-                      </p>
-                      <div className="mt-6 mb-3 w-full overflow-hidden md:mt-8 md:mb-5">
-                        <Image
-                          src="/images/ARK7/user%20flow.webp"
-                          alt="User flow diagram mapping entry through feed interactions in the ARK7 app"
-                          width={4432}
-                          height={1956}
-                          sizes="(max-width: 767px) 100vw, 800px"
-                          loading="lazy"
-                          className="h-auto w-full object-contain"
-                        />
-                      </div>
+                        <Ark7LayoutOptionsTabs />
+                      </CaseSubSection>
+                      <CaseSubSection heading="Core flow">
+                        <p style={CASE_BODY}>
+                          We mapped flows for each of the four features, tracing the path from community tab entry to the key action in each feature - surfacing where friction was highest and where confidence-building moments needed to land.
+                        </p>
+                        <div className="w-full overflow-hidden">
+                          <Image
+                            src="/images/ARK7/user%20flow.webp"
+                            alt="User flow diagram mapping entry through feed interactions in the ARK7 app"
+                            width={4432}
+                            height={1956}
+                            sizes="(max-width: 767px) 100vw, 800px"
+                            loading="lazy"
+                            className="h-auto w-full object-contain"
+                          />
+                        </div>
+                      </CaseSubSection>
                     </div>
                   </>
                 ) : null}
 
                 {section.id === "summary" ? (
                   <>
-                  <div className="flex flex-col gap-4">
-                    <SubHeading>Measuring trust in numbers</SubHeading>
-                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", lineHeight: "150%", fontWeight: 400, color: "var(--color-ink)", margin: 0 }}>
+                  <CaseSubSection heading="Measuring trust in numbers">
+                    <p style={CASE_BODY}>
                       Initial telemetry after the community features shipped showed movement across both segments:
                     </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-5 mt-1">
-                      {[
-                        { metric: "10%", label: "lift in new user conversion rate" },
-                        { metric: "2×", label: "longer on the platform in their first session - reading, exploring, and getting comfortable before investing" },
-                        { metric: "40%", label: "increase in secondary market transaction volume" },
-                      ].map((item) => (
-                        <div key={item.metric} className="flex flex-col gap-3 pt-4">
-                          <p style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "36px",
-                            lineHeight: "1",
-                            fontWeight: 400,
-                            letterSpacing: "-0.03em",
-                            color: "var(--color-ink)",
-                            margin: 0,
-                          }}>
-                            {item.metric}
-                          </p>
-                          <p style={{ ...CASE_BODY, color: "rgba(26,26,26,0.5)" }}>{item.label}</p>
-                        </div>
-                      ))}
+                    <CaseStatGrid items={ARK7_STAT_ITEMS} />
+                  </CaseSubSection>
+                  <CaseSubSection heading="What I took away" className="mt-12">
+                    <div className="flex flex-col gap-1.5">
+                      <div style={{ ...CASE_LABEL, color: "var(--color-ink-40)" }}>01</div>
+                      <SubHeading>Navigating the space between user needs and business caution</SubHeading>
                     </div>
-                  </div>
-                  <div className="mt-12 flex flex-col gap-4">
-                    <SubHeading>What I took away</SubHeading>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                      <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)" }}>01</div>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                          fontSize: "15px",
-                          lineHeight: "150%",
-                          fontWeight: 400,
-                          color: "var(--color-ink)",
-                          margin: 0,
-                        }}
-                      >
-                        Navigating the space between user needs and business caution
-                      </p>
-                    </div>
-                    <p style={{ ...CASE_BODY, color: "rgba(26,26,26,0.5)" }}>
+                    <p style={{ ...CASE_BODY, color: "var(--color-ink-50)" }}>
                       User needs and business goals don&apos;t always point the same way - and sometimes that tension is real, not just a communication problem. When they conflict, defaulting to one side doesn&apos;t work. Designs that ignore business constraints don&apos;t ship. Decisions that ignore users don&apos;t hold. The job is trusting your product instinct enough to find where both can actually be served.
                     </p>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "4px", marginTop: "1rem" }}>
-                      <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)" }}>02</div>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                          fontSize: "15px",
-                          lineHeight: "150%",
-                          fontWeight: 400,
-                          color: "var(--color-ink)",
-                          margin: 0,
-                        }}
-                      >
-                        Not everything we designed survived
-                      </p>
+                    <div className="flex flex-col gap-1.5 mt-8">
+                      <div style={{ ...CASE_LABEL, color: "var(--color-ink-40)" }}>02</div>
+                      <SubHeading>Not everything we designed survived</SubHeading>
                     </div>
-                    <p style={{ ...CASE_BODY, color: "rgba(26,26,26,0.5)" }}>
+                    <p style={{ ...CASE_BODY, color: "var(--color-ink-50)" }}>
                       After handoff, the product was reshaped multiple times - today only the News feature is still live. The honest part isn&apos;t what was outside my control. Some research moved faster than it should have, and decisions ended up built on thinner ground than I&apos;d want. Speed is a real constraint, but the right response isn&apos;t to do everything faster. It&apos;s to know what needs protecting. I didn&apos;t always get that right here.
                     </p>
-                  </div>
+                  </CaseSubSection>
                   </>
                 ) : null}
 
                 {section.id === "research" ? (
-                  <div className="mt-4 flex flex-col md:mt-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-1 mb-1">
-                      {[
-                        { step: "01", label: "Public sentiment", body: "Scraped TrustPilot, App Store reviews, Reddit, and YouTube comments to capture unfiltered user reactions." },
-                        { step: "02", label: "CS team interviews", body: "Talked with ARK7's customer service team to map what complaints actually reached them - and what they couldn't explain." },
-                        { step: "03", label: "Benchmarking against Arrived", body: "Deep-dived into Arrived - ARK7's closest direct competitor - to understand what they were doing differently to keep investors engaged." },
-                      ].map((item) => (
-                        <div key={item.label} className="rounded-lg bg-[var(--color-surface)] p-4">
-                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "rgba(26,26,26,0.35)", marginBottom: "10px" }}>{item.step}</div>
-                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "rgba(26,26,26,0.85)", marginBottom: "6px", lineHeight: "1.3" }}>{item.label}</div>
-                          <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.45", color: "rgba(26,26,26,0.5)" }}>{item.body}</div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="relative rounded-lg overflow-hidden bg-[var(--color-subtle)] mt-6 md:mt-8 p-6 md:p-10">
+                  <div className="flex flex-col gap-8">
+                    <CaseMethodGrid items={ARK7_METHOD_ITEMS} cols={3} variant="flat" />
+                    <div className="relative rounded-lg overflow-hidden bg-[var(--color-subtle)] p-6 md:p-10">
                       <Image
                         src="/images/ARK7/Competitor%20analysis.webp"
                         alt="Competitor analysis comparing ARK7 and Arrived across mobile app, website, and social channels"
@@ -1549,19 +1455,20 @@ export default function Ark7CaseStudyPage() {
                       />
                       <span className="absolute inset-0 rounded-lg pointer-events-none" style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.08)" }} />
                     </div>
-                    <p style={{ ...CASE_BODY, marginTop: "1.5rem" }}>
-                      Arrived ran webinars, published expert walkthroughs, and kept community spaces active. Users could see how others invested, ask questions directly, and build conviction before committing. ARK7 offered the same product - same price range, same asset class - with none of that context.
-                    </p>
-                    <p style={{ ...CASE_BODY, marginTop: "0.75rem" }}>
-                      Public sentiment across TrustPilot, App Store, Reddit, and YouTube confirmed it from the user side. <Highlight variant="green" duration={800}>Complaints weren&apos;t about bugs or pricing - they were about opacity.</Highlight> Returns showed up in the dashboard; the reasoning behind them didn&apos;t. No visibility into property management, no sense of who co-owned their assets, no signal that anyone else trusted the platform with real money.
-                    </p>
-                    <div className="mt-8 flex flex-col gap-4 md:mt-10">
-                      <SubHeading>The problem, reframed</SubHeading>
-                      <p style={{ ...CASE_BODY }}>
+                    <div className="flex flex-col gap-5">
+                      <p style={CASE_BODY}>
+                        Arrived ran webinars, published expert walkthroughs, and kept community spaces active. Users could see how others invested, ask questions directly, and build conviction before committing. ARK7 offered the same product - same price range, same asset class - with none of that context.
+                      </p>
+                      <p style={CASE_BODY}>
+                        Public sentiment across TrustPilot, App Store, Reddit, and YouTube confirmed it from the user side. <Highlight variant="green" duration={800}>Complaints weren&apos;t about bugs or pricing - they were about opacity.</Highlight> Returns showed up in the dashboard; the reasoning behind them didn&apos;t. No visibility into property management, no sense of who co-owned their assets, no signal that anyone else trusted the platform with real money.
+                      </p>
+                    </div>
+                    <CaseSubSection heading="The problem, reframed">
+                      <p style={CASE_BODY}>
                         Mapping user needs against business goals revealed a single bottleneck: both user types were stuck on opacity, just approaching it from opposite ends. That narrowed &ldquo;build trust&rdquo; into a specific, designable question.
                       </p>
                       <Ark7PersonaTabs />
-                    </div>
+                    </CaseSubSection>
 
                   </div>
                 ) : null}
@@ -1579,12 +1486,11 @@ export default function Ark7CaseStudyPage() {
                 ) : null}
 
                 {section.continuationTitle && section.continuationBody ? (
-                  <div className="mt-10 flex flex-col gap-3.5 md:mt-14">
-                    <SubHeading>{section.continuationTitle}</SubHeading>
+                  <CaseSubSection heading={section.continuationTitle} className="mt-10">
                     {section.continuationBody.map((paragraph) => (
-                      <p key={paragraph} style={{ ...CASE_BODY }}>{paragraph}</p>
+                      <p key={paragraph} style={CASE_BODY}>{paragraph}</p>
                     ))}
-                  </div>
+                  </CaseSubSection>
                 ) : null}
 
                 </CaseScrollReveal>

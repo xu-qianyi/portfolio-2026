@@ -14,6 +14,9 @@ import {
   SectionDivider,
   SubHeading,
   CaseMetaGrid,
+  CaseSubSection,
+  CaseMethodGrid,
+  type MethodItem,
 } from "@/components/CaseStudy";
 
 type Section = { id: string; label: string };
@@ -28,6 +31,44 @@ const META_ITEMS = [
   { label: "Team", value: "3 Researchers" },
   { label: "Timeframe", value: "1 month" },
   { label: "Tools", value: "LookLook Analytics, MS PowerPoint, MS Excel" },
+];
+
+const NARS_METHOD_ITEMS: MethodItem[] = [
+  {
+    step: "01",
+    label: "Recruitment & screening",
+    body: "Screened participants across both markets for representative coverage of skin tones, foundation experience, and usage frequency - ensuring the sample could surface meaningful differences, not just noise.",
+  },
+  {
+    step: "02",
+    label: "In-depth interviews",
+    body: "One-on-one sessions probing current foundation routines, pain points, and reactions to longwear claims - including how users evaluate and trust those claims in each market.",
+  },
+  {
+    step: "03",
+    label: "Concept testing",
+    body: "Presented multiple formulation directions and product concepts, capturing preference rankings and the reasoning behind them to identify which attributes were genuinely valued versus merely tolerated.",
+  },
+  {
+    step: "04",
+    label: "Naming feedback",
+    body: "Tested candidate product names for comprehension, resonance, and brand fit in both cultural contexts - a critical input given how differently English and phonetic names perform in the Chinese market.",
+  },
+];
+
+const NARS_OUTCOME_ITEMS: MethodItem[] = [
+  {
+    label: "Breathability ranked above shade range",
+    body: "Both markets put breathability and transfer-resistance first - ahead of shade range and finish. This challenged NARS's initial formulation assumptions and redirected the brief.",
+  },
+  {
+    label: "Markets split on what \"good\" means",
+    body: "Chinese consumers prioritized ingredient transparency and skin-friendly claims. US consumers prioritized longevity and color payoff. The same product required two distinct positioning stories.",
+  },
+  {
+    label: "Names don't translate - they lose",
+    body: "English-derived names outperformed phonetic transliterations in the Chinese market. This finding directly determined the final go-to-market naming approach.",
+  },
 ];
 
 function NarsMobileNav({
@@ -231,7 +272,7 @@ export default function NarsCaseStudyPage() {
             <section
               id="overview"
               ref={(el) => { sectionRefs.current["overview"] = el; }}
-              className="scroll-mt-24 pt-16"
+              className="scroll-mt-24 pt-20"
             >
               <CaseScrollReveal>
                 <SectionDivider label="Overview" />
@@ -240,7 +281,7 @@ export default function NarsCaseStudyPage() {
                 </h2>
               </CaseScrollReveal>
 
-              <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
+              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 <p style={CASE_BODY}>
                   NARS came to{" "}
                   <a
@@ -256,16 +297,14 @@ export default function NarsCaseStudyPage() {
                 <p style={CASE_BODY}>
                   I designed and ran the research end-to-end - from participant screener to final synthesis - structured to isolate where the two markets converged and where they required separate strategies.
                 </p>
-
-                <div className="flex flex-col gap-3 mt-2">
-                  <SubHeading>The challenge</SubHeading>
+                <CaseSubSection heading="The challenge" className="mt-6">
                   <p style={CASE_BODY}>
                     NARS had strong category intuition but no cross-market data to validate it. With a formulation decision and naming brief both approaching deadlines, the team needed fast, credible signal on which product attributes would land - and which required different positioning in each market.
                   </p>
                   <p style={CASE_BODY}>
                     Going in without that data meant committing to a strategy built on assumptions. The research brief was designed to eliminate that risk before the product brief locked.
                   </p>
-                </div>
+                </CaseSubSection>
               </CaseScrollReveal>
             </section>
 
@@ -273,7 +312,7 @@ export default function NarsCaseStudyPage() {
             <section
               id="research"
               ref={(el) => { sectionRefs.current["research"] = el; }}
-              className="scroll-mt-24 pt-16"
+              className="scroll-mt-24 pt-20"
             >
               <CaseScrollReveal>
                 <SectionDivider label="Research" />
@@ -282,81 +321,13 @@ export default function NarsCaseStudyPage() {
                 </h2>
               </CaseScrollReveal>
 
-              <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
+              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                 <p style={CASE_BODY}>
                   The study ran in parallel across both markets. Running them simultaneously was a deliberate design choice: it let us separate universal consumer truths from market-specific preferences, rather than over-indexing on either.
                 </p>
-
-                <div className="flex flex-col gap-4 mt-2">
-                  <SubHeading>What we did</SubHeading>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-1">
-                    {[
-                      {
-                        step: "01",
-                        label: "Recruitment & screening",
-                        body: "Screened participants across both markets for representative coverage of skin tones, foundation experience, and usage frequency - ensuring the sample could surface meaningful differences, not just noise.",
-                      },
-                      {
-                        step: "02",
-                        label: "In-depth interviews",
-                        body: "One-on-one sessions probing current foundation routines, pain points, and reactions to longwear claims - including how users evaluate and trust those claims in each market.",
-                      },
-                      {
-                        step: "03",
-                        label: "Concept testing",
-                        body: "Presented multiple formulation directions and product concepts, capturing preference rankings and the reasoning behind them to identify which attributes were genuinely valued versus merely tolerated.",
-                      },
-                      {
-                        step: "04",
-                        label: "Naming feedback",
-                        body: "Tested candidate product names for comprehension, resonance, and brand fit in both cultural contexts - a critical input given how differently English and phonetic names perform in the Chinese market.",
-                      },
-                    ].map((item) => (
-                      <div
-                        key={item.label}
-                        className="rounded-lg p-4"
-                        style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}
-                      >
-                        <div
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "16px",
-                            fontWeight: 500,
-                            letterSpacing: "-0.01em",
-                            color: "rgba(26,26,26,0.85)",
-                            marginBottom: "4px",
-                          }}
-                        >
-                          {item.step}
-                        </div>
-                        <div
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "16px",
-                            fontWeight: 500,
-                            letterSpacing: "-0.01em",
-                            color: "rgba(26,26,26,0.85)",
-                            marginBottom: "6px",
-                            lineHeight: "1.3",
-                          }}
-                        >
-                          {item.label}
-                        </div>
-                        <div
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "13px",
-                            lineHeight: "1.45",
-                            color: "rgba(26,26,26,0.5)",
-                          }}
-                        >
-                          {item.body}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
+                <CaseSubSection heading="What we did" className="mt-6">
+                  <CaseMethodGrid items={NARS_METHOD_ITEMS} cols={2} />
+                </CaseSubSection>
               </CaseScrollReveal>
             </section>
 
@@ -364,7 +335,7 @@ export default function NarsCaseStudyPage() {
             <section
               id="outcome"
               ref={(el) => { sectionRefs.current["outcome"] = el; }}
-              className="scroll-mt-24 pt-16"
+              className="scroll-mt-24 pt-20"
             >
               <CaseScrollReveal>
                 <SectionDivider label="Outcome" />
@@ -373,110 +344,47 @@ export default function NarsCaseStudyPage() {
                 </h2>
               </CaseScrollReveal>
 
-              <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
-                <div className="flex flex-col gap-4">
-                  <SubHeading>Key findings</SubHeading>
-                  <div className="flex flex-col gap-4 my-1">
-                    {[
-                      {
-                        label: "Breathability ranked above shade range",
-                        body: "Both markets put breathability and transfer-resistance first - ahead of shade range and finish. This challenged NARS's initial formulation assumptions and redirected the brief.",
-                      },
-                      {
-                        label: "Markets split on what \"good\" means",
-                        body: "Chinese consumers prioritized ingredient transparency and skin-friendly claims. US consumers prioritized longevity and color payoff. The same product required two distinct positioning stories.",
-                      },
-                      {
-                        label: "Names don't translate - they lose",
-                        body: "English-derived names outperformed phonetic transliterations in the Chinese market. This finding directly determined the final go-to-market naming approach.",
-                      },
-                    ].map((item) => (
-                      <div
-                        key={item.label}
-                        className="rounded-lg p-4"
-                        style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}
-                      >
-                        <div
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "16px",
-                            fontWeight: 500,
-                            letterSpacing: "-0.01em",
-                            color: "rgba(26,26,26,0.85)",
-                            marginBottom: "6px",
-                            lineHeight: "1.3",
-                          }}
-                        >
-                          {item.label}
-                        </div>
-                        <div
-                          style={{
-                            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                            fontSize: "13px",
-                            lineHeight: "1.45",
-                            color: "rgba(26,26,26,0.5)",
-                          }}
-                        >
-                          {item.body}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+              <CaseScrollReveal delay={80} className="flex flex-col gap-5">
+                <CaseSubSection heading="Key findings">
+                  <CaseMethodGrid items={NARS_OUTCOME_ITEMS} cols={1} />
+                </CaseSubSection>
               </CaseScrollReveal>
 
-              <CaseScrollReveal delay={120} className="flex flex-col gap-3.5 mt-8">
-                <div className="flex flex-col gap-3">
-                  <SubHeading>Full findings in the slide deck</SubHeading>
+              <CaseScrollReveal delay={120} className="mt-8">
+                <CaseSubSection heading="Full findings in the slide deck">
                   <p style={CASE_BODY}>
                     The complete output - methodology, verbatim quotes, concept rankings, and synthesis - is in the 103-page slide deck below. It was delivered to the NARS team and used to inform the final product brief.
                   </p>
-                </div>
-
-                <a
-                  href="https://drive.google.com/file/d/14pRJPMr1qvlEUS57hHj04Kv8DfdzimoV/view?usp=sharing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block no-underline mt-1"
-                  aria-label="Open NARS Longwear Foundation concept testing slide deck in Google Drive (opens in new tab)"
-                >
-                  <div className="relative overflow-hidden rounded-lg">
-                    <Image
-                      src="/images/NARS/Nars_slide_preview.webp"
-                      alt="NARS Longwear Foundation concept testing slide deck preview"
-                      width={1602}
-                      height={906}
-                      className="w-full h-auto"
-                      loading="lazy"
-                    />
-                    <div
-                      className="absolute inset-0 flex items-end p-5 opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100"
-                      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)" }}
-                    >
-                      <p
-                        style={{
-                          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                          fontSize: "15px",
-                          fontWeight: 500,
-                          color: "#fff",
-                          margin: 0,
-                        }}
-                      >
-                        Open slide deck &rarr;
-                      </p>
-                    </div>
-                  </div>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                      fontSize: "12px",
-                      color: "var(--color-muted)",
-                      margin: "8px 0 0 0",
-                    }}
+                  <a
+                    href="https://drive.google.com/file/d/14pRJPMr1qvlEUS57hHj04Kv8DfdzimoV/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block no-underline"
+                    aria-label="Open NARS Longwear Foundation concept testing slide deck in Google Drive (opens in new tab)"
                   >
-                    NARS Longwear Foundation Concept Testing Study &middot; Report by Gretchen, Martta, Luca &middot; Google Drive
-                  </p>
-                </a>
+                    <div className="relative overflow-hidden rounded-lg">
+                      <Image
+                        src="/images/NARS/Nars_slide_preview.webp"
+                        alt="NARS Longwear Foundation concept testing slide deck preview"
+                        width={1602}
+                        height={906}
+                        className="w-full h-auto"
+                        loading="lazy"
+                      />
+                      <div
+                        className="absolute inset-0 flex items-end p-5 opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100"
+                        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)" }}
+                      >
+                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, color: "#fff", margin: 0 }}>
+                          Open slide deck &rarr;
+                        </p>
+                      </div>
+                    </div>
+                    <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "12px", color: "var(--color-muted)", marginTop: "8px" }}>
+                      NARS Longwear Foundation Concept Testing Study &middot; Report by Gretchen, Martta, Luca &middot; Google Drive
+                    </p>
+                  </a>
+                </CaseSubSection>
               </CaseScrollReveal>
             </section>
 
