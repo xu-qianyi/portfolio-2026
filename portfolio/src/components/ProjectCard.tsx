@@ -178,10 +178,12 @@ function FramedCard({ project }: { project: Project }) {
         display: "flex",
         flexDirection: "column",
         border: "1px solid rgba(204, 209, 218, 0.4)",
+        borderRadius: "12px",
         backgroundColor: "var(--color-surface)",
         overflow: "hidden",
         textDecoration: "none",
         color: "inherit",
+        height: "100%",
       }}
     >
       {/* Media */}
@@ -380,16 +382,18 @@ export default function ProjectCard({
   project,
   sizes = "(min-width: 1024px) 50vw, 100vw",
   variant = "default",
+  className,
 }: {
   project: Project;
   sizes?: string;
   variant?: "default" | "minimal" | "framed";
+  className?: string;
 }) {
   if (variant === "framed") {
     return (
       <div
         id={`project-${project.id}`}
-        className="scroll-mt-28"
+        className={`scroll-mt-28${className ? ` ${className}` : ""}`}
         style={{ breakInside: "avoid", marginBottom: "24px" }}
       >
         <FramedCard project={project} />

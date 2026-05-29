@@ -2,20 +2,19 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "@/components/Img";
-import Link from "next/link";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 import Highlight from "@/components/Highlight";
 import BackToTop from "@/components/BackToTop";
-
-const BODY = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "15px",
-  lineHeight: "1.6",
-  letterSpacing: "-0.005em",
-  color: "var(--color-ink-80)",
-  margin: 0,
-} as const;
-
+import ProjectCard from "@/components/ProjectCard";
+import {
+  CASE_BODY,
+  CASE_H1,
+  CASE_H2,
+  CASE_EYEBROW,
+  SectionDivider,
+  SubHeading,
+  CaseMetaGrid,
+} from "@/components/CaseStudy";
 
 type Section = { id: string; label: string };
 
@@ -30,44 +29,6 @@ const META_ITEMS = [
   { label: "Timeframe", value: "1 month" },
   { label: "Tools", value: "LookLook Analytics, MS PowerPoint, MS Excel" },
 ];
-
-function SectionDivider({ label }: { label: string }) {
-  return (
-    <div className="flex items-center gap-3 mb-4">
-      <span
-        style={{
-          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-          fontSize: "13px",
-          fontWeight: 550,
-          letterSpacing: "-0.005em",
-          color: "var(--color-ink-80)",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {label}
-      </span>
-      <div className="flex-1 h-px bg-[var(--color-ink-14)]" />
-    </div>
-  );
-}
-
-function SubHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <h3
-      style={{
-        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-        fontSize: "18px",
-        lineHeight: "1.3",
-        fontWeight: 500,
-        color: "var(--color-ink)",
-        margin: 0,
-        textWrap: "balance" as const,
-      }}
-    >
-      {children}
-    </h3>
-  );
-}
 
 function NarsMobileNav({
   activeId,
@@ -225,34 +186,13 @@ export default function NarsCaseStudyPage() {
           {/* Header */}
           <header className="pb-8">
             <CaseScrollReveal className="flex flex-col gap-3 mb-4">
-              <p
-                style={{
-                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                  fontSize: "10px",
-                  fontWeight: 500,
-                  letterSpacing: ".04em",
-                  textTransform: "uppercase",
-                  color: "var(--color-ink-70)",
-                  margin: 0,
-                }}
-              >
+              <p style={CASE_EYEBROW}>
                 LookLook &times; NARS / User Research
               </p>
-              <h1
-                style={{
-                  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                  fontSize: "28px",
-                  lineHeight: "1.15",
-                  fontWeight: 500,
-                  letterSpacing: "-0.01em",
-                  color: "var(--color-ink)",
-                  margin: 0,
-                  textWrap: "pretty" as const,
-                }}
-              >
+              <h1 style={{ ...CASE_H1, textWrap: "pretty" }}>
                 NARS Longwear Foundation concept testing<br />- US &amp; China insights
               </h1>
-              <p style={{ ...BODY, marginTop: "4px" }}>
+              <p style={{ ...CASE_BODY, marginTop: "4px" }}>
                 <Highlight variant="peach" duration={1200}>I designed a cross-cultural research framework</Highlight> to surface divergent consumer expectations across the US and Chinese beauty markets - synthesizing findings that directly shaped NARS&apos;s formulation direction, regional naming strategy, and market positioning for a product now on shelves.
               </p>
             </CaseScrollReveal>
@@ -278,37 +218,7 @@ export default function NarsCaseStudyPage() {
             </CaseScrollReveal>
 
             <CaseScrollReveal delay={120}>
-              <div
-                className="grid grid-cols-3 gap-x-8 gap-y-4 mt-6 pt-5"
-                style={{ borderTop: "1px solid var(--color-ink-06)" }}
-              >
-                {META_ITEMS.map((item) => (
-                  <div key={item.label} className="flex flex-col gap-0.5">
-                    <div
-                      style={{
-                        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                        fontSize: "10px",
-                        fontWeight: 500,
-                        letterSpacing: ".04em",
-                        textTransform: "uppercase",
-                        color: "var(--color-ink-70)",
-                      }}
-                    >
-                      {item.label}
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                        fontSize: "13px",
-                        lineHeight: "1.45",
-                        color: "var(--color-ink-65)",
-                      }}
-                    >
-                      {item.value}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <CaseMetaGrid items={META_ITEMS} />
             </CaseScrollReveal>
           </header>
 
@@ -325,25 +235,13 @@ export default function NarsCaseStudyPage() {
             >
               <CaseScrollReveal>
                 <SectionDivider label="Overview" />
-                <h2
-                  style={{
-                    fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                    fontSize: "24px",
-                    lineHeight: "1.2",
-                    fontWeight: 500,
-                    letterSpacing: "-0.01em",
-                    color: "var(--color-ink)",
-                    marginBottom: "1rem",
-                    marginTop: 0,
-                    textWrap: "balance" as const,
-                  }}
-                >
+                <h2 style={CASE_H2}>
                   Decoding cross-market complexity before the product brief locked
                 </h2>
               </CaseScrollReveal>
 
               <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
-                <p style={BODY}>
+                <p style={CASE_BODY}>
                   NARS came to{" "}
                   <a
                     href="https://www.looklook.app"
@@ -355,16 +253,16 @@ export default function NarsCaseStudyPage() {
                   </a>
                   {" "}with an unresolved question: which formulation direction and product story would resonate across two structurally different beauty markets. Without US-China comparative data, any positioning decision carried real commercial risk.
                 </p>
-                <p style={BODY}>
+                <p style={CASE_BODY}>
                   I designed and ran the research end-to-end - from participant screener to final synthesis - structured to isolate where the two markets converged and where they required separate strategies.
                 </p>
 
                 <div className="flex flex-col gap-3 mt-2">
                   <SubHeading>The challenge</SubHeading>
-                  <p style={BODY}>
+                  <p style={CASE_BODY}>
                     NARS had strong category intuition but no cross-market data to validate it. With a formulation decision and naming brief both approaching deadlines, the team needed fast, credible signal on which product attributes would land - and which required different positioning in each market.
                   </p>
-                  <p style={BODY}>
+                  <p style={CASE_BODY}>
                     Going in without that data meant committing to a strategy built on assumptions. The research brief was designed to eliminate that risk before the product brief locked.
                   </p>
                 </div>
@@ -379,25 +277,13 @@ export default function NarsCaseStudyPage() {
             >
               <CaseScrollReveal>
                 <SectionDivider label="Research" />
-                <h2
-                  style={{
-                    fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                    fontSize: "24px",
-                    lineHeight: "1.2",
-                    fontWeight: 500,
-                    letterSpacing: "-0.01em",
-                    color: "var(--color-ink)",
-                    marginBottom: "1rem",
-                    marginTop: 0,
-                    textWrap: "balance" as const,
-                  }}
-                >
+                <h2 style={CASE_H2}>
                   Listening to both markets at once
                 </h2>
               </CaseScrollReveal>
 
               <CaseScrollReveal delay={80} className="flex flex-col gap-3.5">
-                <p style={BODY}>
+                <p style={CASE_BODY}>
                   The study ran in parallel across both markets. Running them simultaneously was a deliberate design choice: it let us separate universal consumer truths from market-specific preferences, rather than over-indexing on either.
                 </p>
 
@@ -482,19 +368,7 @@ export default function NarsCaseStudyPage() {
             >
               <CaseScrollReveal>
                 <SectionDivider label="Outcome" />
-                <h2
-                  style={{
-                    fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                    fontSize: "24px",
-                    lineHeight: "1.2",
-                    fontWeight: 500,
-                    letterSpacing: "-0.01em",
-                    color: "var(--color-ink)",
-                    marginBottom: "1rem",
-                    marginTop: 0,
-                    textWrap: "balance" as const,
-                  }}
-                >
+                <h2 style={CASE_H2}>
                   What the data decided
                 </h2>
               </CaseScrollReveal>
@@ -554,7 +428,7 @@ export default function NarsCaseStudyPage() {
               <CaseScrollReveal delay={120} className="flex flex-col gap-3.5 mt-8">
                 <div className="flex flex-col gap-3">
                   <SubHeading>Full findings in the slide deck</SubHeading>
-                  <p style={BODY}>
+                  <p style={CASE_BODY}>
                     The complete output - methodology, verbatim quotes, concept rankings, and synthesis - is in the 103-page slide deck below. It was delivered to the NARS team and used to inform the final product brief.
                   </p>
                 </div>
@@ -610,28 +484,36 @@ export default function NarsCaseStudyPage() {
 
           {/* Next case */}
           <div className="mt-12 pt-8 md:mt-16">
-            <Link
-              href="/work/ark7"
-              className="group flex flex-col gap-3 no-underline"
-              aria-label="Next project: ARK7, 2023 — Building trust in fractional real estate investing"
-            >
-              <SectionDivider label="Next project" />
-              <p
-                style={{
-                  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                  fontSize: "18px",
-                  lineHeight: "140%",
-                  fontWeight: 400,
-                  margin: 0,
+            <SectionDivider label="More case studies" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <ProjectCard
+                variant="framed"
+                className="!mb-0"
+                project={{
+                  id: "ark7",
+                  title: "ARK7",
+                  headline: "Cultivating a trusted investment community for fractional real estate",
+                  image: "/images/preview/ARK7.webp",
+                  href: "/work/ark7",
+                  width: 1280,
+                  height: 720,
                 }}
-                className="text-[var(--color-muted)] transition-colors duration-200 ease-out group-hover:text-[#1A1A1A]"
-              >
-                Building trust in fractional real estate investing{" "}
-                <span className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1">
-                  &rarr;
-                </span>
-              </p>
-            </Link>
+              />
+              <ProjectCard
+                variant="framed"
+                className="!mb-0"
+                project={{
+                  id: "datalign",
+                  title: "Datalign",
+                  headline: "Redesigning the front door of a wealth management marketplace",
+                  image: "/images/preview/DA form preview.webp",
+                  href: "/work/datalign",
+                  width: 1280,
+                  height: 720,
+                  bg: "#fbfbf7",
+                }}
+              />
+            </div>
           </div>
 
         </div>

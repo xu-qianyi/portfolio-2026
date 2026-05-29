@@ -2,51 +2,20 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Image from "@/components/Img";
-import Link from "next/link";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 import LottiePreview from "@/components/LottiePreview";
 import Highlight from "@/components/Highlight";
 import BackToTop from "@/components/BackToTop";
-
-function SectionDivider({ label }: { label: string }) {
-  return (
-    <div className="flex items-center gap-3 mb-4">
-      <span
-        style={{
-          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-          fontSize: "13px",
-          fontWeight: 550,
-          letterSpacing: "-0.005em",
-          color: "var(--color-ink-80)",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {label}
-      </span>
-      <div className="flex-1 h-px bg-[var(--color-ink-14)]" />
-    </div>
-  );
-}
-
-function SubHeading({ children, className, style, as: Tag = "h3" }: { children: React.ReactNode; className?: string; style?: React.CSSProperties; as?: "h2" | "h3" }) {
-  return (
-    <Tag
-      className={className}
-      style={{
-        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-        fontSize: "18px",
-        lineHeight: "1.3",
-        fontWeight: 500,
-        color: "var(--color-ink)",
-        margin: 0,
-        textWrap: "balance" as const,
-        ...style,
-      }}
-    >
-      {children}
-    </Tag>
-  );
-}
+import ProjectCard from "@/components/ProjectCard";
+import {
+  CASE_BODY,
+  CASE_H1,
+  CASE_H2,
+  CASE_EYEBROW,
+  SectionDivider,
+  SubHeading,
+  CaseMetaGrid,
+} from "@/components/CaseStudy";
 
 type Section = {
   id: string;
@@ -204,14 +173,6 @@ const ARK7_PERSONA_FRAMES = [
   },
 ] as const;
 
-const BODY_TEXT_STYLE = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "15px",
-  lineHeight: "1.6",
-  letterSpacing: "-0.005em",
-  color: "var(--color-ink-80)",
-  margin: 0,
-} as const;
 
 const ARK7_DESIGN_AUDIT_FINDINGS = [
   {
@@ -317,7 +278,7 @@ function Ark7DesignAuditGrid() {
             >
               {item.title}
             </p>
-            <p style={{ ...BODY_TEXT_STYLE, color: "rgba(26,26,26,0.5)" }}>{item.body}</p>
+            <p style={{ ...CASE_BODY, color: "rgba(26,26,26,0.5)" }}>{item.body}</p>
           </div>
         </div>
       ))}
@@ -411,7 +372,7 @@ function Ark7PersonaCards() {
             <ul
               className="m-0 list-disc space-y-1.5 pl-4 marker:text-[var(--color-ink-65)]"
               style={{
-                fontFamily: BODY_TEXT_STYLE.fontFamily,
+                fontFamily: CASE_BODY.fontFamily,
                 fontSize: "15px",
                 lineHeight: "150%",
                 color: "var(--color-ink-80)",
@@ -852,7 +813,7 @@ function Ark7PrototypeFeatures() {
             >
               {feature.name}
             </h3>
-            <p style={{ ...BODY_TEXT_STYLE, color: "rgba(26,26,26,0.5)" }}>{feature.description}</p>
+            <p style={{ ...CASE_BODY, color: "rgba(26,26,26,0.5)" }}>{feature.description}</p>
           </div>
         </div>
       ))}
@@ -973,7 +934,7 @@ function Ark7LayoutOptionsTabs() {
               {active.points.map((node, idx) => (
                 <li key={`${active.id}-pt-${idx}`} className="flex gap-3 items-baseline">
                   <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
-                  <p style={BODY_TEXT_STYLE}>{node}</p>
+                  <p style={CASE_BODY}>{node}</p>
                 </li>
               ))}
             </ul>
@@ -1362,34 +1323,13 @@ export default function Ark7CaseStudyPage() {
         <div className="flex w-full min-w-0 max-w-[800px] flex-col gap-0">
           <header className="pb-8">
             <CaseScrollReveal className="flex flex-col gap-3 mb-4">
-              <p
-                style={{
-                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                  fontSize: "10px",
-                  fontWeight: 500,
-                  letterSpacing: ".04em",
-                  textTransform: "uppercase",
-                  color: "var(--color-ink-70)",
-                  margin: 0,
-                }}
-              >
+              <p style={CASE_EYEBROW}>
                 ARK7 / FinTech
               </p>
-              <h1
-                style={{
-                  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                  fontSize: "28px",
-                  lineHeight: "1.15",
-                  fontWeight: 500,
-                  letterSpacing: "-0.01em",
-                  color: "var(--color-ink)",
-                  margin: 0,
-                  textWrap: "balance" as const,
-                }}
-              >
+              <h1 style={CASE_H1}>
                 Cultivating a Trusted Investment Community
               </h1>
-              <p style={{ ...BODY_TEXT_STYLE, marginTop: "4px" }}>
+              <p style={{ ...CASE_BODY, marginTop: "4px" }}>
                 ARK7 had a retention problem on both ends - new users weren&apos;t converting, and existing investors were pulling out after the lock-up period. <Highlight variant="green" duration={1200}>I led research, design system work, and end-to-end design of four community features</Highlight> that gave users enough transparency and social proof to stay.
               </p>
             </CaseScrollReveal>
@@ -1404,37 +1344,7 @@ export default function Ark7CaseStudyPage() {
             </CaseScrollReveal>
 
             <CaseScrollReveal delay={120}>
-              <div
-                className="grid grid-cols-3 gap-x-8 gap-y-4 mt-6 pt-5"
-                style={{ borderTop: "1px solid var(--color-ink-06)" }}
-              >
-                {META_ITEMS.map((item) => (
-                  <div key={item.label} className="flex flex-col gap-0.5">
-                    <div
-                      style={{
-                        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                        fontSize: "10px",
-                        fontWeight: 500,
-                        letterSpacing: ".04em",
-                        textTransform: "uppercase",
-                        color: "var(--color-ink-70)",
-                      }}
-                    >
-                      {item.label}
-                    </div>
-                    <div
-                      style={{
-                        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                        fontSize: "13px",
-                        lineHeight: "1.45",
-                        color: "var(--color-ink-65)",
-                      }}
-                    >
-                      {item.value}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <CaseMetaGrid items={META_ITEMS} />
             </CaseScrollReveal>
           </header>
 
@@ -1455,21 +1365,7 @@ export default function Ark7CaseStudyPage() {
                 <div className="flex flex-col gap-0">
                   <SectionDivider label={section.label} />
                   {section.id !== "iteration" ? (
-                    <h2
-                      style={{
-                        fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                        fontSize: "24px",
-                        lineHeight: "1.2",
-                        fontWeight: 500,
-                        letterSpacing: "-0.01em",
-                        color: "var(--color-ink)",
-                        marginBottom: "1rem",
-                        marginTop: 0,
-                        textWrap: "balance" as const,
-                      }}
-                    >
-                      {section.title}
-                    </h2>
+                    <h2 style={CASE_H2}>{section.title}</h2>
                   ) : null}
                 </div>
                 </CaseScrollReveal>
@@ -1478,7 +1374,7 @@ export default function Ark7CaseStudyPage() {
                 {section.body.map((paragraph, paragraphIndex) => (
                   <p
                     key={`${section.id}-${paragraphIndex}`}
-                    style={{ ...BODY_TEXT_STYLE }}
+                    style={{ ...CASE_BODY }}
                   >
                     {ark7SectionParagraph(section.id, paragraphIndex, paragraph)}
                   </p>
@@ -1487,17 +1383,17 @@ export default function Ark7CaseStudyPage() {
                 {section.id === "iteration" ? (
                   <div className="flex flex-col gap-4">
                     <SubHeading as="h2">Fixing the foundation first</SubHeading>
-                    <p style={{ ...BODY_TEXT_STYLE }}>
+                    <p style={{ ...CASE_BODY }}>
                       Before shipping the community features, we stepped back. At a visual level, the platform was already working against itself - signaling cheap and inconsistent before a user ever reached the content.
                     </p>
-                    <p style={{ ...BODY_TEXT_STYLE }}>
+                    <p style={{ ...CASE_BODY }}>
                       Trust-building features can&apos;t land on a foundation like that. Rebuilding the card component wasn&apos;t a detour from the brief - it was the prerequisite.
                     </p>
                     <Ark7IterationStoreQuotes />
-                    <p style={{ ...BODY_TEXT_STYLE }}>Our design audit revealed:</p>
+                    <p style={{ ...CASE_BODY }}>Our design audit revealed:</p>
                     <Ark7DesignAuditGrid />
                     <SubHeading as="h2" style={{ marginTop: "2.5rem" }}>The Card Component Revamp</SubHeading>
-                    <p style={{ ...BODY_TEXT_STYLE }}>
+                    <p style={{ ...CASE_BODY }}>
                       Given time constraints, we focused our design system work on the card component - the most heavily used element across the platform, and the building block for all four community features.
                     </p>
                     <Ark7CardRevampTabs />
@@ -1524,7 +1420,7 @@ export default function Ark7CaseStudyPage() {
                     <div className="mt-8 flex flex-col gap-5 md:mt-10">
                       <div className="flex flex-col gap-4">
                         <SubHeading>Entry point: one tab, four touchpoints</SubHeading>
-                        <p style={{ ...BODY_TEXT_STYLE }}>
+                        <p style={{ ...CASE_BODY }}>
                           We evaluated three layout options for integrating the community features. The
                           winning approach:{" "}
                           <Highlight variant="green" duration={800}>a dedicated tab with a feed flow</Highlight>
@@ -1535,7 +1431,7 @@ export default function Ark7CaseStudyPage() {
                     </div>
                     <div className="mt-8 flex flex-col gap-4 md:mt-10">
                       <SubHeading>Core flow</SubHeading>
-                      <p style={{ ...BODY_TEXT_STYLE }}>
+                      <p style={{ ...CASE_BODY }}>
                         We mapped flows for each of the four features, tracing the path from community tab entry to the key action in each feature - surfacing where friction was highest and where confidence-building moments needed to land.
                       </p>
                       <div className="mt-6 mb-3 w-full overflow-hidden md:mt-8 md:mb-5">
@@ -1578,7 +1474,7 @@ export default function Ark7CaseStudyPage() {
                           }}>
                             {item.metric}
                           </p>
-                          <p style={{ ...BODY_TEXT_STYLE, color: "rgba(26,26,26,0.5)" }}>{item.label}</p>
+                          <p style={{ ...CASE_BODY, color: "rgba(26,26,26,0.5)" }}>{item.label}</p>
                         </div>
                       ))}
                     </div>
@@ -1600,7 +1496,7 @@ export default function Ark7CaseStudyPage() {
                         Navigating the space between user needs and business caution
                       </p>
                     </div>
-                    <p style={{ ...BODY_TEXT_STYLE, color: "rgba(26,26,26,0.5)" }}>
+                    <p style={{ ...CASE_BODY, color: "rgba(26,26,26,0.5)" }}>
                       User needs and business goals don&apos;t always point the same way - and sometimes that tension is real, not just a communication problem. When they conflict, defaulting to one side doesn&apos;t work. Designs that ignore business constraints don&apos;t ship. Decisions that ignore users don&apos;t hold. The job is trusting your product instinct enough to find where both can actually be served.
                     </p>
                     <div style={{ display: "flex", flexDirection: "column", gap: "4px", marginTop: "1rem" }}>
@@ -1618,7 +1514,7 @@ export default function Ark7CaseStudyPage() {
                         Not everything we designed survived
                       </p>
                     </div>
-                    <p style={{ ...BODY_TEXT_STYLE, color: "rgba(26,26,26,0.5)" }}>
+                    <p style={{ ...CASE_BODY, color: "rgba(26,26,26,0.5)" }}>
                       After handoff, the product was reshaped multiple times - today only the News feature is still live. The honest part isn&apos;t what was outside my control. Some research moved faster than it should have, and decisions ended up built on thinner ground than I&apos;d want. Speed is a real constraint, but the right response isn&apos;t to do everything faster. It&apos;s to know what needs protecting. I didn&apos;t always get that right here.
                     </p>
                   </div>
@@ -1653,15 +1549,15 @@ export default function Ark7CaseStudyPage() {
                       />
                       <span className="absolute inset-0 rounded-lg pointer-events-none" style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.08)" }} />
                     </div>
-                    <p style={{ ...BODY_TEXT_STYLE, marginTop: "1.5rem" }}>
+                    <p style={{ ...CASE_BODY, marginTop: "1.5rem" }}>
                       Arrived ran webinars, published expert walkthroughs, and kept community spaces active. Users could see how others invested, ask questions directly, and build conviction before committing. ARK7 offered the same product - same price range, same asset class - with none of that context.
                     </p>
-                    <p style={{ ...BODY_TEXT_STYLE, marginTop: "0.75rem" }}>
+                    <p style={{ ...CASE_BODY, marginTop: "0.75rem" }}>
                       Public sentiment across TrustPilot, App Store, Reddit, and YouTube confirmed it from the user side. <Highlight variant="green" duration={800}>Complaints weren&apos;t about bugs or pricing - they were about opacity.</Highlight> Returns showed up in the dashboard; the reasoning behind them didn&apos;t. No visibility into property management, no sense of who co-owned their assets, no signal that anyone else trusted the platform with real money.
                     </p>
                     <div className="mt-8 flex flex-col gap-4 md:mt-10">
                       <SubHeading>The problem, reframed</SubHeading>
-                      <p style={{ ...BODY_TEXT_STYLE }}>
+                      <p style={{ ...CASE_BODY }}>
                         Mapping user needs against business goals revealed a single bottleneck: both user types were stuck on opacity, just approaching it from opposite ends. That narrowed &ldquo;build trust&rdquo; into a specific, designable question.
                       </p>
                       <Ark7PersonaTabs />
@@ -1686,7 +1582,7 @@ export default function Ark7CaseStudyPage() {
                   <div className="mt-10 flex flex-col gap-3.5 md:mt-14">
                     <SubHeading>{section.continuationTitle}</SubHeading>
                     {section.continuationBody.map((paragraph) => (
-                      <p key={paragraph} style={{ ...BODY_TEXT_STYLE }}>{paragraph}</p>
+                      <p key={paragraph} style={{ ...CASE_BODY }}>{paragraph}</p>
                     ))}
                   </div>
                 ) : null}
@@ -1698,28 +1594,36 @@ export default function Ark7CaseStudyPage() {
           </div>
 
           <div className="mt-12 pt-8 md:mt-16">
-            <Link
-              href="/work/datalign"
-              className="group flex flex-col gap-3 no-underline"
-              aria-label="Next project: Datalign, 2025 — Redesigning the front door of a wealth management marketplace"
-            >
-              <SectionDivider label="Next project" />
-              <p
-                style={{
-                  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
-                  fontSize: "18px",
-                  lineHeight: "140%",
-                  fontWeight: 400,
-                  margin: 0,
+            <SectionDivider label="More case studies" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <ProjectCard
+                variant="framed"
+                className="!mb-0"
+                project={{
+                  id: "datalign",
+                  title: "Datalign",
+                  headline: "Redesigning the front door of a wealth management marketplace",
+                  image: "/images/preview/DA form preview.webp",
+                  href: "/work/datalign",
+                  width: 1280,
+                  height: 720,
+                  bg: "#fbfbf7",
                 }}
-                className="text-[var(--color-muted)] transition-colors duration-200 ease-out group-hover:text-[#1A1A1A]"
-              >
-                Redesigning the front door of a wealth management marketplace{" "}
-                <span className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1">
-                  &rarr;
-                </span>
-              </p>
-            </Link>
+              />
+              <ProjectCard
+                variant="framed"
+                className="!mb-0"
+                project={{
+                  id: "looklook-nars",
+                  title: "NARS Foundation",
+                  headline: "US & China concept testing for a longwear foundation launch",
+                  image: "/images/preview/Nars-Playful.json",
+                  href: "/work/nars",
+                  width: 1280,
+                  height: 720,
+                }}
+              />
+            </div>
           </div>
         </div>
 
