@@ -569,7 +569,8 @@ type Ark7LayoutOption = {
   imageHeight: number;
   imageAlt: string;
   title: string;
-  points: ReactNode[];
+  pros: string[];
+  cons: string[];
 };
 
 const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
@@ -581,11 +582,13 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
     imageHeight: 2214,
     imageAlt: "Mobile wireframe: information cards and feature tiles on the home tab",
     title: "Information cards on the home tab",
-    points: [
-      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Feature intent is immediately legible - users self-select without needing to explore.</>,
-      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Simplest to develop; no new navigation patterns or state management required.</>,
-      <><span className="font-semibold text-[var(--color-ink)]">Con:</span> Users who aren&apos;t interested in a visible card may disengage before scrolling further.</>,
-      <><span className="font-semibold text-[var(--color-ink)]">Con:</span> Four cards in a row creates decision overhead on first view.</>,
+    pros: [
+      "Self-serve discovery",
+      "Easiest to build",
+    ],
+    cons: [
+      "Invisible cards = early drop-off",
+      "4 cards at once = decision fatigue",
     ],
   },
   {
@@ -596,10 +599,12 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
     imageHeight: 2214,
     imageAlt: "Mobile wireframe: home and feed tabs with a vertical content feed",
     title: "Feed in the home tab",
-    points: [
-      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Feed creates a continuous scroll pattern - consistent with how users read content on other platforms.</>,
-      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Mixed content exposes users to features they didn&apos;t seek out.</>,
-      <><span className="font-semibold text-[var(--color-ink)]">Con:</span> Home tab serves a different job - portfolio overview. Mixing in community content creates mode confusion.</>,
+    pros: [
+      "Familiar scroll pattern",
+      "Passive feature discovery",
+    ],
+    cons: [
+      "Portfolio + community in one tab = mode confusion",
     ],
   },
   {
@@ -609,12 +614,13 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
     imageWidth: 1040,
     imageHeight: 2215,
     imageAlt: "Mobile wireframe: dedicated news feed tab with bottom navigation",
-    title: "✅ Dedicated tab with a feed",
-    points: [
-      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Feed pattern keeps interaction consistent.</>,
-      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> Content discovery is higher than with static cards.</>,
-      <><span className="font-semibold text-[var(--color-ink)]">Pro:</span> A dedicated tab makes the intent clear - community is its own space, separate from the investment dashboard.</>,
+    title: "Dedicated tab with a feed",
+    pros: [
+      "Consistent feed interaction",
+      "Higher content discovery",
+      "Community gets its own clear space",
     ],
+    cons: [],
   },
 ];
 
@@ -661,8 +667,7 @@ function Ark7CardRevampTabs() {
           aria-label="Card component revamp tabs"
           id={tablistId}
           onKeyDown={handleKeyDown}
-          className="inline-flex items-center p-1 rounded-full"
-          style={{ background: "var(--color-ink-06)", border: "1px solid var(--color-ink-14)" }}
+          className="inline-flex items-center gap-1"
         >
           {ARK7_CARD_REVAMP_TABS.map((tab, i) => {
             const isActive = i === activeIndex;
@@ -675,26 +680,20 @@ function Ark7CardRevampTabs() {
                 aria-selected={isActive}
                 aria-controls={`${tablistId}-panel-${tab.id}`}
                 tabIndex={isActive ? 0 : -1}
-                className="relative px-4 py-1.5 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                className="px-3 py-1.5 rounded-lg transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                   fontSize: "11px",
                   fontWeight: 500,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: isActive ? "#fff" : "var(--color-muted)",
-                  cursor: "inherit",
-                  borderRadius: "999px",
+                  letterSpacing: "0.04em",
+                  color: isActive ? "var(--color-ink)" : "var(--color-muted)",
+                  cursor: "pointer",
+                  border: "none",
+                  background: isActive ? "var(--color-ink-06)" : "transparent",
                 }}
                 onClick={() => select(i)}
               >
-                {isActive && (
-                  <span
-                    className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--color-ink)" }}
-                  />
-                )}
-                <span className="relative z-10">{tab.label}</span>
+                {tab.label}
               </button>
             );
           })}
@@ -845,8 +844,7 @@ function Ark7LayoutOptionsTabs() {
           aria-label="Three layout options compared"
           id={tablistId}
           onKeyDown={handleKeyDown}
-          className="inline-flex items-center p-1 rounded-full"
-          style={{ background: "var(--color-ink-06)", border: "1px solid var(--color-ink-14)" }}
+          className="inline-flex items-center gap-1"
         >
           {ARK7_LAYOUT_OPTIONS.map((opt, i) => {
             const isActive = i === activeIndex;
@@ -859,26 +857,20 @@ function Ark7LayoutOptionsTabs() {
                 aria-selected={isActive}
                 aria-controls={`${tablistId}-panel-${opt.id}`}
                 tabIndex={isActive ? 0 : -1}
-                className="relative px-4 py-1.5 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                className="px-3 py-1.5 rounded-lg transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                   fontSize: "11px",
                   fontWeight: 500,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: isActive ? "#fff" : "var(--color-muted)",
-                  cursor: "inherit",
-                  borderRadius: "999px",
+                  letterSpacing: "0.04em",
+                  color: isActive ? "var(--color-ink)" : "var(--color-muted)",
+                  cursor: "pointer",
+                  border: "none",
+                  background: isActive ? "var(--color-ink-06)" : "transparent",
                 }}
                 onClick={() => selectLayoutTab(i)}
               >
-                {isActive && (
-                  <span
-                    className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--color-ink)" }}
-                  />
-                )}
-                <span className="relative z-10">{opt.tabLabel}</span>
+                {opt.tabLabel}
               </button>
             );
           })}
@@ -889,39 +881,36 @@ function Ark7LayoutOptionsTabs() {
         role="tabpanel"
         id={`${tablistId}-panel-${active.id}`}
         aria-labelledby={`${tablistId}-${active.id}`}
-        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] px-5 pt-12 pb-8 md:px-8"
+        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-subtle)] p-8 md:p-12 flex flex-col gap-8"
       >
+        <p style={{ ...CASE_H3, textAlign: "center" }}>{active.title}</p>
         <div
           key={`${active.id}-${layoutPanelMotionEpoch}`}
-          className={`grid grid-cols-1 gap-9 md:grid-cols-[minmax(0,200px)_minmax(0,1fr)] md:items-start md:gap-10 lg:gap-12${layoutPanelMotionEpoch > 0 ? " ark7-layout-tab-panel-enter" : ""}`}
+          className={`flex justify-center${layoutPanelMotionEpoch > 0 ? " ark7-layout-tab-panel-enter" : ""}`}
         >
-          <div className="mx-auto flex w-full max-w-[200px] shrink-0 justify-center md:mx-0">
-            <Image
-              src={active.imageSrc}
-              alt={active.imageAlt}
-              width={active.imageWidth}
-              height={active.imageHeight}
-              sizes="(max-width: 767px) min(100vw, 200px), 200px"
-              loading="lazy"
-              className={
-                active.id === "information-home"
-                  ? "h-auto w-full origin-top scale-y-[0.92] object-contain motion-reduce:scale-y-100"
-                  : "h-auto w-full object-contain"
-              }
-            />
-          </div>
-          <div className="flex min-w-0 flex-col gap-5 md:gap-6 md:pt-0.5">
-            <p style={CASE_H3}>{active.title}</p>
-            <p style={{ ...CASE_LABEL, color: "var(--color-muted)" }}>Design consideration</p>
-            <ul className="m-0 flex list-none flex-col gap-4 p-0 md:gap-5">
-              {active.points.map((node, idx) => (
-                <li key={`${active.id}-pt-${idx}`} className="flex gap-3 items-baseline">
-                  <span style={{ color: "var(--color-muted)", flexShrink: 0, fontSize: "16px", lineHeight: "160%" }}>-</span>
-                  <p style={CASE_BODY}>{node}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Image
+            src={active.imageSrc}
+            alt={active.imageAlt}
+            width={active.imageWidth}
+            height={active.imageHeight}
+            sizes="100px"
+            loading="lazy"
+            style={{ width: 200, height: "auto" }}
+          />
+        </div>
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
+          {active.pros.map((text) => (
+            <div key={text} className="flex gap-2 items-center">
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#16A34A", flexShrink: 0 }} />
+              <p style={{ ...CASE_CAPTION, margin: 0 }}>{text}</p>
+            </div>
+          ))}
+          {active.cons.map((text) => (
+            <div key={text} className="flex gap-2 items-center">
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#DC2626", flexShrink: 0 }} />
+              <p style={{ ...CASE_CAPTION, margin: 0 }}>{text}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -976,8 +965,7 @@ function Ark7PersonaTabs() {
           aria-label="Persona tabs"
           id={tablistId}
           onKeyDown={handleKeyDown}
-          className="inline-flex items-center p-1 rounded-full"
-          style={{ background: "var(--color-ink-06)", border: "1px solid var(--color-ink-14)" }}
+          className="inline-flex items-center gap-1"
         >
           {ARK7_PERSONA_FRAMES.map((frame, i) => {
             const isActive = i === activeIndex;
@@ -990,26 +978,20 @@ function Ark7PersonaTabs() {
                 aria-selected={isActive}
                 aria-controls={`${tablistId}-panel-${frame.id}`}
                 tabIndex={isActive ? 0 : -1}
-                className="relative px-4 py-1.5 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                className="px-3 py-1.5 rounded-lg transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                   fontSize: "11px",
                   fontWeight: 500,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: isActive ? "#fff" : "var(--color-muted)",
-                  cursor: "inherit",
-                  borderRadius: "999px",
+                  letterSpacing: "0.04em",
+                  color: isActive ? "var(--color-ink)" : "var(--color-muted)",
+                  cursor: "pointer",
+                  border: "none",
+                  background: isActive ? "var(--color-ink-06)" : "transparent",
                 }}
                 onClick={() => select(i)}
               >
-                {isActive && (
-                  <span
-                    className="absolute inset-0 rounded-full"
-                    style={{ background: "var(--color-ink)" }}
-                  />
-                )}
-                <span className="relative z-10">{frame.tabLabel}</span>
+                {frame.tabLabel}
               </button>
             );
           })}

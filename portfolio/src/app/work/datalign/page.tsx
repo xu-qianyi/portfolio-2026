@@ -60,8 +60,7 @@ function PatternTabs({ base: _base }: { base: string }) {
           role="tablist"
           aria-label="Form pattern tabs"
           id={tablistId}
-          className="inline-flex items-center p-1 rounded-full"
-          style={{ background: "var(--color-ink-06)", border: "1px solid var(--color-ink-14)" }}
+          className="inline-flex items-center gap-1"
         >
           {(Object.keys(PATTERN_DATA) as PatternKey[]).map((key) => {
             const isActive = key === active;
@@ -72,25 +71,20 @@ function PatternTabs({ base: _base }: { base: string }) {
                 role="tab"
                 aria-selected={isActive}
                 tabIndex={isActive ? 0 : -1}
-                className="relative px-4 py-1.5 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                className="px-3 py-1.5 rounded-lg transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                   fontSize: "11px",
                   fontWeight: 500,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: isActive ? "#fff" : "var(--color-muted)",
+                  letterSpacing: "0.04em",
+                  color: isActive ? "var(--color-ink)" : "var(--color-muted)",
                   cursor: "pointer",
-                  borderRadius: "999px",
                   border: "none",
-                  background: "transparent",
+                  background: isActive ? "var(--color-ink-06)" : "transparent",
                 }}
                 onClick={() => setActive(key)}
               >
-                {isActive && (
-                  <span className="absolute inset-0 rounded-full" style={{ background: "var(--color-ink)" }} />
-                )}
-                <span className="relative z-10">{PATTERN_DATA[key].label}</span>
+                {PATTERN_DATA[key].label}
               </button>
             );
           })}
@@ -100,8 +94,10 @@ function PatternTabs({ base: _base }: { base: string }) {
       {/* Image panel + pros/cons inside container */}
       <div
         role="tabpanel"
-        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-subtle)] p-8 md:p-12 flex flex-col gap-10"
+        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-subtle)] p-8 md:p-12 flex flex-col gap-8"
       >
+        <p style={{ ...CASE_H3, textAlign: "center" }}>{data.label}</p>
+
         <div style={{ position: "relative" }}>
           {(Object.keys(PATTERN_DATA) as PatternKey[]).map((key) => {
             const isTraditional = key === "traditional";
@@ -131,7 +127,7 @@ function PatternTabs({ base: _base }: { base: string }) {
         </div>
 
         {/* Pros / cons — horizontal row */}
-        <div className="flex flex-wrap gap-x-5 gap-y-2">
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2">
           {data.pros.map((text) => (
             <div key={text} className="flex gap-2 items-center">
               <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#16A34A", flexShrink: 0 }} />
@@ -620,10 +616,10 @@ export default function DatalignCaseStudyPage() {
                     <p style={CASE_BODY}>
                       Lead gen and intake forms outside the industry split into two models.
                     </p>
-                    <PatternTabs base={BASE} />
                     <p style={CASE_BODY}>
                       Datalign&apos;s users arrive through paid traffic with no prior relationship and no brand familiarity. The research pointed toward Conversational.
                     </p>
+                    <PatternTabs base={BASE} />
                   </CaseSubSection>
                 </CaseScrollReveal>
               </div>
@@ -686,7 +682,7 @@ export default function DatalignCaseStudyPage() {
                         }}
                       />
                       <div style={{
-                        background: "#F0F0F0",
+                        background: "#FAFAFA",
                         borderRadius: "18px 18px 18px 4px",
                         padding: "14px 18px",
                         fontSize: 15,
@@ -765,7 +761,7 @@ export default function DatalignCaseStudyPage() {
                     ))}
                   </div>
 
-                  <CaseSubSection heading="Shipped in Claude Code. No Figma, no eng handoff." className="mt-10">
+                  <CaseSubSection heading="Shipped in Claude Code." className="mt-10">
                     <p style={{ ...CASE_BODY, margin: "16px 0 24px" }}>The entire redesign was built and delivered in Claude Code. That let us go from research to a working MVP in days. Once it was live, we moved the experiment into Heyflow to run A/B testing without touching the backend on every iteration.</p>
                   </CaseSubSection>
                 </CaseScrollReveal>
