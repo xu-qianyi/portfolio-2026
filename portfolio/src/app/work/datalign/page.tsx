@@ -28,6 +28,128 @@ import {
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
+const PATTERN_DATA = {
+  traditional: {
+    label: "Traditional",
+    image: `${BASE}/images/Datalign form/Traditional.webp`,
+    alt: "Traditional form pattern - data-first, sequential",
+    pros: ["Efficient. Low friction, familiar pattern", "Works when brand trust is pre-established"],
+    cons: ["Feels transactional. Data before relationship", "High drop-off with cold, unfamiliar traffic"],
+  },
+  conversational: {
+    label: "Conversational",
+    image: `${BASE}/images/Datalign form/Conversational.webp`,
+    alt: "Conversational form pattern - relationship-first",
+    pros: ["Builds trust progressively throughout the flow", "Reduces anxiety before sensitive questions"],
+    cons: ["Slower. More reading, more steps", "Harder to layer onto a locked question structure"],
+  },
+} as const;
+
+type PatternKey = keyof typeof PATTERN_DATA;
+
+function PatternTabs({ base: _base }: { base: string }) {
+  const [active, setActive] = useState<PatternKey>("traditional");
+  const data = PATTERN_DATA[active];
+  const tablistId = "pattern-tabs";
+
+  return (
+    <div className="mt-2 flex flex-col gap-4">
+      {/* Pill tab toggle — same style as ark7 */}
+      <div className="flex justify-center">
+        <div
+          role="tablist"
+          aria-label="Form pattern tabs"
+          id={tablistId}
+          className="inline-flex items-center p-1 rounded-full"
+          style={{ background: "var(--color-ink-06)", border: "1px solid var(--color-ink-14)" }}
+        >
+          {(Object.keys(PATTERN_DATA) as PatternKey[]).map((key) => {
+            const isActive = key === active;
+            return (
+              <button
+                key={key}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                tabIndex={isActive ? 0 : -1}
+                className="relative px-4 py-1.5 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                style={{
+                  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+                  fontSize: "11px",
+                  fontWeight: 500,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: isActive ? "#fff" : "var(--color-muted)",
+                  cursor: "pointer",
+                  borderRadius: "999px",
+                  border: "none",
+                  background: "transparent",
+                }}
+                onClick={() => setActive(key)}
+              >
+                {isActive && (
+                  <span className="absolute inset-0 rounded-full" style={{ background: "var(--color-ink)" }} />
+                )}
+                <span className="relative z-10">{PATTERN_DATA[key].label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Image panel + pros/cons inside container */}
+      <div
+        role="tabpanel"
+        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-subtle)] p-8 md:p-12 flex flex-col gap-10"
+      >
+        <div style={{ position: "relative" }}>
+          {(Object.keys(PATTERN_DATA) as PatternKey[]).map((key) => {
+            const isTraditional = key === "traditional";
+            return (
+              <img
+                key={key}
+                src={PATTERN_DATA[key].image}
+                alt={PATTERN_DATA[key].alt}
+                style={{
+                  display: "block",
+                  borderRadius: "6px",
+                  position: isTraditional ? "relative" : "absolute",
+                  top: isTraditional ? undefined : 0,
+                  left: isTraditional ? undefined : 0,
+                  width: isTraditional ? "76%" : "100%",
+                  marginLeft: isTraditional ? "auto" : undefined,
+                  marginRight: isTraditional ? "auto" : undefined,
+                  height: isTraditional ? "auto" : "100%",
+                  objectFit: isTraditional ? undefined : "contain",
+                  opacity: active === key ? 1 : 0,
+                  transition: "opacity 0.2s ease",
+                  pointerEvents: active === key ? "auto" : "none",
+                }}
+              />
+            );
+          })}
+        </div>
+
+        {/* Pros / cons — horizontal row */}
+        <div className="flex flex-wrap gap-x-5 gap-y-2">
+          {data.pros.map((text) => (
+            <div key={text} className="flex gap-2 items-center">
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#16A34A", flexShrink: 0 }} />
+              <p style={{ ...CASE_CAPTION, margin: 0 }}>{text}</p>
+            </div>
+          ))}
+          {data.cons.map((text) => (
+            <div key={text} className="flex gap-2 items-center">
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#DC2626", flexShrink: 0 }} />
+              <p style={{ ...CASE_CAPTION, margin: 0 }}>{text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const AUDIT_ISSUES = [
   { issue: "Sales-driven copy, no warmth",           cost: "Users feel processed, not helped" },
   { issue: 'Generic "Why we ask" copy',              cost: "Users skip or guess" },
@@ -462,8 +584,8 @@ export default function DatalignCaseStudyPage() {
 
                     <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4" style={{ padding: "8px 0 32px" }}>
                       {/* Functional */}
-                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "rgba(239,68,68,0.08)" }}>
-                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(239,68,68,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
+                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <i className="ri-error-warning-line" style={{ fontSize: 22, color: "#ef4444" }} />
                         </div>
                         <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Functional</div>
@@ -473,16 +595,16 @@ export default function DatalignCaseStudyPage() {
                         </p>
                       </div>
                       {/* Decent UX */}
-                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "rgba(234,179,8,0.08)" }}>
-                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(234,179,8,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
+                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <i className="ri-medal-line" style={{ fontSize: 22, color: "#ca8a04" }} />
                         </div>
                         <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Decent UX</div>
                         <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", lineHeight: 1.6, color: "var(--color-ink-50)", margin: 0 }}>Advisor.com, NerdWallet, Zoe Financial, WealthRamp, Finance HQ, Facet</p>
                       </div>
                       {/* Well-designed */}
-                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "rgba(34,197,94,0.08)" }}>
-                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "rgba(34,197,94,0.12)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
+                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <i className="ri-trophy-line" style={{ fontSize: 22, color: "#16a34a" }} />
                         </div>
                         <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Well-designed</div>
@@ -498,38 +620,7 @@ export default function DatalignCaseStudyPage() {
                     <p style={CASE_BODY}>
                       Lead gen and intake forms outside the industry split into two models.
                     </p>
-                    <div className="flex flex-col gap-4 mt-2">
-                      {/* Traditional */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-xl overflow-hidden" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
-                        <div className="p-6 md:p-10" style={{ background: "var(--color-subtle)" }}>
-                          <img src={`${BASE}/images/Datalign form/Traditional.webp`} alt="Traditional form pattern - data-first, sequential" style={{ width: "100%", display: "block" }} />
-                        </div>
-                        <div className="flex flex-col gap-3 p-6 md:p-8 justify-center" style={{ background: "var(--color-surface)" }}>
-                          <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", fontWeight: 500, color: "#3B6FD4", background: "#EEF3FF", borderRadius: "6px", padding: "2px 10px", display: "inline-block", alignSelf: "flex-start", marginBottom: "8px" }}>Traditional</span>
-                          <div className="flex flex-col gap-2">
-                            <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...CASE_BODY, margin: 0 }}>Efficient. Low friction, familiar pattern</p></div>
-                            <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...CASE_BODY, margin: 0 }}>Works when brand trust is pre-established</p></div>
-                            <div className="flex gap-2 items-start"><i className="ri-close-circle-fill" style={{ fontSize: "15px", color: "#DC2626", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...CASE_BODY, margin: 0 }}>Feels transactional. Data before relationship</p></div>
-                            <div className="flex gap-2 items-start"><i className="ri-close-circle-fill" style={{ fontSize: "15px", color: "#DC2626", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...CASE_BODY, margin: 0 }}>High drop-off with cold, unfamiliar traffic</p></div>
-                          </div>
-                        </div>
-                      </div>
-                      {/* Conversational */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-xl overflow-hidden" style={{ border: "1px solid rgba(0,0,0,0.08)" }}>
-                        <div className="p-6 md:p-10" style={{ background: "var(--color-subtle)" }}>
-                          <img src={`${BASE}/images/Datalign form/Conversational.webp`} alt="Conversational form pattern - relationship-first" style={{ width: "100%", display: "block" }} />
-                        </div>
-                        <div className="flex flex-col gap-3 p-6 md:p-8 justify-center" style={{ background: "var(--color-surface)" }}>
-                          <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", fontWeight: 500, color: "#3B6FD4", background: "#EEF3FF", borderRadius: "6px", padding: "2px 10px", display: "inline-block", alignSelf: "flex-start", marginBottom: "8px" }}>Conversational</span>
-                          <div className="flex flex-col gap-2">
-                            <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...CASE_BODY, margin: 0 }}>Builds trust progressively throughout the flow</p></div>
-                            <div className="flex gap-2 items-start"><i className="ri-checkbox-circle-fill" style={{ fontSize: "15px", color: "#16A34A", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...CASE_BODY, margin: 0 }}>Reduces anxiety before sensitive questions</p></div>
-                            <div className="flex gap-2 items-start"><i className="ri-close-circle-fill" style={{ fontSize: "15px", color: "#DC2626", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...CASE_BODY, margin: 0 }}>Slower. More reading, more steps</p></div>
-                            <div className="flex gap-2 items-start"><i className="ri-close-circle-fill" style={{ fontSize: "15px", color: "#DC2626", flexShrink: 0, marginTop: "1px" }} /><p style={{ ...CASE_BODY, margin: 0 }}>Harder to layer onto a locked question structure</p></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <PatternTabs base={BASE} />
                     <p style={CASE_BODY}>
                       Datalign&apos;s users arrive through paid traffic with no prior relationship and no brand familiarity. The research pointed toward Conversational.
                     </p>
