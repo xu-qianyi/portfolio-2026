@@ -647,7 +647,10 @@ export default function DatalignCaseStudyPage() {
 
                 <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                   <p style={CASE_BODY}>
-                    I brought the research and a Conversational proposal to a cross-functional workshop. Full Conversational was technically feasible, but multiple APIs made the engineering cost hard to justify. That constraint forced a better question: what actually makes Conversational work? Not the structure. Warmth, presence, the sense of being guided. Those can transfer. <Highlight variant="blue" duration={1400}>So we stopped trying to change the structure and started working on the voice.</Highlight>
+                    I brought the research and a Conversational proposal to a cross-functional workshop. Full Conversational was technically feasible, but multiple APIs made the engineering cost hard to justify.
+                  </p>
+                  <p style={CASE_BODY}>
+                    That constraint forced a better question: what actually makes Conversational work? Not the structure. Warmth, presence, the sense of being guided. Those can transfer. <Highlight variant="blue" duration={1400}>So we stopped trying to change the structure and started working on the voice.</Highlight>
                   </p>
 <div>
                     <img src={`${BASE}/images/Datalign form/workshop.webp`} alt="Photo from the workshop" style={{ width: "100%", display: "block", borderRadius: 8 }} />
