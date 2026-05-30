@@ -402,7 +402,8 @@ export default function ProjectCard({
     );
   }
 
-  const metaParts = [project.company, project.industry, project.date, project.role, project.type].filter(
+  const typeParts = project.type ? project.type.split(" · ") : [];
+  const metaParts = [project.company, project.industry, project.date, project.role, ...typeParts].filter(
     (part): part is string => Boolean(part),
   );
   const headlineStyle = variant === "minimal" ? PROJECT_HEADLINE_MINIMAL : PROJECT_HEADLINE;
