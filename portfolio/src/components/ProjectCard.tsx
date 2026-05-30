@@ -382,11 +382,13 @@ export default function ProjectCard({
   sizes = "(min-width: 1024px) 50vw, 100vw",
   variant = "default",
   className,
+  hideLabel = false,
 }: {
   project: Project;
   sizes?: string;
   variant?: "default" | "minimal" | "framed";
   className?: string;
+  hideLabel?: boolean;
 }) {
   if (variant === "framed") {
     return (
@@ -405,6 +407,10 @@ export default function ProjectCard({
   );
   const headlineStyle = variant === "minimal" ? PROJECT_HEADLINE_MINIMAL : PROJECT_HEADLINE;
 
+  const mediaRatio = project.bare && project.mediaAspectRatio
+    ? project.mediaAspectRatio
+    : `${project.width} / ${project.height}`;
+
   return (
     <div
       id={`project-${project.id}`}
@@ -418,16 +424,41 @@ export default function ProjectCard({
           display: "block",
           position: "relative",
           width: "100%",
-          aspectRatio: `${project.width} / ${project.height}`,
+          aspectRatio: mediaRatio,
           border: "1px solid rgba(204,209,218,0.2)",
           overflow: "hidden",
-          backgroundColor: "var(--color-subtle)",
+          backgroundColor: project.bg ?? "var(--color-subtle)",
+          backgroundImage: project.bgImage ? `url('${BASE}${project.bgImage}')` : undefined,
+          backgroundRepeat: project.bgImage ? "repeat" : undefined,
+          backgroundSize: project.bgImage ? "64px 64px" : undefined,
+          imageRendering: project.bgImage ? "pixelated" : undefined,
         }}
       >
-        <div className="project-card-media">
-          {project.image?.endsWith(".json") ? (
-            <LottiePreview src={project.image} />
-          ) : project.image ? (
+        {project.video ? (
+          <video
+            autoPlay
+            loop={project.videoLoop}
+            muted
+            playsInline
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          >
+            <source src={h(project.video)} type="video/webm" />
+          </video>
+        ) : project.image?.endsWith(".json") ? (
+          <LottiePreview src={project.image} />
+        ) : project.image && project.bare ? (
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Image
+              src={project.image}
+              alt={project.headline}
+              width={project.width}
+              height={project.height}
+              unoptimized
+              style={{ imageRendering: "pixelated", display: "block" }}
+            />
+          </div>
+        ) : project.image ? (
+          <div className="project-card-media">
             <Image
               src={project.image}
               alt={project.headline}
@@ -436,10 +467,10 @@ export default function ProjectCard({
               unoptimized={project.image.endsWith(".gif")}
               style={{ objectFit: "cover" }}
             />
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </a>
-      <div
+      {!hideLabel && <div
         style={{
           marginTop: "16px",
           display: "flex",
@@ -458,7 +489,7 @@ export default function ProjectCard({
           </p>
         )}
         <p style={headlineStyle}>{project.headline}</p>
-      </div>
+      </div>}
     </div>
   );
 }

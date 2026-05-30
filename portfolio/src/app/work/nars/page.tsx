@@ -170,7 +170,7 @@ export default function NarsCaseStudyPage() {
   }, [activeId]);
 
   return (
-    <div className="min-h-screen px-6 py-14 md:py-16 lg:px-[72px] lg:py-16">
+    <div className="min-h-screen px-6 py-14 md:py-16 lg:px-[72px] lg:py-16 lg:mx-[32px]">
       <main className="mx-auto grid max-w-[1800px] grid-cols-1 gap-0 md:grid-cols-[1fr_auto_1fr] md:gap-8">
 
         {/* Sidebar nav */}

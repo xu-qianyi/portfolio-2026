@@ -5,8 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
-  { label: "Work",   href: "/" },
-  { label: "Extras", href: "/extras" },
+  { label: "Work", href: "/" },
 ];
 
 const RESUME_HREF = "https://drive.google.com/file/d/16KysaUm1SO-1tESx4_cw_5OXSoTEk0k8/view?usp=sharing";
@@ -27,7 +26,7 @@ export default function Navbar() {
         transition: "transform 300ms cubic-bezier(0.25, 1, 0.5, 1)",
       }}
     >
-      <div className="flex items-center justify-between py-5 px-6 lg:px-[72px] mx-auto">
+      <div className="flex items-center justify-between py-5 px-6 lg:px-[72px] lg:mx-[32px]">
         {/* Logo */}
         <Link
           href="/"

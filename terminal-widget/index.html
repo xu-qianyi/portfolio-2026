@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Martta Xu</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      padding: 52px 48px;
+      font-family: 'SF Mono', Menlo, 'Cascadia Code', Consolas, 'Courier New', monospace;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.9);
+    }
+
+    #name {
+      font-family: -apple-system, 'Helvetica Neue', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.005em;
+      color: #fff;
+      margin-bottom: 32px;
+    }
+
+    #terminal { flex: 1; }
+
+    .last-login {
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+
+    .greeting { margin-bottom: 6px; }
+
+    .ps1-green { color: #5AF78E; }
+    .ps1-white { color: rgba(255,255,255,0.9); }
+
+    #prompts { margin-bottom: 6px; }
+
+    .prompt-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 1px 48px;
+      margin-left: -48px;
+      width: calc(100% + 96px);
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.9);
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      text-align: left;
+      cursor: default;
+    }
+    .prompt-item:hover,
+    .prompt-item.default-active {
+      background: rgba(255,255,255,0.08);
+    }
+    .prompt-item .arrow {
+      width: 12px;
+      flex-shrink: 0;
+      color: #5AF78E;
+    }
+
+    #messages { margin-bottom: 2px; }
+    .msg { margin-bottom: 2px; }
+    .msg-bot { color: rgba(255,255,255,0.9); }
+
+    #input-line {
+      display: flex;
+      align-items: center;
+      cursor: text;
+    }
+    #input-line input {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      color: rgba(255,255,255,0.9);
+      caret-color: rgba(255,255,255,0.9) !important;
+      cursor: default;
+      min-width: 1px;
+    }
+
+    #cursor {
+      display: inline-block;
+      width: 2px;
+      height: 14px;
+      background: rgba(255,255,255,0.9);
+      vertical-align: text-bottom;
+      margin-left: 1px;
+      flex-shrink: 0;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    nav {
+      margin-top: auto;
+      padding-top: 48px;
+    }
+    nav a {
+      display: block;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+    nav a:hover { color: rgba(255,255,255,0.9); }
+  </style>
+</head>
+<body>
+
+  <div id="name">Martta Xu</div>
+
+  <div id="terminal">
+    <div class="last-login" id="last-login">Last login: … from …</div>
+
+    <div class="greeting">
+      <span class="ps1-green">martta</span><span class="ps1-white">@portfolio ~ % </span><span>ask me anything about Martta Xu.</span>
+    </div>
+
+    <div id="prompts"></div>
+    <div id="messages"></div>
+
+    <div id="input-line">
+      <span class="ps1-green">martta</span><span class="ps1-white">@portfolio ~ %&nbsp;</span>
+      <input id="input" type="text" autocomplete="off" spellcheck="false" />
+      <span id="cursor"></span>
+    </div>
+  </div>
+
+  <nav>
+    <a href="https://github.com/xu-qianyi/portfolio/releases" target="_blank" rel="noopener">CHANGELOG</a>
+    <a href="https://www.linkedin.com/in/marttaxu" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://drive.google.com/file/d/16KysaUm1SO-1tESx4_cw_5OXSoTEk0k8/view" target="_blank" rel="noopener">Resume</a>
+  </nav>
+
+  <script>
+    const PROMPTS = [
+      "What do you design?",
+      "What are you working on?",
+      "Where are you based?",
+      "How can I reach you?",
+    ];
+
+    const RESPONSES = {
+      design:   "I'm a product designer focused on the intersection of AI and workflow tools. I care a lot about how software feels to use - not just how it looks.",
+      working:  "Right now I'm designing at Datalign, building conversational data analysis tools that replace traditional BI dashboards. Small team - I own end-to-end design.",
+      based:    "I'm based in Boston, studying at Northeastern University. Graduating April 2026.",
+      contact:  "Best way is email - martta.xu@outlook.com. I'm also on LinkedIn and read every message.",
+      school:   "I study at Northeastern University - combined major in Design and Computer Science. Graduating April 2026.",
+      tools:    "Figma for everything visual. Framer and Next.js when I need to prototype in the browser. I write just enough code to know what's buildable.",
+      fallback: "Good question - but I didn't pre-program that one. Try martta.xu@outlook.com if you're genuinely curious.",
+    };
+
+    function getResponse(q) {
+      q = q.toLowerCase();
+      if (/design|designer|what do you do/.test(q)) return RESPONSES.design;
+      if (/working on|project|datalign|current/.test(q))  return RESPONSES.working;
+      if (/based|location|where|city|boston/.test(q))     return RESPONSES.based;
+      if (/contact|email|reach|hire|talk/.test(q))        return RESPONSES.contact;
+      if (/school|study|northeastern|nu|education/.test(q)) return RESPONSES.school;
+      if (/tool|figma|software|stack|code/.test(q))       return RESPONSES.tools;
+      return RESPONSES.fallback;
+    }
+
+    // ── Last login ──────────────────────────────────────────────
+    (function setLastLogin() {
+      const d = new Date();
+      const ts = d.toLocaleString('en-US', {
+        weekday:'short', month:'short', day:'numeric',
+        hour:'2-digit', minute:'2-digit', second:'2-digit', hour12: false
+      }).replace(',','');
+      document.getElementById('last-login').textContent = `Last login: ${ts} from …`;
+      fetch('https://ipapi.co/json/')
+        .then(r => r.json())
+        .then(d => {
+          if (d.city) {
+            document.getElementById('last-login').textContent = `Last login: ${ts} from ${d.city}`;
+          }
+        })
+        .catch(() => {});
+    })();
+
+    // ── Prompts ──────────────────────────────────────────────────
+    let hasHovered = false;
+    let started = false;
+    let isTyping = false;
+
+    function renderPrompts() {
+      const container = document.getElementById('prompts');
+      container.innerHTML = '';
+      PROMPTS.forEach((p, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'prompt-item' + (i === 0 && !hasHovered ? ' default-active' : '');
+        btn.innerHTML = `<span class="arrow">${i === 0 && !hasHovered ? '❯' : ' '}</span>${p}`;
+        btn.addEventListener('mouseenter', () => {
+          if (!hasHovered) {
+            hasHovered = true;
+            renderPrompts();
+          }
+          btn.querySelector('.arrow').textContent = '❯';
+          btn.classList.add('default-active');
+        });
+        btn.addEventListener('mouseleave', () => {
+          btn.querySelector('.arrow').textContent = ' ';
+          btn.classList.remove('default-active');
+        });
+        btn.addEventListener('click', () => send(p));
+        container.appendChild(btn);
+      });
+    }
+    renderPrompts();
+
+    // ── Messaging ────────────────────────────────────────────────
+    const messagesEl = document.getElementById('messages');
+    const inputEl    = document.getElementById('input');
+    const cursorEl   = document.getElementById('cursor');
+    const promptsEl  = document.getElementById('prompts');
+    const inputLine  = document.getElementById('input-line');
+
+    inputLine.addEventListener('click', () => inputEl.focus());
+
+    inputEl.addEventListener('focus', () => cursorEl.style.display = 'none');
+    inputEl.addEventListener('blur',  () => cursorEl.style.display = 'inline-block');
+    inputEl.addEventListener('input', () => {
+      inputEl.style.width = Math.max(0, inputEl.value.length) + 'ch';
+    });
+    inputEl.addEventListener('keydown', e => {
+      if (e.key === 'Enter') send(inputEl.value);
+    });
+
+    function ps1() {
+      return `<span class="ps1-green">martta</span><span class="ps1-white">@portfolio ~ % </span>`;
+    }
+
+    function send(text) {
+      text = text.trim();
+      if (!text || isTyping) return;
+      isTyping = true;
+      started = true;
+      promptsEl.innerHTML = '';
+      inputEl.value = '';
+      inputEl.style.width = '0ch';
+
+      // User line
+      const userDiv = document.createElement('div');
+      userDiv.className = 'msg';
+      userDiv.innerHTML = ps1() + escHtml(text);
+      messagesEl.appendChild(userDiv);
+
+      // Bot line
+      setTimeout(() => {
+        const response = getResponse(text);
+        const botDiv = document.createElement('div');
+        botDiv.className = 'msg msg-bot';
+        messagesEl.appendChild(botDiv);
+
+        let i = 0;
+        const interval = setInterval(() => {
+          i++;
+          botDiv.textContent = response.slice(0, i);
+          if (i >= response.length) {
+            clearInterval(interval);
+            isTyping = false;
+            renderPrompts();
+          }
+        }, 18);
+      }, 150);
+    }
+
+    function escHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+  </script>
+</body>
+</html>

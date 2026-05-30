@@ -29,11 +29,9 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   return (
     <html lang="en">
       <body className={`${geistSans.variable} antialiased`}>
-        <style dangerouslySetInnerHTML={{ __html: `@media (pointer: fine) { html, * { cursor: url('${base}/cursor.svg') 2 2, auto !important; } }` }} />
         <ClarityProvider />
         <Shell>{children}</Shell>
       </body>

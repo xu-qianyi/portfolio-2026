@@ -1,61 +1,106 @@
 import type { CSSProperties } from "react";
-// CSSProperties used by SECTION_LABEL
+import Link from "next/link";
 import projects from "@/data/projects.json";
 import extrasProjects from "@/data/extrasProjects.json";
 import { FOOTER_EXTERNAL_LINKS } from "@/data/footerLinks";
 import ProjectCard from "@/components/ProjectCard";
-import AskMartta from "@/components/AskMartta";
 
-const SECTION_LABEL: CSSProperties = {
+const HERO_TEXT: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "11px",
-  fontWeight: 500,
-  letterSpacing: "0.08em",
-  textTransform: "uppercase",
-  color: "rgba(0,0,0,0.35)",
-  marginBottom: "16px",
+  fontSize: "15px",
+  fontWeight: 450,
+  color: "rgba(0,0,0,0.8)",
+  lineHeight: "1.45rem",
+  letterSpacing: "-0.005em",
+  margin: 0,
+};
+
+const HERO_NAV_TEXT: CSSProperties = {
+  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontSize: "15px",
+  fontWeight: 450,
+  color: "rgba(0,0,0,0.8)",
+  lineHeight: "1.45rem",
+  letterSpacing: "-0.005em",
 };
 
 export default function Home() {
   return (
-    <div className="flex flex-col lg:flex-row" style={{ height: "100dvh", overflow: "hidden" }}>
-
-      {/* Left panel - black */}
-      <div
-        className="term-widget lg:flex-shrink-0 lg:w-[480px] flex flex-col"
-        style={{ background: "#111" }}
+    <>
+      {/* Hero */}
+      <section
+        className="py-[64px] px-[24px] sm:pt-[28px] sm:pb-[40px] lg:pt-[52px] lg:pb-[64px] lg:px-[72px] lg:mx-[32px]"
+        style={{ alignSelf: "stretch" }}
       >
-        {/* macOS title bar */}
-        <div style={{
-          height: "40px",
-          display: "flex",
-          alignItems: "center",
-          padding: "0 20px",
-          gap: "8px",
-          borderBottom: "1px solid rgba(255,255,255,0.07)",
-          flexShrink: 0,
-        }}>
-          <span style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#FF5F57", flexShrink: 0 }} />
-          <span style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#FFBD2E", flexShrink: 0 }} />
-          <span style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#28C840", flexShrink: 0 }} />
-          <span style={{
-            flex: 1,
-            textAlign: "center",
-            fontSize: "12px",
-            color: "rgba(255,255,255,0.3)",
-            fontFamily: "var(--font-geist-mono), ui-monospace, monospace",
-          }}>
-            zsh
-          </span>
-        </div>
-
-        {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto flex flex-col" style={{ padding: "52px 48px" }}>
-          <AskMartta />
-
-          {/* Nav links - bottom */}
+        <div className="flex w-full min-w-0 flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
+          <p className="min-w-0 max-w-full lg:max-w-[min(100%,calc(50%-1.5rem))]" style={HERO_TEXT}>
+            My design practice lives in the making - through .fig files, code, and increasingly AI. And in the curating - knowing where to linger, and where to let go. Right now I&apos;m at{" "}
+            <span className="hero-company-link">
+              Datalign
+              <span className="hero-company-link-badge" aria-hidden>
+                1
+              </span>
+            </span>
+            , building in wealth management. Previously: design(contract) at{" "}
+            <Link href="/work/ark7" className="hero-company-link">
+              ARK7
+              <span className="hero-company-link-badge" aria-hidden>
+                2
+              </span>
+            </Link>
+            , engineering at{" "}
+            <a
+              href="https://www.thoughtworks.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-company-link"
+            >
+              Thoughtworks
+              <span className="hero-company-link-badge" aria-hidden>
+                3
+              </span>
+            </a>
+            , user research at{" "}
+            <a
+              href="https://looklook.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-company-link"
+            >
+              Looklook
+              <span className="hero-company-link-badge" aria-hidden>
+                4
+              </span>
+            </a>
+            , strategy at{" "}
+            <a
+              href="https://www.pwc.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-company-link"
+            >
+              PwC
+              <span className="hero-company-link-badge" aria-hidden>
+                5
+              </span>
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://www.jll.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-company-link"
+            >
+              JLL
+              <span className="hero-company-link-badge" aria-hidden>
+                6
+              </span>
+            </a>
+            .
+          </p>
           <nav
-            style={{ marginTop: "auto", paddingTop: "48px" }}
+            style={HERO_NAV_TEXT}
+            className="flex shrink-0 self-end flex-row flex-wrap items-baseline justify-end gap-x-5 gap-y-2 lg:flex-col lg:items-end lg:gap-1 lg:self-auto"
             aria-label="External links"
           >
             {FOOTER_EXTERNAL_LINKS.map((item) => (
@@ -64,36 +109,27 @@ export default function Home() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="left-panel-link"
+                className="hero-nav-link"
+                data-num={item.dataNum}
               >
                 {item.label}
               </a>
             ))}
           </nav>
         </div>
-      </div>
+      </section>
 
-      {/* Right panel - white, scrollable */}
-      <div className="flex-1 overflow-y-auto" style={{ padding: "52px 48px" }}>
-
-        {/* Main projects - 2 col */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "24px" }}>
+      {/* Project grid */}
+      <section className="grid-layout pb-20">
+        <div className="col-start-1 col-end-13 grid grid-cols-1 lg:grid-cols-3 gap-x-[24px] items-start">
           {projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
+          {extrasProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
         </div>
-
-        {/* Extras projects */}
-        <div style={{ marginTop: "64px", paddingTop: "40px", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
-          <p style={SECTION_LABEL}>Side projects</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
-            {extrasProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} variant="framed" />
-            ))}
-          </div>
-        </div>
-
-      </div>
-    </div>
+      </section>
+    </>
   );
 }
