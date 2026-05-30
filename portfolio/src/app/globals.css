@@ -480,3 +480,25 @@ img {
     transition: none;
   }
 }
+
+.left-panel-link {
+  display: block;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+.left-panel-link:hover {
+  color: rgba(255,255,255,0.9);
+}
+
+.term-input {
+  caret-color: rgba(255,255,255,0.9) !important;
+}
+.term-input:not(:focus) {
+  caret-color: transparent !important;
+}
+
+.term-widget,
+.term-widget * {
+  cursor: default !important;
+}
