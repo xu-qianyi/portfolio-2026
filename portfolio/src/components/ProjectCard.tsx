@@ -178,7 +178,6 @@ function FramedCard({ project }: { project: Project }) {
         display: "flex",
         flexDirection: "column",
         border: "1px solid rgba(204, 209, 218, 0.4)",
-        borderRadius: "12px",
         backgroundColor: "var(--color-surface)",
         overflow: "hidden",
         textDecoration: "none",
@@ -421,7 +420,6 @@ export default function ProjectCard({
           width: "100%",
           aspectRatio: `${project.width} / ${project.height}`,
           border: "1px solid rgba(204,209,218,0.2)",
-          borderRadius: "8px",
           overflow: "hidden",
           backgroundColor: "var(--color-subtle)",
         }}

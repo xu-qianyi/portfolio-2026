@@ -261,8 +261,8 @@ function Ark7DesignAuditGrid() {
     <div className="mt-2 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
       {ARK7_DESIGN_AUDIT_FINDINGS.map((item, i) => (
         <div key={item.title} className="flex flex-col gap-3">
-          <div className="relative rounded-lg p-3" style={{ border: "1px solid var(--color-ink-14)" }}>
-            <div className="relative h-96 w-full overflow-hidden rounded-md">
+          <div className="relative p-3" style={{ border: "1px solid var(--color-ink-14)" }}>
+            <div className="relative h-96 w-full overflow-hidden">
               <Image
                 src={item.image}
                 alt={item.title}
@@ -347,7 +347,7 @@ function Ark7PersonaCards() {
       {ARK7_PERSONAS.map((p) => (
         <article
           key={p.name}
-          className="flex flex-col gap-3.5 rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] px-4 py-3.5 md:px-5 md:py-4"
+          className="flex flex-col gap-3.5 border border-[var(--color-ink-14)] bg-[var(--color-surface)] px-4 py-3.5 md:px-5 md:py-4"
         >
           <header>
             <p
@@ -680,7 +680,7 @@ function Ark7CardRevampTabs() {
                 aria-selected={isActive}
                 aria-controls={`${tablistId}-panel-${tab.id}`}
                 tabIndex={isActive ? 0 : -1}
-                className="px-3 py-1.5 rounded-lg transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                className="px-3 py-1.5 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                   fontSize: "11px",
@@ -704,7 +704,7 @@ function Ark7CardRevampTabs() {
         role="tabpanel"
         id={`${tablistId}-panel-${active.id}`}
         aria-labelledby={`${tablistId}-${active.id}`}
-        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] p-5 md:p-8"
+        className="border border-[var(--color-ink-14)] bg-[var(--color-surface)] p-5 md:p-8"
       >
         <Image
           key={`${active.id}-${epoch}`}
@@ -712,7 +712,7 @@ function Ark7CardRevampTabs() {
           alt={active.alt}
           width={1600}
           height={1200}
-          className="w-full h-auto rounded-md ark7-layout-tab-panel-enter"
+          className="w-full h-auto ark7-layout-tab-panel-enter"
           loading="lazy"
         />
       </div>
@@ -857,7 +857,7 @@ function Ark7LayoutOptionsTabs() {
                 aria-selected={isActive}
                 aria-controls={`${tablistId}-panel-${opt.id}`}
                 tabIndex={isActive ? 0 : -1}
-                className="px-3 py-1.5 rounded-lg transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                className="px-3 py-1.5 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                   fontSize: "11px",
@@ -881,7 +881,7 @@ function Ark7LayoutOptionsTabs() {
         role="tabpanel"
         id={`${tablistId}-panel-${active.id}`}
         aria-labelledby={`${tablistId}-${active.id}`}
-        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-subtle)] p-8 md:p-12 flex flex-col gap-8"
+        className="border border-[var(--color-ink-14)] bg-[var(--color-subtle)] p-8 md:p-12 flex flex-col gap-8"
       >
         <p style={{ ...CASE_H3, textAlign: "center" }}>{active.title}</p>
         <div
@@ -978,7 +978,7 @@ function Ark7PersonaTabs() {
                 aria-selected={isActive}
                 aria-controls={`${tablistId}-panel-${frame.id}`}
                 tabIndex={isActive ? 0 : -1}
-                className="px-3 py-1.5 rounded-lg transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                className="px-3 py-1.5 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                   fontSize: "11px",
@@ -1004,7 +1004,7 @@ function Ark7PersonaTabs() {
         role="tabpanel"
         id={`${tablistId}-panel-${active.id}`}
         aria-labelledby={`${tablistId}-${active.id}`}
-        className={`rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-surface)] p-6 md:p-8${epoch > 0 ? " ark7-layout-tab-panel-enter" : ""}`}
+        className={`border border-[var(--color-ink-14)] bg-[var(--color-surface)] p-6 md:p-8${epoch > 0 ? " ark7-layout-tab-panel-enter" : ""}`}
       >
         {/* Persona header */}
         <div className="mb-5 md:mb-6">
@@ -1032,14 +1032,14 @@ function Ark7PersonaTabs() {
         {/* User need + Business need */}
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div
-            className="ark7-persona-need-in flex flex-col gap-3 rounded-lg border border-[var(--color-ink-06)] bg-[var(--color-subtle)] p-4"
+            className="ark7-persona-need-in flex flex-col gap-3 border border-[var(--color-ink-06)] bg-[var(--color-subtle)] p-4"
             style={{ animationDelay: "220ms" }}
           >
             <p style={LABEL_STYLE}>User need</p>
             <p style={NEED_TEXT_STYLE}>{active.userNeed}</p>
           </div>
           <div
-            className="ark7-persona-need-in flex flex-col gap-3 rounded-lg border border-[var(--color-ink-06)] bg-[var(--color-subtle)] p-4"
+            className="ark7-persona-need-in flex flex-col gap-3 border border-[var(--color-ink-06)] bg-[var(--color-subtle)] p-4"
             style={{ animationDelay: "300ms" }}
           >
             <p style={LABEL_STYLE}>Business need</p>
@@ -1279,7 +1279,7 @@ export default function Ark7CaseStudyPage() {
               </p>
             </CaseScrollReveal>
 
-            <CaseScrollReveal delay={60} className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative rounded-lg mb-0">
+            <CaseScrollReveal delay={60} className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative mb-0">
               <LottiePreview
                 src="/images/ARK7/ARK7_Case%20study_Preview.json"
                 loop={false}
@@ -1353,7 +1353,7 @@ export default function Ark7CaseStudyPage() {
 
                 {section.id === "design" ? (
                   <>
-                    <div className="relative my-8 rounded-lg overflow-hidden px-6 py-4 md:my-12 md:px-32 md:py-6">
+                    <div className="relative my-8 overflow-hidden px-6 py-4 md:my-12 md:px-32 md:py-6">
                       <Image
                         src="/images/ARK7/matrix.webp"
                         alt="Eisenhower-style matrix mapping 12 community features by effort and trust impact, narrowed to four"
@@ -1362,7 +1362,7 @@ export default function Ark7CaseStudyPage() {
                         unoptimized
                         className="block w-full md:w-4/5 mx-auto h-auto"
                       />
-                      <span className="absolute inset-0 rounded-lg pointer-events-none" style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.1)" }} />
+                      <span className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.1)" }} />
                     </div>
                     <div className="mt-10 flex flex-col gap-8">
                       <CaseSubSection heading="Entry point: one tab, four touchpoints">
@@ -1424,7 +1424,7 @@ export default function Ark7CaseStudyPage() {
                 {section.id === "research" ? (
                   <div className="flex flex-col gap-8">
                     <CaseMethodGrid items={ARK7_METHOD_ITEMS} cols={3} variant="flat" />
-                    <div className="relative rounded-lg overflow-hidden bg-[var(--color-subtle)] p-6 md:p-10">
+                    <div className="relative overflow-hidden bg-[var(--color-subtle)] p-6 md:p-10">
                       <Image
                         src="/images/ARK7/Competitor%20analysis.webp"
                         alt="Competitor analysis comparing ARK7 and Arrived across mobile app, website, and social channels"
@@ -1435,7 +1435,7 @@ export default function Ark7CaseStudyPage() {
                         unoptimized
                         className="block w-full h-auto mx-auto"
                       />
-                      <span className="absolute inset-0 rounded-lg pointer-events-none" style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.08)" }} />
+                      <span className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.08)" }} />
                     </div>
                     <div className="flex flex-col gap-5">
                       <p style={CASE_BODY}>

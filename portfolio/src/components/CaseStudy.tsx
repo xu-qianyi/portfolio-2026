@@ -228,7 +228,7 @@ export function CaseMethodGrid({
   return (
     <div className={`grid grid-cols-1${colClass} gap-4`}>
       {items.map((item, i) => (
-        <div key={i} className="rounded-lg p-4" style={cardStyle}>
+        <div key={i} className="p-4" style={cardStyle}>
           {item.step !== undefined && (
             <div style={{ ...CASE_LABEL, color: "var(--color-ink-40)", marginBottom: "10px" }}>
               {item.step}

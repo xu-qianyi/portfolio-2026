@@ -71,7 +71,7 @@ function PatternTabs({ base: _base }: { base: string }) {
                 role="tab"
                 aria-selected={isActive}
                 tabIndex={isActive ? 0 : -1}
-                className="px-3 py-1.5 rounded-lg transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                className="px-3 py-1.5 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                 style={{
                   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
                   fontSize: "11px",
@@ -94,7 +94,7 @@ function PatternTabs({ base: _base }: { base: string }) {
       {/* Image panel + pros/cons inside container */}
       <div
         role="tabpanel"
-        className="rounded-lg border border-[var(--color-ink-14)] bg-[var(--color-subtle)] p-8 md:p-12 flex flex-col gap-8"
+        className="border border-[var(--color-ink-14)] bg-[var(--color-subtle)] p-8 md:p-12 flex flex-col gap-8"
       >
         <p style={{ ...CASE_H3, textAlign: "center" }}>{data.label}</p>
 
@@ -108,7 +108,6 @@ function PatternTabs({ base: _base }: { base: string }) {
                 alt={PATTERN_DATA[key].alt}
                 style={{
                   display: "block",
-                  borderRadius: "6px",
                   position: isTraditional ? "relative" : "absolute",
                   top: isTraditional ? undefined : 0,
                   left: isTraditional ? undefined : 0,
@@ -213,7 +212,7 @@ const DESIGN_DECISIONS = [
     heading: "A guide, not a gatekeeper",
     before: "Users landed on the form with no context, no warmth, no explanation.",
     beforeImage: `${BASE}/images/Datalign form/Before- 1.webp`,
-    beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))", borderRadius: "10px" },
+    beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))" },
     after: "Claire opens the form, explains who Datalign is, and earns each question before asking it.",
     afterImage: `${BASE}/images/Datalign form/after1.gif`,
   },
@@ -221,7 +220,7 @@ const DESIGN_DECISIONS = [
     heading: "Navigation that doesn't punish mistakes",
     before: "Fixing a mistake meant clicking back 5-10 times and losing all context.",
     beforeImage: `${BASE}/images/Datalign form/navigation-before.gif`,
-    beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))", borderRadius: "10px" },
+    beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))" },
     after: "A step navigator lets users jump back, edit what they've filled in, and pick up where they left off.",
     afterImage: `${BASE}/images/Datalign form/navigation-after.gif`,
   },
@@ -229,7 +228,7 @@ const DESIGN_DECISIONS = [
     heading: "Explaining before users have to wonder",
     before: "'Why we ask' was buried and easy to miss.",
     beforeImage: `${BASE}/images/Datalign form/Explaining before.gif`,
-    beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))", borderRadius: "10px" },
+    beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))" },
     after: "The reason surfaces inline before users have to wonder.",
     afterImage: `${BASE}/images/Datalign form/explaining-after.gif`,
   },
@@ -237,7 +236,7 @@ const DESIGN_DECISIONS = [
     heading: "Interstitial that moves users forward, not out",
     before: "The interstitial looked like a completion screen, so users assumed they were done and left.",
     beforeImage: `${BASE}/images/Datalign form/interstitial.webp`,
-    beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))", borderRadius: "10px" },
+    beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))" },
     after: "Claire reads the moment and adjusts her tone to guide users forward.",
     afterImage: `${BASE}/images/Datalign form/interstitial-after.gif`,
   },
@@ -271,7 +270,7 @@ const SECTIONS: NavSection[] = [
 function Img({ label, aspect = "16/9" }: { label: string; aspect?: string }) {
   return (
     <div
-      className="w-full flex items-center justify-center rounded-lg border border-dashed border-[var(--color-ink-14)]"
+      className="w-full flex items-center justify-center border border-dashed border-[var(--color-ink-14)]"
       style={{ aspectRatio: aspect, backgroundColor: "var(--color-ink-06)" }}
     >
       <p
@@ -482,7 +481,7 @@ export default function DatalignCaseStudyPage() {
                 loop
                 muted
                 playsInline
-                style={{ width: "100%", display: "block", borderRadius: 8 }}
+                style={{ width: "100%", display: "block" }}
               />
             </CaseScrollReveal>
 
@@ -561,7 +560,7 @@ export default function DatalignCaseStudyPage() {
 
                 <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                   <div className="mt-0 md:mt-2">
-                    <div className="p-8 md:p-16 rounded-xl" style={{ backgroundColor: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
+                    <div className="p-8 md:p-16" style={{ backgroundColor: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
                       <img src={`${BASE}/images/Datalign form/UX audit.webp`} alt="Annotated screenshots of the original form" style={{ width: "100%", display: "block" }} />
                     </div>
                     <p style={{ ...CASE_CAPTION, marginTop: "12px", textAlign: "center" }}>
@@ -580,8 +579,8 @@ export default function DatalignCaseStudyPage() {
 
                     <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4" style={{ padding: "8px 0 32px" }}>
                       {/* Functional */}
-                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
-                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div className="flex flex-col gap-4 p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
+                        <div style={{ width: 48, height: 48, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <i className="ri-error-warning-line" style={{ fontSize: 22, color: "#ef4444" }} />
                         </div>
                         <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Functional</div>
@@ -591,16 +590,16 @@ export default function DatalignCaseStudyPage() {
                         </p>
                       </div>
                       {/* Decent UX */}
-                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
-                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div className="flex flex-col gap-4 p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
+                        <div style={{ width: 48, height: 48, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <i className="ri-medal-line" style={{ fontSize: 22, color: "#ca8a04" }} />
                         </div>
                         <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Decent UX</div>
                         <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", lineHeight: 1.6, color: "var(--color-ink-50)", margin: 0 }}>Advisor.com, NerdWallet, Zoe Financial, WealthRamp, Finance HQ, Facet</p>
                       </div>
                       {/* Well-designed */}
-                      <div className="flex flex-col gap-4 rounded-2xl p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
-                        <div style={{ width: 48, height: 48, borderRadius: 12, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div className="flex flex-col gap-4 p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
+                        <div style={{ width: 48, height: 48, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <i className="ri-trophy-line" style={{ fontSize: 22, color: "#16a34a" }} />
                         </div>
                         <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Well-designed</div>
@@ -649,7 +648,7 @@ export default function DatalignCaseStudyPage() {
                     That constraint forced a better question: what actually makes Conversational work? Not the structure. Warmth, presence, the sense of being guided. Those can transfer. <Highlight variant="blue" duration={1400}>So we stopped trying to change the structure and started working on the voice.</Highlight>
                   </p>
 <div>
-                    <img src={`${BASE}/images/Datalign form/workshop.webp`} alt="Photo from the workshop" style={{ width: "100%", display: "block", borderRadius: 8 }} />
+                    <img src={`${BASE}/images/Datalign form/workshop.webp`} alt="Photo from the workshop" style={{ width: "100%", display: "block" }} />
                     <p style={{ ...CASE_CAPTION, marginTop: "12px", textAlign: "center" }}>Cross-functional workshop with Product, Engineering, and Data to align on hypotheses.</p>
                   </div>
                 </CaseScrollReveal>
@@ -731,7 +730,7 @@ export default function DatalignCaseStudyPage() {
                         <h3 style={CASE_H3}>{item.heading}</h3>
                         <div className="grid grid-cols-2 gap-x-3 gap-y-2 md:gap-x-4">
                           {/* Before image - row 1 */}
-                          <div className="rounded-xl overflow-hidden flex items-center justify-center min-h-0" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
+                          <div className="overflow-hidden flex items-center justify-center min-h-0" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
                             {item.beforeImage ? (
                               <img src={item.beforeImage} alt="" style={{ maxWidth: "calc(100% - 48px)", maxHeight: "100%", width: "auto", height: "auto", display: "block", ...("beforeImageStyle" in item ? item.beforeImageStyle : {}) }} />
                             ) : (
@@ -739,7 +738,7 @@ export default function DatalignCaseStudyPage() {
                             )}
                           </div>
                           {/* After image - row 1 */}
-                          <div className="rounded-xl overflow-hidden" style={{ background: "var(--color-surface)", border: "1px solid rgba(0,0,0,0.08)" }}>
+                          <div className="overflow-hidden" style={{ background: "var(--color-surface)", border: "1px solid rgba(0,0,0,0.08)" }}>
                             {item.afterImage ? (
                               <img src={item.afterImage} alt="" style={{ width: "100%", display: "block" }} />
                             ) : (
@@ -838,7 +837,7 @@ export default function DatalignCaseStudyPage() {
           <img
             src={lightboxSrc}
             alt=""
-            style={{ maxWidth: "90vw", maxHeight: "90vh", borderRadius: "8px", boxShadow: "0 24px 64px rgba(0,0,0,0.4)", cursor: "zoom-out", display: "block" }}
+            style={{ maxWidth: "90vw", maxHeight: "90vh", boxShadow: "0 24px 64px rgba(0,0,0,0.4)", cursor: "zoom-out", display: "block" }}
           />
         </div>,
         document.body
