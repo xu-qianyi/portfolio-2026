@@ -579,8 +579,8 @@ export default function DatalignCaseStudyPage() {
 
                     <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4" style={{ padding: "8px 0 32px" }}>
                       {/* Functional */}
-                      <div className="flex flex-col gap-4 p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
-                        <div style={{ width: 48, height: 48, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div className="flex flex-col gap-4 p-6">
+                        <div style={{ width: 48, height: 48, background: "var(--color-subtle)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <i className="ri-error-warning-line" style={{ fontSize: 22, color: "#ef4444" }} />
                         </div>
                         <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Functional</div>
@@ -590,16 +590,16 @@ export default function DatalignCaseStudyPage() {
                         </p>
                       </div>
                       {/* Decent UX */}
-                      <div className="flex flex-col gap-4 p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
-                        <div style={{ width: 48, height: 48, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div className="flex flex-col gap-4 p-6">
+                        <div style={{ width: 48, height: 48, background: "var(--color-subtle)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <i className="ri-medal-line" style={{ fontSize: 22, color: "#ca8a04" }} />
                         </div>
                         <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Decent UX</div>
                         <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", lineHeight: 1.6, color: "var(--color-ink-50)", margin: 0 }}>Advisor.com, NerdWallet, Zoe Financial, WealthRamp, Finance HQ, Facet</p>
                       </div>
                       {/* Well-designed */}
-                      <div className="flex flex-col gap-4 p-6" style={{ background: "var(--color-subtle)", border: "1px solid var(--color-ink-08)" }}>
-                        <div style={{ width: 48, height: 48, background: "var(--color-ink-06)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div className="flex flex-col gap-4 p-6">
+                        <div style={{ width: 48, height: 48, background: "var(--color-subtle)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <i className="ri-trophy-line" style={{ fontSize: 22, color: "#16a34a" }} />
                         </div>
                         <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Well-designed</div>
@@ -746,13 +746,13 @@ export default function DatalignCaseStudyPage() {
                             )}
                           </div>
                           {/* Before caption - row 2 */}
-                          <div className="flex flex-col gap-1 px-1">
-                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "#B91C1C", background: "#FEE2E2", borderRadius: "4px", padding: "2px 7px", display: "inline-block" }}>Before</span>
+                          <div className="flex flex-col gap-1">
+                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "#B91C1C", background: "#FEE2E2", padding: "2px 7px", display: "inline-block" }}>Before</span>
                             <p style={CASE_CAPTION}>{item.before}</p>
                           </div>
                           {/* After caption - row 2 */}
-                          <div className="flex flex-col gap-1 px-1">
-                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "#166534", background: "#D1EDDA", borderRadius: "4px", padding: "2px 7px", display: "inline-block" }}>After</span>
+                          <div className="flex flex-col gap-1">
+                            <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "11px", fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" as const, color: "#166534", background: "#D1EDDA", padding: "2px 7px", display: "inline-block" }}>After</span>
                             <p style={{ ...CASE_CAPTION, color: "var(--color-ink-80)" }}>{item.after}</p>
                           </div>
                         </div>
