@@ -30,14 +30,14 @@ const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const PATTERN_DATA = {
   traditional: {
     label: "Traditional",
-    image: `${BASE}/images/Datalign form/Traditional.webp`,
+    image: `${BASE}/images/datalign/traditional.webp`,
     alt: "Traditional form pattern - data-first, sequential",
     pros: ["Efficient. Low friction, familiar pattern", "Works when brand trust is pre-established"],
     cons: ["Feels transactional. Data before relationship", "High drop-off with cold, unfamiliar traffic"],
   },
   conversational: {
     label: "Conversational",
-    image: `${BASE}/images/Datalign form/Conversational.webp`,
+    image: `${BASE}/images/datalign/conversational.webp`,
     alt: "Conversational form pattern - relationship-first",
     pros: ["Builds trust progressively throughout the flow", "Reduces anxiety before sensitive questions"],
     cons: ["Slower. More reading, more steps", "Harder to layer onto a locked question structure"],
@@ -156,17 +156,17 @@ const BEHAVIORAL_PATTERNS = [
   {
     title: "The interstitial screen looked like a finish line.",
     body: "Users waited, then closed the tab.",
-    image: `${BASE}/images/Datalign form/interstitial.webp`,
+    image: `${BASE}/images/datalign/interstitial.webp`,
   },
   {
     title: "Users wanted to verify their numbers. They couldn't.",
     body: "No jump-to navigation meant clicking back 5-10 times and losing all context.",
-    image: `${BASE}/images/Datalign form/unable to verify numbers.webp`,
+    image: `${BASE}/images/datalign/unable_to_verify_numbers.webp`,
   },
   {
     title: "The Next button was always active.",
     body: "No fields were marked required. Users rage-clicked through, hit an error, and left.",
-    image: `${BASE}/images/Datalign form/alert.webp`,
+    image: `${BASE}/images/datalign/alert.webp`,
   },
 ];
 
@@ -201,43 +201,43 @@ const DATALIGN_STATS_OUTCOMES: StatItem[] = [
 ];
 
 const OTHER_PATTERNS = [
-  { text: "Step 1 dropped 40% of publisher traffic. The landing copy was failing from the start.", image: `${BASE}/images/Datalign form/step 1.webp` },
-  { text: "Step 10 had the highest mid-flow drop-off. The question was too complex.", image: `${BASE}/images/Datalign form/step 10.webp` },
-  { text: 'Jargon like "Principal" excluded users with lower financial literacy. Invisible in metrics, obvious in replays.', image: `${BASE}/images/Datalign form/jargon.webp` },
+  { text: "Step 1 dropped 40% of publisher traffic. The landing copy was failing from the start.", image: `${BASE}/images/datalign/step_1.webp` },
+  { text: "Step 10 had the highest mid-flow drop-off. The question was too complex.", image: `${BASE}/images/datalign/step_10.webp` },
+  { text: 'Jargon like "Principal" excluded users with lower financial literacy. Invisible in metrics, obvious in replays.', image: `${BASE}/images/datalign/jargon.webp` },
 ];
 
 const DESIGN_DECISIONS = [
   {
     heading: "A guide, not a gatekeeper",
     before: "Users landed on the form with no context, no warmth, no explanation.",
-    beforeImage: `${BASE}/images/Datalign form/Before- 1.webp`,
+    beforeImage: `${BASE}/images/datalign/before_1.webp`,
     beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))" },
     after: "Claire opens the form, explains who Datalign is, and earns each question before asking it.",
-    afterImage: `${BASE}/images/Datalign form/after1.gif`,
+    afterImage: `${BASE}/images/datalign/after1.gif`,
   },
   {
     heading: "Navigation that doesn't punish mistakes",
     before: "Fixing a mistake meant clicking back 5-10 times and losing all context.",
-    beforeImage: `${BASE}/images/Datalign form/navigation-before.gif`,
+    beforeImage: `${BASE}/images/datalign/navigation_before.gif`,
     beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))" },
     after: "A step navigator lets users jump back, edit what they've filled in, and pick up where they left off.",
-    afterImage: `${BASE}/images/Datalign form/navigation-after.gif`,
+    afterImage: `${BASE}/images/datalign/navigation_after.gif`,
   },
   {
     heading: "Explaining before users have to wonder",
     before: "'Why we ask' was buried and easy to miss.",
-    beforeImage: `${BASE}/images/Datalign form/Explaining before.gif`,
+    beforeImage: `${BASE}/images/datalign/explaining_before.gif`,
     beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))" },
     after: "The reason surfaces inline before users have to wonder.",
-    afterImage: `${BASE}/images/Datalign form/explaining-after.gif`,
+    afterImage: `${BASE}/images/datalign/explaining_after.gif`,
   },
   {
     heading: "Interstitial that moves users forward, not out",
     before: "The interstitial looked like a completion screen, so users assumed they were done and left.",
-    beforeImage: `${BASE}/images/Datalign form/interstitial.webp`,
+    beforeImage: `${BASE}/images/datalign/interstitial.webp`,
     beforeImageStyle: { filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))" },
     after: "Claire reads the moment and adjusts her tone to guide users forward.",
-    afterImage: `${BASE}/images/Datalign form/interstitial-after.gif`,
+    afterImage: `${BASE}/images/datalign/interstitial_after.gif`,
   },
 ];
 
@@ -467,7 +467,7 @@ export default function DatalignCaseStudyPage() {
 
             <CaseScrollReveal delay={60} className="mb-0">
               <video
-                src={`${BASE}/images/Datalign form/part1.webm`}
+                src={`${BASE}/images/datalign/part1.webm`}
                 autoPlay
                 loop
                 muted
@@ -513,7 +513,7 @@ export default function DatalignCaseStudyPage() {
 
                   <div className="mt-6 md:mt-8">
                     <Image
-                      src="/images/Datalign form/who is datalign.webp"
+                      src="/images/datalign/who_is_datalign.webp"
                       alt="Diagram showing how Datalign connects consumers through a form to a match auction and then to an RIA firm"
                       width={1200}
                       height={400}
@@ -552,7 +552,7 @@ export default function DatalignCaseStudyPage() {
                 <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                   <div className="mt-0 md:mt-2">
                     <div className="p-8 md:p-16" style={{ backgroundColor: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
-                      <img src={`${BASE}/images/Datalign form/UX audit.webp`} alt="Annotated screenshots of the original form" style={{ width: "100%", display: "block" }} />
+                      <img src={`${BASE}/images/datalign/ux_audit.webp`} alt="Annotated screenshots of the original form" style={{ width: "100%", display: "block" }} />
                     </div>
                     <p style={{ ...CASE_CAPTION, marginTop: "12px", textAlign: "center" }}>
                       One typical page. Design and usability issues identified during the audit.
@@ -639,7 +639,7 @@ export default function DatalignCaseStudyPage() {
                     That constraint forced a better question: what actually makes Conversational work? Not the structure. Warmth, presence, the sense of being guided. Those can transfer. <Highlight variant="blue" duration={1400}>So we stopped trying to change the structure and started working on the voice.</Highlight>
                   </p>
 <div>
-                    <img src={`${BASE}/images/Datalign form/workshop.webp`} alt="Photo from the workshop" style={{ width: "100%", display: "block" }} />
+                    <img src={`${BASE}/images/datalign/workshop.webp`} alt="Photo from the workshop" style={{ width: "100%", display: "block" }} />
                     <p style={{ ...CASE_CAPTION, marginTop: "12px", textAlign: "center" }}>Cross-functional workshop with Product, Engineering, and Data to align on hypotheses.</p>
                   </div>
                 </CaseScrollReveal>
@@ -662,7 +662,7 @@ export default function DatalignCaseStudyPage() {
                   <div className="p-8 md:p-16 flex justify-center" ref={claireRef}>
                     <div style={{ display: "flex", alignItems: "flex-end", gap: 16, maxWidth: 420 }}>
                       <img
-                        src={`${BASE}/images/Datalign form/avatar.svg`}
+                        src={`${BASE}/images/datalign/avatar.svg`}
                         alt="Claire"
                         style={{
                           width: 72, height: 72, borderRadius: "50%", objectFit: "cover", flexShrink: 0,
@@ -793,7 +793,7 @@ export default function DatalignCaseStudyPage() {
                   id: "ark7",
                   title: "ARK7",
                   headline: "Cultivating a trusted investment community for fractional real estate",
-                  image: "/images/preview/ARK7.webp",
+                  image: "/images/preview/ark7.webp",
                   href: "/work/ark7",
                   width: 1280,
                   height: 720,
@@ -806,7 +806,7 @@ export default function DatalignCaseStudyPage() {
                   id: "looklook-nars",
                   title: "NARS Foundation",
                   headline: "US & China concept testing for a longwear foundation launch",
-                  image: "/images/preview/Nars-Playful.json",
+                  image: "/images/preview/nars_playful.json",
                   href: "/work/nars",
                   width: 1280,
                   height: 720,

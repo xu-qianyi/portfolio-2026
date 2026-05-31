@@ -244,7 +244,7 @@ export default function NarsCaseStudyPage() {
             >
               <div className="relative">
                 <Image
-                  src="/images/NARS/Nars_preview.webp"
+                  src="/images/nars/preview.webp"
                   alt="NARS project files organized in LookLook workspace"
                   width={2400}
                   height={1588}
@@ -364,7 +364,7 @@ export default function NarsCaseStudyPage() {
                   >
                     <div className="relative overflow-hidden">
                       <Image
-                        src="/images/NARS/Nars_slide_preview.webp"
+                        src="/images/nars/slide_preview.webp"
                         alt="NARS Longwear Foundation concept testing slide deck preview"
                         width={1602}
                         height={906}
@@ -401,7 +401,7 @@ export default function NarsCaseStudyPage() {
                   id: "ark7",
                   title: "ARK7",
                   headline: "Cultivating a trusted investment community for fractional real estate",
-                  image: "/images/preview/ARK7.webp",
+                  image: "/images/preview/ark7.webp",
                   href: "/work/ark7",
                   width: 1280,
                   height: 720,
@@ -414,7 +414,7 @@ export default function NarsCaseStudyPage() {
                   id: "datalign",
                   title: "Datalign",
                   headline: "Redesigning the front door of a wealth management marketplace",
-                  image: "/images/preview/DA form preview.webp",
+                  image: "/images/preview/datalign.webp",
                   href: "/work/datalign",
                   width: 1280,
                   height: 720,

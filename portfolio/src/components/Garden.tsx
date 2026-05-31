@@ -672,7 +672,7 @@ export default function Garden({ sparse = false }: { sparse?: boolean } = {}) {
                 width: "100%",
                 height: gardenH + gardenInteractiveArea,
                 backgroundColor: "#C2CFAD",
-                backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/footer/grass_tile.webp')`,
+                backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/garden/grass_tile.webp')`,
                 backgroundRepeat: "repeat",
                 backgroundSize: "64px 64px",
                 overflow: "visible",

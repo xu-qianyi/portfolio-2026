@@ -198,22 +198,22 @@ const ARK7_STAT_ITEMS: StatItem[] = [
 
 const ARK7_DESIGN_AUDIT_FINDINGS = [
   {
-    image: "/images/ARK7/different_shades_of_greens.webp",
+    image: "/images/ark7/different_shades_of_greens.webp",
     title: "Different shades of green",
     body: "In our design audit, we discovered that 12 different shades of green are used throughout our platform, adding unnecessary cognitive load for users.",
   },
   {
-    image: "/images/ARK7/font_a11y.webp",
+    image: "/images/ark7/font_a11y.webp",
     title: "Font usage and accessibility",
     body: "The style guide lists 14 fonts but gives no guidance on when to use them - resulting in poor visual hierarchy and up to 5 different fonts on a single card. Some are too small to meet WCAG standards.",
   },
   {
-    image: "/images/ARK7/inconsistent_card_layout.webp",
+    image: "/images/ark7/inconsistent_card_layout.webp",
     title: "Inconsistent card layout",
     body: "The platform lacks clear design guidelines for card usage, resulting in varied CTA placements - some on the left, some on the right - and mixed placement of images and text. This slows down users' interactions and reduces overall task efficiency.",
   },
   {
-    image: "/images/ARK7/cramped_spacing.webp",
+    image: "/images/ark7/cramped_spacing.webp",
     title: "Cramped spacing",
     body: "Inconsistent spacing between fonts of the same hierarchy within the same card can lead to visual clutter and confusion, making it difficult for users to quickly process and understand the information presented.",
   },
@@ -579,7 +579,7 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
   {
     id: "information-home",
     tabLabel: "Option 1",
-    imageSrc: "/images/ARK7/option1.webp",
+    imageSrc: "/images/ark7/option1.webp",
     imageWidth: 1002,
     imageHeight: 2214,
     imageAlt: "Mobile wireframe: information cards and feature tiles on the home tab",
@@ -596,7 +596,7 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
   {
     id: "feed-home",
     tabLabel: "Option 2",
-    imageSrc: "/images/ARK7/option2.webp",
+    imageSrc: "/images/ark7/option2.webp",
     imageWidth: 1040,
     imageHeight: 2214,
     imageAlt: "Mobile wireframe: home and feed tabs with a vertical content feed",
@@ -612,7 +612,7 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
   {
     id: "feed-new-tab",
     tabLabel: "Option 3",
-    imageSrc: "/images/ARK7/option3.webp",
+    imageSrc: "/images/ark7/option3.webp",
     imageWidth: 1040,
     imageHeight: 2215,
     imageAlt: "Mobile wireframe: dedicated news feed tab with bottom navigation",
@@ -627,10 +627,10 @@ const ARK7_LAYOUT_OPTIONS: Ark7LayoutOption[] = [
 ];
 
 const ARK7_CARD_REVAMP_TABS = [
-  { id: "overall",  label: "Overall",    src: "/images/ARK7/design_revamp_overall.webp", alt: "Card revamp overall before and after" },
-  { id: "anatomy",  label: "Anatomy",    src: "/images/ARK7/atonomy.webp",               alt: "Card anatomy breakdown" },
-  { id: "cta",      label: "CTA button", src: "/images/ARK7/CTA.webp",                   alt: "CTA button changes before and after" },
-  { id: "content",  label: "Content",    src: "/images/ARK7/content.webp",               alt: "Content changes before and after" },
+  { id: "overall",  label: "Overall",    src: "/images/ark7/design_revamp_overall.webp", alt: "Card revamp overall before and after" },
+  { id: "anatomy",  label: "Anatomy",    src: "/images/ark7/anatomy.webp",               alt: "Card anatomy breakdown" },
+  { id: "cta",      label: "CTA button", src: "/images/ark7/cta.webp",                   alt: "CTA button changes before and after" },
+  { id: "content",  label: "Content",    src: "/images/ark7/content.webp",               alt: "Content changes before and after" },
 ] as const;
 
 function Ark7CardRevampTabs() {
@@ -727,7 +727,7 @@ const ARK7_PROTOTYPE_FEATURES = [
     id: "voting",
     name: "Voting",
     trust: "Agency",
-    videoSrc: "/images/ARK7/Voting.webm",
+    videoSrc: "/images/ark7/voting.webm",
     description:
       "When the property manager proposes a renovation or makes a budget call, you can weigh in. It's a small thing that changes how ownership actually feels - less like a passenger, more like someone with a real stake.",
   },
@@ -735,7 +735,7 @@ const ARK7_PROTOTYPE_FEATURES = [
     id: "webinar",
     name: "Webinar",
     trust: "Education",
-    videoSrc: "/images/ARK7/Webinar.webm",
+    videoSrc: "/images/ark7/webinar.webm",
     description:
       "Instead of piecing things together from Reddit threads and YouTube comments, you can hear directly from ARK7's team and real estate experts. Q&As are live, and recordings stick around so nothing gets missed.",
   },
@@ -743,7 +743,7 @@ const ARK7_PROTOTYPE_FEATURES = [
     id: "news",
     name: "News",
     trust: "Transparency",
-    videoSrc: "/images/ARK7/News.webm",
+    videoSrc: "/images/ark7/news.webm",
     description:
       "Market updates, property highlights, investment tips - all in one place. You don't have to refresh five tabs to know what's happening with your money.",
   },
@@ -751,7 +751,7 @@ const ARK7_PROTOTYPE_FEATURES = [
     id: "discussion",
     name: "Discussion",
     trust: "Belonging",
-    videoSrc: "/images/ARK7/Discussion.webm",
+    videoSrc: "/images/ark7/discussion.webm",
     description:
       "For a limited window after a major property event, co-investors can talk in the same space. It's temporary by design - low-stakes enough to actually say something, specific enough to matter.",
   },
@@ -1281,9 +1281,9 @@ export default function Ark7CaseStudyPage() {
 
             <CaseScrollReveal delay={60} className="w-full aspect-[16/9] border border-[var(--color-ink-14)] bg-[var(--color-subtle)] overflow-hidden relative mb-0">
               <LottiePreview
-                src="/images/ARK7/ARK7_Case%20study_Preview.json"
+                src="/images/ark7/case_study_preview.json"
                 loop={false}
-                fallbackSrc="/images/preview/ARK7.webp"
+                fallbackSrc="/images/preview/ark7.webp"
                 alt="ARK7 mobile product preview"
               />
             </CaseScrollReveal>
@@ -1355,7 +1355,7 @@ export default function Ark7CaseStudyPage() {
                   <>
                     <div className="relative my-8 overflow-hidden px-6 py-4 md:my-12 md:px-32 md:py-6">
                       <Image
-                        src="/images/ARK7/matrix.webp"
+                        src="/images/ark7/matrix.webp"
                         alt="Eisenhower-style matrix mapping 12 community features by effort and trust impact, narrowed to four"
                         width={827}
                         height={545}
@@ -1380,7 +1380,7 @@ export default function Ark7CaseStudyPage() {
                         </p>
                         <div className="w-full overflow-hidden">
                           <Image
-                            src="/images/ARK7/user%20flow.webp"
+                            src="/images/ark7/user_flow.webp"
                             alt="User flow diagram mapping entry through feed interactions in the ARK7 app"
                             width={4432}
                             height={1956}
@@ -1426,7 +1426,7 @@ export default function Ark7CaseStudyPage() {
                     <CaseMethodGrid items={ARK7_METHOD_ITEMS} cols={3} variant="flat" />
                     <div className="relative overflow-hidden bg-[var(--color-subtle)] p-6 md:p-10">
                       <Image
-                        src="/images/ARK7/Competitor%20analysis.webp"
+                        src="/images/ark7/competitor_analysis.webp"
                         alt="Competitor analysis comparing ARK7 and Arrived across mobile app, website, and social channels"
                         width={1600}
                         height={900}
@@ -1458,7 +1458,7 @@ export default function Ark7CaseStudyPage() {
                 {section.id === "overview" ? (
                   <div className="w-full overflow-hidden">
                     <Image
-                      src="/images/ARK7/ARK7_official_site.webp"
+                      src="/images/ark7/official_site.webp"
                       alt="ARK7 official website homepage"
                       width={1500}
                       height={988}
@@ -1491,7 +1491,7 @@ export default function Ark7CaseStudyPage() {
                   id: "datalign",
                   title: "Datalign",
                   headline: "Redesigning the front door of a wealth management marketplace",
-                  image: "/images/preview/DA form preview.webp",
+                  image: "/images/preview/datalign.webp",
                   href: "/work/datalign",
                   width: 1280,
                   height: 720,
@@ -1505,7 +1505,7 @@ export default function Ark7CaseStudyPage() {
                   id: "looklook-nars",
                   title: "NARS Foundation",
                   headline: "US & China concept testing for a longwear foundation launch",
-                  image: "/images/preview/Nars-Playful.json",
+                  image: "/images/preview/nars_playful.json",
                   href: "/work/nars",
                   width: 1280,
                   height: 720,

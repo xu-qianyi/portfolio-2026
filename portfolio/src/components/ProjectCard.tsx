@@ -420,6 +420,8 @@ export default function ProjectCard({
     >
       <a
         href={project.href && project.href !== "#" ? h(project.href) : undefined}
+        target={project.newTab ? "_blank" : undefined}
+        rel={project.newTab ? "noopener noreferrer" : undefined}
         className="project-card-link"
         style={{
           display: "block",

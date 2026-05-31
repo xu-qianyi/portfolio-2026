@@ -2,8 +2,9 @@ import type { CSSProperties } from "react";
 import Link from "next/link";
 import projects from "@/data/projects.json";
 import extrasProjects from "@/data/extrasProjects.json";
-import { FOOTER_EXTERNAL_LINKS } from "@/data/footerLinks";
 import ProjectCard from "@/components/ProjectCard";
+import FufuCat from "@/components/FufuCat";
+import BackToTop from "@/components/BackToTop";
 
 const HERO_TEXT: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
@@ -15,14 +16,6 @@ const HERO_TEXT: CSSProperties = {
   margin: 0,
 };
 
-const HERO_NAV_TEXT: CSSProperties = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "15px",
-  fontWeight: 450,
-  color: "rgba(0,0,0,0.8)",
-  lineHeight: "1.45rem",
-  letterSpacing: "-0.005em",
-};
 
 export default function Home() {
   return (
@@ -98,24 +91,7 @@ export default function Home() {
             </a>
             .
           </p>
-          <nav
-            style={HERO_NAV_TEXT}
-            className="flex shrink-0 self-end flex-row flex-wrap items-baseline justify-end gap-x-5 gap-y-2 lg:flex-col lg:items-end lg:gap-1 lg:self-auto"
-            aria-label="External links"
-          >
-            {FOOTER_EXTERNAL_LINKS.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-nav-link"
-                data-num={item.dataNum}
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
+          <FufuCat />
         </div>
       </section>
 
@@ -146,6 +122,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+      <BackToTop />
     </>
   );
 }

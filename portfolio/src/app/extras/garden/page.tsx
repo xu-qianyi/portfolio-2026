@@ -20,7 +20,7 @@ export default function GardenPage() {
         className="pixel-back-btn"
       >
         <img
-          src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/footer/back_arrow.webp`}
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/garden/back_arrow.webp`}
           alt=""
           width={24}
           height={24}

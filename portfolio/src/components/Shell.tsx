@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 function scrollToHashElement() {
   if (typeof window === "undefined") return;
@@ -52,6 +53,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         >
           {children}
         </main>
+        <Footer />
       </div>
     </div>
   );
