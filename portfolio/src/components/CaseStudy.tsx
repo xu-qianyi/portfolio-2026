@@ -253,11 +253,22 @@ export function CaseMethodGrid({
 }
 
 // Large stat numbers + labels, 3-column grid.
-export function CaseStatGrid({ items }: { items: StatItem[] }) {
+export function CaseStatGrid({
+  items,
+  variant = "plain",
+}: {
+  items: StatItem[];
+  variant?: "plain" | "card";
+}) {
+  const isCard = variant === "card";
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-5">
+    <div className={`grid grid-cols-1 sm:grid-cols-3 ${isCard ? "gap-4" : "gap-x-8 gap-y-5"}`}>
       {items.map((item, i) => (
-        <div key={i} className="flex flex-col gap-3 pt-4">
+        <div
+          key={i}
+          className={`flex flex-col gap-3 ${isCard ? "p-5 md:p-6" : "pt-4"}`}
+          style={isCard ? { background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" } : undefined}
+        >
           <p style={CASE_STAT}>{item.value}</p>
           <p style={{ ...CASE_BODY, color: "var(--color-ink-50)" }}>{item.label}</p>
         </div>

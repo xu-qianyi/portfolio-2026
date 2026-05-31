@@ -527,7 +527,7 @@ export default function DatalignCaseStudyPage() {
                       The form had been live for years. It worked: leads came in, matches went out, the business ran.
                     </p>
                     <p style={CASE_BODY}>But &ldquo;worked&rdquo; had a ceiling:</p>
-                    <CaseStatGrid items={DATALIGN_STATS_OVERVIEW} />
+                    <CaseStatGrid items={DATALIGN_STATS_OVERVIEW} variant="card" />
                   </CaseSubSection>
                 </CaseScrollReveal>
               </div>
@@ -570,31 +570,30 @@ export default function DatalignCaseStudyPage() {
 
                     <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4" style={{ padding: "8px 0 32px" }}>
                       {/* Functional */}
-                      <div className="flex flex-col gap-4 p-6">
-                        <div style={{ width: 48, height: 48, background: "var(--color-subtle)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                          <i className="ri-error-warning-line" style={{ fontSize: 22, color: "#ef4444" }} />
+                      <div className="p-4" style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}>
+                        <div style={{ marginBottom: "10px" }}>
+                          <i className="ri-error-warning-line" style={{ fontSize: 20, color: "var(--color-ink-40)" }} />
                         </div>
-                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Functional</div>
-                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", lineHeight: 1.6, margin: 0 }}>
-                          <span style={{ color: "var(--color-ink-50)" }}>Money Pickle, Wise Advisor, Savvy Wealth, </span>
-                          <span style={{ color: "#ef4444" }}>Datalign Advisory</span>
+                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3", marginBottom: "6px" }}>Functional</div>
+                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: 1.6, margin: 0, color: "var(--color-ink-50)" }}>
+                          Money Pickle, Wise Advisor, Savvy Wealth, <span style={{ color: "#ef4444" }}>Datalign Advisory</span>
                         </p>
                       </div>
                       {/* Decent UX */}
-                      <div className="flex flex-col gap-4 p-6">
-                        <div style={{ width: 48, height: 48, background: "var(--color-subtle)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                          <i className="ri-medal-line" style={{ fontSize: 22, color: "#ca8a04" }} />
+                      <div className="p-4" style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}>
+                        <div style={{ marginBottom: "10px" }}>
+                          <i className="ri-medal-line" style={{ fontSize: 20, color: "var(--color-ink-40)" }} />
                         </div>
-                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Decent UX</div>
-                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", lineHeight: 1.6, color: "var(--color-ink-50)", margin: 0 }}>Advisor.com, NerdWallet, Zoe Financial, WealthRamp, Finance HQ, Facet</p>
+                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3", marginBottom: "6px" }}>Decent UX</div>
+                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: 1.6, color: "var(--color-ink-50)", margin: 0 }}>Advisor.com, NerdWallet, Zoe Financial, WealthRamp, Finance HQ, Facet</p>
                       </div>
                       {/* Well-designed */}
-                      <div className="flex flex-col gap-4 p-6">
-                        <div style={{ width: 48, height: 48, background: "var(--color-subtle)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                          <i className="ri-trophy-line" style={{ fontSize: 22, color: "#16a34a" }} />
+                      <div className="p-4" style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}>
+                        <div style={{ marginBottom: "10px" }}>
+                          <i className="ri-trophy-line" style={{ fontSize: 20, color: "var(--color-ink-40)" }} />
                         </div>
-                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3" }}>Well-designed</div>
-                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "14px", lineHeight: 1.6, color: "var(--color-ink-50)", margin: 0 }}>Quinn, Boldin</p>
+                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3", marginBottom: "6px" }}>Well-designed</div>
+                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: 1.6, color: "var(--color-ink-50)", margin: 0 }}>Quinn, Boldin</p>
                       </div>
                     </div>
                     <p style={CASE_BODY}>
@@ -774,7 +773,7 @@ export default function DatalignCaseStudyPage() {
                 <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                   <div className="flex flex-col gap-4 mt-6">
                     <p style={CASE_BODY}>Phase 1 testing has shipped. Early data:</p>
-                    <CaseStatGrid items={DATALIGN_STATS_OUTCOMES} />
+                    <CaseStatGrid items={DATALIGN_STATS_OUTCOMES} variant="card" />
                   </div>
                 </CaseScrollReveal>
               </div>
