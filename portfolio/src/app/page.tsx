@@ -125,6 +125,22 @@ export default function Home() {
           {projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
+
+          {/* Divider */}
+          <div className="col-span-1 lg:col-span-3 flex items-center gap-3 pt-6 pb-8">
+            <span style={{
+              fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+              fontSize: "13px",
+              fontWeight: 550,
+              letterSpacing: "-0.005em",
+              color: "var(--color-ink-80)",
+              whiteSpace: "nowrap",
+            }}>
+              Experiments &amp; Artifacts
+            </span>
+            <div className="flex-1 h-px bg-[var(--color-ink-14)]" />
+          </div>
+
           {extrasProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
