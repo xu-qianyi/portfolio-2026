@@ -127,7 +127,7 @@ export default function Home() {
           ))}
 
           {/* Divider */}
-          <div className="col-span-1 lg:col-span-3 flex items-center gap-3 pt-6 pb-8">
+          <div className="col-span-1 lg:col-span-3 flex items-center gap-3 pt-6 pb-10">
             <span style={{
               fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
               fontSize: "13px",
