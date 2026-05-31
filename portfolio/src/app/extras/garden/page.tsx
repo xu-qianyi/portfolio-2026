@@ -15,8 +15,8 @@ export default function GardenPage() {
       }}
     >
       <Link
-        href="/extras"
-        aria-label="Back to extras"
+        href="/"
+        aria-label="Back to home"
         className="pixel-back-btn"
       >
         <img

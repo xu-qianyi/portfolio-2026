@@ -1,8 +1,8 @@
 [
   {
     "id": "garden",
-    "type": "Claude code · React · Game",
-    "headline": "Fufu's garden",
+    "type": "Game · Claude code · React",
+    "headline": "A pixel world where you hang out with Fufu the cat",
     "mediaAspectRatio": "16 / 9",
     "bg": "#C2CFAD",
     "bgImage": "/footer/grass_tile.webp",
