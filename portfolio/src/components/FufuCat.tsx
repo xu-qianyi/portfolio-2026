@@ -2,15 +2,17 @@
 
 import { useRef, useEffect, useCallback } from "react";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const IDLE_POSES = [
-  "/garden/home_fufu/meow_lie.gif",
-  "/garden/home_fufu/yawn_sit2.gif",
-  "/garden/home_fufu/yawn_lie.gif",
-  "/garden/home_fufu/sleep2.gif",
-  "/garden/home_fufu/sleep4.gif",
+  `${BASE}/garden/home_fufu/meow_lie.gif`,
+  `${BASE}/garden/home_fufu/yawn_sit2.gif`,
+  `${BASE}/garden/home_fufu/yawn_lie.gif`,
+  `${BASE}/garden/home_fufu/sleep2.gif`,
+  `${BASE}/garden/home_fufu/sleep4.gif`,
 ];
 
-const HISS = "/garden/home_fufu/hiss.gif";
+const HISS = `${BASE}/garden/home_fufu/hiss.gif`;
 
 const rand    = (min: number, max: number) => Math.random() * (max - min) + min;
 const randInt = (min: number, max: number) => Math.floor(rand(min, max + 1));
@@ -47,7 +49,7 @@ export default function FufuCat() {
       const walkMs    = rand(1500, 3500);
       const startTime = performance.now();
 
-      img!.src = direction > 0 ? "/garden/walk_right.gif" : "/garden/walk_left.gif";
+      img!.src = direction > 0 ? `${BASE}/garden/walk_right.gif` : `${BASE}/garden/walk_left.gif`;
 
       function step() {
         if (performance.now() - startTime >= walkMs) { enterIdle(); return; }
