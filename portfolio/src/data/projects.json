@@ -5,9 +5,10 @@
     "date": "2025",
     "type": "Web",
     "headline": "Redesigning the front door of a wealth management marketplace",
-    "image": "/images/preview/DA form preview.webp",
+    "video": "/images/Datalign form/part1.webm",
+    "videoLoop": true,
     "width": 1280,
-    "height": 720,
+    "height": 800,
     "href": "/work/datalign",
     "industry": "FinTech",
     "role": "Internship",
@@ -21,7 +22,7 @@
     "headline": "Building trust in fractional real estate investing",
     "image": "/images/preview/ARK7.webp",
     "width": 1280,
-    "height": 720,
+    "height": 800,
     "href": "/work/ark7",
     "industry": "FinTech"
   },
@@ -32,7 +33,7 @@
     "headline": "NARS Longwear Foundation concept testing - US & China insights",
     "image": "/images/preview/Nars-Playful.json",
     "width": 1280,
-    "height": 720,
+    "height": 800,
     "href": "/work/nars",
     "industry": "User Research"
   }
