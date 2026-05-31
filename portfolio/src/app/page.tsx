@@ -112,7 +112,7 @@ export default function Home() {
               color: "var(--color-ink-80)",
               whiteSpace: "nowrap",
             }}>
-              Experiments &amp; Artifacts
+              Prototypes &amp; Vault
             </span>
             <div className="flex-1 h-px bg-[var(--color-ink-14)]" />
           </div>
