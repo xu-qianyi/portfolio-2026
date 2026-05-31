@@ -79,6 +79,7 @@ export default function Navbar() {
         <div className="sm:hidden">
           <button
             aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             onClick={() => setMenuOpen(o => !o)}
             className="relative flex items-center justify-center w-10 h-10 -mr-2 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)]"
@@ -111,6 +112,7 @@ export default function Navbar() {
 
       {/* Mobile slide-down menu */}
       <div
+        id="mobile-menu"
         className="sm:hidden"
         style={{
           display: "grid",

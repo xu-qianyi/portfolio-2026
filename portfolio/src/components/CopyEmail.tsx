@@ -16,23 +16,24 @@ export default function CopyEmail() {
 
   const copy = async (e: React.MouseEvent) => {
     e.preventDefault();
+    let ok = false;
     try {
       await navigator.clipboard.writeText(EMAIL);
+      ok = true;
     } catch {
       const ta = document.createElement("textarea");
       ta.value = EMAIL;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
+      ta.style.cssText = "position:fixed;opacity:0";
       document.body.appendChild(ta);
       ta.select();
-      try {
-        document.execCommand("copy");
-      } catch {}
+      try { ok = document.execCommand("copy"); } catch { /* deprecated, ignore */ }
       document.body.removeChild(ta);
     }
-    setCopied(true);
-    if (timerRef.current) window.clearTimeout(timerRef.current);
-    timerRef.current = window.setTimeout(() => setCopied(false), 1200);
+    if (ok) {
+      setCopied(true);
+      if (timerRef.current) window.clearTimeout(timerRef.current);
+      timerRef.current = window.setTimeout(() => setCopied(false), 1200);
+    }
   };
 
   return (

@@ -18,7 +18,7 @@ export default function LottiePreview({
   fallbackSrc,
   alt = "",
 }: LottiePreviewProps) {
-  const [animationData, setAnimationData] = useState<object | null>(null);
+  const [animationData, setAnimationData] = useState<Record<string, unknown> | null>(null);
   const [useFallback, setUseFallback] = useState(false);
 
   useEffect(() => {
@@ -35,10 +35,13 @@ export default function LottiePreview({
         if (!head.startsWith("{") && !head.startsWith("[")) {
           throw new Error("Not Lottie JSON");
         }
-        const data = JSON.parse(text) as object;
+        const data = JSON.parse(text) as Record<string, unknown>;
         if (!cancelled) setAnimationData(data);
       })
-      .catch(() => {
+      .catch((err: unknown) => {
+        if (process.env.NODE_ENV === "development") {
+          console.warn("[LottiePreview] failed to load", src, err);
+        }
         if (!cancelled) setUseFallback(true);
       });
 
