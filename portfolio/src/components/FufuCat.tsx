@@ -35,8 +35,8 @@ export default function FufuCat() {
       stopRaf();
       let pose: string;
       do { pose = IDLE_POSES[randInt(0, IDLE_POSES.length - 1)]; }
-      while (pose === img.src.replace(location.origin, ""));
-      img.src = pose;
+      while (pose === img!.src.replace(location.origin, ""));
+      img!.src = pose;
       timerRef.current = setTimeout(enterWalk, rand(15000, 20000));
     }
 
@@ -47,17 +47,17 @@ export default function FufuCat() {
       const walkMs    = rand(1500, 3500);
       const startTime = performance.now();
 
-      img.src = direction > 0 ? "/garden/walk_right.gif" : "/garden/walk_left.gif";
+      img!.src = direction > 0 ? "/garden/walk_right.gif" : "/garden/walk_left.gif";
 
       function step() {
         if (performance.now() - startTime >= walkMs) { enterIdle(); return; }
 
-        const maxX = Math.max(0, container.offsetWidth - img.offsetWidth);
+        const maxX = Math.max(0, container!.offsetWidth - img!.offsetWidth);
         let x = posRef.current + direction * speed;
         if (x <= 0)         x = 0;
         else if (x >= maxX) x = maxX;
         posRef.current = x;
-        img.style.left = `${x}px`;
+        img!.style.left = `${x}px`;
 
         if ((x <= 0 && direction < 0) || (x >= maxX && direction > 0)) { enterIdle(); return; }
         rafRef.current = requestAnimationFrame(step);
