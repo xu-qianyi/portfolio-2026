@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "@/components/Img";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 import LottiePreview from "@/components/LottiePreview";
@@ -86,6 +86,8 @@ const SECTIONS: Section[] = [
     body: [],
   },
 ];
+
+const SECTION_IDS = SECTIONS.map((section) => section.id);
 
 const RESEARCH_CHANNELS_HIGHLIGHT =
   "TrustPilot, App Store reviews, Reddit, and YouTube comments";
@@ -1152,8 +1154,6 @@ export default function Ark7CaseStudyPage() {
   const [activeId, setActiveId] = useState(SECTIONS[0].id);
   const [dotY, setDotY] = useState(0);
 
-  const sectionIds = useMemo(() => SECTIONS.map((section) => section.id), []);
-
   useEffect(() => {
     const ratioMap = new Map<string, number>();
 
@@ -1164,10 +1164,10 @@ export default function Ark7CaseStudyPage() {
           ratioMap.set(id, entry.isIntersecting ? entry.intersectionRatio : 0);
         });
 
-        let nextId = sectionIds[0];
+        let nextId = SECTION_IDS[0];
         let maxRatio = -1;
 
-        sectionIds.forEach((id) => {
+        SECTION_IDS.forEach((id) => {
           const ratio = ratioMap.get(id) ?? 0;
           if (ratio > maxRatio) {
             maxRatio = ratio;
@@ -1183,13 +1183,13 @@ export default function Ark7CaseStudyPage() {
       },
     );
 
-    sectionIds.forEach((id) => {
+    SECTION_IDS.forEach((id) => {
       const el = sectionRefs.current[id];
       if (el) observer.observe(el);
     });
 
     return () => observer.disconnect();
-  }, [sectionIds]);
+  }, []);
 
   useEffect(() => {
     const updateDotPosition = () => {

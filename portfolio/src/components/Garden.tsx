@@ -89,7 +89,7 @@ export default function Garden({ sparse = false }: { sparse?: boolean } = {}) {
     });
     ro.observe(gardenRef.current);
     return () => ro.disconnect();
-  }, [isMobile]);
+  }, []);
 
   // ── Inject garden keyframes once (persists across remounts) ────────
   useEffect(() => {
@@ -452,7 +452,7 @@ export default function Garden({ sparse = false }: { sparse?: boolean } = {}) {
       if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     }
     return () => { if (idleTimerRef.current) clearTimeout(idleTimerRef.current); };
-  }, [catAState, isNearBed]);
+  }, [catAState, isNearBed, crabActive]);
 
   // ── Claude crab: appears when idle, Fufu chases it ────────────────────
   // Normalized distance: both axes mapped to 0–100 so distance is screen-size-independent.

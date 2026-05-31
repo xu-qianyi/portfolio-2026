@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 
 const BLINK = `@keyframes termBlink { 0%,100%{opacity:1} 50%{opacity:0} }`;
 
@@ -7,7 +7,7 @@ const GREEN = "#5AF78E";
 const WHITE = "rgba(255,255,255,0.9)";
 const DIM   = "rgba(255,255,255,0.4)";
 
-type Message = { role: "user" | "bot"; text: string; done?: boolean };
+type Message = { role: "user" | "bot"; text: string; done?: boolean; id: number };
 
 const PROMPTS = [
   "What do you design?",
@@ -45,8 +45,8 @@ const mono: React.CSSProperties = {
 const Cursor = () => (
   <span style={{
     display: "inline-block",
-    width: "9px",
-    height: "15px",
+    width: "2px",
+    height: "14px",
     background: WHITE,
     verticalAlign: "text-bottom",
     marginLeft: "1px",
@@ -64,12 +64,18 @@ const Prompt = () => (
 
 const PANEL_PAD = 48;
 
-function PromptItem({ label, onClick }: { label: string; onClick: () => void }) {
+function PromptItem({ label, onClick, defaultActive, onFirstHover }: {
+  label: string;
+  onClick: () => void;
+  defaultActive?: boolean;
+  onFirstHover?: () => void;
+}) {
   const [hovered, setHovered] = useState(false);
+  const active = hovered || defaultActive;
   return (
     <button
       onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
+      onMouseEnter={() => { setHovered(true); onFirstHover?.(); }}
       onMouseLeave={() => setHovered(false)}
       style={{
         ...mono,
@@ -78,7 +84,7 @@ function PromptItem({ label, onClick }: { label: string; onClick: () => void }) 
         gap: "6px",
         width: `calc(100% + ${PANEL_PAD * 2}px)`,
         marginLeft: `-${PANEL_PAD}px`,
-        background: hovered ? "rgba(255,255,255,0.08)" : "none",
+        background: active ? "rgba(255,255,255,0.08)" : "none",
         border: "none",
         padding: `1px ${PANEL_PAD}px`,
         textAlign: "left",
@@ -86,7 +92,7 @@ function PromptItem({ label, onClick }: { label: string; onClick: () => void }) 
       }}
     >
       <span style={{ width: "12px", flexShrink: 0, color: GREEN }}>
-        {hovered ? "❯" : " "}
+        {active ? "❯" : " "}
       </span>
       {label}
     </button>
@@ -99,7 +105,13 @@ export default function AskMartta() {
   const [isTyping, setIsTyping] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [started, setStarted] = useState(false);
+  const [hasHovered, setHasHovered] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const typingCleanupRef = useRef<{
+    outer?: ReturnType<typeof setTimeout>;
+    interval?: ReturnType<typeof setInterval>;
+  }>({});
+  const msgIdRef = useRef(0);
 
   const [loginTime] = useState(() => {
     const d = new Date();
@@ -108,13 +120,13 @@ export default function AskMartta() {
       hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false,
     }).replace(",", "");
   });
-  const [city, setCity] = useState("ttys003");
+  const city = "ttys003";
 
-  React.useEffect(() => {
-    fetch("https://ipapi.co/json/")
-      .then((r) => r.json())
-      .then((d) => { if (d.city) setCity(d.city); })
-      .catch(() => {});
+  useEffect(() => {
+    return () => {
+      clearTimeout(typingCleanupRef.current.outer);
+      clearInterval(typingCleanupRef.current.interval);
+    };
   }, []);
 
   const sendMessage = useCallback(
@@ -122,19 +134,19 @@ export default function AskMartta() {
       if (!text.trim() || isTyping) return;
       const response = getResponse(text);
       setStarted(true);
-      setMessages((prev) => [...prev, { role: "user", text: text.trim() }]);
+      setMessages((prev) => [...prev, { role: "user", text: text.trim(), id: msgIdRef.current++ }]);
       setInput("");
       setIsTyping(true);
 
-      setTimeout(() => {
-        setMessages((prev) => [...prev, { role: "bot", text: "", done: false }]);
+      typingCleanupRef.current.outer = setTimeout(() => {
+        setMessages((prev) => [...prev, { role: "bot", text: "", done: false, id: msgIdRef.current++ }]);
         let i = 0;
         const interval = setInterval(() => {
           i++;
           setMessages((prev) => {
             const next = [...prev];
             next[next.length - 1] = {
-              role: "bot",
+              ...next[next.length - 1],
               text: response.slice(0, i),
               done: i >= response.length,
             };
@@ -145,6 +157,7 @@ export default function AskMartta() {
             setIsTyping(false);
           }
         }, 18);
+        typingCleanupRef.current.interval = interval;
       }, 150);
     },
     [isTyping]
@@ -170,18 +183,18 @@ export default function AskMartta() {
           <span>ask me anything about Martta Xu.</span>
         </div>
 
-        {/* Numbered prompts */}
+        {/* Numbered prompts - shown initially and after each completed answer */}
         {!started && (
           <div style={{ marginBottom: "6px" }}>
             {PROMPTS.map((p, i) => (
-              <PromptItem key={p} label={p} onClick={() => sendMessage(p)} />
+              <PromptItem key={p} label={p} onClick={() => sendMessage(p)} defaultActive={i === 0 && !hasHovered} onFirstHover={() => setHasHovered(true)} />
             ))}
           </div>
         )}
 
         {/* Conversation history */}
-        {messages.map((msg, i) => (
-          <div key={i} style={{ marginBottom: "2px" }}>
+        {messages.map((msg) => (
+          <div key={msg.id} style={{ marginBottom: "2px" }}>
             {msg.role === "user" ? (
               <div><Prompt />{msg.text}</div>
             ) : (
@@ -190,8 +203,17 @@ export default function AskMartta() {
           </div>
         ))}
 
+        {/* Re-show prompts after each completed answer */}
+        {messages.length > 0 && messages[messages.length - 1].role === "bot" && messages[messages.length - 1].done && (
+          <div style={{ marginBottom: "6px" }}>
+            {PROMPTS.map((p, i) => (
+              <PromptItem key={p} label={p} onClick={() => sendMessage(p)} defaultActive={i === 0 && !hasHovered} onFirstHover={() => setHasHovered(true)} />
+            ))}
+          </div>
+        )}
+
         {/* Input line - cursor always visible */}
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center" }} onClick={() => inputRef.current?.focus()}>
           <Prompt />
           <input
             ref={inputRef}

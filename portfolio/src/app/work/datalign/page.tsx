@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef, useState } from "react";
 import Image from "@/components/Img";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 import Highlight from "@/components/Highlight";
@@ -47,7 +46,7 @@ const PATTERN_DATA = {
 
 type PatternKey = keyof typeof PATTERN_DATA;
 
-function PatternTabs({ base: _base }: { base: string }) {
+function PatternTabs() {
   const [active, setActive] = useState<PatternKey>("traditional");
   const data = PATTERN_DATA[active];
   const tablistId = "pattern-tabs";
@@ -248,8 +247,6 @@ const TEST_PHASES = [
   { phase: "3", ship: "Standalone landing pages for paid traffic",             measure: "Conversion by traffic source" },
 ];
 
-const TAKEAWAYS: { title: string; body: string }[] = [];
-
 const META_ITEMS = [
   { label: "Role",     value: "Product Designer (Summer/Fall Co-op)" },
   { label: "Team",     value: "Product Designer (me), 1 Senior Designer, CSM, 2 Engineers, Data Team" },
@@ -266,6 +263,7 @@ const SECTIONS: NavSection[] = [
   { id: "design",    label: "Design" },
   { id: "outcomes",  label: "Where we are right now" },
 ];
+const SECTION_IDS = SECTIONS.map((s) => s.id);
 
 function Img({ label, aspect = "16/9" }: { label: string; aspect?: string }) {
   return (
@@ -344,7 +342,6 @@ export default function DatalignCaseStudyPage() {
   const navListRef  = useRef<HTMLDivElement | null>(null);
   const [activeId, setActiveId] = useState(SECTIONS[0].id);
   const [dotY, setDotY]         = useState(0);
-  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const claireRef = useRef<HTMLDivElement | null>(null);
   const [claireVisible, setClaireVisible] = useState(false);
   useEffect(() => {
@@ -356,12 +353,6 @@ export default function DatalignCaseStudyPage() {
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
-  useEffect(() => {
-    document.body.style.overflow = lightboxSrc ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [lightboxSrc]);
-
-  const sectionIds = useMemo(() => SECTIONS.map((s) => s.id), []);
 
   useEffect(() => {
     const ratioMap = new Map<string, number>();
@@ -371,9 +362,9 @@ export default function DatalignCaseStudyPage() {
           const id = (entry.target as HTMLElement).id;
           ratioMap.set(id, entry.isIntersecting ? entry.intersectionRatio : 0);
         });
-        let nextId = sectionIds[0];
+        let nextId = SECTION_IDS[0];
         let maxRatio = -1;
-        sectionIds.forEach((id) => {
+        SECTION_IDS.forEach((id) => {
           const ratio = ratioMap.get(id) ?? 0;
           if (ratio > maxRatio) { maxRatio = ratio; nextId = id; }
         });
@@ -381,12 +372,12 @@ export default function DatalignCaseStudyPage() {
       },
       { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.15, 0.3, 0.45, 0.6, 0.75, 1] },
     );
-    sectionIds.forEach((id) => {
+    SECTION_IDS.forEach((id) => {
       const el = sectionRefs.current[id];
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, [sectionIds]);
+  }, []);
 
   useEffect(() => {
     const updateDotPosition = () => {
@@ -618,7 +609,7 @@ export default function DatalignCaseStudyPage() {
                     <p style={CASE_BODY}>
                       Datalign&apos;s users arrive through paid traffic with no prior relationship and no brand familiarity. The research pointed toward Conversational.
                     </p>
-                    <PatternTabs base={BASE} />
+                    <PatternTabs />
                   </CaseSubSection>
                 </CaseScrollReveal>
               </div>
@@ -829,19 +820,6 @@ export default function DatalignCaseStudyPage() {
         <div className="hidden md:block" />
       </main>
       <BackToTop />
-      {lightboxSrc && typeof document !== "undefined" && createPortal(
-        <div
-          style={{ position: "fixed", inset: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.75)", cursor: "zoom-out" }}
-          onClick={() => setLightboxSrc(null)}
-        >
-          <img
-            src={lightboxSrc}
-            alt=""
-            style={{ maxWidth: "90vw", maxHeight: "90vh", boxShadow: "0 24px 64px rgba(0,0,0,0.4)", cursor: "zoom-out", display: "block" }}
-          />
-        </div>,
-        document.body
-      )}
     </div>
   );
 }

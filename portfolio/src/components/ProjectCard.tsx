@@ -419,7 +419,7 @@ export default function ProjectCard({
       style={{ breakInside: "avoid", marginBottom: "24px" }}
     >
       <a
-        href={h(project.href)}
+        href={project.href && project.href !== "#" ? h(project.href) : undefined}
         className="project-card-link"
         style={{
           display: "block",

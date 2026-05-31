@@ -31,6 +31,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <noscript>
+          <style>{`.case-scroll-reveal { opacity: 1 !important; transform: none !important; }`}</style>
+        </noscript>
+      </head>
       <body className={`${geistSans.variable} antialiased`}>
         <ClarityProvider />
         <Shell>{children}</Shell>

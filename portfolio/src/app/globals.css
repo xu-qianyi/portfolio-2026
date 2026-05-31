@@ -19,7 +19,7 @@
   --color-accent-green: #3F7A66;
   --color-accent-brown: #8B4513;
   --color-accent-peach: rgba(232, 185, 150, 0.32);
-  --color-accent-tint: var(--color-accent-tint);
+  --color-accent-tint: rgba(236, 69, 35, 0.06);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
