@@ -1602,7 +1602,7 @@ export default function Ark7CaseStudyPage() {
                 <CaseScrollReveal>
                 <div className="flex flex-col gap-0">
                   <SectionDivider label={section.label} />
-                  {section.id !== "iteration" ? (
+                  {section.id !== "iteration" && section.id !== "summary" ? (
                     <h2 style={CASE_H2}>{section.title}</h2>
                   ) : null}
                 </div>
