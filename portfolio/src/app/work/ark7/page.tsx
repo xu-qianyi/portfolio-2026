@@ -308,36 +308,54 @@ function Ark7DesignAuditGrid() {
   );
 }
 
+const STORE_LOGOS: Record<string, ReactNode> = {
+  "Google Play": (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src="/images/ark7/Google_Play.svg.png" alt="Google Play" style={{ height: "18px", width: "auto" }} />
+  ),
+  "Trustpilot": (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src="/images/ark7/Trustpilot_Logo.svg.png" alt="Trustpilot" style={{ height: "18px", width: "auto" }} />
+  ),
+};
+
 function Ark7IterationStoreQuotes() {
   return (
-    <div className="mt-6 flex flex-col gap-5 md:mt-8">
+    <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-8">
       {ARK7_STORE_REVIEW_QUOTES.map((item) => (
-        <div key={item.source} className="flex flex-col gap-2">
+        <blockquote
+          key={item.source}
+          className="flex flex-col gap-3 p-5"
+          style={{ background: "transparent" }}
+        >
+          <div>{STORE_LOGOS[item.source]}</div>
           <p
             style={{
               fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-              fontSize: "12px",
-              fontWeight: 500,
-              letterSpacing: "0.06em",
-              textTransform: "uppercase" as const,
-              color: "var(--color-muted)",
+              fontSize: "15px",
+              fontWeight: 400,
+              lineHeight: "1.6",
+              fontStyle: "normal",
+              color: "var(--color-ink-70)",
               margin: 0,
+              flexGrow: 1,
             }}
           >
-            {item.source}
+            &ldquo;{ark7StoreQuoteInner(item.quote)}&rdquo;
           </p>
-          <blockquote
-            className="my-4 pl-5 py-1"
-            style={{ borderLeft: "1.5px solid rgba(0, 0, 0, 0.08)" }}
+          <cite
+            style={{
+              fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+              fontSize: "12px",
+              fontWeight: 450,
+              fontStyle: "normal",
+              color: "var(--color-muted)",
+              display: "block",
+            }}
           >
-            <p className="text-[15px] font-[450] leading-[1.6] italic text-[rgba(0,0,0,.65)]">
-              &ldquo;{ark7StoreQuoteInner(item.quote)}&rdquo;
-            </p>
-            <cite className="block mt-2 text-[12px] font-[450] text-[rgba(0,0,0,.3)] not-italic">
-              — {item.author}
-            </cite>
-          </blockquote>
-        </div>
+            {item.author}
+          </cite>
+        </blockquote>
       ))}
     </div>
   );
@@ -919,6 +937,281 @@ function Ark7LayoutOptionsTabs() {
   );
 }
 
+const ARK7_FEATURE_GROUPS = [
+  {
+    label: "Selected",
+    chipStyle: {
+      color: "var(--color-ink-70)",
+      borderColor: "rgba(26,26,26,0.15)",
+      background: "transparent",
+    },
+    chipHoverStyle: {
+      background: "var(--color-ink-06)",
+    },
+    features: [
+      {
+        id: "news",
+        label: "News",
+        pros: [
+          "Curates external sources - no original content required",
+          "Provides market context without triggering investment-advice rules",
+          "Addresses the opacity complaint directly with zero regulatory exposure",
+        ],
+        cons: [
+          "Needs ongoing editorial judgement to avoid noise or sensationalism",
+          "Perceived as marketing if not clearly third-party",
+        ],
+      },
+      {
+        id: "discussion",
+        label: "Discussion",
+        pros: [
+          "Social proof for new investors seeing others engaged",
+          "Gives existing investors a voice - reduces passive-passenger feeling",
+        ],
+        cons: [
+          "UGC in financial context creates moderation liability",
+          "Any investment discussion may require compliance review per post",
+          "High ongoing moderation cost for a small team",
+        ],
+      },
+      {
+        id: "voting",
+        label: "Voting",
+        pros: [
+          "Directly makes existing investors feel like owners, not passengers",
+          "Scope is narrow and controllable (property decisions only)",
+          "High emotional ROI relative to engineering effort",
+        ],
+        cons: [
+          "Legally complex - must define exactly what decisions are voteable",
+          "Risk of creating perceived fiduciary obligations if not scoped carefully",
+        ],
+      },
+      {
+        id: "webinar",
+        label: "Webinar",
+        pros: [
+          "One-to-many format - one event serves hundreds of users",
+          "Builds expert credibility; recordings reusable as evergreen content",
+          "Converts skeptical new investors through direct Q&A",
+        ],
+        cons: [
+          "Every session needs legal disclaimer review before publishing",
+          "Scheduling and prep cost is real for a lean team",
+        ],
+      },
+    ],
+  },
+  {
+    label: "Considered",
+    chipStyle: {
+      color: "var(--color-ink-70)",
+      borderColor: "rgba(26,26,26,0.15)",
+      background: "transparent",
+    },
+    chipHoverStyle: {
+      background: "var(--color-ink-06)",
+    },
+    features: [
+      {
+        id: "event-hub",
+        label: "Event hub",
+        pros: [
+          "IRL events create high-quality trust moments",
+          "Differentiates from purely digital competitors",
+        ],
+        cons: [
+          "Logistically expensive - requires staff time and budget per event",
+          "Doesn't scale; impact is local and one-off",
+          "Startup team can't sustain a recurring events calendar",
+        ],
+      },
+      {
+        id: "copy-trading",
+        label: "Copy trading",
+        pros: [
+          "Strongest possible conversion tool for new investors",
+          "Mirrors engagement models proven on platforms like eToro",
+        ],
+        cons: [
+          "Mirroring someone's portfolio constitutes investment advice in most jurisdictions",
+          "Would require additional licensing (broker-dealer or RIA) - existential regulatory risk",
+          "Compliance overhead alone could stall the entire product",
+        ],
+      },
+      {
+        id: "learn",
+        label: "Learn",
+        pros: [
+          "Self-service trust-building for skeptical new users",
+          "Reduces CS load by answering common questions proactively",
+        ],
+        cons: [
+          "Financial education content requires legal review for every piece",
+          "Large upfront production effort; goes stale quickly",
+          "Competes with free external resources users already trust more",
+        ],
+      },
+    ],
+  },
+  {
+    label: "Deprioritized",
+    chipStyle: {
+      color: "var(--color-ink-70)",
+      borderColor: "rgba(26,26,26,0.15)",
+      background: "transparent",
+    },
+    chipHoverStyle: {
+      background: "var(--color-ink-06)",
+    },
+    features: [
+      {
+        id: "qa",
+        label: "Q&A",
+        pros: [
+          "Low technical complexity",
+          "Directly resolves specific user questions",
+        ],
+        cons: [
+          "Duplicates what the CS team already does",
+          "Users expect authoritative answers - off-brand for a regulated product",
+          "Moderation cost is high; financial Q&A creates liability",
+        ],
+      },
+      {
+        id: "badge",
+        label: "Badge",
+        pros: [
+          "Drives engagement loops familiar from other apps",
+        ],
+        cons: [
+          "Gamification is tone-deaf in a financial context",
+          "Erodes the seriousness and trust ARK7 needs to project",
+          "Users investing real money don't want achievement stickers",
+        ],
+      },
+      {
+        id: "marketing",
+        label: "More marketing contents",
+        pros: [
+          "Lowest production cost of any option",
+        ],
+        cons: [
+          "Addresses the symptom, not the cause - opacity remains",
+          "Users can distinguish marketing from genuine proof",
+          "More of the same erodes trust rather than building it",
+        ],
+      },
+    ],
+  },
+];
+
+type MatrixFeature = { id: string; label: string; pros: string[]; cons: string[] };
+
+function Ark7FeatureMatrix() {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const activeId = hoveredId ?? selectedId;
+
+  const allFeatures: MatrixFeature[] = ARK7_FEATURE_GROUPS.flatMap((g) => g.features as MatrixFeature[]);
+  const activeFeature = allFeatures.find((f) => f.id === activeId) ?? null;
+
+  const CHIP_BASE: React.CSSProperties = {
+    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+    fontSize: "13px",
+    fontWeight: 450,
+    letterSpacing: "0.01em",
+    lineHeight: "1",
+    padding: "5px 11px",
+    border: "1px solid",
+    cursor: "default",
+    transition: "background 120ms, color 120ms",
+    userSelect: "none",
+  };
+
+  return (
+    <div className="my-8 flex flex-col gap-5 md:my-10">
+      {/* Chip groups */}
+      {ARK7_FEATURE_GROUPS.map((group) => (
+        <div key={group.label} className="flex flex-wrap items-center gap-2">
+          <span
+            style={{
+              fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+              fontSize: "11px",
+              fontWeight: 500,
+              letterSpacing: "0.01em",
+              color: "var(--color-muted)",
+              minWidth: "96px",
+            }}
+          >
+            {group.label}
+          </span>
+          {group.features.map((f) => {
+            const isSelected = selectedId === f.id;
+            const isActive = activeId === f.id;
+            return (
+              <button
+                key={f.id}
+                type="button"
+                onMouseEnter={() => setHoveredId(f.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                onClick={() => setSelectedId(isSelected ? null : f.id)}
+                style={{
+                  ...CHIP_BASE,
+                  ...group.chipStyle,
+                  background: isActive ? "var(--color-ink-06)" : "transparent",
+                  cursor: "pointer",
+                  outline: isSelected ? "1.5px solid var(--color-ink-30)" : "none",
+                  outlineOffset: "-1px",
+                }}
+              >
+                {f.label}
+              </button>
+            );
+          })}
+        </div>
+      ))}
+
+      {/* Detail panel */}
+      <div
+        style={{
+          minHeight: "80px",
+          borderTop: "1px solid var(--color-ink-10)",
+          paddingTop: "16px",
+          transition: "opacity 120ms",
+          opacity: activeFeature ? 1 : 0,
+        }}
+      >
+        {activeFeature && (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="flex flex-col gap-2">
+              {activeFeature.pros.map((pro) => (
+                <div key={pro} className="flex items-start gap-2">
+                  <span style={{ color: "#3d8c5a", fontSize: "13px", lineHeight: "1.5", flexShrink: 0, marginTop: "1px" }}>+</span>
+                  <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-70)" }}>
+                    {pro}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-2">
+              {activeFeature.cons.map((con) => (
+                <div key={con} className="flex items-start gap-2">
+                  <span style={{ color: "#c0392b", fontSize: "13px", lineHeight: "1.5", flexShrink: 0, marginTop: "1px" }}>−</span>
+                  <span style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--color-ink-70)" }}>
+                    {con}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function Ark7PersonaTabs() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [epoch, setEpoch] = useState(0);
@@ -1328,13 +1621,13 @@ export default function Ark7CaseStudyPage() {
                 {section.id === "iteration" ? (
                   <>
                   <CaseSubSection heading="Fixing the foundation first" headingAs="h2">
+                    <Ark7IterationStoreQuotes />
                     <p style={CASE_BODY}>
                       Before shipping the community features, we stepped back. At a visual level, the platform was already working against itself - signaling cheap and inconsistent before a user ever reached the content.
                     </p>
                     <p style={CASE_BODY}>
                       Trust-building features can&apos;t land on a foundation like that. Rebuilding the card component wasn&apos;t a detour from the brief - it was the prerequisite.
                     </p>
-                    <Ark7IterationStoreQuotes />
                     <p style={CASE_BODY}>Our design audit revealed:</p>
                     <Ark7DesignAuditGrid />
                   </CaseSubSection>
@@ -1353,17 +1646,7 @@ export default function Ark7CaseStudyPage() {
 
                 {section.id === "design" ? (
                   <>
-                    <div className="relative my-8 overflow-hidden px-6 py-4 md:my-12 md:px-32 md:py-6">
-                      <Image
-                        src="/images/ark7/matrix.webp"
-                        alt="Eisenhower-style matrix mapping 12 community features by effort and trust impact, narrowed to four"
-                        width={827}
-                        height={545}
-                        unoptimized
-                        className="block w-full md:w-4/5 mx-auto h-auto"
-                      />
-                      <span className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 0 1px rgba(26,26,26,0.1)" }} />
-                    </div>
+                    <Ark7FeatureMatrix />
                     <div className="mt-10 flex flex-col gap-8">
                       <CaseSubSection heading="Entry point: one tab, four touchpoints">
                         <p style={CASE_BODY}>
@@ -1449,7 +1732,9 @@ export default function Ark7CaseStudyPage() {
                       <p style={CASE_BODY}>
                         Mapping user needs against business goals revealed a single bottleneck: both user types were stuck on opacity, just approaching it from opposite ends. That narrowed &ldquo;build trust&rdquo; into a specific, designable question.
                       </p>
-                      <Ark7PersonaTabs />
+                      <p style={CASE_BODY}>
+                        The existing user had been on the platform for a year with no visibility into how their property was managed and was considering withdrawing. The new user had found ARK7 through a YouTube ad but still hadn&apos;t invested; without social proof or context, the platform felt like a black box. Both were blocked by opacity, just from opposite ends. That shaped two distinct paths forward: Update → Inform → Engage → Invest for the existing user, and Introduce / Educate → Engage → Invest for the new user.
+                      </p>
                     </CaseSubSection>
 
                   </div>
