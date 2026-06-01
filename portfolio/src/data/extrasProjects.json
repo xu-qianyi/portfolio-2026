@@ -1,5 +1,18 @@
 [
   {
+    "id": "datalign-website",
+    "company": "Datalign",
+    "industry": "FinTech",
+    "date": "2025",
+    "type": "Marketing site",
+    "headline": "Redesigned and shipped Datalign's site in 1 week with 40% CTR lift",
+    "video": "/images/extras/datalign_website.webm",
+    "videoLoop": true,
+    "width": 4,
+    "height": 3,
+    "href": ""
+  },
+  {
     "id": "ask-martta",
     "type": "Chatbot · Experiment",
     "headline": "Ask Martta Anything",
@@ -13,7 +26,7 @@
     "id": "garden",
     "type": "Game · Claude code · React",
     "headline": "A pixel world where you hang out with Fufu the cat",
-    "mediaAspectRatio": "16 / 9",
+    "mediaAspectRatio": "4 / 3",
     "bg": "#C2CFAD",
     "bgImage": "/garden/grass_tile.webp",
     "image": "/garden/yawn_stand.gif",
@@ -39,8 +52,8 @@
     "headline": "Poetry",
     "video": "/images/extras/poem_video.webm",
     "videoLoop": true,
-    "width": 16,
-    "height": 9,
+    "width": 4,
+    "height": 3,
     "href": "https://xu-qianyi.github.io/poetry_fly_interaction/poetry_fly_2.html",
     "bare": true,
     "newTab": true
