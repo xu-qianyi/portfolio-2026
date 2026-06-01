@@ -472,6 +472,45 @@ export default function ProjectCard({
             />
           </div>
         ) : null}
+        {project.href && project.href !== "#" && (
+          <span
+            className="project-card-visit-chip"
+            aria-hidden
+            style={{
+              position: "absolute",
+              bottom: 12,
+              right: 12,
+              width: 32,
+              height: 32,
+              borderRadius: "50%",
+              backgroundColor: "rgba(255, 255, 255, 0.6)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              border: "1px solid rgba(204, 209, 218, 0.5)",
+              boxShadow: "0 1px 2px rgba(0, 0, 0, 0.04)",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--color-ink)",
+              opacity: 0,
+              transform: "translateY(4px)",
+              transition: "opacity 0.2s ease, transform 0.2s ease",
+              pointerEvents: "none",
+              zIndex: 2,
+            }}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 256 256"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line x1="64" y1="192" x2="192" y2="64" stroke="currentColor" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round" />
+              <polyline points="88 64 192 64 192 168" fill="none" stroke="currentColor" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        )}
       </a>
       {!hideLabel && <div
         style={{

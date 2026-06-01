@@ -125,7 +125,9 @@ img {
 }
 
 .project-card-framed:hover .project-card-visit-chip,
-.project-card-framed:focus-visible .project-card-visit-chip {
+.project-card-framed:focus-visible .project-card-visit-chip,
+.project-card-link:hover .project-card-visit-chip,
+.project-card-link:focus-visible .project-card-visit-chip {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
