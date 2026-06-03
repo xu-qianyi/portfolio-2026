@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import Shell from "@/components/Shell";
 import ClarityProvider from "@/components/ClarityProvider";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,7 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} antialiased`}>
         <ClarityProvider />
+        <GoogleAnalytics gaId="G-DSTRRYTEW7" />
         <Shell>{children}</Shell>
       </body>
     </html>
