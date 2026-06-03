@@ -22,7 +22,7 @@ export default function Home() {
     <>
       {/* Hero */}
       <section
-        className="py-[64px] px-[24px] sm:pt-[28px] sm:pb-[40px] lg:pt-[52px] lg:pb-[64px] lg:px-[72px] lg:mx-[32px]"
+        className="pt-[44px] pb-[64px] px-[24px] sm:pt-[28px] sm:pb-[40px] lg:pt-[44px] lg:pb-[64px] lg:px-[72px] lg:mx-[32px]"
         style={{ alignSelf: "stretch" }}
       >
         <div className="flex w-full min-w-0 flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
