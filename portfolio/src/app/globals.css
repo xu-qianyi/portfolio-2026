@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "remixicon/fonts/remixicon.css";
+@import url('https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap');
 
 :root {
   --color-ink:     #1A1A1A;
@@ -23,8 +24,13 @@
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+:root {
+  --font-sans: 'Switzer', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-geist-sans: var(--font-sans);
+}
+
 @theme inline {
-  --font-geist: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
 }
 
 .grid-layout {

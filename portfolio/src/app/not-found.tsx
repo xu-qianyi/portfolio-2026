@@ -1,12 +1,12 @@
 import type { CSSProperties } from "react";
 
 const HEADLINE: CSSProperties = {
-  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "48px",
-  fontWeight: 500,
+  fontWeight: 600,
   color: "var(--color-ink)",
-  lineHeight: "52px",
-  letterSpacing: "0.96px",
+  lineHeight: "1.1",
+  letterSpacing: "-0.02em",
   margin: 0,
   textAlign: "center",
 };

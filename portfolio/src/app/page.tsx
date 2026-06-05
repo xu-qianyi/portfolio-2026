@@ -7,12 +7,12 @@ import FufuCat from "@/components/FufuCat";
 import BackToTop from "@/components/BackToTop";
 
 const HERO_TEXT: CSSProperties = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "15px",
-  fontWeight: 450,
-  color: "rgba(0,0,0,0.8)",
-  lineHeight: "1.45rem",
-  letterSpacing: "-0.005em",
+  fontWeight: 500,
+  color: "var(--color-ink-65)",
+  lineHeight: "1.55",
+  letterSpacing: "-0.01em",
   margin: 0,
 };
 
@@ -105,10 +105,10 @@ export default function Home() {
           {/* Divider */}
           <div className="col-span-1 lg:col-span-3 flex items-center gap-3 pt-6 pb-10">
             <span style={{
-              fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+              fontFamily: "var(--font-sans)",
               fontSize: "13px",
-              fontWeight: 550,
-              letterSpacing: "-0.005em",
+              fontWeight: 500,
+              letterSpacing: "-0.01em",
               color: "var(--color-ink-80)",
               whiteSpace: "nowrap",
             }}>

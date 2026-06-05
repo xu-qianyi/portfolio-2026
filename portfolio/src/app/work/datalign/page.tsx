@@ -95,8 +95,6 @@ function PatternTabs() {
         role="tabpanel"
         className="border border-[var(--color-ink-14)] bg-[var(--color-subtle)] p-8 md:p-12 flex flex-col gap-8"
       >
-        <p style={{ ...CASE_H3, textAlign: "center" }}>{data.label}</p>
-
         <div style={{ position: "relative" }}>
           {(Object.keys(PATTERN_DATA) as PatternKey[]).map((key) => {
             const isTraditional = key === "traditional";
@@ -504,7 +502,7 @@ export default function DatalignCaseStudyPage() {
 
                 <CaseScrollReveal delay={80} className="flex flex-col gap-5">
                   <p style={CASE_BODY}>
-                    <a href="https://datalign.com/" target="_blank" rel="noopener noreferrer" className="case-inline-link">Datalign</a> is a lead marketplace for wealth management. Consumers fill out a 20-question intake form to get matched with a registered investment advisor (RIA). Partner firms bid on the lead in an auction, and the user is connected with the winning firm.
+                    <a href="https://datalign.com/" target="_blank" rel="noopener noreferrer" className="case-inline-link">Datalign</a> is a lead marketplace for wealth management. Users fill out a 20-question intake form to get matched with a registered investment advisor (RIA). Partner firms bid on each submission in an auction, and the user is connected with the winning firm.
                   </p>
                   <p style={CASE_BODY}>
                     The form <em>is</em> the front door.{" "}
@@ -560,44 +558,73 @@ export default function DatalignCaseStudyPage() {
                   </div>
 
                   <div className="flex flex-col gap-5 mt-10">
-                    <p style={CASE_BODY}>I pulled and audited 5,162 SEM sessions and 13,559 Finance Advisors sessions from Hotjar, using ChatGPT to analyze at scale.</p>
+                    <p style={CASE_BODY}>I pulled and audited 5,162 SEM sessions and 13,559 Finance Advisors sessions from Hotjar, using ChatGPT to analyze user patterns at scale.</p>
                     <CaseMethodGrid items={DATALIGN_BEHAVIORAL_ITEMS} cols={3} />
                   </div>
 
                   <div className="flex flex-col gap-4 mt-8">
                     <SubHeading>...these are fixable UI problems.<span style={{ opacity: 0.35 }}>...</span></SubHeading>
-                    <p style={CASE_BODY}>However, why we need to redesign the entire experience? <Highlight variant="blue" duration={1400}>Because it has the worst experience in the industry.</Highlight></p>
+                    <p style={CASE_BODY}>However, why redesign the entire experience? Because competitors are raising the bar, and Datalign is falling behind. <Highlight variant="blue" duration={1400}>That's a direct disadvantage when bidding for publisher traffic.</Highlight></p>
 
-                    <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4" style={{ padding: "8px 0 32px" }}>
-                      {/* Functional */}
-                      <div className="p-4" style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}>
-                        <div style={{ marginBottom: "10px" }}>
-                          <i className="ri-error-warning-line" style={{ fontSize: 20, color: "var(--color-ink-40)" }} />
+                    {/* Tier swimlane */}
+                    <div className="mt-10 mb-10" style={{ border: "1px solid var(--color-ink-14)" }}>
+                      {[
+                        {
+                          tier: "Well-designed",
+                          dot: "#16A34A",
+                          names: [
+                            { text: "Quinn", highlight: false },
+                            { text: "Boldin", highlight: false },
+                          ],
+                        },
+                        {
+                          tier: "Decent UX",
+                          dot: "#D97706",
+                          names: ["Advisor.com", "NerdWallet", "Zoe Financial", "WealthRamp", "Finance HQ", "Facet"].map(n => ({ text: n, highlight: false })),
+                        },
+                        {
+                          tier: "Functional",
+                          dot: "#DC2626",
+                          names: [
+                            { text: "Datalign Advisory", highlight: true },
+                            { text: "Money Pickle", highlight: false },
+                            { text: "Wise Advisor", highlight: false },
+                            { text: "Savvy Wealth", highlight: false },
+                          ],
+                        },
+                      ].map((row, i, arr) => (
+                        <div
+                          key={row.tier}
+                          className="flex items-start gap-5 px-5 py-6"
+                          style={{ borderBottom: i < arr.length - 1 ? "1px solid var(--color-ink-06)" : undefined }}
+                        >
+                          <div className="flex items-center gap-2 shrink-0" style={{ width: 108, paddingTop: 2 }}>
+                            <span style={{ width: 6, height: 6, borderRadius: "50%", background: row.dot, flexShrink: 0 }} />
+                            <span style={{ fontFamily: "var(--font-sans)", fontSize: "11px", fontWeight: 500, letterSpacing: "0", color: "var(--color-ink)" }}>
+                              {row.tier}
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {row.names.map(({ text, highlight }) => (
+                              <span key={text} style={{
+                                fontFamily: "var(--font-sans)",
+                                fontSize: "13px",
+                                fontWeight: highlight ? 500 : 400,
+                                color: highlight ? "#B91C1C" : "var(--color-ink-65)",
+                                background: highlight ? "#FEE2E2" : "var(--color-ink-06)",
+                                padding: "2px 9px",
+                                borderRadius: "4px",
+                              }}>
+                                {text}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3", marginBottom: "6px" }}>Functional</div>
-                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: 1.6, margin: 0, color: "var(--color-ink-50)" }}>
-                          Money Pickle, Wise Advisor, Savvy Wealth, <span style={{ color: "#ef4444" }}>Datalign Advisory</span>
-                        </p>
-                      </div>
-                      {/* Decent UX */}
-                      <div className="p-4" style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}>
-                        <div style={{ marginBottom: "10px" }}>
-                          <i className="ri-medal-line" style={{ fontSize: 20, color: "var(--color-ink-40)" }} />
-                        </div>
-                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3", marginBottom: "6px" }}>Decent UX</div>
-                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: 1.6, color: "var(--color-ink-50)", margin: 0 }}>Advisor.com, NerdWallet, Zoe Financial, WealthRamp, Finance HQ, Facet</p>
-                      </div>
-                      {/* Well-designed */}
-                      <div className="p-4" style={{ background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" }}>
-                        <div style={{ marginBottom: "10px" }}>
-                          <i className="ri-trophy-line" style={{ fontSize: 20, color: "var(--color-ink-40)" }} />
-                        </div>
-                        <div style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "15px", fontWeight: 500, letterSpacing: "-0.01em", color: "var(--color-ink-80)", lineHeight: "1.3", marginBottom: "6px" }}>Well-designed</div>
-                        <p style={{ fontFamily: "var(--font-geist-sans), system-ui, sans-serif", fontSize: "13px", lineHeight: 1.6, color: "var(--color-ink-50)", margin: 0 }}>Quinn, Boldin</p>
-                      </div>
+                      ))}
                     </div>
+
                     <p style={CASE_BODY}>
-                      The ones doing it well (Facet, Boldin, Quinn) carry users through with a consistent editorial voice. Datalign had none.
+                      The ones doing it well carry users through with a consistent editorial voice. Datalign had none.
                     </p>
                   </div>
 

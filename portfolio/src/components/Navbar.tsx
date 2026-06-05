@@ -30,9 +30,9 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] text-[rgba(26,26,26,0.85)] hover:text-[#000000] transition-colors duration-150"
+          className="outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] text-[#1a1a1a] hover:text-[#000000] transition-colors duration-150"
           style={{
-            fontFamily: "Geist, sans-serif",
+            fontFamily: "var(--font-sans)",
             fontSize: "15px",
             fontWeight: 500,
             letterSpacing: "-0.01em",

@@ -6,24 +6,24 @@ export type MetaItem = { label: string; value: string };
 
 // ── Shared style tokens ──────────────────────────────────────────────
 
-// Tiempos serif — H1 / H2 / H3 only
+// Switzer — H1 / H2 / H3
 export const CASE_H1 = {
-  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "28px",
   lineHeight: "1.15",
   fontWeight: 500,
-  letterSpacing: "-0.01em",
+  letterSpacing: "-0.015em",
   color: "var(--color-ink)",
   margin: 0,
   textWrap: "balance" as const,
 } satisfies React.CSSProperties;
 
 export const CASE_H2 = {
-  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "24px",
   lineHeight: "1.2",
   fontWeight: 500,
-  letterSpacing: "-0.01em",
+  letterSpacing: "-0.015em",
   color: "var(--color-ink)",
   marginBottom: "1rem",
   marginTop: 0,
@@ -32,7 +32,7 @@ export const CASE_H2 = {
 
 // H3 — component-level heading (feature names, persona names, design decision titles)
 export const CASE_H3 = {
-  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "20px",
   lineHeight: "1.25",
   fontWeight: 500,
@@ -42,21 +42,21 @@ export const CASE_H3 = {
   textWrap: "balance" as const,
 } satisfies React.CSSProperties;
 
-// Geist sans — H4 and below
+// Switzer — H4 and below
 export const CASE_BODY = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "15px",
+  fontFamily: "var(--font-sans)",
+  fontSize: "16px",
   lineHeight: "1.6",
-  letterSpacing: "-0.005em",
+  letterSpacing: "-0.01em",
   color: "var(--color-ink-80)",
   margin: 0,
 } as const satisfies React.CSSProperties;
 
 export const CASE_EYEBROW = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "10px",
-  fontWeight: 500,
-  letterSpacing: ".04em",
+  fontWeight: 600,
+  letterSpacing: ".08em",
   textTransform: "uppercase" as const,
   color: "var(--color-ink-70)",
   margin: 0,
@@ -64,10 +64,10 @@ export const CASE_EYEBROW = {
 
 // Small uppercase label (used inside components: step labels, section tags, etc.)
 export const CASE_LABEL = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "11px",
   fontWeight: 500,
-  letterSpacing: "0.06em",
+  letterSpacing: "0.08em",
   textTransform: "uppercase" as const,
   color: "var(--color-ink-50)",
   margin: 0,
@@ -75,7 +75,7 @@ export const CASE_LABEL = {
 
 // Image captions and card body text
 export const CASE_CAPTION = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "13px",
   lineHeight: "1.5",
   color: "var(--color-ink-50)",
@@ -84,36 +84,36 @@ export const CASE_CAPTION = {
 
 // Large stat / impact numbers
 export const CASE_STAT = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-  fontSize: "36px",
+  fontFamily: "var(--font-sans)",
+  fontSize: "24px",
   lineHeight: "1",
-  fontWeight: 400,
-  letterSpacing: "-0.03em",
+  fontWeight: 500,
+  letterSpacing: "-0.04em",
   color: "var(--color-ink)",
   margin: 0,
 } satisfies React.CSSProperties;
 
 const META_LABEL: React.CSSProperties = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "10px",
-  fontWeight: 500,
-  letterSpacing: ".04em",
+  fontWeight: 600,
+  letterSpacing: ".08em",
   textTransform: "uppercase",
   color: "var(--color-ink-70)",
 };
 
 const META_VALUE: React.CSSProperties = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "13px",
   lineHeight: "1.45",
   color: "var(--color-ink-65)",
 };
 
 const DIVIDER_LABEL: React.CSSProperties = {
-  fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "13px",
-  fontWeight: 550,
-  letterSpacing: "-0.005em",
+  fontWeight: 500,
+  letterSpacing: "-0.01em",
   color: "var(--color-ink-80)",
   whiteSpace: "nowrap",
 };
@@ -144,10 +144,10 @@ export function SubHeading({
     <Tag
       className={className}
       style={{
-        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+        fontFamily: "var(--font-sans)",
         fontSize: "18px",
         lineHeight: "1.3",
-        fontWeight: 550,
+        fontWeight: 500,
         letterSpacing: "-0.01em",
         color: "var(--color-ink)",
         margin: 0,
@@ -235,7 +235,7 @@ export function CaseMethodGrid({
             </div>
           )}
           <div style={{
-            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+            fontFamily: "var(--font-sans)",
             fontSize: "15px",
             fontWeight: 500,
             letterSpacing: "-0.01em",
@@ -270,7 +270,7 @@ export function CaseStatGrid({
           style={isCard ? { background: "#fff", boxShadow: "0 1px 4px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04)" } : undefined}
         >
           <p style={CASE_STAT}>{item.value}</p>
-          <p style={{ ...CASE_BODY, color: "var(--color-ink-50)" }}>{item.label}</p>
+          <p style={{ ...CASE_BODY, fontSize: "15px", fontWeight: 400, lineHeight: "1.3", color: "var(--color-ink-50)" }}>{item.label}</p>
         </div>
       ))}
     </div>
@@ -287,7 +287,7 @@ export function CaseNextProject({ href, label }: { href: string; label: string }
       <SectionDivider label="Next project" />
       <p
         style={{
-          fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+          fontFamily: "var(--font-sans)",
           fontSize: "18px",
           lineHeight: "1.3",
           fontWeight: 400,

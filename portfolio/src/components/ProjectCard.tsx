@@ -42,7 +42,7 @@ const PROJECT_META: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "12px",
   fontWeight: 500,
-  color: "var(--color-muted)",
+  color: "var(--color-ink-65)",
   margin: 0,
   display: "flex",
   alignItems: "center",
@@ -51,10 +51,11 @@ const PROJECT_META: CSSProperties = {
 };
 
 const PROJECT_HEADLINE: CSSProperties = {
-  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "17px",
-  fontWeight: 400,
+  fontWeight: 500,
   lineHeight: "130%",
+  letterSpacing: "-0.01em",
   color: "var(--color-ink)",
   margin: 0,
 };
@@ -69,10 +70,11 @@ const PROJECT_HEADLINE_MINIMAL: CSSProperties = {
 };
 
 const FRAMED_TITLE: CSSProperties = {
-  fontFamily: "tiemposText, 'Tiempos Text', Georgia, serif",
+  fontFamily: "var(--font-sans)",
   fontSize: "17px",
-  fontWeight: 400,
+  fontWeight: 500,
   lineHeight: "130%",
+  letterSpacing: "-0.01em",
   color: "var(--color-ink)",
   margin: 0,
 };
