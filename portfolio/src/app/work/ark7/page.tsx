@@ -308,14 +308,15 @@ function Ark7DesignAuditGrid() {
   );
 }
 
+const _BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const STORE_LOGOS: Record<string, ReactNode> = {
   "Google Play": (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src="/images/ark7/Google_Play.svg.png" alt="Google Play" style={{ height: "18px", width: "auto" }} />
+    <img src={`${_BASE}/images/ark7/Google_Play.svg.png`} alt="Google Play" style={{ height: "18px", width: "auto" }} />
   ),
   "Trustpilot": (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src="/images/ark7/Trustpilot_Logo.svg.png" alt="Trustpilot" style={{ height: "18px", width: "auto" }} />
+    <img src={`${_BASE}/images/ark7/Trustpilot_Logo.svg.png`} alt="Trustpilot" style={{ height: "18px", width: "auto" }} />
   ),
 };
 
