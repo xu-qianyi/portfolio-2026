@@ -564,7 +564,7 @@ export default function DatalignCaseStudyPage() {
 
                   <div className="flex flex-col gap-4 mt-8">
                     <SubHeading>...these are fixable UI problems.<span style={{ opacity: 0.35 }}>...</span></SubHeading>
-                    <p style={CASE_BODY}>However, why redesign the entire experience? Because competitors are raising the bar, and Datalign is falling behind. <Highlight variant="blue" duration={1400}>That's a direct disadvantage when bidding for publisher traffic.</Highlight></p>
+                    <p style={CASE_BODY}>However, why redesign the entire experience? Because competitors are raising the bar, and Datalign is falling behind. <Highlight variant="blue" duration={1400}>That&apos;s a direct disadvantage when bidding for publisher traffic.</Highlight></p>
 
                     {/* Tier swimlane */}
                     <div className="mt-10 mb-10" style={{ border: "1px solid var(--color-ink-14)" }}>
