@@ -717,7 +717,7 @@ export default function DatalignCaseStudyPage() {
                   <div className="flex flex-col gap-12 md:gap-16 mt-2">
                     {DESIGN_DECISIONS.map((item, i) => (
                       <div key={i} className="flex flex-col gap-4">
-                        <h3 style={CASE_H3}>{item.heading}</h3>
+                        <SubHeading>{item.heading}</SubHeading>
                         <div className="grid grid-cols-2 gap-x-3 gap-y-2 md:gap-x-4">
                           {/* Before image - row 1 */}
                           <div className="overflow-hidden flex items-center justify-center min-h-0" style={{ background: "var(--color-subtle)", border: "1px solid rgba(0,0,0,0.08)" }}>
