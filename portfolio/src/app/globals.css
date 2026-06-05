@@ -24,7 +24,7 @@
 }
 
 :root {
-  --font-sans: 'Switzer', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-sans: 'Switzer', system-ui, sans-serif;
   --font-geist-sans: var(--font-sans);
 }
 
