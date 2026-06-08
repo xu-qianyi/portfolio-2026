@@ -30,7 +30,8 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] text-[#1a1a1a] hover:text-[#000000] transition-colors duration-150"
+          className="outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors duration-150"
+          style={{ color: "var(--color-ink)" }}
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: "15px",
@@ -52,7 +53,7 @@ export default function Navbar() {
               style={{
                 fontSize: "13px",
                 fontWeight: 450,
-                color: "rgba(26, 26, 26, 0.55)",
+                color: "var(--color-muted)",
                 textDecoration: "none",
               }}
             >
@@ -63,11 +64,10 @@ export default function Navbar() {
             href={RESUME_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className="outline-none rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors h-8 px-3 flex items-center hover:bg-[var(--color-subtle)]"
+            className="nav-tab outline-none rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors h-8 px-3 flex items-center hover:bg-[var(--color-subtle)]"
             style={{
               fontSize: "13px",
               fontWeight: 450,
-              color: "rgba(26, 26, 26, 0.55)",
               textDecoration: "none",
             }}
           >
@@ -131,7 +131,7 @@ export default function Navbar() {
                 style={{
                   fontSize: "15px",
                   fontWeight: 450,
-                  color: "rgba(26, 26, 26, 0.55)",
+                  color: "var(--color-muted)",
                   textDecoration: "none",
                 }}
               >
@@ -142,11 +142,10 @@ export default function Navbar() {
               href={RESUME_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-md h-10 flex items-center px-3 transition-colors hover:bg-[var(--color-subtle)]"
+              className="nav-tab rounded-md h-10 flex items-center px-3 transition-colors hover:bg-[var(--color-subtle)]"
               style={{
                 fontSize: "15px",
                 fontWeight: 450,
-                color: "rgba(26, 26, 26, 0.55)",
                 textDecoration: "none",
               }}
             >
