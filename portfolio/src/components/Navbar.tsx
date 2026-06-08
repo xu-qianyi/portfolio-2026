@@ -31,8 +31,8 @@ export default function Navbar() {
         <Link
           href="/"
           className="outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors duration-150"
-          style={{ color: "var(--color-ink)" }}
           style={{
+            color: "var(--color-ink)",
             fontFamily: "var(--font-sans)",
             fontSize: "15px",
             fontWeight: 500,
