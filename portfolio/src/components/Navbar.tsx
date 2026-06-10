@@ -49,7 +49,7 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="outline-none rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors h-8 px-3 flex items-center hover:bg-[var(--color-subtle)]"
+              className="outline-none rounded-md transition-colors h-8 px-3 flex items-center hover:bg-[var(--color-subtle)]"
               style={{
                 fontSize: "13px",
                 fontWeight: 450,
@@ -64,10 +64,11 @@ export default function Navbar() {
             href={RESUME_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className="nav-tab outline-none rounded-md focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors h-8 px-3 flex items-center hover:bg-[var(--color-subtle)]"
+            className="outline-none rounded-md transition-colors h-8 px-3 flex items-center hover:bg-[var(--color-subtle)]"
             style={{
               fontSize: "13px",
               fontWeight: 450,
+              color: "var(--color-muted)",
               textDecoration: "none",
             }}
           >
@@ -142,10 +143,11 @@ export default function Navbar() {
               href={RESUME_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              className="nav-tab rounded-md h-10 flex items-center px-3 transition-colors hover:bg-[var(--color-subtle)]"
+              className="rounded-md h-10 flex items-center px-3 transition-colors hover:bg-[var(--color-subtle)]"
               style={{
                 fontSize: "15px",
                 fontWeight: 450,
+                color: "var(--color-muted)",
                 textDecoration: "none",
               }}
             >

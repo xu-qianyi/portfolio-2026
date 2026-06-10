@@ -1684,7 +1684,7 @@ export default function Ark7CaseStudyPage() {
                     <p style={CASE_BODY}>
                       Initial telemetry after the community features shipped showed movement across both segments:
                     </p>
-                    <CaseStatGrid items={ARK7_STAT_ITEMS} />
+                    <CaseStatGrid items={ARK7_STAT_ITEMS} variant="card" />
                   </CaseSubSection>
                   <CaseSubSection heading="What I took away" className="mt-12">
                     <div className="flex flex-col gap-1.5">
