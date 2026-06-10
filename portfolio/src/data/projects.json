@@ -1,5 +1,17 @@
 [
   {
+    "id": "ark7",
+    "company": "ARK7",
+    "date": "2024",
+    "type": "Mobile",
+    "headline": "Building trust in fractional real estate investing",
+    "image": "/images/preview/ark7.webp",
+    "width": 1280,
+    "height": 800,
+    "href": "/work/ark7",
+    "industry": "FinTech"
+  },
+  {
     "id": "datalign",
     "company": "Datalign",
     "date": "2025",
@@ -13,18 +25,6 @@
     "industry": "FinTech",
     "role": "Internship",
     "bg": "#fbfbf7"
-  },
-  {
-    "id": "ark7",
-    "company": "ARK7",
-    "date": "2024",
-    "type": "Mobile",
-    "headline": "Building trust in fractional real estate investing",
-    "image": "/images/preview/ark7.webp",
-    "width": 1280,
-    "height": 800,
-    "href": "/work/ark7",
-    "industry": "FinTech"
   },
   {
     "id": "looklook-nars",
