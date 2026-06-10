@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "@/components/Img";
+import CaseStudyNav from "@/components/CaseStudyNav";
 import CaseScrollReveal from "@/components/CaseScrollReveal";
 import Highlight from "@/components/Highlight";
 import BackToTop from "@/components/BackToTop";
@@ -121,10 +122,8 @@ function NarsMobileNav({
 
 export default function NarsCaseStudyPage() {
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
-  const itemRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const navListRef = useRef<HTMLDivElement | null>(null);
   const [activeId, setActiveId] = useState(SECTIONS[0].id);
-  const [dotY, setDotY] = useState(0);
 
   const sectionIds = useMemo(() => SECTIONS.map((s) => s.id), []);
 
@@ -153,76 +152,20 @@ export default function NarsCaseStudyPage() {
     return () => observer.disconnect();
   }, [sectionIds]);
 
-  useEffect(() => {
-    const updateDotPosition = () => {
-      const activeItem = itemRefs.current[activeId];
-      const listEl = navListRef.current;
-      if (!activeItem || !listEl) return;
-      const itemRect = activeItem.getBoundingClientRect();
-      const listRect = listEl.getBoundingClientRect();
-      setDotY(Math.round(itemRect.top - listRect.top + itemRect.height / 2));
-    };
-    updateDotPosition();
-    let resizeTimer: ReturnType<typeof setTimeout>;
-    const onResize = () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(updateDotPosition, 150); };
-    window.addEventListener("resize", onResize);
-    return () => { window.removeEventListener("resize", onResize); clearTimeout(resizeTimer); };
-  }, [activeId]);
-
   return (
-    <div className="min-h-screen px-6 py-14 md:py-16 lg:px-[72px] lg:py-16 lg:mx-[32px]">
-      <main className="mx-auto grid max-w-[1800px] grid-cols-1 gap-0 md:grid-cols-[1fr_auto_1fr] md:gap-8">
+    <div className="min-h-screen py-14 md:py-16">
+      <main className="mx-auto grid max-w-[1400px] grid-cols-1 px-4 md:px-8 md:grid-cols-[1fr_minmax(0,840px)_1fr] md:items-start">
 
         {/* Sidebar nav */}
-        <aside className="md:sticky md:top-20 md:h-fit pb-8 md:pb-0 min-w-0 md:min-w-40">
-          <nav className="hidden md:block mt-4">
-            <div ref={navListRef} className="relative pl-5">
-              <div className="absolute left-0 top-0.5 bottom-0.5 w-[6px] rounded-full bg-[var(--color-ink-06)]">
-                <div
-                  className="absolute left-1/2 w-[5px] h-[5px] rounded-full bg-[var(--color-ink)] transition-all duration-300 ease-out"
-                  style={{ top: dotY, transform: "translate(-50%, -50%)" }}
-                />
-              </div>
-              <div className="flex flex-col items-start gap-1">
-                {SECTIONS.map((section) => {
-                  const isActive = activeId === section.id;
-                  return (
-                    <button
-                      key={section.id}
-                      type="button"
-                      ref={(el) => { itemRefs.current[section.id] = el; }}
-                      className="text-left transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
-                      style={{
-                        fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-                        fontSize: "12px",
-                        lineHeight: "160%",
-                        fontWeight: 500,
-                        color: "var(--color-ink)",
-                        opacity: isActive ? 1 : 0.4,
-                        background: "transparent",
-                        border: 0,
-                        padding: 0,
-                        cursor: "inherit",
-                      }}
-                      onClick={() => {
-                        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                        sectionRefs.current[section.id]?.scrollIntoView({
-                          behavior: prefersReduced ? "auto" : "smooth",
-                          block: "start",
-                        });
-                      }}
-                    >
-                      {section.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </nav>
-        </aside>
+        <CaseStudyNav
+          sections={SECTIONS}
+          activeId={activeId}
+          sectionRefs={sectionRefs}
+          navListRef={navListRef}
+        />
 
         {/* Main content */}
-        <div className="flex w-full min-w-0 max-w-[800px] flex-col gap-0">
+        <div className="flex w-full min-w-0 max-w-[840px] flex-col gap-0">
 
           {/* Header */}
           <header className="pb-8">

@@ -15,7 +15,7 @@ function scrollToHashElement() {
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const hideNavbar = pathname === "/extras/garden";
+  const hideNavbar = pathname === "/extras/garden" || pathname === "/work/ark7" || pathname === "/work/datalign" || pathname === "/work/nars";
 
   useEffect(() => {
     const run = () => {
