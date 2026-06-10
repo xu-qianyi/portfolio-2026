@@ -14,7 +14,7 @@ type Props = {
 export default function CaseStudyNav({ sections, activeId, sectionRefs, navListRef }: Props) {
   return (
     <aside className="md:sticky md:top-10 md:h-fit pb-8 md:pb-0 md:flex md:justify-end md:pr-32">
-      <nav className="hidden md:block w-[100px]">
+      <nav className="hidden md:block w-[140px]">
         <Link
           href="/"
           className="inline-flex items-center gap-2 px-2 py-1 -mx-2 rounded cursor-pointer transition-all duration-150 hover:bg-[var(--color-ink-06)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
