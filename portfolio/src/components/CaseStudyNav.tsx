@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 type Section = { id: string; label: string };
 
 type Props = {
@@ -13,26 +11,8 @@ type Props = {
 
 export default function CaseStudyNav({ sections, activeId, sectionRefs, navListRef }: Props) {
   return (
-    <aside className="md:sticky md:top-10 md:h-fit pb-8 md:pb-0 md:flex md:justify-end md:pr-32">
+    <aside className="md:sticky md:top-24 md:h-fit pb-8 md:pb-0 md:flex md:justify-start">
       <nav className="hidden md:block w-[140px]">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 px-2 py-1 -mx-2 rounded cursor-pointer transition-all duration-150 hover:bg-[var(--color-ink-06)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
-          style={{
-            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
-            fontSize: "13px",
-            fontWeight: 400,
-            letterSpacing: "-0.01em",
-            lineHeight: 1.4,
-            color: "var(--color-muted)",
-            textDecoration: "none",
-            transition: "color 0.18s",
-          }}
-        >
-          <i className="ri-home-4-line" style={{ fontSize: "14px", lineHeight: 1 }} />
-          Home
-        </Link>
-        <div style={{ height: "1px", backgroundColor: "var(--color-ink-06)", margin: "12px 0" }} />
         <div ref={navListRef}>
           <div className="flex flex-col" style={{ gap: "1px" }}>
             {sections.map((section) => {

@@ -82,14 +82,6 @@ const FRAMED_TITLE: CSSProperties = {
   margin: 0,
 };
 
-const FRAMED_TITLE_HIGHLIGHT: CSSProperties = {
-  backgroundColor: "var(--color-accent-peach)",
-  padding: "0 6px",
-  borderRadius: "2px",
-  boxDecorationBreak: "clone",
-  WebkitBoxDecorationBreak: "clone",
-};
-
 const FRAMED_DESCRIPTION: CSSProperties = {
   fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
   fontSize: "16px",

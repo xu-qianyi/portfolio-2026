@@ -1163,7 +1163,7 @@ function Ark7FeatureMatrix() {
                   ...group.chipStyle,
                   background: isActive ? "var(--color-ink-06)" : "transparent",
                   cursor: "pointer",
-                  outline: isSelected ? "1.5px solid var(--color-ink-30)" : "none",
+                  outline: isSelected ? "1px solid var(--color-ink-30)" : "none",
                   outlineOffset: "-1px",
                   transform: hoveredId === f.id ? "translateY(-1px)" : "translateY(0)",
                 }}
@@ -1745,7 +1745,7 @@ export default function Ark7CaseStudyPage() {
 
   return (
     <div className="min-h-screen py-14 md:py-16">
-      <main className="mx-auto grid max-w-[1400px] grid-cols-1 px-4 md:px-8 md:grid-cols-[1fr_minmax(0,840px)_1fr] md:items-start">
+      <main className="grid grid-cols-1 px-6 lg:px-[120px] lg:mx-[32px] md:grid-cols-[1fr_minmax(0,840px)_1fr] md:items-start">
         <CaseStudyNav
           sections={SECTIONS}
           activeId={activeId}

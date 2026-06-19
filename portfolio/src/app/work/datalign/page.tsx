@@ -379,7 +379,7 @@ export default function DatalignCaseStudyPage() {
 
   return (
     <div className="min-h-screen py-14 md:py-16">
-      <main className="mx-auto grid max-w-[1400px] grid-cols-1 px-4 md:px-8 md:grid-cols-[1fr_minmax(0,840px)_1fr] md:items-start">
+      <main className="grid grid-cols-1 px-6 lg:px-[120px] lg:mx-[32px] md:grid-cols-[1fr_minmax(0,840px)_1fr] md:items-start">
 
         {/* Sidebar nav */}
         <CaseStudyNav
