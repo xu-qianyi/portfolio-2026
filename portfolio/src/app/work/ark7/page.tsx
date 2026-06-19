@@ -1111,7 +1111,7 @@ const ARK7_FEATURE_GROUPS = [
 type MatrixFeature = { id: string; label: string; pros: string[]; cons: string[] };
 
 function Ark7FeatureMatrix() {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>("news");
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const activeId = hoveredId ?? selectedId;
 
@@ -1127,7 +1127,7 @@ function Ark7FeatureMatrix() {
     padding: "5px 11px",
     border: "1px solid",
     cursor: "default",
-    transition: "background 120ms, color 120ms",
+    transition: "background 120ms, color 120ms, transform 120ms",
     userSelect: "none",
   };
 
@@ -1165,6 +1165,7 @@ function Ark7FeatureMatrix() {
                   cursor: "pointer",
                   outline: isSelected ? "1.5px solid var(--color-ink-30)" : "none",
                   outlineOffset: "-1px",
+                  transform: hoveredId === f.id ? "translateY(-1px)" : "translateY(0)",
                 }}
               >
                 {f.label}
@@ -1219,6 +1220,254 @@ function Ark7FeatureMatrix() {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Animated user-flow diagram ---------- */
+
+type FlowNode = {
+  id: string;
+  label: string;
+  x: number; // left edge
+  y: number; // vertical center
+  w: number;
+  depth: number;
+  root?: boolean;
+};
+
+const FLOW_W = 1248;
+const FLOW_H = 350;
+const FLOW_NODE_H = 46;
+const FLOW_NODE_W = 168;
+const FLOW_COL = 216; // column pitch -> uniform 48px gap between blocks
+const FLOW_ROW = 70; // row pitch -> uniform 24px gap between stacked blocks
+const FLOW_Y0 = 30; // top row center
+
+// vertical positions snap to a fixed grid (FLOW_Y0 + n * FLOW_ROW) so every
+// stacked pair of blocks is exactly the same distance apart
+const ry = (n: number) => FLOW_Y0 + n * FLOW_ROW;
+
+const FLOW_NODES: FlowNode[] = [
+  { id: "feed",     label: "Feed/Community",     x: 0,                y: ry(1.75), w: FLOW_NODE_W, depth: 0, root: true },
+  { id: "notif",    label: "check notification", x: FLOW_COL * 1,     y: ry(0.5),  w: FLOW_NODE_W, depth: 1 },
+  { id: "browse",   label: "browse feed",        x: FLOW_COL * 1,     y: ry(3),    w: FLOW_NODE_W, depth: 1 },
+  { id: "news",     label: "property news",      x: FLOW_COL * 2,     y: ry(0.5),  w: FLOW_NODE_W, depth: 2 },
+  { id: "read",     label: "Read posts",         x: FLOW_COL * 2,     y: ry(3),    w: FLOW_NODE_W, depth: 2 },
+  { id: "short",    label: "short posts",        x: FLOW_COL * 3,     y: ry(0),    w: FLOW_NODE_W, depth: 3 },
+  { id: "long",     label: "long articles",      x: FLOW_COL * 3,     y: ry(1),    w: FLOW_NODE_W, depth: 3 },
+  { id: "popup",    label: "discussion",         x: FLOW_COL * 3,     y: ry(2),    w: FLOW_NODE_W, depth: 3 },
+  { id: "voting",   label: "voting",             x: FLOW_COL * 3,     y: ry(3),    w: FLOW_NODE_W, depth: 3 },
+  { id: "webinar",  label: "webinar",            x: FLOW_COL * 3,     y: ry(4),    w: FLOW_NODE_W, depth: 3 },
+  { id: "newuser",  label: "new user?",          x: FLOW_COL * 4,     y: ry(2),    w: FLOW_NODE_W, depth: 4 },
+  { id: "calendar", label: "add to calendar",    x: FLOW_COL * 4,     y: ry(4),    w: FLOW_NODE_W, depth: 4 },
+  { id: "comment",  label: "comment/like",       x: FLOW_COL * 5,     y: ry(1.5),  w: FLOW_NODE_W, depth: 5 },
+  { id: "readonly", label: "read only",          x: FLOW_COL * 5,     y: ry(2.5),  w: FLOW_NODE_W, depth: 5 },
+  { id: "events",   label: "event list",         x: FLOW_COL * 5,     y: ry(4),    w: FLOW_NODE_W, depth: 5 },
+];
+
+const FLOW_EDGES: [string, string][] = [
+  ["feed", "notif"], ["feed", "browse"],
+  ["notif", "news"], ["browse", "read"],
+  ["news", "short"], ["news", "long"],
+  ["read", "popup"], ["read", "voting"], ["read", "webinar"],
+  ["popup", "newuser"], ["webinar", "calendar"],
+  ["newuser", "comment"], ["newuser", "readonly"],
+  ["calendar", "events"],
+];
+
+function flowElbow(x1: number, y1: number, x2: number, y2: number, midX: number, r = 12) {
+  if (Math.abs(y1 - y2) < 0.5) return `M ${x1} ${y1} L ${x2} ${y2}`;
+  const dir = y2 > y1 ? 1 : -1;
+  return [
+    `M ${x1} ${y1}`,
+    `H ${midX - r}`,
+    `Q ${midX} ${y1} ${midX} ${y1 + dir * r}`,
+    `V ${y2 - dir * r}`,
+    `Q ${midX} ${y2} ${midX + r} ${y2}`,
+    `H ${x2}`,
+  ].join(" ");
+}
+
+// flow order: depth first, then top-to-bottom -> guarantees parents light up
+// before children, siblings cascade down. Drives the block-to-block reveal.
+const FLOW_ORDER: Record<string, number> = (() => {
+  const ordered = [...FLOW_NODES].sort((a, b) => a.depth - b.depth || a.y - b.y);
+  return Object.fromEntries(ordered.map((n, i) => [n.id, i]));
+})();
+const FLOW_UNIT = 105; // ms between consecutive blocks
+
+function Ark7UserFlow() {
+  const [play, setPlay] = useState(false);
+  const [scale, setScale] = useState(1);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const byId = (id: string) => FLOW_NODES.find((n) => n.id === id)!;
+
+  // scale the fixed-size canvas down to fit the container width
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => {
+      setScale(Math.min(1, el.clientWidth / FLOW_W));
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  // play when scrolled into view
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setPlay(true);
+      },
+      { threshold: 0.2 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // replay: snap back to hidden with transitions off, then animate in next frame
+  const replay = () => {
+    setPlay(false);
+    requestAnimationFrame(() => requestAnimationFrame(() => setPlay(true)));
+  };
+
+  const labelFont = "var(--font-geist-sans), system-ui, sans-serif";
+
+  return (
+    <div ref={ref} className="relative">
+      <div className="mb-3 flex items-center justify-between">
+        <span
+          style={{
+            fontFamily: labelFont,
+            fontSize: "11px",
+            fontWeight: 500,
+            letterSpacing: "0.04em",
+            textTransform: "uppercase",
+            color: "var(--color-muted)",
+          }}
+        >
+          Animated preview
+        </span>
+        <button
+          type="button"
+          onClick={replay}
+          style={{
+            fontFamily: labelFont,
+            fontSize: "12px",
+            fontWeight: 450,
+            color: "var(--color-ink-50)",
+            cursor: "pointer",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "5px",
+            padding: "4px 8px",
+            borderRadius: "6px",
+            transition: "background 120ms, color 120ms",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = "var(--color-ink-06)";
+            e.currentTarget.style.color = "var(--color-ink-70)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "transparent";
+            e.currentTarget.style.color = "var(--color-ink-50)";
+          }}
+        >
+          <span style={{ fontSize: "13px", lineHeight: 1 }}>↻</span> Replay
+        </button>
+      </div>
+
+      {/* outer box reserves the scaled height; inner canvas is scaled to fit */}
+      <div ref={wrapRef} style={{ width: "100%", height: FLOW_H * scale, position: "relative" }}>
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: FLOW_W,
+            height: FLOW_H,
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+          }}
+        >
+          {/* edges — each line draws into its target block just before it lights up */}
+          <svg
+            width={FLOW_W}
+            height={FLOW_H}
+            viewBox={`0 0 ${FLOW_W} ${FLOW_H}`}
+            style={{ position: "absolute", inset: 0, overflow: "visible" }}
+          >
+            {FLOW_EDGES.map(([from, to]) => {
+              const p = byId(from);
+              const c = byId(to);
+              const x1 = p.x + p.w;
+              const x2 = c.x;
+              const midX = x1 + (x2 - x1) / 2;
+              const delay = Math.max(0, FLOW_ORDER[to] * FLOW_UNIT - 150);
+              return (
+                <path
+                  key={`${from}-${to}`}
+                  d={flowElbow(x1, p.y, x2, c.y, midX)}
+                  fill="none"
+                  stroke="var(--color-ink-30)"
+                  strokeWidth={1.75}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  pathLength={1}
+                  style={{
+                    // normalized length -> dash always equals the line, draws smoothly
+                    strokeDasharray: 1,
+                    strokeDashoffset: play ? 0 : 1,
+                    transition: play ? "stroke-dashoffset 360ms cubic-bezier(.45,0,.2,1)" : "none",
+                    transitionDelay: play ? `${delay}ms` : "0ms",
+                  }}
+                />
+              );
+            })}
+          </svg>
+
+          {/* nodes — pop in one after another following the flow */}
+          {FLOW_NODES.map((n) => (
+            <div
+              key={n.id}
+              style={{
+                position: "absolute",
+                left: n.x,
+                top: n.y - FLOW_NODE_H / 2,
+                width: n.w,
+                height: FLOW_NODE_H,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                padding: "0 10px",
+                borderRadius: "10px",
+                border: "1px solid var(--color-ink-14)",
+                background: n.root ? "var(--color-ink-06)" : "#fff",
+                fontFamily: labelFont,
+                fontSize: "16px",
+                fontWeight: n.root ? 600 : 450,
+                lineHeight: 1.1,
+                color: "var(--color-ink-70)",
+                boxShadow: "0 1px 2px rgba(26,26,26,0.04)",
+                whiteSpace: "nowrap",
+                opacity: play ? 1 : 0,
+                transform: play ? "none" : "translateX(-6px) scale(0.96)",
+                transition: play
+                  ? "opacity 260ms ease, transform 320ms cubic-bezier(.2,.8,.3,1)"
+                  : "none",
+                transitionDelay: play ? `${FLOW_ORDER[n.id] * FLOW_UNIT}ms` : "0ms",
+              }}
+            >
+              {n.label}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -1617,6 +1866,9 @@ export default function Ark7CaseStudyPage() {
                             loading="lazy"
                             className="h-auto w-full object-contain"
                           />
+                        </div>
+                        <div className="mt-10">
+                          <Ark7UserFlow />
                         </div>
                       </CaseSubSection>
                     </div>
