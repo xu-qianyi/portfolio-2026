@@ -1330,58 +1330,10 @@ function Ark7UserFlow() {
     return () => io.disconnect();
   }, []);
 
-  // replay: snap back to hidden with transitions off, then animate in next frame
-  const replay = () => {
-    setPlay(false);
-    requestAnimationFrame(() => requestAnimationFrame(() => setPlay(true)));
-  };
-
   const labelFont = "var(--font-geist-sans), system-ui, sans-serif";
 
   return (
     <div ref={ref} className="relative">
-      <div className="mb-3 flex items-center justify-between">
-        <span
-          style={{
-            fontFamily: labelFont,
-            fontSize: "11px",
-            fontWeight: 500,
-            letterSpacing: "0.04em",
-            textTransform: "uppercase",
-            color: "var(--color-muted)",
-          }}
-        >
-          Animated preview
-        </span>
-        <button
-          type="button"
-          onClick={replay}
-          style={{
-            fontFamily: labelFont,
-            fontSize: "12px",
-            fontWeight: 450,
-            color: "var(--color-ink-50)",
-            cursor: "pointer",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "5px",
-            padding: "4px 8px",
-            borderRadius: "6px",
-            transition: "background 120ms, color 120ms",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = "var(--color-ink-06)";
-            e.currentTarget.style.color = "var(--color-ink-70)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = "transparent";
-            e.currentTarget.style.color = "var(--color-ink-50)";
-          }}
-        >
-          <span style={{ fontSize: "13px", lineHeight: 1 }}>↻</span> Replay
-        </button>
-      </div>
-
       {/* outer box reserves the scaled height; inner canvas is scaled to fit */}
       <div ref={wrapRef} style={{ width: "100%", height: FLOW_H * scale, position: "relative" }}>
         <div
@@ -1856,17 +1808,6 @@ export default function Ark7CaseStudyPage() {
                         <p style={CASE_BODY}>
                           We mapped flows for each of the four features, tracing the path from community tab entry to the key action in each feature - surfacing where friction was highest and where confidence-building moments needed to land.
                         </p>
-                        <div className="w-full overflow-hidden">
-                          <Image
-                            src="/images/ark7/user_flow.webp"
-                            alt="User flow diagram mapping entry through feed interactions in the ARK7 app"
-                            width={4432}
-                            height={1956}
-                            sizes="(max-width: 767px) 100vw, 800px"
-                            loading="lazy"
-                            className="h-auto w-full object-contain"
-                          />
-                        </div>
                         <div className="mt-10">
                           <Ark7UserFlow />
                         </div>

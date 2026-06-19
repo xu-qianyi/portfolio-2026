@@ -31,7 +31,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors duration-150"
+          className="group outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-ink)] transition-colors duration-150"
           style={{
             color: "var(--color-ink)",
             fontFamily: "var(--font-sans)",
@@ -41,7 +41,21 @@ export default function Navbar() {
             textDecoration: "none",
           }}
         >
-          Martta XU
+          Martta{" "}
+          <span
+            className="relative inline-block align-baseline"
+            style={{ perspective: "200px", color: "var(--color-accent)" }}
+          >
+            {/* invisible spacer keeps layout width stable */}
+            <span aria-hidden style={{ visibility: "hidden" }}>XU</span>
+            <span
+              className="absolute inset-0 transition-transform duration-300 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
+              style={{ transitionTimingFunction: "cubic-bezier(0.25, 1, 0.5, 1)" }}
+            >
+              <span className="absolute inset-0 [backface-visibility:hidden]">XU</span>
+              <span className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">UX</span>
+            </span>
+          </span>
         </Link>
 
         {/* Desktop nav */}
