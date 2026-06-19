@@ -1,4 +1,6 @@
-import type { CSSProperties } from "react";
+"use client";
+
+import { useState, type CSSProperties, type MouseEvent } from "react";
 import Image from "@/components/Img";
 import LottiePreview from "./LottiePreview";
 
@@ -36,6 +38,7 @@ export type Project = {
   actions?: ProjectAction[];
   newTab?: boolean;
   contain?: boolean;
+  cursorLabel?: string;
 };
 
 const PROJECT_META: CSSProperties = {
@@ -163,7 +166,20 @@ function DotSeparator({ size = 4 }: { size?: number }) {
 
 function FramedCard({ project }: { project: Project }) {
   const hasActions = Boolean(project.actions && project.actions.length > 0);
+  const hasLink = !hasActions && Boolean(project.href && project.href !== "#");
   const Wrapper = hasActions ? "div" : "a";
+  const [cursor, setCursor] = useState<{ x: number; y: number; active: boolean }>({
+    x: 0,
+    y: 0,
+    active: false,
+  });
+
+  const handleMove = (e: MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setCursor({ x: e.clientX - rect.left, y: e.clientY - rect.top, active: true });
+  };
+  const handleLeave = () => setCursor((c) => ({ ...c, active: false }));
+
   const wrapperProps = hasActions
     ? {}
     : {
@@ -171,6 +187,9 @@ function FramedCard({ project }: { project: Project }) {
         ...(project.newTab
           ? { target: "_blank", rel: "noopener noreferrer" }
           : {}),
+        onMouseEnter: handleMove,
+        onMouseMove: handleMove,
+        onMouseLeave: handleLeave,
       };
   return (
     <Wrapper
@@ -179,12 +198,14 @@ function FramedCard({ project }: { project: Project }) {
       style={{
         display: "flex",
         flexDirection: "column",
+        position: "relative",
         border: "1px solid rgba(204, 209, 218, 0.4)",
         backgroundColor: "var(--color-surface)",
         overflow: "hidden",
         textDecoration: "none",
         color: "inherit",
         height: "100%",
+        cursor: hasActions ? undefined : "none",
       }}
     >
       {/* Media */}
@@ -236,61 +257,6 @@ function FramedCard({ project }: { project: Project }) {
             unoptimized={project.image.endsWith(".svg")}
             style={{ objectFit: project.contain ? "contain" : "cover" }}
           />
-        )}
-        {project.newTab && (
-          <span
-            className="project-card-visit-chip"
-            aria-hidden
-            style={{
-              position: "absolute",
-              top: 12,
-              right: 12,
-              width: 32,
-              height: 32,
-              borderRadius: "50%",
-              backgroundColor: "rgba(255, 255, 255, 0.6)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
-              border: "1px solid rgba(204, 209, 218, 0.5)",
-              boxShadow: "0 1px 2px rgba(0, 0, 0, 0.04)",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--color-ink)",
-              opacity: 0,
-              transform: "translateY(4px)",
-              transition: "opacity 0.2s ease, transform 0.2s ease",
-              pointerEvents: "none",
-              zIndex: 2,
-            }}
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 256 256"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line
-                x1="64"
-                y1="192"
-                x2="192"
-                y2="64"
-                stroke="currentColor"
-                strokeWidth="20"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <polyline
-                points="88 64 192 64 192 168"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="20"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
         )}
       </div>
 
@@ -375,6 +341,38 @@ function FramedCard({ project }: { project: Project }) {
           )}
         </div>
       )}
+
+      {!hasActions && (
+        <span
+          aria-hidden
+          style={{
+            position: "absolute",
+            left: cursor.x,
+            top: cursor.y,
+            padding: "6px 16px",
+            borderRadius: "99px",
+            backgroundColor: "var(--color-ink-deep)",
+            color: "#fff",
+            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+            fontSize: "13px",
+            fontWeight: 500,
+            letterSpacing: "-0.01em",
+            lineHeight: 1,
+            whiteSpace: "nowrap",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.12)",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: cursor.active ? 1 : 0,
+            transform: `translate(-50%, -50%) scale(${cursor.active ? 1 : 0.8})`,
+            transition: "opacity 0.18s ease, transform 0.18s ease",
+            pointerEvents: "none",
+            zIndex: 3,
+          }}
+        >
+          {project.cursorLabel ?? (hasLink ? "View" : "Coming soon")}
+        </span>
+      )}
     </Wrapper>
   );
 }
@@ -404,6 +402,33 @@ export default function ProjectCard({
     );
   }
 
+  return <DefaultCard project={project} sizes={sizes} variant={variant} hideLabel={hideLabel} />;
+}
+
+function DefaultCard({
+  project,
+  sizes,
+  variant,
+  hideLabel,
+}: {
+  project: Project;
+  sizes: string;
+  variant: "default" | "minimal" | "framed";
+  hideLabel: boolean;
+}) {
+  const hasLink = Boolean(project.href && project.href !== "#");
+  const [cursor, setCursor] = useState<{ x: number; y: number; active: boolean }>({
+    x: 0,
+    y: 0,
+    active: false,
+  });
+
+  const handleMove = (e: MouseEvent<HTMLAnchorElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setCursor({ x: e.clientX - rect.left, y: e.clientY - rect.top, active: true });
+  };
+  const handleLeave = () => setCursor((c) => ({ ...c, active: false }));
+
   const typeParts = project.type ? project.type.split(" · ") : [];
   const metaParts = [project.company, project.industry, project.date, project.role, ...typeParts].filter(
     (part): part is string => Boolean(part),
@@ -421,15 +446,19 @@ export default function ProjectCard({
       style={{ breakInside: "avoid", marginBottom: "24px" }}
     >
       <a
-        href={project.href && project.href !== "#" ? h(project.href) : undefined}
+        href={hasLink ? h(project.href) : undefined}
         target={project.newTab ? "_blank" : undefined}
         rel={project.newTab ? "noopener noreferrer" : undefined}
         className="project-card-link"
+        onMouseEnter={handleMove}
+        onMouseMove={handleMove}
+        onMouseLeave={handleLeave}
         style={{
           display: "block",
           position: "relative",
           width: "100%",
           aspectRatio: mediaRatio,
+          cursor: "none",
           border: "1px solid rgba(204,209,218,0.2)",
           overflow: "hidden",
           backgroundColor: project.bg ?? "var(--color-subtle)",
@@ -474,45 +503,35 @@ export default function ProjectCard({
             />
           </div>
         ) : null}
-        {project.href && project.href !== "#" && (
-          <span
-            className="project-card-visit-chip"
-            aria-hidden
-            style={{
-              position: "absolute",
-              bottom: 12,
-              right: 12,
-              width: 32,
-              height: 32,
-              borderRadius: "50%",
-              backgroundColor: "rgba(255, 255, 255, 0.6)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
-              border: "1px solid rgba(204, 209, 218, 0.5)",
-              boxShadow: "0 1px 2px rgba(0, 0, 0, 0.04)",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--color-ink)",
-              opacity: 0,
-              transform: "translateY(4px)",
-              transition: "opacity 0.2s ease, transform 0.2s ease",
-              pointerEvents: "none",
-              zIndex: 2,
-            }}
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 256 256"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line x1="64" y1="192" x2="192" y2="64" stroke="currentColor" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round" />
-              <polyline points="88 64 192 64 192 168" fill="none" stroke="currentColor" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-        )}
+        <span
+          aria-hidden
+          style={{
+            position: "absolute",
+            left: cursor.x,
+            top: cursor.y,
+            padding: "6px 16px",
+            borderRadius: "99px",
+            backgroundColor: "var(--color-ink-deep)",
+            color: "#fff",
+            fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+            fontSize: "13px",
+            fontWeight: 500,
+            letterSpacing: "-0.01em",
+            lineHeight: 1,
+            whiteSpace: "nowrap",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.12)",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: cursor.active ? 1 : 0,
+            transform: `translate(-50%, -50%) scale(${cursor.active ? 1 : 0.8})`,
+            transition: "opacity 0.18s ease, transform 0.18s ease",
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        >
+          {project.cursorLabel ?? (hasLink ? "View" : "Coming soon")}
+        </span>
       </a>
       {!hideLabel && <div
         style={{
