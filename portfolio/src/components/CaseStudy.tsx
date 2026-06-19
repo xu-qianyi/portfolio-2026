@@ -13,7 +13,7 @@ export const CASE_H1 = {
   lineHeight: "1.15",
   fontWeight: 500,
   letterSpacing: "-0.015em",
-  color: "var(--color-ink)",
+  color: "var(--color-ink-deep)",
   margin: 0,
   textWrap: "balance" as const,
 } satisfies React.CSSProperties;
@@ -24,7 +24,7 @@ export const CASE_H2 = {
   lineHeight: "1.2",
   fontWeight: 500,
   letterSpacing: "-0.015em",
-  color: "var(--color-ink)",
+  color: "var(--color-ink-deep)",
   marginBottom: "1rem",
   marginTop: 0,
   textWrap: "balance" as const,
