@@ -34,7 +34,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         minHeight: "100dvh",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "var(--color-surface)",
+        backgroundColor: "transparent",
       }}
     >
       <div

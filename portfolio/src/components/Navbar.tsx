@@ -20,10 +20,13 @@ export default function Navbar() {
   return (
     <nav
       aria-label="Main navigation"
-      className="sticky top-0 backdrop-blur-md"
+      className="sticky top-0"
       style={{
         zIndex: 40,
-        backgroundColor: "color-mix(in srgb, var(--color-surface) 80%, transparent)",
+        backgroundColor: "color-mix(in srgb, var(--color-surface) 40%, transparent)",
+        backdropFilter: "blur(20px) saturate(130%)",
+        WebkitBackdropFilter: "blur(20px) saturate(130%)",
+        borderBottom: "1px solid color-mix(in srgb, var(--color-ink) 4%, transparent)",
         transition: "transform 300ms cubic-bezier(0.25, 1, 0.5, 1)",
       }}
     >

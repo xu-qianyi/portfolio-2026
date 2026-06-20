@@ -74,15 +74,55 @@ nav button:focus-visible {
 
 html {
   overflow-x: clip;
+  background-color: var(--color-surface);
 }
 
 body {
-  background-color: var(--color-surface);
+  background-color: transparent;
   color: var(--color-ink);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scrollbar-gutter: stable;
+}
+
+/* Very mild, slowly drifting purple/blue gradient wash behind all content */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(80% 70% at 12% 2%,
+      rgba(129, 140, 248, 0.06) 0%,
+      rgba(129, 140, 248, 0.03) 35%,
+      transparent 65%),
+    radial-gradient(85% 70% at 92% 6%,
+      rgba(167, 139, 250, 0.05) 0%,
+      rgba(167, 139, 250, 0.025) 38%,
+      transparent 66%),
+    radial-gradient(100% 95% at 78% 102%,
+      rgba(125, 158, 255, 0.20) 0%,
+      rgba(125, 158, 255, 0.09) 42%,
+      transparent 76%),
+    radial-gradient(90% 90% at 16% 98%,
+      rgba(196, 181, 253, 0.14) 0%,
+      rgba(196, 181, 253, 0.06) 40%,
+      transparent 74%);
+  filter: blur(70px);
+  animation: bgDrift 32s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes bgDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(1.5%, -1.2%, 0) scale(1.05); }
+  100% { transform: translate3d(-1.8%, 1.4%, 0) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
 }
 
 img {
