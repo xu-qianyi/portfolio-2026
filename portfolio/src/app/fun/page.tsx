@@ -22,7 +22,7 @@ export default function Fun() {
         style={{ alignSelf: "stretch" }}
       >
         <p className="min-w-0 max-w-full lg:max-w-[min(100%,calc(50%-1.5rem))]" style={HERO_TEXT}>
-          Experiments, games, and small things I built for the joy of it - mostly with Claude code, on weekends.
+          My design practice lives in the making, through .fig files, code, and increasingly AI. And in the curating: knowing where to linger, and where to let go. This is where you&apos;ll find the experiments, games, and small things I build for the joy of it.
         </p>
       </section>
 

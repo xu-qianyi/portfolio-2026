@@ -26,15 +26,29 @@ export default function Home() {
       >
         <div className="flex w-full min-w-0 flex-col gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
           <div className="min-w-0 max-w-full lg:max-w-[min(100%,calc(50%-1.5rem))] flex flex-col gap-4">
+          <h1
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "28px",
+              lineHeight: "1.15",
+              fontWeight: 500,
+              letterSpacing: "-0.015em",
+              color: "var(--color-ink-deep)",
+              margin: 0,
+              textWrap: "balance",
+            }}
+          >
+            A product designer who codes.
+          </h1>
           <p style={HERO_TEXT}>
-            My design practice lives in the making - through .fig files, code, and increasingly AI. And in the curating - knowing where to linger, and where to let go. Right now I&apos;m at{" "}
+            Right now I&apos;m at{" "}
             <span className="hero-company-link">
               Datalign
               <span className="hero-company-link-badge" aria-hidden>
                 1
               </span>
             </span>
-            , building in wealth management. Previously: design(contract) at{" "}
+            , building in wealth management. Previously: design at{" "}
             <Link href="/work/ark7" className="hero-company-link">
               ARK7
               <span className="hero-company-link-badge" aria-hidden>
