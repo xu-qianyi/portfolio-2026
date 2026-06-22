@@ -7,9 +7,8 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { label: "Work", href: "/" },
   { label: "Fun", href: "/fun" },
+  { label: "About", href: "/about" },
 ];
-
-const RESUME_HREF = "https://drive.google.com/file/d/16KysaUm1SO-1tESx4_cw_5OXSoTEk0k8/view?usp=sharing";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -44,21 +43,7 @@ export default function Navbar() {
             textDecoration: "none",
           }}
         >
-          Martta{" "}
-          <span
-            className="relative inline-block align-baseline"
-            style={{ perspective: "200px", color: "var(--color-accent)" }}
-          >
-            {/* invisible spacer keeps layout width stable */}
-            <span aria-hidden style={{ visibility: "hidden" }}>XU</span>
-            <span
-              className="absolute inset-0 transition-transform duration-300 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
-              style={{ transitionTimingFunction: "cubic-bezier(0.25, 1, 0.5, 1)" }}
-            >
-              <span className="absolute inset-0 [backface-visibility:hidden]">XU</span>
-              <span className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">UX</span>
-            </span>
-          </span>
+          Home
         </Link>
 
         {/* Desktop nav */}
@@ -78,20 +63,6 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
-          <a
-            href={RESUME_HREF}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="outline-none rounded-md transition-colors h-8 px-3 flex items-center hover:bg-[var(--color-subtle)]"
-            style={{
-              fontSize: "13px",
-              fontWeight: 450,
-              color: "var(--color-muted)",
-              textDecoration: "none",
-            }}
-          >
-            Resume
-          </a>
         </div>
 
         {/* Mobile hamburger */}
@@ -157,20 +128,6 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <a
-              href={RESUME_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-md h-10 flex items-center px-3 transition-colors hover:bg-[var(--color-subtle)]"
-              style={{
-                fontSize: "15px",
-                fontWeight: 450,
-                color: "var(--color-muted)",
-                textDecoration: "none",
-              }}
-            >
-              Resume
-            </a>
           </div>
         </div>
       </div>
