@@ -24,7 +24,7 @@ export default function Education() {
     <ul style={{ borderBottom: DIVIDER, margin: 0, padding: 0, listStyle: "none" }}>
       {ITEMS.map((item) => (
         <li key={item.field} style={{ borderTop: DIVIDER, padding: "28px 0" }}>
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-baseline justify-between gap-4">
             <div>
               <div
                 style={{

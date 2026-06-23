@@ -23,7 +23,7 @@ export default function About() {
         className="pt-[44px] pb-[64px] px-[24px] sm:pt-[28px] sm:pb-[40px] lg:pt-[44px] lg:pb-[64px] lg:px-[120px] lg:mx-[32px]"
         style={{ alignSelf: "stretch" }}
       >
-        <div className="min-w-0 max-w-full lg:max-w-[460px] flex flex-col gap-2">
+        <div className="min-w-0 max-w-full lg:max-w-[min(100%,calc(40%-1.5rem))] flex flex-col gap-2">
           <p style={HERO_TEXT}>
             Hello, I&apos;m Martta (Qianyi) Xu, a product designer and thinker
             working in fintech.
